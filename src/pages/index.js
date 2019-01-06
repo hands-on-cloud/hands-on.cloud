@@ -5,12 +5,18 @@ import PostCards from '../components/postcards';
 import { CardDeck } from 'reactstrap';
 
 export default ({data}) => {
-    console.log(data);
+    const style = {
+        paddingTop: '20px',
+        paddingBottom: '20px'
+    };
+
     return (
         <Layout>
-            <CardDeck>
-                <PostCards posts={data.allMarkdownRemark.edges}/>
-            </CardDeck>
+            <div style={style}>
+                <CardDeck>
+                    <PostCards posts={data.allMarkdownRemark.edges}/>
+                </CardDeck>
+            </div>
         </Layout>
     )
 }
