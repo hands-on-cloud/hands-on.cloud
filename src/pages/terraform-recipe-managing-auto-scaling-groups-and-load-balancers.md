@@ -1,6 +1,7 @@
 ---
 title: "Terraform recipe – Managing Auto Scaling Groups and Load Balancers"
 date: "2019-01-04"
+thumbnail: "./images/Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers.png"
 ---
 
 As soon as you learn how to manage basic network infrastructure in AWS using Terraform (see “Terraform recipe – Managing AWS VPC – Creating Public Subnet” and “Terraform recipe – Managing AWS VPC – Creating Private Subnets“) , you definitely want to start creating auto-scalable infrastructures.

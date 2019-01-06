@@ -1,9 +1,10 @@
 ---
 title: "How to test your AWS CLI credentials"
 date: "2019-01-02"
+thumbnail: "./images/How-to-test-your-AWS-CLI-credentials.png"
 ---
 
-How to test your AWS CLI credentials
+![How to test your AWS CLI credentials](images/How-to-test-your-AWS-CLI-credentials.png)
 
 To test ability to connect to AWS with newly created Access Key ID and Secret Access Key you need to use the following command:
 

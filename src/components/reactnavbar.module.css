@@ -1,0 +1,29 @@
+.ReactNavbar {
+    color: #FFFFFF;
+    height: 15%;
+    text-decoration: none;
+}
+
+.nav a{
+    color: #FFFFFF;
+}
+
+.nav li{
+    color: #FFFFFF;
+}
+
+.ReactNavbar a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.ReactNavbar button:focus {
+    outline: none;
+}
+
+.ReactNavbar a:hover, a:active, a:focus {
+    color: #FFFFFF;
+    outline: 0;
+    border: none;
+    -moz-outline-style: none;
+}

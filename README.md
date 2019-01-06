@@ -67,6 +67,10 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 
 1.  **Validate your changes**
 
+      ```sh
+      open $(terraform output test_website_url)
+      ```
+
 1.  **Publish production changes**
 
       ```sh

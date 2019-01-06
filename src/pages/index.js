@@ -1,21 +1,16 @@
 import React from 'react';
-import { Link, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 import Layout from '../components/layout';
+import PostCards from '../components/postcards';
+import { CardDeck } from 'reactstrap';
 
 export default ({data}) => {
-    console.log(data)
+    console.log(data);
     return (
         <Layout>
-            {data.allMarkdownRemark.edges.map(({ node }) => (
-                <div key={node.id}>
-                    <Link to={node.fields.slug}>
-                        <h3>
-                            {node.frontmatter.title}{" "}<span> — {node.frontmatter.date}</span>
-                        </h3>
-                        <p>{node.excerpt}</p>
-                    </Link>
-                </div>
-            ))}
+            <CardDeck>
+                <PostCards posts={data.allMarkdownRemark.edges}/>
+            </CardDeck>
         </Layout>
     )
 }
@@ -29,6 +24,14 @@ query {
             frontmatter {
               title
               date(formatString: "DD MMM YYYY")
+              thumbnail {
+                relativePath
+                childImageSharp {
+                    fluid (maxWidth: 700) {
+                      src
+                    }
+                }
+              }
             }
             fields {
                 slug
