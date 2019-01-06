@@ -59,7 +59,15 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
       gatsby build
       ```
 
-1.  **Publish changes**
+1.  **Publish test changes**
+
+      ```sh
+      aws s3 sync ./public s3://$(terraform output test_website_bucket)
+      ```
+
+1.  **Validate your changes**
+
+1.  **Publish production changes**
 
       ```sh
       aws s3 sync ./public s3://$(terraform output origin_website_bucket)
