@@ -16,9 +16,6 @@ export default ({ data }) => {
     <Layout>
       <div>
         <h1>{post.frontmatter.title}</h1>
-        <Disqus.CommentCount shortname={disqusShortname} config={disqusConfig}>
-          Comments
-        </Disqus.CommentCount>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </div>
