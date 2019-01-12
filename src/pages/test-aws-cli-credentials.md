@@ -2,6 +2,7 @@
 title: "How to test your AWS CLI credentials"
 date: "2019-01-02"
 thumbnail: "./images/How-to-test-your-AWS-CLI-credentials.png"
+tags: ["aws", "cloud"]
 ---
 
 ![How to test your AWS CLI credentials](images/How-to-test-your-AWS-CLI-credentials.png)

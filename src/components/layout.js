@@ -8,15 +8,17 @@ export default class Layout extends React.Component {
 
     render() {
         return (
-            <div className={styles.container}>
+            <div>
                 <ReactNavbar />
-                <Container>
-                    <Row>
-                        <Col sm="12" md={{ size: 10, offset: 1 }}>
-                            {this.props.children}
-                        </Col>
-                    </Row>
-                </Container>
+                <div className={styles.container}>
+                    <Container>
+                        <Row>
+                            <Col sm="12" md={{ size: 10, offset: 1 }}>
+                                {this.props.children}
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
             </div>
         )
     }

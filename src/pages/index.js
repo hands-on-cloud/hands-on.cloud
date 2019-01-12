@@ -5,25 +5,21 @@ import PostCards from '../components/postcards';
 import { CardDeck } from 'reactstrap';
 
 export default ({data}) => {
-    const style = {
-        paddingTop: '20px',
-        paddingBottom: '20px'
-    };
-
     return (
         <Layout>
-            <div style={style}>
-                <CardDeck>
-                    <PostCards posts={data.allMarkdownRemark.edges}/>
-                </CardDeck>
-            </div>
+            <CardDeck>
+                <PostCards posts={data.allMarkdownRemark.edges}/>
+            </CardDeck>
         </Layout>
     )
 }
 
 export const query = graphql`
 query {
-    allMarkdownRemark {
+    allMarkdownRemark (
+        sort: { order: DESC, fields: [frontmatter___date] }
+        limit: 1000
+    ) {
         edges {
           node {
             id

@@ -16,7 +16,7 @@ const postcard = (props) => {
             </Link>
             
             <CardBody>
-                <CardTitle><h4>{props.post.node.frontmatter.title}</h4></CardTitle>
+                <CardTitle><h5>{props.post.node.frontmatter.title}</h5></CardTitle>
                 <CardText>{props.post.node.excerpt}</CardText>
             </CardBody>
         </Card>

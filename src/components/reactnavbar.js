@@ -8,19 +8,10 @@ import {
     NavItem,
     NavLink
 } from 'reactstrap';
+import { StaticQuery, graphql } from 'gatsby';
+import kebabCase from 'lodash/kebabCase';
+
 import componentStyles from './reactnavbar.module.css';
-
-const brandStyle = {
-    'color': 'white',
-    'textDecoration': 'none'
-}
-
-const menuStyle = {
-    'color': 'white',
-    'textDecoration': 'none',
-    'fontSize': '0.9em',
-    'marginLeft': '35px'
-}
 
 export default class ReactNavbar extends React.Component {
     constructor(props) {
@@ -39,27 +30,57 @@ export default class ReactNavbar extends React.Component {
     }
 
     render() {
+        const brandStyle = {
+            'color': 'white',
+            'textDecoration': 'none'
+        }
+
+        const menuStyle = {
+            'color': 'white',
+            'textDecoration': 'none',
+            'fontSize': '0.9em',
+            'marginLeft': '35px'
+        }
+
         return (
             <div className={componentStyles.ReactNavbar}>
                 <Navbar color="dark" light>
-                    <NavbarBrand className="mr-auto">
-                        <NavLink style={brandStyle} href="/">hands-on.cloud</NavLink>
+                    <NavbarBrand className="mr-auto" href="/" style={brandStyle}>
+                        hands-on.cloud
                     </NavbarBrand>
 
                     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
                     
                     <Collapse isOpen={!this.state.collapsed} navbar>
-                        <Nav navbar>
-                            <NavItem className='span'>
-                                <NavLink style={menuStyle} href="#aws">AWS</NavLink>
-                            </NavItem>
-                            <NavItem className='span'>
-                                <NavLink style={menuStyle} href="#cloud">Cloud</NavLink>
-                            </NavItem>
-                            <NavItem className='span'>
-                                <NavLink style={menuStyle} href="#docker">Docker</NavLink>
-                            </NavItem>
-                        </Nav>
+                        
+                            <StaticQuery 
+                                query={graphql`
+                                    query TagsQuery {
+                                        allMarkdownRemark(
+                                            limit: 7
+                                        ) {
+                                            group(field: frontmatter___tags) {
+                                              fieldValue
+                                              totalCount
+                                            }
+                                        }
+                                    }
+                                `}
+                                render={data => (
+                                    <Nav navbar>
+                                    {
+                                        data.allMarkdownRemark.group.map( (tag, index) => (
+                                            <NavItem className='span' key={index}>
+                                                <NavLink style={menuStyle} href={`/tags/${kebabCase(tag.fieldValue)}/`}>{tag.fieldValue}</NavLink>
+                                            </NavItem>
+                                        ))
+                                    }
+                                    </Nav>
+                                )}
+                            />
+                            
+                            
+                        
                     </Collapse>
                 </Navbar>
             </div>
