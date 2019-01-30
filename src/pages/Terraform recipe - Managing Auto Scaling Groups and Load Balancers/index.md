@@ -1,12 +1,12 @@
 ---
 title: "Terraform recipe – Managing Auto Scaling Groups and Load Balancers"
 date: "2019-01-04"
-thumbnail: "./images/Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers.png"
+thumbnail: "./Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers.png"
 tags: ["autoscaling", "aws", "cloud","terraform"]
 category: "terraform"
 ---
 
-![Terraform recipe – Managing Auto Scaling Groups and Load Balancers](images/Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers.png)
+![Terraform recipe – Managing Auto Scaling Groups and Load Balancers](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers.png)
 
 As soon as you learn how to manage basic network infrastructure in AWS using Terraform (see “Terraform recipe – Managing AWS VPC – Creating Public Subnet” and “Terraform recipe – Managing AWS VPC – Creating Private Subnets“) , you definitely want to start creating auto-scalable infrastructures.
 
@@ -22,7 +22,7 @@ Let’s build the simple infrastructure, which consists of several web-servers f
 
 Our infrastructure will be the following:
 
-![Terraform recipe – Managing Auto Scaling Groups and Load Balancers - Target Infrastructure](images/Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-Target-Infrastructure.png)
+![Terraform recipe – Managing Auto Scaling Groups and Load Balancers - Target Infrastructure](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-Target-Infrastructure.png)
 
 You may find full `.tf` file source code in my [GitHub repository](https://github.com/andreivmaksimov/terraform-recipe-managing-auto-scaling-groups-and-load-balancers).
 
@@ -302,7 +302,7 @@ terraform plan
 terraform apply
 ```
 
-[Terraform recipe – Managing Auto Scaling Groups and Load Balancers - Launch](./images/Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-Launch.png)
+[Terraform recipe – Managing Auto Scaling Groups and Load Balancers - Launch](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-Launch.png)
 
 Starting from this point you can open provided ELB URL in your browser and refresh the page several times to see different local IP addresses of your just launched instances.
 
@@ -389,11 +389,11 @@ terraform apply
 
 In a couple of minutes you’ll see a fired alarm in CloudWatch:
 
-![Terraform recipe – Managing Auto Scaling Groups and Load Balancers - CloudWatch Alarm](images/Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-CloudWatch-Alarm.png)
+![Terraform recipe – Managing Auto Scaling Groups and Load Balancers - CloudWatch Alarm](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-CloudWatch-Alarm.png)
 
 Which will cause one of two instances termination:
 
-![Terraform recipe – Managing Auto Scaling Groups and Load Balancers - CloudWatch Alarm Result](images/Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-CloudWatch-Alarm-Result.png)
+![Terraform recipe – Managing Auto Scaling Groups and Load Balancers - CloudWatch Alarm Result](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-CloudWatch-Alarm-Result.png)
 
 ## SUMMARY
 
