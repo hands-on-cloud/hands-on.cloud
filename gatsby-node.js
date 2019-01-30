@@ -2,6 +2,9 @@ const path = require(`path`)
 const _ = require("lodash")
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
+const tagSet = new Set();
+const categorySet = new Set();
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
     const { createNodeField } = actions
     if (node.internal.type === `MarkdownRemark`) {
@@ -21,6 +24,7 @@ exports.createPages = ({ graphql, actions }) => {
 
     const blogPostTemplate = path.resolve("src/templates/blog-post.js")
     const tagTemplate = path.resolve("src/templates/tag.js")
+    const categoryTemplate = path.resolve("src/templates/category.js")
 
     return graphql(`
       {
@@ -43,6 +47,7 @@ exports.createPages = ({ graphql, actions }) => {
                         }
                     }
                     tags
+                    category
                 }
                 fields {
                     slug
@@ -60,8 +65,20 @@ exports.createPages = ({ graphql, actions }) => {
 
         const posts = result.data.allMarkdownRemark.edges;
 
-        // Create post detail pages
         posts.forEach(({ node }) => {
+            // Generating tags set
+            if (node.frontmatter.tags) {
+                node.frontmatter.tags.forEach(tag => {
+                    tagSet.add(tag);
+                });
+            }
+
+            // Generating categories set
+            if (node.frontmatter.category) {
+                categorySet.add(node.frontmatter.category)
+            }
+
+            // Create post detail pages
             createPage({
                 path: node.fields.slug,
                 component: blogPostTemplate,
@@ -71,28 +88,30 @@ exports.createPages = ({ graphql, actions }) => {
                     slug: node.fields.slug
                 }
             })
-        })
+        });
 
-        // Tag pages:
-        let tags = []
-        // Iterate through each post, putting all found tags into `tags`
-        _.each(posts, edge => {
-            if (_.get(edge, "node.frontmatter.tags")) {
-                tags = tags.concat(edge.node.frontmatter.tags)
-            }
-        })
-        // Eliminate duplicate tags
-        tags = _.uniq(tags)
-
-        // Make tag pages
-        tags.forEach(tag => {
+        // Generating tags pages
+        const tagList = Array.from(tagSet);
+        tagList.forEach(tag => {
             createPage({
                 path: `/tags/${_.kebabCase(tag)}/`,
                 component: tagTemplate,
                 context: {
                     tag
-                },
-            })
-        })
+                }
+            });
+        });
+
+        const categoryList = Array.from(categorySet);
+        categoryList.forEach(category => {
+            createPage({
+                path: `/${_.kebabCase(category)}/`,
+                component: categoryTemplate,
+                context: {
+                    category
+                }
+            });
+        });
+
     })
 }

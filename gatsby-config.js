@@ -1,6 +1,34 @@
 module.exports = {
     siteMetadata: {
         title: `Your hands-on.cloud experience`,
+        description: `
+          This open source project provides hands-on
+          materials on different aspects of working in the clouds
+          like AWS and GCP.
+        `,
+        canonicalUrl: 'https://hands-on.cloud',
+        categories: [
+            {
+                slug: 'aws',
+                name: 'AWS'
+            },
+            {
+                slug: 'gcp',
+                name: 'GCP'
+            },
+            {
+                slug: 'ml',
+                name: 'ML'
+            },
+            {
+                slug: 'terraform',
+                name: 'Terraform'
+            },
+            {
+                slug: 'other',
+                name: 'Other'
+            }
+        ]
     },
     plugins: [
         {

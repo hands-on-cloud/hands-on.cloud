@@ -9,7 +9,6 @@ import {
     NavLink
 } from 'reactstrap';
 import { StaticQuery, graphql } from 'gatsby';
-import kebabCase from 'lodash/kebabCase';
 
 import componentStyles from './reactnavbar.module.css';
 
@@ -55,13 +54,13 @@ export default class ReactNavbar extends React.Component {
                         
                             <StaticQuery 
                                 query={graphql`
-                                    query TagsQuery {
-                                        allMarkdownRemark(
-                                            limit: 7
-                                        ) {
-                                            group(field: frontmatter___tags) {
-                                              fieldValue
-                                              totalCount
+                                    query {
+                                        site {
+                                            siteMetadata {
+                                                categories {
+                                                    slug
+                                                    name
+                                                }
                                             }
                                         }
                                     }
@@ -69,9 +68,9 @@ export default class ReactNavbar extends React.Component {
                                 render={data => (
                                     <Nav navbar>
                                     {
-                                        data.allMarkdownRemark.group.map( (tag, index) => (
+                                        data.site.siteMetadata.categories.map( (category, index) => (
                                             <NavItem className='span' key={index}>
-                                                <NavLink style={menuStyle} href={`/tags/${kebabCase(tag.fieldValue)}/`}>{tag.fieldValue}</NavLink>
+                                                <NavLink style={menuStyle} href={`/${category.slug}/`}>{category.name}</NavLink>
                                             </NavItem>
                                         ))
                                     }
