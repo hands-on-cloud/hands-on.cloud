@@ -1,1 +1,1 @@
-require('./src/static/prism-atom-dark.css')
+require('./src/assets/styles/prism-atom-dark.css')
