@@ -1,0 +1,29 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: gatsbyjs/gatsby:latest
+    working_directory: ~/src
+    environment:
+      TERRAFORM_VERSION: 0.11.8
+    steps:
+      - run: apk update && apk add git
+      - checkout
+      - run:
+          name: install AWS CLI and Terraform
+          command: |
+            apk add --update curl jq python bash ca-certificates git openssl unzip wget python-dev py-pip build-base
+            cd /tmp && \
+            wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+            unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin
+            pip install awscli
+      - run: gatsby build
+      # run tests here
+      - deploy:
+          name: deploy to AWS
+          command: |
+            if [ "${CIRCLE_BRANCH}" = "master" ]; then
+              aws s3 sync ./public s3://$(terraform output origin_website_bucket) --delete
+            else
+              echo "Not master branch, dry run only"
+            fi
