@@ -18,7 +18,8 @@ jobs:
             sudo pip install awscli
             cd
       - checkout
-      - run: npx gatsby build
+      - run: npm install
+      - run: gatsby build
       # run tests here
       - deploy:
           name: deploy to AWS
