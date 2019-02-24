@@ -19,7 +19,7 @@ jobs:
             cd
       - checkout
       - run: npm install
-      - run: gatsby build
+      - run: npx gatsby build
       # run tests here
       - deploy:
           name: deploy to AWS
