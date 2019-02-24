@@ -24,9 +24,9 @@ jobs:
       - deploy:
           name: deploy to AWS
           command: |
+            TF_LOG=DEBUG terraform init -reconfigure
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
-              terraform init
               aws s3 sync ./public s3://$(terraform output origin_website_bucket) --delete
             else
-              echo "Not master branch, dry run only"
+              aws s3 sync ./public s3://$(terraform output test_website_bucket) --delete
             fi
