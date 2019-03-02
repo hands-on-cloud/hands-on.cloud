@@ -45,9 +45,9 @@ jobs:
             fi
       - run: npx gatsby build
       - store_artifacts:
-          path: ~/repo/cypress/screenshots
+          path: ~/src/cypress/screenshots
       - store_artifacts:
-          path: ~/repo/cypress/videos
+          path: ~/src/cypress/videos
       # run tests here
       - deploy:
           name: deploy to AWS
