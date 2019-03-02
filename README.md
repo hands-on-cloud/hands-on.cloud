@@ -8,6 +8,8 @@
   hands-on.cloud - Gatsby based Serverless Blog
 </h1>
 
+[![CircleCI](https://circleci.com/gh/andreivmaksimov/hands-on.cloud.svg?style=svg)](https://circleci.com/gh/andreivmaksimov/hands-on.cloud)
+
 ## 🚀 Quick start
 
 1.  **Set up your development environment**
