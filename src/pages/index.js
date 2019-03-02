@@ -2,14 +2,14 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import PostCards from '../components/postcards';
-import { CardDeck } from 'reactstrap';
+import { CardColumns } from 'reactstrap';
 
 export default ({data}) => {
     return (
         <Layout>
-            <CardDeck>
+            <CardColumns>
                 <PostCards posts={data.allMarkdownRemark.edges}/>
-            </CardDeck>
+            </CardColumns>
         </Layout>
     )
 }
