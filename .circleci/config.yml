@@ -52,7 +52,7 @@ jobs:
       - deploy:
           name: deploy to AWS
           command: |
-            TF_LOG=DEBUG terraform init -reconfigure
+            terraform init -reconfigure
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
               aws s3 sync ./public s3://$(terraform output origin_website_bucket) --delete
             else
