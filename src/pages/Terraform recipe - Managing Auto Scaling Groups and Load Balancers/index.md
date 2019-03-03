@@ -124,7 +124,7 @@ resource "aws_security_group" "allow_http" {
 
 ## Launch configuration
 
-As soon as we have Security Group, we may describe a [Launch Configuration](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchConfiguration.html). Think of it like a template, which contains all instance settings to apply to each new launched by Auto Scaling Group instance. We’re using [aws_launch_configuration](https://www.terraform.io/docs/providers/aws/r/launch_configuration.html) resource in Terraform to describe it:
+As soon as we have Security Group, we may describe a [Launch Configuration](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchConfiguration.html). Think of it like a template, which contains all instance settings to apply to each new launched by Auto Scaling Group instance. We’re using [aws\_launch\_configuration](https://www.terraform.io/docs/providers/aws/r/launch_configuration.html) resource in Terraform to describe it:
 
 ```terraform
 resource "aws_launch_configuration" "web" {
@@ -152,7 +152,7 @@ service nginx start
 }
 ```
 
-Most of the parameters should be familiar to you, as we already used them in [aws_instance](https://www.terraform.io/docs/providers/aws/r/instance.html) resource.
+Most of the parameters should be familiar to you, as we already used them in [aws\_instance](https://www.terraform.io/docs/providers/aws/r/instance.html) resource.
 
 The new one are `user_data` and lifecycle:
 
@@ -232,7 +232,7 @@ If ELB can not reach the instance on specified port, it will stop sending traffi
 
 ## Auto scaling group
 
-Now we’re ready to create Auto Scaling Group by describing it using [aws_autoscaling_group](https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html) resource:
+Now we’re ready to create Auto Scaling Group by describing it using [aws\_autoscaling\_group](https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html) resource:
 
 ```terraform
 resource "aws_autoscaling_group" "web" {
@@ -302,7 +302,7 @@ terraform plan
 terraform apply
 ```
 
-[Terraform recipe – Managing Auto Scaling Groups and Load Balancers - Launch](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-Launch.png)
+![Terraform recipe – Managing Auto Scaling Groups and Load Balancers - Launch](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-Launch.png)
 
 Starting from this point you can open provided ELB URL in your browser and refresh the page several times to see different local IP addresses of your just launched instances.
 
@@ -312,7 +312,7 @@ But this configuration is static. I mean there’s no rules, we discussed at the
 
 To make our infrastructure dynamic, we need to create several [Auto Scaling Policies](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-simple-step.html) and [CloudWatch Alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html).
 
-First let’s determine how AWS need to scale our group UP by declaring [aws_autoscaling_policy](https://www.terraform.io/docs/providers/aws/r/autoscaling_policy.html) and [aws_cloudwatch_metric_alarm](https://www.terraform.io/docs/providers/aws/r/cloudwatch_metric_alarm.html) resources:
+First let’s determine how AWS need to scale our group UP by declaring [aws\_autoscaling\_policy](https://www.terraform.io/docs/providers/aws/r/autoscaling_policy.html) and [aws\_cloudwatch\_metric\_alarm](https://www.terraform.io/docs/providers/aws/r/cloudwatch_metric_alarm.html) resources:
 
 ```terraform
 resource "aws_autoscaling_policy" "web_policy_up" {

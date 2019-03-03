@@ -49,7 +49,7 @@ resource "aws_subnet" "nated" {
 }
 ```
 
-Now let’s create NAT Gateway in a public subnet by declaring [aws_nat_gateway](https://www.terraform.io/docs/providers/aws/r/nat_gateway.html) and [aws_eip](https://www.terraform.io/docs/providers/aws/r/eip.html).
+Now let’s create NAT Gateway in a public subnet by declaring [aws\_nat\_gateway](https://www.terraform.io/docs/providers/aws/r/nat_gateway.html) and [aws_eip](https://www.terraform.io/docs/providers/aws/r/eip.html).
 
 You can not launch NAT Gateway without Elastic IP address associated with it, that’s why [aws_eip](https://www.terraform.io/docs/providers/aws/r/eip.html) required:
 
@@ -64,7 +64,7 @@ resource "aws_nat_gateway" "gw" {
 }
 ```
 
-Now we need to create Main Route Table by declaring additional already know for you resources [aws_route_table](https://www.terraform.io/docs/providers/aws/r/route_table.html) and associate it with our NAT-ed Subnet ([aws_route_table_association](https://www.terraform.io/docs/providers/aws/r/route_table_association.html)):
+Now we need to create Main Route Table by declaring additional already know for you resources [aws\_route\_table](https://www.terraform.io/docs/providers/aws/r/route_table.html) and associate it with our NAT-ed Subnet ([aws\_route\_table\_association](https://www.terraform.io/docs/providers/aws/r/route_table_association.html)):
 
 ```terraform
 resource "aws_route_table" "my_vpc_us_east_1a_nated" {
