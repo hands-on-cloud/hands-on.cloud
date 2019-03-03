@@ -34,6 +34,9 @@ jobs:
             - ~/.cache
           key: dependencies-{{ checksum "package.json" }}
       - run:
+          name: Building site
+          command: npx gatsby build
+      - run:
           name: Run server and E2E tests locally or against external URL
           command: |
             if [[ -v CYPRESS_baseUrl ]]; then
@@ -43,7 +46,6 @@ jobs:
               echo Running local server and testing it
               npm test
             fi
-      - run: npx gatsby build
       - store_artifacts:
           path: ~/src/cypress/screenshots
       - store_artifacts:
