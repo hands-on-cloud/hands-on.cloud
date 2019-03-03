@@ -24,11 +24,11 @@ Environment setup is a very common question when you’re trying to start learni
 
 That are TOP 10 widely used Python frameworks for Data Science and you’ll find most of them in any HOWTO article on the Internet. In the nex article ([How to build Python Data Science Docker container based on Anaconda](how-to-build-python-data-science-docker-container-based-on-anaconda)) I'll show how to build the same image, but on top of Anaconda distribution.
 
-## REQUIREMENTS
+## Requirements
 
 All you need to have is [Docker](https://www.docker.com/) and text editor installed on your system.
 
-## DOCKERFILE
+## Dockerfile
 
 All you need to do, is to create a project folder and file named `Dockerfile` inside:
 
@@ -95,7 +95,7 @@ CMD ["/run_jupyter.sh"]
 
 You may find always up-to-date example of my own [Dockerfile](https://github.com/andreivmaksimov/python_data_science/blob/master/Dockerfile) on GitHub, which I use to [create my personal](https://travis-ci.org/andreivmaksimov/python_data_science) Data Science container environment (it is also available on [Docker Hub](https://hub.docker.com/r/amaksimov/python_data_science/) for free).
 
-## JUPITER CONFIGURATION
+## Jupyter configuration
 
 As soon as we declared our container and it’s components, it’s time to prepare a configuration for Jupyter. Create a file [jupyter_notebook_config.py](https://github.com/andreivmaksimov/python_data_science/blob/master/jupyter_notebook_config.py) with the following content:
 
@@ -112,7 +112,7 @@ c.NotebookApp.allow_root = True # Allow to run Jupyter from root user inside Doc
 
 As you can guess from `Dockerfile`, we’ll put it to `/root/.jupyter/` folder during container build process.
 
-## CREATING STARTUP SCRIPT
+## Creating startup script
 
 The last thing we need to do is to create a script, which will launch Jupiter server inside our container during it’s starting process. Create a  with the following content:
 
@@ -130,7 +130,7 @@ chmod +x run_jupyter.sh
 
 This file will be launched inside your container by default each time you’ll start the new one.
 
-## CREATING CONTAINER IMAGE
+## Creating container image
 
 The last stage – container creation. Just run the following command to build your Docker container from the project directory:
 
@@ -140,7 +140,7 @@ docker build -f Dockerfile -t python_data_science_container
 
 During build process Docker will install all necessary libraries and frameworks inside your container image and make it available for use.
 
-## RUNNING THE CONTAINER
+## Running container
 
 Now you have a working container and it’s time to start it. Create a folder inside your project’s folder where we’ll store all our Jupyter Noteboos with source code of our projects:
 
@@ -158,7 +158,7 @@ It will start the container and expose Jupyter on port `8888` and Tensorflow Das
 
 **Please be aware that this container was created only for local development purpose and I removed authentication on Jupyter in this container, so everybody can connect to port 8888 or 6006 and execute Python code of cause.**
 
-## IF YOU’RE JUST LOOKING FOR A WORKING SOLUTION
+## If you're just looking for a working solution
 
 If you don’t want to create and maintain your own container and aforesaid components will be sufficient for you, please feel free to use my personal container, that I usually update:
 

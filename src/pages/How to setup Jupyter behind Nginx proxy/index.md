@@ -10,7 +10,7 @@ category: "other"
 
 Last 2 evenings we spent on setup Nginx + Jupyter configuration where Nginx acts as reverse proxy in front of Jupyter which we need to embed in our website by the suburl like `/ipython/`. The question was not so easy. First of all there’re a lot of issues and gists on GitHub and it is very difficult to choose a right one. Also you may find a lot of different articles describing how to do it but.. All of them are pretty much outdated and not covering CORS configuration. So, right now I’ll show you our results.
 
-## JUPYTER CONFIGURATION
+## Jupyter configuration
 
 We’re packing Jupyter inside a Docker container to provide each of our users their own isolated environment.  We’re using the following configuration placed inside `/root/.jupyter/jupyter_notebook_config.py`:`
 
@@ -88,6 +88,6 @@ http {
 
 We’re launching Nginx proxy in the same container where Jupyter placed. Such config makes us able not only to be able to embed Jupyter in our website, but also make AJAX calls to it’s backend.
 
-## CONCLUSION
+## Conclusion
 
 Hope, this small note will help you to save some time. See you soon!

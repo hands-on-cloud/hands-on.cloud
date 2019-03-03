@@ -12,13 +12,13 @@ Last time we’ve created [Docker container with Jupiter, Keras, Tensorflow, Pan
 
 There’re two ways to do that.
 
-## TRADITIONAL WAY
+## Traditional way
 
 Thanks to [Adrian Rosebrock](https://www.pyimagesearch.com/author/adrian/) and his article "[Ubuntu 16.04: How to install OpenCV](https://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/)" which helped me to update my container image (please, feel free to check updated [Dockerfile](https://github.com/andreivmaksimov/python_data_science/blob/master/Dockerfile)), but… building OpenCV from sources is great challenge.
 
 It takes ~1 hour on usual laptop and can not be build on free [Travis-CI](https://travis-ci.org/) account because of it’s [build timeouts](https://docs.travis-ci.com/user/customizing-the-build#Build-Timeouts). That’s why we’ve migrated to [CircleCI](https://circleci.com/).
 
-## MUCH FASTER WAY
+## Much faster way
 
 Nobody wants to wait so much time, that’s why we’ve decided to build the same image, but based on Anaconda.
 
@@ -54,7 +54,7 @@ CMD ["/run_jupyter.sh"]
 
 As you can see, we’re installing just only libgtk2.0 for OpenCV support and all the other components like Terraform, Pandas, Scikit-learn, Matplotlib, Keras and others using conda package manager.
 
-## RESULTS
+## Results
 
 Using Anaconda makes your Docker images heavy. For example:
 
@@ -72,7 +72,7 @@ At the same time much faster container creation time (~5-10 minutes) using Anaco
 
 Now it’s your time to choose. Build Time vs. Docker Image size.
 
-## HOW TO ADD PACKAGES TO CONTAINER
+## How to add packages to container
 
 As soon as you’ve launched Jupyter, some packages may be missing for you and it’s OK. Feel free to to run the following command in a cell of your Jupyter notebook:
 

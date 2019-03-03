@@ -18,7 +18,7 @@ In this article we’ll add to our VPC a couple of Private Subnets:
 
 You may find complete example for `.tf` file in my [GitHub repo](https://github.com/andreivmaksimov/terraform-recipe-managing-aws-vpc-creating-private-subnets).
 
-## NAT-ED PRIVATE SUBNET
+## NAT-ed private subnet
 
 Instances launched in this subnet will be able to communicate with instances within VPC and go to the Internet using special AWS service NAT Gateway.
 
@@ -37,7 +37,7 @@ To extend our VPC with this NAT-ed Private network, we need to create the follow
 
 Let’s begin from Subnet, by declaring additional [aws_subnet](https://www.terraform.io/docs/providers/aws/r/subnet.html) resource:
 
-```
+```terraform
 resource "aws_subnet" "nated" {
   vpc_id     = "${aws_vpc.my_vpc.id}"
   cidr_block = "10.0.1.0/24"
@@ -53,7 +53,7 @@ Now let’s create NAT Gateway in a public subnet by declaring [aws_nat_gateway]
 
 You can not launch NAT Gateway without Elastic IP address associated with it, that’s why [aws_eip](https://www.terraform.io/docs/providers/aws/r/eip.html) required:
 
-```
+```terraform
 resource "aws_eip" "nat_gw_eip" {
   vpc = true
 }
@@ -66,7 +66,7 @@ resource "aws_nat_gateway" "gw" {
 
 Now we need to create Main Route Table by declaring additional already know for you resources [aws_route_table](https://www.terraform.io/docs/providers/aws/r/route_table.html) and associate it with our NAT-ed Subnet ([aws_route_table_association](https://www.terraform.io/docs/providers/aws/r/route_table_association.html)):
 
-```
+```terraform
 resource "aws_route_table" "my_vpc_us_east_1a_nated" {
     vpc_id = "${aws_vpc.my_vpc.id}"
 
@@ -90,7 +90,7 @@ Now we’re ready to create private servers in our Private NAT-ed Subnet and the
 
 I guess, you may do it using the instructions from the previous article.
 
-## FULLY ISOLATED PRIVATE SUBNET
+## Fully isolated provate subnet
 
 Instances launched in this subnet will be able to communicate with instances within VPC, but will not be able to go to the Internet.
 
@@ -108,7 +108,7 @@ To implement fully isolated Private Subnet we need to create the following resou
 
 Let’s start from Subnet:
 
-```
+```terraform
 resource "aws_subnet" "private" {
   vpc_id     = "${aws_vpc.my_vpc.id}"
   cidr_block = "10.0.2.0/24"
@@ -122,7 +122,7 @@ resource "aws_subnet" "private" {
 
 Next we need to create additional Route Table with no routes declaration and associate it with our `private` Subnet:
 
-```
+```terraform
 resource "aws_route_table" "my_vpc_us_east_1a_private" {
     vpc_id = "${aws_vpc.my_vpc.id}"
 
@@ -137,7 +137,7 @@ resource "aws_route_table_association" "my_vpc_us_east_1a_private" {
 }
 ```
 
-## RESUME
+## Summary
 
 In this article you’ve learned how to create different types of AWS Private Subnets in your environment and differences between them. Hope, this article been helpful for you!
 

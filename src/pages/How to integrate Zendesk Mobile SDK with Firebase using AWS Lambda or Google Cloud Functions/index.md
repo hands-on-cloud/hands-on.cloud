@@ -10,7 +10,7 @@ category: "gcp"
 
 Everybody knows, that you may authenticate you users for Zendesk Mobile SDK using JWT (JSON Web Token). More over, that are a lot of HOWTO-s, which are showing JWT implementation in many different programming languages. In this tutorial I’ll show you, how to use Google Cloud Functions, NodeJS with some additional npm additions to create a fully scalable and absolutely free Serverless JWT authentication backend for Zendesk Mobile SDK.
 
-## WHY GOOGLE?
+## Why Google
 
 Of cause you may use AWS Lambda functions to implement the similar solution, but in my own opinion using a single product (Google Firebase) for iOS backend operations is much more easier, then using a couple of services from AWS. So, the main reason was Firebase.
 
@@ -18,13 +18,13 @@ At the same time Google gives you great logging solution for all its services, s
 
 And the third one – API. Of cause in my own opinion Google’s API is the best I’ve ever saw. Only Google provides your with the detailed explanation of most of the errors and provides you with the direct URL links to it’s console to, for example, enable the required service.
 
-## WHAT IS SERVERLESS, CLOUD FUNCTIONS AND LAMBDA?
+## What is "serverless", "cloud functions" and "Lambda"
 
 Think of it like a lightweight PaaS hosting based on container technologies with some limitations which makes this technology  super fast and scalable. This hosting is storing your pieces of code which are, ready to be launched independently to solve one simple problem (call another function of web-service, save something to the database or send a email, for example), which could be solved in a short period of time.
 
 Your piece of code is launched inside a container each time other cloud service triggers it or calls it directly via HTTP/HTTPS protocol like a traditional web service.
 
-## WHY SERVERLESS (AWS LAMBDA OR CLOUDFUNCTIONS)?
+## Why "serverless" (AWS Lambda or CloudFunctions)
 
 We still not sparingly using the resources we need for each kind of solutions. We still using half loaded VMs to support long infrastructure scale times or for having ability to launch additional containers in Kubernetes cluster. In case of cloud we’re paying for such unused resources. Don’t know about you, but I do not want doing this.
 
@@ -32,7 +32,7 @@ Usage of cloud functions is allowing us to use available resources, let say, mor
 
 Of cause, all cloud providers are supporting Serverless technologies, so, you don’t need to think about something like vendor-lock. You may easily switch your cloud provider in any time.
 
-## SERVERLESS BACKEND
+## Serverless backend
 
 First of all I’m assuming, that you already have:
 
@@ -145,7 +145,7 @@ firebase deploy --only functions
 
 At the command output you’ll see the function URL, which we’d need to provide to Zendesk Mobile SDK configuration at the next step (something like `us-central1-<your-firebase-project-id>.cloudfunctions.net`).
 
-## ZENDESK CONFIGURATION
+## Zendesk configuration
 
 First of all you need to Enable Mobile SDK at you account admin page:
 
@@ -164,7 +164,7 @@ At the Mobile App Settings do the following:
 
 Now, you’re able to use Zendesk Mobile SDK in your iOS application.
 
-## USING ZENDESK MOBILE SDK WITH JWT AUTHENTICATION
+## Using Zendesk mobile SDK with JWT authentication
 
 I’ll not duplicate this great Zendesk tutorial, just watch the video and follow the next steps to embed Zendesk Support in your mobile app.
 
