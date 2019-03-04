@@ -1,6 +1,6 @@
 ---
 title: "Terraform recipe – Managing Auto Scaling Groups and Load Balancers"
-date: "2019-01-04"
+date: "2018-11-25"
 thumbnail: "./Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers.png"
 tags: ["autoscaling", "aws", "cloud","terraform"]
 category: "terraform"

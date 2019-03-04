@@ -1,6 +1,6 @@
 ---
 title: "AWS Step Functions. How to process arrays"
-date: "2019-03-03"
+date: "2018-02-07"
 thumbnail: "./AWS-Step-Functions-How-to-process-arrays.png"
 tags: ["aws", "lambda", "serverless", "step functions"]
 category: "aws"

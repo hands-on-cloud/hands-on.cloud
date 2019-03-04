@@ -1,6 +1,6 @@
 ---
 title: "How to run Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib in Docker container"
-date: "2019-03-02"
+date: "2017-12-11"
 thumbnail: "./How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container.png"
 tags: ["docker", "h5py", "jupyter", "kears", "machine learning", "matplotlib", "pandas", "python", "pyyaml", "seaborn", "sklearn", "tensorflow"]
 category: "other"

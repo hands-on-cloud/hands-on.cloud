@@ -1,6 +1,6 @@
 ---
 title: "How to integrate Zendesk Mobile SDK with Firebase using AWS Lambda or Google Cloud Functions"
-date: "2019-01-04"
+date: "2017-12-04"
 thumbnail: "./How-to-integrate-Zendesk-Mobile-SDK-with-Firebase-using-AWS-Lambda-or-Google-Cloud-Functions.png"
 tags: ["aws", "firebase", "cloud", "google cloud", "ios", "nodejs", "swift", "zendesk"]
 category: "gcp"

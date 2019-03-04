@@ -1,6 +1,6 @@
 ---
 title: "CloudFormation. How to access CodeCommit repo from EC2 instance"
-date: "2019-03-02"
+date: "2018-02-05"
 thumbnail: "./CloudFormation-How-to-access-CodeCommit-repo-from-EC2-instance.png"
 tags: ["aws", "cloudformation", "codecommit", "devops", "mongodb", "packer"]
 category: "aws"

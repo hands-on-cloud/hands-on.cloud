@@ -1,6 +1,6 @@
 ---
 title: "How to migrate Google DataStore to AWS DynamoDB"
-date: "2019-03-02"
+date: "2018-01-29"
 thumbnail: "./How-to-migrate-Google-DataStore-to-AWS-DynamoDB.png"
 tags: ["aws", "dynamodb", "google cloud", "google datastore", "migration"]
 category: "aws"

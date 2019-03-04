@@ -1,6 +1,6 @@
 ---
 title: "How to build Python Data Science Docker container based on Anaconda"
-date: "2019-03-02"
+date: "2017-12-13"
 thumbnail: "./How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda.png"
 tags: ["anaconda", "docker", "jupyter", "keras", "matplotlib", "opencv", "pandas", "python", "sklearn", "tensorflow"]
 category: "other"

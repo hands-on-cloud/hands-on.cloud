@@ -1,6 +1,6 @@
 ---
 title: "Terraform recipe - Managing AWS VPC - Creating Public Subnet"
-date: "2018-11-19"
+date: "2018-11-25"
 thumbnail: "./Terraform-Recipe-Managing-AWS-VPC-Creating-Public-Subnet.png"
 tags: ["aws", "terraform", "vpc"]
 category: "aws"
