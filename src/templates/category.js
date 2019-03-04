@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
-import { CardDeck } from 'reactstrap';
+import { CardColumns } from 'reactstrap';
 import PostCards from '../components/postcards';
 
 const Categories = ({pageContext, data}) => {
@@ -10,9 +10,9 @@ const Categories = ({pageContext, data}) => {
     return (
         <Layout>
             <h1>{ category }</h1>
-            <CardDeck>
+            <CardColumns>
                 <PostCards posts={data.allMarkdownRemark.edges}/>
-            </CardDeck>
+            </CardColumns>
         </Layout>
     )
 }
