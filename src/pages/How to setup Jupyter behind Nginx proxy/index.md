@@ -12,7 +12,7 @@ Last 2 evenings we spent on setup Nginx + Jupyter configuration where Nginx acts
 
 ## Jupyter configuration
 
-We’re packing Jupyter inside a Docker container to provide each of our users their own isolated environment.  We’re using the following configuration placed inside `/root/.jupyter/jupyter_notebook_config.py`:`
+We’re packing Jupyter inside a Docker container to provide each of our users their own isolated environment.  We’re using the following configuration placed inside `/root/.jupyter/jupyter_notebook_config.py`:
 
 ```python
 # get the config object
@@ -34,7 +34,7 @@ c.NotebookApp.allow_root = True
 # Setting up Jupyter base URL
 c.NotebookApp.base_url = '/ipython/'
 # Allowing Jupyter iframe embeddings
-c.NotebookApp.trust_xheaders = True 
+c.NotebookApp.trust_xheaders = True
 c.NotebookApp.tornado_settings = {
     'headers': {
         'Content-Security-Policy': "frame-ancestors 'self' http://* https://*",
