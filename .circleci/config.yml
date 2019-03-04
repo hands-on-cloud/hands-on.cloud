@@ -38,27 +38,28 @@ jobs:
           command: npx gatsby build
       - run:
           name: Run server and E2E tests locally or against external URL
+          command: npm test
+      - run:
+          name: Deploying test site
           command: |
-            if [[ -v CYPRESS_baseUrl ]]; then
-              echo Testing external url $CYPRESS_baseUrl
-              npm run cy:run
-            else
-              echo Running local server and testing it
-              npm test
-            fi
+            terraform init -reconfigure
+            aws s3 sync ./public s3://$(terraform output test_website_bucket)
+      - run:
+          name: Testing test site
+          command: |
+            CYPRESS_baseUrl=$(terraform output test_website_bucket)
+            npm run cy:run
       - store_artifacts:
           path: ~/src/cypress/screenshots
       - store_artifacts:
           path: ~/src/cypress/videos
       # run tests here
       - deploy:
-          name: deploy to AWS
+          name: Deploying to production ENV
           command: |
             terraform init -reconfigure
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
-              aws s3 sync ./public s3://$(terraform output origin_website_bucket) --delete
-            else
-              aws s3 sync ./public s3://$(terraform output test_website_bucket) --delete
+              aws s3 sync ./public s3://$(terraform output origin_website_bucket)
             fi
 
 workflows:
