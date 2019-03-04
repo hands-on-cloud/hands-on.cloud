@@ -47,8 +47,8 @@ jobs:
       - run:
           name: Testing test site
           command: |
-            CYPRESS_baseUrl=$(terraform output test_website_bucket)
-            npm run cy:run
+            terraform init -reconfigure
+            CYPRESS_baseUrl=$(terraform output test_website_bucket) npm run cy:run
       - store_artifacts:
           path: ~/src/cypress/screenshots
       - store_artifacts:
