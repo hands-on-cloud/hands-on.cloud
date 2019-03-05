@@ -2,7 +2,12 @@
 title: "How to migrate Google DataStore to AWS DynamoDB"
 date: "2018-01-29"
 thumbnail: "./How-to-migrate-Google-DataStore-to-AWS-DynamoDB.png"
-tags: ["aws", "dynamodb", "google cloud", "google datastore", "migration"]
+tags:
+-   aws
+-   dynamodb
+-   google cloud
+-   google datastore
+-   migration
 category: "aws"
 ---
 
@@ -62,9 +67,9 @@ And finally we need to make a migration.
 
 To make everything’s happen we need:
 
-* convert GCP DataStore Entity to JSON representation
-* remove keys with possible empty values
-* send and item to DynamoDB
+*   convert GCP DataStore Entity to JSON representation
+*   remove keys with possible empty values
+*   send and item to DynamoDB
 
 ```python
 for item in ds_results:

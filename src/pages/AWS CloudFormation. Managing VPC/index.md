@@ -2,7 +2,9 @@
 title: "AWS CloudFormation. Managing VPC"
 date: "2018-02-11"
 thumbnail: "./AWS-CloudFormation-Managing-VPC.png"
-tags: ["aws", "vpc"]
+tags:
+-   aws cloud
+-   vpc
 category: "aws"
 ---
 
@@ -38,10 +40,10 @@ It is also possible to generate your infrastructure schema by your own template 
 
 I’m always keeping several tabs opened in my browser:
 
-* CloudFormation Service inside AWS Console
-* CloudFormation Designer – for template syntax validation
-* [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html) – this is the most important tab, where you can find all the elements, their required and optional parameters and output parameters also. You always need to understand how to get access to Instance private or public IP address to refer on it from the other resources inside your template.
-* [Intrinsic Function Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html) – this tab could be very useful if you’re just starting with CloudFormation and don’t remember actual syntax of all available functions for your templates.
+*   CloudFormation Service inside AWS Console
+*   CloudFormation Designer – for template syntax validation
+*   [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html) – this is the most important tab, where you can find all the elements, their required and optional parameters and output parameters also. You always need to understand how to get access to Instance private or public IP address to refer on it from the other resources inside your template.
+*   [Intrinsic Function Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html) – this tab could be very useful if you’re just starting with CloudFormation and don’t remember actual syntax of all available functions for your templates.
 
 ## Managing VPC
 
@@ -807,9 +809,9 @@ You may also try to connect your instance using SSH:
 
 ## CloudFormation best practices
 
-* **Don’t hardcode object names**: where is possible try to avoid using hardcoded names for your objects like S3 bucket or IAM objects, for example. As you know, some of the objects needs to be unique in your account, some of the objects globally. Try to launch 2 or more stacks from your template to be sure, that nothing is hardcoded. Following this principle will allow you to use you templates as many times as needed.
-* **Tag everything**: add Tags everywhere it is possible. it will allow you to control costs for your infrastructure and increase manageability of it.
-* **Don’t put RDS or instance DB hosts inside the template**: if something goes wrong and you’ll need to recreate your infrastructure, CloudFormation will delete all the resources it has created. So, to avoid your data loss, don’t manage your databases layer using Cloud Formation.
+*   **Don’t hardcode object names**: where is possible try to avoid using hardcoded names for your objects like S3 bucket or IAM objects, for example. As you know, some of the objects needs to be unique in your account, some of the objects globally. Try to launch 2 or more stacks from your template to be sure, that nothing is hardcoded. Following this principle will allow you to use you templates as many times as needed.
+*   **Tag everything**: add Tags everywhere it is possible. it will allow you to control costs for your infrastructure and increase manageability of it.
+*   **Don’t put RDS or instance DB hosts inside the template**: if something goes wrong and you’ll need to recreate your infrastructure, CloudFormation will delete all the resources it has created. So, to avoid your data loss, don’t manage your databases layer using Cloud Formation.
 
 ## Final words
 

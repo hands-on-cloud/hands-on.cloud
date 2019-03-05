@@ -2,7 +2,14 @@
 title: "Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 2"
 date: "2018-09-15"
 thumbnail: "./Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.png"
-tags: ["aws", "api gateway", "cognito", "dynamodb", "lambda", "s3", "serverless"]
+tags:
+-   aws
+-   api gateway
+-   cognito
+-   dynamodb
+-   lambda
+-   s3
+-   serverless
 category: "aws"
 ---
 

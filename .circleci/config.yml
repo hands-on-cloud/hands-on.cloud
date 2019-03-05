@@ -34,6 +34,9 @@ jobs:
             - ~/.cache
           key: dependencies-{{ checksum "package.json" }}
       - run:
+          name: Running remark (.md linting)
+          command: npx remark src/pages
+      - run:
           name: Building site
           command: npx gatsby build
       - run:

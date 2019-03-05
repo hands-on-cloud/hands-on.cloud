@@ -2,7 +2,11 @@
 title: "Terraform recipe - Managing AWS VPC - Creating Private Subnets"
 date: "2018-11-24"
 thumbnail: "./Terraform-recipe-Managing-AWS-VPC-Creating-Private-Subnets.png"
-tags: ["vpc", "aws", "cloud", "terraform"]
+tags:
+-   vpc
+-   aws
+-   cloud
+-   terraform
 category: "terraform"
 ---
 
@@ -13,8 +17,8 @@ In previous article ([Terraform recipe – Managing AWS VPC – Creating Public 
 
 In this article we’ll add to our VPC a couple of Private Subnets:
 
-* Fully isolated Private Subnet
-* NAT-ed Private Subnet
+*   Fully isolated Private Subnet
+*   NAT-ed Private Subnet
 
 You may find complete example for `.tf` file in my [GitHub repo](https://github.com/andreivmaksimov/terraform-recipe-managing-aws-vpc-creating-private-subnets).
 
@@ -30,10 +34,10 @@ Here’s how the infrastructure looks like:
 
 To extend our VPC with this NAT-ed Private network, we need to create the following resources:
 
-* VPC NAT Gateway
-* Subnet
-* Route Table with route to VPC NAT Gateway
-* Association between Route Table and Subnet
+*   VPC NAT Gateway
+*   Subnet
+*   Route Table with route to VPC NAT Gateway
+*   Association between Route Table and Subnet
 
 Let’s begin from Subnet, by declaring additional [aws_subnet](https://www.terraform.io/docs/providers/aws/r/subnet.html) resource:
 
@@ -102,9 +106,9 @@ Here’s how the infrastructure looks like:
 
 To implement fully isolated Private Subnet we need to create the following resources:
 
-* Subnet
-* Route Table
-* Association between Route Table and Subnet
+*   Subnet
+*   Route Table
+*   Association between Route Table and Subnet
 
 Let’s start from Subnet:
 

@@ -2,7 +2,16 @@
 title: "Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 1"
 date: "2018-09-24"
 thumbnail: "./Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-1.png"
-tags: ["amazon cloud", "aws", "cloudformation", "ecs", "eks", "fargate", "kubernetes", "lambda", "serverless"]
+tags:
+-   amazon cloud
+-   aws
+-   cloudformation
+-   ecs
+-   eks
+-   fargate
+-   kubernetes
+-   lambda
+-   serverless
 category: "aws"
 ---
 
@@ -26,10 +35,10 @@ We will reproduce Rupak’s idea, but make it working in AWS EKS cluster on top 
 
 **Workflow description**
 
-* User uploads video file in S3 bucket
-* Lambda function triggered and launch Kubernetes Job in EKS cluster
-* Job extract thumbnail from the video file and upload it to another S3 bucket
-* Next lambda function triggered for future integration (it may send us email, trigger another Kubernetes Job, make some changes in DB, etc).
+*   User uploads video file in S3 bucket
+*   Lambda function triggered and launch Kubernetes Job in EKS cluster
+*   Job extract thumbnail from the video file and upload it to another S3 bucket
+*   Next lambda function triggered for future integration (it may send us email, trigger another Kubernetes Job, make some changes in DB, etc).
 
 ## Building up infrastructure
 
@@ -831,7 +840,7 @@ OK, I guess it’s enough for the first part. You did a great job!
 
 From this article you’ve learned how to add AWS EKS Cluster with Spot Instances to your environment, built on top of Serverless framework.
 
-For those of you, who want to know, how to create several AutoScaling Groups with different instance types, I highly recommend original [Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS](https://aws.amazon.com/blogs/compute/run-your-kubernetes-workloads-on-amazon-ec2-spot-instances-with-amazon-eks/) article and [CloudFormation template](https://github.com/awslabs/ec2-spot-labs/blob/master/ec2-spot-eks-solution/provision-worker-nodes/amazon-eks-nodegroup-with-spot.yaml) from [awslabs GitHub repo](awslabs GitHub repo).
+For those of you, who want to know, how to create several AutoScaling Groups with different instance types, I highly recommend original [Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS](https://aws.amazon.com/blogs/compute/run-your-kubernetes-workloads-on-amazon-ec2-spot-instances-with-amazon-eks/) article and [CloudFormation template](https://github.com/awslabs/ec2-spot-labs/blob/master/ec2-spot-eks-solution/provision-worker-nodes/amazon-eks-nodegroup-with-spot.yaml) from [awslabs GitHub repo](https://github.com/awslabs).
 
 In the next article I’ll show you [how to launch Kubernetes Jobs from AWS Lambda](/serverless-framework-run-your-kubernetes-workloads-on-amazon-ec-2-spot-instances-with-amazon-eks-part-2) function to offload heavy Serverless infrastructure jobs. 
 

@@ -2,7 +2,16 @@
 title: "Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 2"
 date: "2018-11-11"
 thumbnail: "./Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2.png"
-tags: ["amazon cloud", "aws", "cloudformation", "ecs", "eks", "fargate", "kubernetes", "lambda", "serverless"]
+tags:
+-   amazon cloud
+-   aws
+-   cloudformation
+-   ecs
+-   eks
+-   fargate
+-   kubernetes
+-   lambda
+-   serverless
 category: "aws"
 ---
 
@@ -390,11 +399,11 @@ spec:
 
 Sure, there are a lot of things to improve here, but I wanted to show you the basic idea how we may use `kubectl` with EKS from Lambda Functions:
 
-* Put `kubectl` and `aws-iam-authenticator` to Lambda function
-* Put `kubectl` config also
-* Move `kubectl` and `aws-iam-authenticator` to `/tmp` folder inside Lambda function to be able to make them executable
-* Make them executable
-* Launch any Kubernetes command using kubectl from Lambda Function
+*   Put `kubectl` and `aws-iam-authenticator` to Lambda function
+*   Put `kubectl` config also
+*   Move `kubectl` and `aws-iam-authenticator` to `/tmp` folder inside Lambda function to be able to make them executable
+*   Make them executable
+*   Launch any Kubernetes command using kubectl from Lambda Function
 
 And, yes, I did not build my personal Docker container, but used [Rupak’s](https://www.linkedin.com/in/rupakg/) container ([repo](https://github.com/rupakg/docker-ffmpeg-thumb)) from [his article](https://serverless.com/blog/serverless-application-for-long-running-process-fargate-lambda/) instead. As you can see, everything’s working.
 
@@ -412,16 +421,16 @@ sls remove
 
 ## Future improvements
 
-* Using this approach you can launch just only one lambda function, as it’s name hardcoded in job_description variable. To overcome this “problem” you need either delete previously run function, either generate timestamp or id to make your function name unique.
-* Sure, we need to refactor the code a little bit (DRY principle)
-* Also, you may want to create a Thumbnails Lambda function which can do something with uploaded thumbnails.
+*   Using this approach you can launch just only one lambda function, as it’s name hardcoded in job_description variable. To overcome this “problem” you need either delete previously run function, either generate timestamp or id to make your function name unique.
+*   Sure, we need to refactor the code a little bit (DRY principle)
+*   Also, you may want to create a Thumbnails Lambda function which can do something with uploaded thumbnails.
 
 ## Final words
 
 Passing through both of my articles we’ve learned:
 
-* How to automatically create EKS cluster backed by cheap Spot Instances
-* What to do with Lambda Function to manage your EKS cluster
+*   How to automatically create EKS cluster backed by cheap Spot Instances
+*   What to do with Lambda Function to manage your EKS cluster
 
 Hope, that article will be useful for you. If so, please, share or like it!
 

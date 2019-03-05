@@ -2,7 +2,11 @@
 title: "How to put AWS EC2 Tags to environment variables"
 date: "2018-02-01"
 thumbnail: "./How-to-put-AWS-EC2-Tags-to-environment-variables.png"
-tags: ["aws", "cloudformation", "devops", "terraform"]
+tags:
+-   aws
+-   cloudformation
+-   devops
+-   terraform
 category: "aws"
 ---
 

@@ -2,7 +2,14 @@
 title: "Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 1"
 date: "2018-09-10"
 thumbnail: "./Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.png"
-tags: ["aws", "api gateway", "cognito", "dynamodb", "lambda", "s3", "serverless"]
+tags:
+-   aws
+-   api gateway
+-   cognito
+-   dynamodb
+-   lambda
+-   s3
+-   serverless
 category: "aws"
 ---
 
@@ -20,18 +27,18 @@ In [part 2](/serverless-framework-building-web-app-using-aws-lambda-amazon-api-g
 
 Sure, to allow you to see all details in the same place, we need to copy some content from the original tutorial.  So, our app will consist of:
 
-* **Static Web Hosting** – Amazon S3 hosts static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user’s browser.
-* **User Management** – Amazon Cognito provides user management and authentication functions to secure the backend API.
-* **Serverless Backend** – Amazon DynamoDB provides a persistence layer where data can be stored by the API’s Lambda function.
-* **RESTful API** – JavaScript executed in the browser sends and receives data from a public backend API built using Lambda and API Gateway.
+*   **Static Web Hosting** – Amazon S3 hosts static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user’s browser.
+*   **User Management** – Amazon Cognito provides user management and authentication functions to secure the backend API.
+*   **Serverless Backend** – Amazon DynamoDB provides a persistence layer where data can be stored by the API’s Lambda function.
+*   **RESTful API** – JavaScript executed in the browser sends and receives data from a public backend API built using Lambda and API Gateway.
 
 I’ll keep the same modules structure for consistency:
 
-* Static Web Hosting
-* User Management
-* Serverless Backend
-* RESTful APIs
-* Resource Termination and Next Steps
+*   Static Web Hosting
+*   User Management
+*   Serverless Backend
+*   RESTful APIs
+*   Resource Termination and Next Steps
 
 ## Project setup
 
@@ -45,8 +52,8 @@ sls create -t aws-nodejs -n wild-rides-serverless-demo
 
 At this moment of time you’ll see two file inside our project directory:
 
-* `handler.js` – this file contains demo Lambda function code
-* `serverless.yaml` – this file contains Serverless project deployment configuration
+*   `handler.js` – this file contains demo Lambda function code
+*   `serverless.yaml` – this file contains Serverless project deployment configuration
 
 Before continue this tutorial I strongly recommend to spend 30 minutes on looking through Serverless framework AWS [documentation](https://serverless.com/framework/docs/providers/aws/guide/).
 
@@ -177,8 +184,8 @@ After users have a confirmed account (either using the email verification proces
 
 Amazon Cognito provides two different mechanisms for authenticating users:
 
-* we can use Cognito User Pools to add sign-up and sign-in functionality to your application or use Cognito Identity Pools to authenticate users through social identity providers such as Facebook, Twitter, or Amazon, with SAML identity solutions
-* we can use our own identity system.
+*   we can use Cognito User Pools to add sign-up and sign-in functionality to your application or use Cognito Identity Pools to authenticate users through social identity providers such as Facebook, Twitter, or Amazon, with SAML identity solutions
+*   we can use our own identity system.
 
 Here we’ll use a user pool as the backend for the provided registration and sign-in pages. First, let’s create [Cognito User Pool](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html) by adding it’s declaration to `resources:` section of our `serverless.yaml` file:
 

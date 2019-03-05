@@ -2,7 +2,11 @@
 title: "AWS Step Functions. How to process arrays"
 date: "2018-02-07"
 thumbnail: "./AWS-Step-Functions-How-to-process-arrays.png"
-tags: ["aws", "lambda", "serverless", "step functions"]
+tags:
+-   aws cloud
+-   lambda
+-   serverless
+-   step functions
 category: "aws"
 ---
 
@@ -116,7 +120,7 @@ And our Step Function algorythm:
 
 This algorythm consists of several steps:
 
-* `GetArray` – Step Function Task which will execute array_example Lambda functions, which will return fruits array:
+*   `GetArray` – Step Function Task which will execute array_example Lambda functions, which will return fruits array:
 
     ```json
     {
@@ -129,8 +133,8 @@ This algorythm consists of several steps:
     }
     ```
 
-* `CheckArrayForMoreElements` – Conditional Step to check if we have more array elements to process. If yes, go to `ProcessArrayElement` Step, otherwise finish going to Step `Done`
-* `ProcessArrayElement` – Step Function Task that will process an array item. For example, it’s Input for last element:
+*   `CheckArrayForMoreElements` – Conditional Step to check if we have more array elements to process. If yes, go to `ProcessArrayElement` Step, otherwise finish going to Step `Done`
+*   `ProcessArrayElement` – Step Function Task that will process an array item. For example, it’s Input for last element:
 
     ```json
     {

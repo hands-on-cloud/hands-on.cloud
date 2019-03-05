@@ -2,7 +2,14 @@
 title: "How to integrate Zendesk Mobile SDK with Firebase using AWS Lambda or Google Cloud Functions"
 date: "2017-12-04"
 thumbnail: "./How-to-integrate-Zendesk-Mobile-SDK-with-Firebase-using-AWS-Lambda-or-Google-Cloud-Functions.png"
-tags: ["aws", "firebase", "cloud", "google cloud", "ios", "nodejs", "swift", "zendesk"]
+tags:
+-   aws cloud
+-   firebase
+-   google cloud
+-   ios
+-   nodejs
+-   swift
+-   zendesk
 category: "gcp"
 ---
 
@@ -36,9 +43,9 @@ Of cause, all cloud providers are supporting Serverless technologies, so, you do
 
 First of all I’m assuming, that you already have:
 
-* Google Firebase account (Traditional Google Cloud is also OK, if you’re not using Firebase) and created Project inside.
-* You’ve [installed Firebase SDK for Cloud Functions](https://firebase.google.com/docs/functions/get-started#set_up_and_initialize_functions_sdk) and created the initial project structure for your cloud functions.
-* You’ve read about [Writing HTTP cloud functions](https://firebase.google.com/docs/functions/http-events)
+*   Google Firebase account (Traditional Google Cloud is also OK, if you’re not using Firebase) and created Project inside.
+*   You’ve [installed Firebase SDK for Cloud Functions](https://firebase.google.com/docs/functions/get-started#set_up_and_initialize_functions_sdk) and created the initial project structure for your cloud functions.
+*   You’ve read about [Writing HTTP cloud functions](https://firebase.google.com/docs/functions/http-events)
 
 After that you’ll be easily be able to write something like this on Node.js Put the following code to you `index.js` file to create a cloud function called `jwt_auth`:
 
@@ -115,11 +122,11 @@ exports.jwt_auth = functions.https.onRequest((req, res) => {
 
 In the code abode we’re importing some additional dependencies
 
-* `firebase-functions` – to have an ability to access to HTTP Request (req) and Response (res) objects and their properties.
-* `firebase-admin` – to have an ability to access Firebase Authentication features (like the checking of users tokens or credentials)
-* `jwt-simple` – it’s a small lib allowing us to form a right JWT response
-* `uuid` – lib for generating random UUID for JWT token for Zendesk
-* `url`
+*   `firebase-functions` – to have an ability to access to HTTP Request (req) and Response (res) objects and their properties.
+*   `firebase-admin` – to have an ability to access Firebase Authentication features (like the checking of users tokens or credentials)
+*   `jwt-simple` – it’s a small lib allowing us to form a right JWT response
+*   `uuid` – lib for generating random UUID for JWT token for Zendesk
+*   `url`
 
 Checking for existence of `user_token` parameter inside HTTP Request and responding **401 Unauthorized** if we did not find that parameter.
 
@@ -157,10 +164,10 @@ Then we need to go to settings to Mobile SDK configuration and click “Add App�
 
 At the Mobile App Settings do the following:
 
-* Fill the **Name** of your application at Setup tab and enable JWT Authentication method.
-* Fill **JWT URL** with the URL you’ve got during cloud function deployment.
-* Put the **JWT Secret** to the shared_key variable and deploy the function once more again to update it with the same command you’ve already used.
-* Enable Zendesk Guide and Conversations support if needed at Support SDK tab.
+*   Fill the **Name** of your application at Setup tab and enable JWT Authentication method.
+*   Fill **JWT URL** with the URL you’ve got during cloud function deployment.
+*   Put the **JWT Secret** to the shared_key variable and deploy the function once more again to update it with the same command you’ve already used.
+*   Enable Zendesk Guide and Conversations support if needed at Support SDK tab.
 
 Now, you’re able to use Zendesk Mobile SDK in your iOS application.
 
@@ -170,8 +177,8 @@ I’ll not duplicate this great Zendesk tutorial, just watch the video and follo
 
 Will add just a few things here.
 
-* If you want to embed Zendesk Support as UITabBarItem, follow this tutorial: Quick start – Support SDK for iOS
-* If you want to use Zendesk Support as usual UIViewController, just use this code to launch it:
+*   If you want to embed Zendesk Support as UITabBarItem, follow this tutorial: Quick start – Support SDK for iOS
+*   If you want to use Zendesk Support as usual UIViewController, just use this code to launch it:
 
     ```swift
     URLProtocol.registerClass(ZDKAuthenticationURLProtocol.self)
@@ -187,10 +194,10 @@ Full process of JWT Authentication process is shown here: [Building a dedicated 
 
 IMPORTANT: The common mistake in most cases is misconfigured JWT token, which is usually not containing this 4 MUST HAVE fields:
 
-* `iat`
-* `jti`
-* `name`
-* `email`
+*   `iat`
+*   `jti`
+*   `name`
+*   `email`
 
 Next, you need to provide current user information to Zendesk before launching Zendesk Support UIViewController. If you’re using Firebase as Authentication backend for your users in the app, just use the following code for example inside **Get Support** UIButton action:
 

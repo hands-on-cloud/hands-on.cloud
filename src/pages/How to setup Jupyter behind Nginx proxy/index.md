@@ -2,7 +2,9 @@
 title: "How to setup Jupyter behind Nginx proxy"
 date: "2017-12-21"
 thumbnail: "./How-to-setup-Jupyter-behind-Nginx-proxy.png"
-tags: ["jupyter", "nginx"]
+tags:
+-   jupyter
+-   nginx
 category: "other"
 ---
 

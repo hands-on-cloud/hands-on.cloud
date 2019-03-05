@@ -2,7 +2,13 @@
 title: "CloudFormation. How to access CodeCommit repo from EC2 instance"
 date: "2018-02-05"
 thumbnail: "./CloudFormation-How-to-access-CodeCommit-repo-from-EC2-instance.png"
-tags: ["aws", "cloudformation", "codecommit", "devops", "mongodb", "packer"]
+tags:
+-   aws cloud
+-   cloudformation
+-   codecommit
+-   devops
+-   mongodb
+-   packer
 category: "aws"
 ---
 
@@ -18,8 +24,8 @@ Our task is to automate initial data import from CodeCommit repository to dev Mo
 
 To solve this task we need to do several things:
 
-* Create MongoDB AMI
-* Update your existing CloudFormation template
+*   Create MongoDB AMI
+*   Update your existing CloudFormation template
 
 Easy.
 
@@ -231,9 +237,9 @@ Such MongoDB instance declaration will install [cfn-init](https://docs.aws.amazo
 
 We’re passing all automation logic through instance `user-data`. It consists of 3 parts:
 
-* Install cfn-init
-* Clone repository with MongoDB backups and restore them only once during instance first boot.
-* Launch cfn-init automation, if you’d like to add something.
+*   Install cfn-init
+*   Clone repository with MongoDB backups and restore them only once during instance first boot.
+*   Launch cfn-init automation, if you’d like to add something.
 
 I moved out MongoDB backup import to `user-data` because `cfn-init` did not allow me to launch and configure git properly.
 
