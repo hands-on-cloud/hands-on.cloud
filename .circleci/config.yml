@@ -37,11 +37,11 @@ jobs:
           name: Running remark (.md linting)
           command: npx remark src/pages
       - run:
+          name: Cleaning up Gatsby
+          command: npx gatsby clean
+      - run:
           name: Building site
           command: npx gatsby build
-      - run:
-          name: Run server and E2E tests locally or against external URL
-          command: npm test
       - run:
           name: Deploying test site
           command: |
