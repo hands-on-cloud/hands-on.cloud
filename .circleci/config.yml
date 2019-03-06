@@ -46,7 +46,7 @@ jobs:
           name: Deploying test site
           command: |
             terraform init -reconfigure
-            aws s3 sync ./public s3://$(terraform output test_website_bucket)
+            aws s3 sync ./public s3://$(terraform output test_website_bucket) --delete
       - run:
           name: Testing test site
           command: |
@@ -62,7 +62,7 @@ jobs:
           command: |
             terraform init -reconfigure
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
-              aws s3 sync ./public s3://$(terraform output origin_website_bucket)
+              aws s3 sync ./public s3://$(terraform output origin_website_bucket) --delete
             fi
 
 workflows:
