@@ -5,7 +5,7 @@ thumbnail: "./How-to-setup-Jupyter-behind-Nginx-proxy.png"
 tags:
 -   jupyter
 -   nginx
-category: "other"
+category: "ml"
 ---
 
 ![How to setup Jupyter behind Nginx proxy](How-to-setup-Jupyter-behind-Nginx-proxy.png)

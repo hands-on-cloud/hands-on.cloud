@@ -15,7 +15,7 @@ tags:
 -   seaborn
 -   sklearn
 -   tensorflow
-category: "other"
+category: "ml"
 ---
 
 ![How to run Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib in Docker container](How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container.png)
