@@ -41,16 +41,12 @@ export default class Layout extends React.Component {
                     </Container>
                 </div>
                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <script
-                    dangerouslySetInnerHTML={{
-                        __html: `
-                            (adsbygoogle = window.adsbygoogle || []).push({
-                                google_ad_client: "ca-pub-2729052102059896",
-                                enable_page_level_ads: true
-                            });
-                            `,
-                    }}
-                />
+                <script>{`
+                    (adsbygoogle = window.adsbygoogle || []).push({
+                        google_ad_client: "ca-pub-2729052102059896",
+                        enable_page_level_ads: true
+                    });
+                `}</script>
             </div>
         )
     }
