@@ -1175,27 +1175,28 @@ a.post-date:hover {
 }
 
 /*! post card styles */
-.post-card {
-    position: relative
+.card {
+    position: relative;
 }
 
-.post-card__img {
+.card-img {
     text-align: center
 }
 
-.post-card__cat {
+.card-cat {
     position: absolute;
     left: 0;
     bottom: 0
 }
 
-.post-card__title {
+.card-title {
     font-size: 17px;
     line-height: 1.5;
+    color: #262626;
     transition: color .3s
 }
 
-.post-card__title:hover {
+.card-title:hover {
     color: #fe7235
 }
 
