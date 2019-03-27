@@ -9,10 +9,11 @@ import {
     NavLink
 } from 'reactstrap';
 import { StaticQuery, graphql } from 'gatsby';
+import logo from './images/logo-small.png';
 
-import componentStyles from './reactnavbar.module.css';
+import componentStyles from './header.module.css';
 
-export default class ReactNavbar extends React.Component {
+export default class Header extends React.Component {
     constructor(props) {
         super(props);
     
@@ -29,10 +30,6 @@ export default class ReactNavbar extends React.Component {
     }
 
     render() {
-        const brandStyle = {
-            'color': 'white',
-            'textDecoration': 'none'
-        }
 
         const menuStyle = {
             'color': 'white',
@@ -44,8 +41,8 @@ export default class ReactNavbar extends React.Component {
         return (
             <div className={componentStyles.ReactNavbar}>
                 <Navbar color="dark" light>
-                    <NavbarBrand className="mr-auto" href="/" style={brandStyle}>
-                        hands-on.cloud
+                    <NavbarBrand className="mr-auto" href="/">
+                        <img src={logo} alt="hands-on.cloud logo" />
                     </NavbarBrand>
 
                     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />

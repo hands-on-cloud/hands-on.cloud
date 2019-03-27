@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Container, Row, Col } from 'reactstrap';
 import styles from './layout.module.css';
-import ReactNavbar from '../components/reactnavbar';
+import Header from './Header/header';
 import Footer from '../components/Footer/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -31,7 +31,7 @@ export default class Layout extends React.Component {
                         dangerouslySetInnerHTML={{__html: ie_strings}}>
                     </meta>
                 </Helmet>
-                <ReactNavbar />
+                <Header />
                 <div className={styles.container}>
                     <Container>
                         <Row>
