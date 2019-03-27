@@ -17,17 +17,17 @@ const footer = (props) => {
                 <span class="copyright-note">Copyright © 2019, All Rights Reserved.</span>
                 <ul class="social-links right">
                     <li>
-                        <a href="https://twitter.com/andreivmaksimov" target="_blank">
+                        <a href="https://twitter.com/andreivmaksimov" target="_blank" rel="noopener noreferrer">
                             <img src={twitter_icon} alt="twitter-icon" />
                         </a>
                     </li>
                     <li>
-                        <a href="https://linkedin.com/in/avmaksimov" target="_blank">
+                        <a href="https://linkedin.com/in/avmaksimov" target="_blank" rel="noopener noreferrer">
                             <img src={linkedin_icon} alt="linked-in-icon" />
                         </a>
                     </li>
                     <li>
-                        <a href="https://business.facebook.com/andrei.v.maksimov/" target="_blank">
+                        <a href="https://business.facebook.com/andrei.v.maksimov/" target="_blank" rel="noopener noreferrer">
                             <img src={facebook_icon} alt="facebook-icon" />
                         </a>
                     </li>
