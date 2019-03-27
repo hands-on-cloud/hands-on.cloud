@@ -1750,13 +1750,11 @@ a.post-date:hover {
 .footer .social-links {
     display: block;
     float: none;
-    margin-top: 15px
 }
 
 @media (min-width: 500px) {
     .footer .social-links {
         float:right;
-        margin-top: 5px
     }
 }
 

@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { Container, Row, Col } from 'reactstrap';
 import styles from './layout.module.css';
 import ReactNavbar from '../components/reactnavbar';
+import Footer from '../components/Footer/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class Layout extends React.Component {
@@ -40,6 +41,7 @@ export default class Layout extends React.Component {
                         </Row>
                     </Container>
                 </div>
+                <Footer />
                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <script>{`
                     (adsbygoogle = window.adsbygoogle || []).push({
