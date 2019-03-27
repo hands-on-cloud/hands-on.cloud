@@ -9,8 +9,6 @@ describe('Cypress E2E test', function() {
     it('Test main page', function() {
       cy.visit('/')
 
-      cy.contains('hands-on.cloud')
-
       cy.get('button[class="mr-2 navbar-toggler"]').click()
       cy.get('ul.navbar-nav>li').should('have.length', 5) // true
       cy.contains('AWS')
