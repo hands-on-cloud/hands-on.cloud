@@ -9,6 +9,7 @@
 </h1>
 
 [![CircleCI](https://circleci.com/gh/andreivmaksimov/hands-on.cloud.svg?style=svg)](https://circleci.com/gh/andreivmaksimov/hands-on.cloud)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fandreivmaksimov%2Fhands-on.cloud.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fandreivmaksimov%2Fhands-on.cloud?ref=badge_shield)
 
 ## 🚀 Quick start
 
@@ -78,3 +79,6 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
       ```sh
       aws s3 sync ./public s3://$(terraform output origin_website_bucket)
       ```
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fandreivmaksimov%2Fhands-on.cloud.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fandreivmaksimov%2Fhands-on.cloud?ref=badge_large)
