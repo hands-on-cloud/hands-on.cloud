@@ -1,22 +1,13 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { Container, Row, Col } from 'reactstrap';
 import styles from './layout.module.css';
 import Header from './Header/header';
 import Footer from '../components/Footer/footer';
-import SEO from '../components/SEO';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class Layout extends React.Component {
 
     render() {
-        var ie_strings = `
-        <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="assets/scripts/respond.min.js"></script>
-        <script src="assets/scripts/PIE.js"></script>
-        <![endif]-->
-        `;
         return (
             <div className="application">
                 <Header />
