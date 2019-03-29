@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'reactstrap';
 import styles from './layout.module.css';
 import Header from './Header/header';
 import Footer from '../components/Footer/footer';
+import SEO from '../components/SEO';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class Layout extends React.Component {
@@ -18,19 +19,6 @@ export default class Layout extends React.Component {
         `;
         return (
             <div className="application">
-                <Helmet>
-                    <html lang="en" />
-                    <meta charSet="utf-8" />
-                    <title>hands-on.cloud</title>
-
-                    <meta name="keywords" content="" />
-                    <meta name="description" content="Enter Description Here" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-                    <meta name="react-ie-hack"
-                        dangerouslySetInnerHTML={{__html: ie_strings}}>
-                    </meta>
-                </Helmet>
                 <Header />
                 <div className={styles.container}>
                     <Container>

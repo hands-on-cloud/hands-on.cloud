@@ -6,6 +6,7 @@ module.exports = {
           materials on different aspects of working in the clouds
           like AWS and GCP.
         `,
+        author: "Andrei Maksimov",
         canonicalUrl: 'https://hands-on.cloud',
         categories: [
             {
