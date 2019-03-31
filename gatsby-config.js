@@ -1,6 +1,7 @@
 module.exports = {
     siteMetadata: {
         title: `Your hands-on.cloud experience`,
+        siteUrl: `https://hands-on.cloud`,
         description: `
           This open source project provides hands-on
           materials on different aspects of working in the clouds
@@ -81,6 +82,12 @@ module.exports = {
                 icon: "src/assets/images/icons/comment-icon.png",
             },
         },
-        'gatsby-plugin-offline'
+        'gatsby-plugin-offline',
+        {
+            resolve: `gatsby-plugin-sitemap`,
+            options: {
+                sitemapSize: 5000
+            }
+        }
     ],
 }
