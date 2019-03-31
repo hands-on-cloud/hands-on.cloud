@@ -88,6 +88,15 @@ module.exports = {
             options: {
                 sitemapSize: 5000
             }
-        }
+        },
+        {
+            resolve: `gatsby-plugin-google-tagmanager`,
+            options: {
+                id: "GTM-MNPN749",
+                // Include GTM in development.
+                // Defaults to false meaning GTM will only be loaded in production.
+                includeInDevelopment: false,
+            },
+        },
     ],
 }
