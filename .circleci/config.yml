@@ -62,6 +62,7 @@ jobs:
             terraform init -reconfigure
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
               aws s3 sync ./public s3://$(terraform output origin_website_bucket) --delete
+              aws cloudfront create-invalidation --distribution-id=E2K9OZ801QFKCC --paths /
             fi
 
 workflows:
