@@ -25,7 +25,10 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - dependencies-
       - run: npm install
-      - run: npm install cypress
+      - run:
+          name: Enforcing node security patches install
+          command: npm audit fix
+      #- run: npm install cypress
       - save_cache:
           paths:
             # all NPM modules
