@@ -7,15 +7,15 @@ import twitter_icon from './images/twitter-icon.png';
 
 const footer = (props) => {
     return (
-        <div id="footer" class="footer">
-            <div class="container">
-                <h1 class="header-content__logo">
+        <div id="footer" className="footer">
+            <div className="container">
+                <h1 className="header-content__logo">
                     <Link to="/">
                         <img src={logo} alt="footer logo" />
                     </Link>
                 </h1>
-                <span class="copyright-note">Copyright © 2019, All Rights Reserved.</span>
-                <ul class="social-links right">
+                <span className="copyright-note">Copyright © 2019, All Rights Reserved.</span>
+                <ul className="social-links right">
                     <li>
                         <a href="https://twitter.com/andreivmaksimov" target="_blank" rel="noopener noreferrer">
                             <img src={twitter_icon} alt="twitter-icon" />
