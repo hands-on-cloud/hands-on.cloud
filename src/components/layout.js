@@ -3,7 +3,6 @@ import { Container, Row, Col } from 'reactstrap';
 import styles from './layout.module.css';
 import Header from './Header/header';
 import Footer from '../components/Footer/footer';
-import AdSense from '../components/AdSense/adsense';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class Layout extends React.Component {
@@ -35,7 +34,13 @@ export default class Layout extends React.Component {
                     </Container>
                 </div>
                 <Footer />
-                <AdSense />
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <script>{`
+                    (adsbygoogle = window.adsbygoogle || []).push({
+                        google_ad_client: "ca-pub-2729052102059896",
+                        enable_page_level_ads: true
+                    });
+                `}</script>
                 {/* Google Tab Manager */}
                 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNPN749"
                 height="0" width="0" style={gtmStyle} title="GTM"></iframe></noscript>
