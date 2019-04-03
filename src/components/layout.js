@@ -35,7 +35,7 @@ export default class Layout extends React.Component {
                     </Container>
                 </div>
                 <Footer />
-                <AdSense />
+                <AdSense client="ca-pub-2729052102059896"/>
                 {/* Google Tab Manager */}
                 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNPN749"
                 height="0" width="0" style={gtmStyle} title="GTM"></iframe></noscript>

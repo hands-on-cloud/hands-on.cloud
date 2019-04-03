@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class AdSense extends React.Component {
     componentDidMount() {
@@ -11,16 +12,26 @@ export default class AdSense extends React.Component {
             document.body.insertBefore(elem, document.body.firstChild);
         };
         installGoogleAds();
+        if(window) (window.adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: this.props.client,
+            enable_page_level_ads: true
+        });
     }
 
 render () {
         return (
-            <script>{`
-                (adsbygoogle = window.adsbygoogle || []).push({
-                    google_ad_client: "ca-pub-2729052102059896",
-                    enable_page_level_ads: true
-                });
-            `}</script>
+            <ins className={`${this.props.className} adsbygoogle`}
+                data-ad-client={this.props.client} >
+            </ins>
         );
     }
 }
+
+AdSense.propTypes = {
+    className: PropTypes.string,
+    client: PropTypes.string.isRequired
+};
+
+AdSense.defaultProps = {
+    className: '',
+};
