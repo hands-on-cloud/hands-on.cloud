@@ -9,10 +9,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default class Layout extends React.Component {
 
     render() {
-        const gtmStyle = {
-            display: 'none',
-            visibility: 'hidden'
-        };
         return (
             <div className="application">
                 <Header />
@@ -27,6 +23,7 @@ export default class Layout extends React.Component {
                 </div>
                 <Footer />
                 <AdSense client="ca-pub-2729052102059896"/>
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             </div>
         )
     }
