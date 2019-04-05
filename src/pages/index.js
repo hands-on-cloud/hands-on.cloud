@@ -3,19 +3,27 @@ import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import PostCards from '../components/postcards';
 import { CardColumns } from 'reactstrap';
+import SEO from '../components/SEO';
 
 export default ({data}) => {
     return (
-        <Layout>
-            <CardColumns>
-                <PostCards posts={data.allMarkdownRemark.edges}/>
-            </CardColumns>
-        </Layout>
+      <Layout>
+        <SEO title={data.site.siteMetadata.title} description={data.site.siteMetadata.description}/>
+        <CardColumns>
+          <PostCards posts={data.allMarkdownRemark.edges}/>
+        </CardColumns>
+      </Layout>
     )
 }
 
 export const query = graphql`
 query {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
     allMarkdownRemark (
         sort: { order: DESC, fields: [frontmatter___date] }
         limit: 1000

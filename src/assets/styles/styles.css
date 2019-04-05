@@ -549,6 +549,10 @@ p {
     }
 }
 
+.card-text {
+    color: #212529;
+}
+
 .card--no-padding {
     padding: 0
 }

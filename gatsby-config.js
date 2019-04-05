@@ -2,11 +2,7 @@ module.exports = {
     siteMetadata: {
         title: `Your hands-on.cloud experience`,
         siteUrl: `https://hands-on.cloud`,
-        description: `
-          This open source project provides hands-on
-          materials on different aspects of working in the clouds
-          like AWS and GCP.
-        `,
+        description: `This open source project provides hands-on materials on different aspects of working in the clouds like AWS and GCP.`,
         author: "Andrei Maksimov",
         canonicalUrl: 'https://hands-on.cloud',
         categories: [
