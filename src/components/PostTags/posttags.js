@@ -10,7 +10,7 @@ const posttags = (props) => {
     return (
         <div>
             {props.tags.map(tag => (
-                <Badge href={`/tags/${kebabCase(tag)}/`} color="dark" style={tagStyle}>{tag}</Badge>
+                <Badge key={tag} href={`/tags/${kebabCase(tag)}/`} color="dark" style={tagStyle}>{tag}</Badge>
             ))}
         </div>
     )

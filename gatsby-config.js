@@ -98,6 +98,5 @@ module.exports = {
                 includeInDevelopment: false,
             },
         },
-        `gatsby-plugin-catch-links`,
     ],
 }
