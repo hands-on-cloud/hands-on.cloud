@@ -22,7 +22,7 @@ Let assume, that you have Web-app that is connected to your MongoDB instance. It
 
 Terraform example:
 
-```terraform
+```hcl
 resource "aws_instance" "mongodb" {
   ami = "ami-46c1b650"
   instance_type = "m1.small"

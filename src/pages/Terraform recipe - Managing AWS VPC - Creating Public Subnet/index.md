@@ -33,7 +33,7 @@ First of all you need to create a new terraform file with any name and `.tf` ext
 
 Next we need to declare [aws_vpc](https://www.terraform.io/docs/providers/aws/r/vpc.html) resource which will represents a new VPC with `10.0.0.0/16` address space:
 
-```terraform
+```hcl
 resource "aws_vpc" "my_vpc" {
   cidr_block       = "10.0.0.0/16"
   enable_dns_hostnames = true
@@ -48,7 +48,7 @@ We’re also enabling DNS support inside of our VPC (`enable\_dns\_hostnames`) a
 
 As soon as VPC resource declared, we’re ready to declare [aws_subnet](https://www.terraform.io/docs/providers/aws/r/subnet.html) resource, which will describe our Public Subnet.
 
-```terraform
+```hcl
 resource "aws_subnet" "public" {
   vpc_id     = "${aws_vpc.my_vpc.id}"
   cidr_block = "10.0.0.0/24"
@@ -70,7 +70,7 @@ Public Subnets are called so, because they have public route (`0.0.0.0/0`) in th
 
 So, let’s create an Internet Gateway now by specifying [aws\_internet\_gateway](https://www.terraform.io/docs/providers/aws/r/internet_gateway.html) resource:
 
-```terraform
+```hcl
 resource "aws_internet_gateway" "my_vpc_igw" {
   vpc_id = "${aws_vpc.my_vpc.id}"
 
@@ -82,7 +82,7 @@ resource "aws_internet_gateway" "my_vpc_igw" {
 
 This entity attached to a VPC will allow Internet traffic to\from our Subnet. As we already discussed, we also need to create a Route Table with the route to outside world and map it to our Internet Gateway. Let’s do it by declaring [aws\_route\_table](https://www.terraform.io/docs/providers/aws/r/route_table.html) and [aws\_route\_table\_association](https://www.terraform.io/docs/providers/aws/r/route_table_association.html) resources:
 
-```terraform
+```hcl
 resource "aws_route_table" "my_vpc_us_east_1a_public" {
     vpc_id = "${aws_vpc.my_vpc.id}"
 
@@ -112,7 +112,7 @@ One of the security features of AWS is Security Group – it is a stateful firew
 
 Let’s add Security Group by adding [aws\_security\_group](https://www.terraform.io/docs/providers/aws/r/security_group.html) resource to our `.tf` file:
 
-```terraform
+```hcl
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh_sg"
   description = "Allow SSH inbound connections"
@@ -165,7 +165,7 @@ To allow connection from outside world we also asked AWS to attach temporary Pub
 
 And the last thing we need to add to our `.tf` file is the output resource, which will print us our instance Public IP address:
 
-```terraform
+```hcl
 output "My Instance Public IP" {
   value = "${aws_instance.my_instance.public_ip}"
 }
