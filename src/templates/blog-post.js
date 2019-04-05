@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import Disqus from 'disqus-react';
 import SEO from '../components/SEO';
+import PostTags from '../components/PostTags/posttags';
 
 export default ({ data }) => {
   const post = data.markdownRemark;
@@ -18,7 +19,13 @@ export default ({ data }) => {
       <SEO title={post.frontmatter.title} keywords={post.frontmatter.tags}/>
       <div>
         <h1>{post.frontmatter.title}</h1>
+        <br />
+        <PostTags tags={post.frontmatter.tags} />
+        <br />
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <br />
+        <PostTags tags={post.frontmatter.tags} />
+        <br />
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </div>
     </Layout>
@@ -31,6 +38,7 @@ export const query = graphql`
       html
       frontmatter {
         title
+        tags
       }
       fields {
         slug

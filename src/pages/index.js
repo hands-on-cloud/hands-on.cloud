@@ -34,6 +34,7 @@ query {
                     }
                 }
               }
+              tags
             }
             fields {
                 slug

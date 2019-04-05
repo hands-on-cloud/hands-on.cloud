@@ -1,28 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 import Layout from '../components/layout';
-import { CardDeck } from 'reactstrap';
+import { CardColumns } from 'reactstrap';
 import PostCards from '../components/postcards';
 
 const Tags = ({pageContext, data}) => {
     const { tag } = pageContext
-    const tagHeader = `Post${
-        data.allMarkdownRemark.totalCount === 1 ? "" : "s"
-    } for "${tag}" tag`
 
     return (
         <Layout>
-            <h1>{tagHeader}</h1>
-            <Link to="/tags">All tags</Link>
-            <CardDeck>
+            <h1>{ tag }</h1>
+            <CardColumns>
                 <PostCards posts={data.allMarkdownRemark.edges}/>
-            </CardDeck>
-            {/*
-              This links to a page that does not yet exist.
-              We'll come back to it!
-            */}
-            <Link to="/tags">All tags</Link>
+            </CardColumns>
         </Layout>
     )
 }
@@ -72,6 +63,7 @@ export const pageQuery = graphql`
                                 }
                             }
                         }
+                        tags
                     }
                     fields {
                         slug

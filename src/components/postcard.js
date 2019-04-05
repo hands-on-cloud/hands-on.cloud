@@ -7,6 +7,7 @@ import {
     CardText,
 } from 'reactstrap';
 import { Link } from 'gatsby';
+import PostTags from '../components/PostTags/posttags';
 
 const postcard = (props) => {
     return (
@@ -20,6 +21,7 @@ const postcard = (props) => {
                     <CardTitle><h5>{props.post.node.frontmatter.title}</h5></CardTitle>
                 </Link>
                 <CardText>{props.post.node.excerpt}</CardText>
+                <PostTags tags={props.post.node.frontmatter.tags} />
             </CardBody>
         </Card>
     )
