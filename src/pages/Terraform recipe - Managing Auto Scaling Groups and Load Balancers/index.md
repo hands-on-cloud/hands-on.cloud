@@ -34,7 +34,7 @@ You may find full `.tf` file source code in my [GitHub repository](https://githu
 
 Let’s assemble it in a new `infrastructure.tf` file. First of all let’s declare VPC, two Public Subnets, Internet Gateway and Route Table (we may take [this example](https://github.com/andreivmaksimov/terraform-recipe-managing-aws-vpc-creating-public-subnet) as base):
 
-```terraform
+```hcl
 resource "aws_vpc" "my_vpc" {
   cidr_block       = "10.0.0.0/16"
   enable_dns_hostnames = true
@@ -100,7 +100,7 @@ Everything here should be very similar for you. If not, I strongly recommend you
 
 Next, we need to describe Security Group for our web-servers, which will allow HTTP connections to our instances:
 
-```terraform
+```hcl
 resource "aws_security_group" "allow_http" {
   name        = "allow_http"
   description = "Allow HTTP inbound connections"
@@ -130,7 +130,7 @@ resource "aws_security_group" "allow_http" {
 
 As soon as we have Security Group, we may describe a [Launch Configuration](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchConfiguration.html). Think of it like a template, which contains all instance settings to apply to each new launched by Auto Scaling Group instance. We’re using [aws\_launch\_configuration](https://www.terraform.io/docs/providers/aws/r/launch_configuration.html) resource in Terraform to describe it:
 
-```terraform
+```hcl
 resource "aws_launch_configuration" "web" {
   name_prefix = "web-"
 
@@ -175,7 +175,7 @@ Before we create an Auto Scaling Group we need to declare a Load Balancer. There
 
 For a simplicity let’s create Elastic Load Balancer in front of our EC2 instances (I’ll show how to use other types of them in the future articles). To do that we need to declare [aws_elb](https://www.terraform.io/docs/providers/aws/r/elb.html) resource.
 
-```terraform
+```hcl
 resource "aws_security_group" "elb_http" {
   name        = "elb_http"
   description = "Allow HTTP traffic to instances through Elastic Load Balancer"
@@ -238,7 +238,7 @@ If ELB can not reach the instance on specified port, it will stop sending traffi
 
 Now we’re ready to create Auto Scaling Group by describing it using [aws\_autoscaling\_group](https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html) resource:
 
-```terraform
+```hcl
 resource "aws_autoscaling_group" "web" {
   name = "${aws_launch_configuration.web.name}-asg"
 
@@ -292,7 +292,7 @@ Here we have the following configuration:
 
 Now we almost ready, let’s get Load Balancer DNS name as an output from the Terraform infrastructure description:
 
-```terraform
+```hcl
 output "ELB IP" {
   value = "${aws_elb.web_elb.dns_name}"
 }
@@ -318,7 +318,7 @@ To make our infrastructure dynamic, we need to create several [Auto Scaling Poli
 
 First let’s determine how AWS need to scale our group UP by declaring [aws\_autoscaling\_policy](https://www.terraform.io/docs/providers/aws/r/autoscaling_policy.html) and [aws\_cloudwatch\_metric\_alarm](https://www.terraform.io/docs/providers/aws/r/cloudwatch_metric_alarm.html) resources:
 
-```terraform
+```hcl
 resource "aws_autoscaling_policy" "web_policy_up" {
   name = "web_policy_up"
   scaling_adjustment = 1
@@ -354,7 +354,7 @@ resource "aws_cloudwatch_metric_alarm" "web_cpu_alarm_up" {
 
 Pretty much the same resources we need to declare to scale our Auto Scaling Group down:
 
-```terraform
+```hcl
 resource "aws_autoscaling_policy" "web_policy_down" {
   name = "web_policy_down"
   scaling_adjustment = -1

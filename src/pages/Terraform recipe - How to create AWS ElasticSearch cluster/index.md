@@ -36,7 +36,7 @@ As soon as we’re understanding the basics, we may start setting up our cluster
 
 Set of variables you’ll need:
 
-```terraform
+```hcl
 variable "vpc" {
   description = "VPC ID where to launch ElasticSearch cluster"
 }
@@ -61,7 +61,7 @@ variable "es_subnets" {
 
 To get information about AWS region and caller identity you can use the following [data sources](https://www.terraform.io/docs/configuration/data-sources.html):
 
-```terraform
+```hcl
 data "aws_region" "current" {}
 
 data "aws_caller_identity" "current" {}
@@ -69,7 +69,7 @@ data "aws_caller_identity" "current" {}
 
 Now we need a `aws_security_group` object to restrict network access to ElasticSearch cluster:
 
-```terraform
+```hcl
 resource "aws_security_group" "es_sg" {
   name = "${var.es_domain}-sg"
   description = "Allow inbound traffic to ElasticSearch from VPC CIDR"
@@ -90,7 +90,7 @@ Here we allowing any connections coming from our VPC address range.
 
 The most interesting part is [aws\_elasticsearch\_domain](https://www.terraform.io/docs/providers/aws/r/elasticsearch_domain.html). It is needed to create cluster itself:
 
-```terraform
+```hcl
 resource "aws_elasticsearch_domain" "es" {
   domain_name = "${var.es_domain}"
   elasticsearch_version = "6.3"
@@ -137,7 +137,7 @@ resource "aws_elasticsearch_domain" "es" {
 
 It can be very useful to get as an output ELK cluster endpoint and Kibana endpoint URLs:
 
-```terraform
+```hcl
 output "ElasticSearch Endpoint" {
   value = "${aws_elasticsearch_domain.es.endpoint}"
 }
