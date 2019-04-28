@@ -1,3 +1,5 @@
+const favicon_image = "./src/assets/images/hands-on.cloud-logo.png";
+
 module.exports = {
     siteMetadata: {
         title: `Your hands-on.cloud experience`,
@@ -83,8 +85,24 @@ module.exports = {
                 // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
                 // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
                 display: "minimal-ui",
-                icon: "src/assets/images/icons/comment-icon.png",
+                icon: favicon_image,
             },
+        },
+        {
+            resolve: `gatsby-plugin-favicon`,
+            options: {
+                logo: favicon_image,
+                icons: {
+                    android: true,
+                    appleIcon: true,
+                    appleStartup: true,
+                    coast: false,
+                    favicons: true,
+                    firefox: true,
+                    yandex: false,
+                    windows: false
+                }
+            }
         },
         'gatsby-plugin-offline',
         {
