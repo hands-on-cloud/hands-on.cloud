@@ -7,24 +7,24 @@ import AdSense from '../components/AdSense/adsense';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class Layout extends React.Component {
-
-    render() {
-        return (
-            <div className="application">
-                <Header />
-                <div className={styles.container}>
-                    <Container>
-                        <Row>
-                            <Col sm="12">
-                                {this.props.children}
-                            </Col>
-                        </Row>
-                    </Container>
-                </div>
-                <Footer />
-                <AdSense client="ca-pub-2729052102059896"/>
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="application">
+        <Header />
+        <div className={styles.container}>
+          <Container>
+            <Row>
+              <Col sm="12">{this.props.children}</Col>
+            </Row>
+          </Container>
+        </div>
+        <Footer />
+        <AdSense client="ca-pub-2729052102059896" />
+        <script
+          async
+          src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        />
+      </div>
+    );
+  }
 }

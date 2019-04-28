@@ -17,7 +17,7 @@ export default ({ data }) => {
 
   return (
     <Layout>
-      <SEO title={post.frontmatter.title} keywords={post.frontmatter.tags}/>
+      <SEO title={post.frontmatter.title} keywords={post.frontmatter.tags} />
       <div>
         <h1>{post.frontmatter.title}</h1>
         <br />
@@ -30,7 +30,10 @@ export default ({ data }) => {
         <PostAuthors authors={post.frontmatter.authors} />
         <br />
         <br />
-        <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+        <Disqus.DiscussionEmbed
+          shortname={disqusShortname}
+          config={disqusConfig}
+        />
       </div>
     </Layout>
   );

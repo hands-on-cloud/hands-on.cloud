@@ -9,25 +9,25 @@ import { Link, graphql } from 'gatsby';
 import Layout from '../components/layout';
 
 const TagsPage = ({
-    data: {
-        allMarkdownRemark: { group },
-    },
+  data: {
+    allMarkdownRemark: { group },
+  },
 }) => (
   <Layout>
-      <div>
-        <h1>Tags</h1>
-        <ul>
-          {group.map(tag => (
-            <li key={tag.fieldValue}>
-              <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-                {tag.fieldValue} ({tag.totalCount})
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div>
+      <h1>Tags</h1>
+      <ul>
+        {group.map(tag => (
+          <li key={tag.fieldValue}>
+            <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
+              {tag.fieldValue} ({tag.totalCount})
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   </Layout>
-)
+);
 
 TagsPage.propTypes = {
   data: PropTypes.shape({
@@ -36,23 +36,21 @@ TagsPage.propTypes = {
         PropTypes.shape({
           fieldValue: PropTypes.string.isRequired,
           totalCount: PropTypes.number.isRequired,
-        }).isRequired
+        }).isRequired,
       ),
     }),
   }),
-}
+};
 
-export default TagsPage
+export default TagsPage;
 
 export const pageQuery = graphql`
   query {
-    allMarkdownRemark(
-      limit: 2000
-    ) {
+    allMarkdownRemark(limit: 2000) {
       group(field: frontmatter___tags) {
         fieldValue
         totalCount
       }
     }
   }
-`
+`;

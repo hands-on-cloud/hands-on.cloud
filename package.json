@@ -5,14 +5,16 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "develop": "gatsby develop",
-    "start": "npm run develop",
     "build": "gatsby build",
-    "serve": "gatsby serve",
-    "test": "start-test develop 8000 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "lint:md": "npx remark src/pages"
+    "develop": "gatsby develop",
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint **/*.{js,jsx} --quiet",
+    "lint:md": "npx remark src/pages",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "test": "start-test develop 8000 cy:run"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
@@ -59,7 +61,17 @@
     "url": "https://github.com/andreivmaksimov/hands-on.cloud/issues"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "cypress": "^3.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "prettier": "^1.17.0",
     "start-server-and-test": "^1.7.13"
   },
   "remarkConfig": {
