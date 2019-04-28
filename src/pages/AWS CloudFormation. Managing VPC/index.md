@@ -6,6 +6,8 @@ tags:
 -   aws cloud
 -   vpc
 category: "aws"
+authors:
+-   Andrei Maksimov
 ---
 
 ![AWS CloudFormation. Managing VPC](AWS-CloudFormation-Managing-VPC.png)

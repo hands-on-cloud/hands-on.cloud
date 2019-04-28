@@ -6,6 +6,8 @@ tags:
 -   nix
 -   nixos
 category: "Other"
+authors:
+-   Andrei Maksimov
 ---
 
 ![Why you should never ever use NixOS](Why-you-should-never-every-use-NixOS.png)

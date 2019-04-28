@@ -7,6 +7,8 @@ tags:
 -   terraform
 -   vpc
 category: "aws"
+authors:
+-   Andrei Maksimov
 ---
 
 ![Terraform recipe - Managing AWS VPC - Creating Public Subnet](Terraform-Recipe-Managing-AWS-VPC-Creating-Public-Subnet.png)
@@ -142,7 +144,7 @@ Here we’re allowing incoming SSH connections (22/tcp) from any addresses (0.0.
 
 It’s time create our instance to test everything. Let’s declaring [aws_instance](https://www.terraform.io/docs/providers/aws/r/instance.html) resource:
 
-```teraform
+```hcl
 resource "aws_instance" "my_instance" {
   ami           = "ami-0ac019f4fcb7cb7e6"
   instance_type = "t2.micro"

@@ -10,6 +10,8 @@ tags:
 -   mongodb
 -   packer
 category: "aws"
+authors:
+-   Andrei Maksimov
 ---
 
 ![CloudFormation. How to access CodeCommit repo from EC2 instance](CloudFormation-How-to-access-CodeCommit-repo-from-EC2-instance.png)

@@ -6,6 +6,8 @@ tags:
 -   jupyter
 -   nginx
 category: "ml"
+authors:
+-   Andrei Maksimov
 ---
 
 ![How to setup Jupyter behind Nginx proxy](How-to-setup-Jupyter-behind-Nginx-proxy.png)

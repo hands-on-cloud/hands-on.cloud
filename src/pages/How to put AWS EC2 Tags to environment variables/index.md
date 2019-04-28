@@ -8,6 +8,8 @@ tags:
 -   devops
 -   terraform
 category: "aws"
+authors:
+-   Andrei Maksimov
 ---
 
 ![How to put AWS EC2 Tags to environment variables](How-to-put-AWS-EC2-Tags-to-environment-variables.png)

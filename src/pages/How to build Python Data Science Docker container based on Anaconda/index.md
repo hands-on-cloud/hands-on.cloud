@@ -14,6 +14,8 @@ tags:
 -   sklearn
 -   tensorflow
 category: "other"
+authors:
+-   Andrei Maksimov
 ---
 
 ![How to build Python Data Science Docker container based on Anaconda](How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda.png)

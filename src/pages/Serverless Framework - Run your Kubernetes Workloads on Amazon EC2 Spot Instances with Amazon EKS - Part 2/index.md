@@ -13,6 +13,8 @@ tags:
 -   lambda
 -   serverless
 category: "aws"
+authors:
+-   Andrei Maksimov
 ---
 
 ![Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 2](Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2.png)

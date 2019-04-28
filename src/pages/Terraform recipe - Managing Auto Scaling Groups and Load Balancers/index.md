@@ -8,6 +8,8 @@ tags:
 -   cloud
 -   terraform
 category: "terraform"
+authors:
+-   Andrei Maksimov
 ---
 
 ![Terraform recipe – Managing Auto Scaling Groups and Load Balancers](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers.png)

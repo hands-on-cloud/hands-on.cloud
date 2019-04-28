@@ -1,13 +1,8 @@
 import React from 'react';
 import {
-    Collapse,
     Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink
-} from 'reactstrap';
+    Nav
+} from 'react-bootstrap';
 import { StaticQuery, graphql } from 'gatsby';
 import logo from './images/logo-small.png';
 
@@ -40,14 +35,14 @@ export default class Header extends React.Component {
 
         return (
             <div className={componentStyles.ReactNavbar}>
-                <Navbar color="dark" light>
-                    <NavbarBrand className="mr-auto" href="/">
+                <Navbar collapseOnSelect expand="lg" bg="dark" variant="light">
+                    <Navbar.Brand className="mr-auto" href="/">
                         <img src={logo} alt="hands-on.cloud logo" />
-                    </NavbarBrand>
+                    </Navbar.Brand>
 
-                    <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     
-                    <Collapse isOpen={!this.state.collapsed} navbar>
+                    <Navbar.Collapse id="responsive-navbar-nav">
                         
                             <StaticQuery 
                                 query={graphql`
@@ -63,12 +58,12 @@ export default class Header extends React.Component {
                                     }
                                 `}
                                 render={data => (
-                                    <Nav navbar>
+                                    <Nav className="mr-auto">
                                     {
                                         data.site.siteMetadata.categories.map( (category, index) => (
-                                            <NavItem className='span' key={index}>
-                                                <NavLink style={menuStyle} href={`/${category.slug}/`}>{category.name}</NavLink>
-                                            </NavItem>
+                                            <Nav className='span' key={index}>
+                                                <Nav.Link style={menuStyle} href={`/${category.slug}/`}>{category.name}</Nav.Link>
+                                            </Nav>
                                         ))
                                     }
                                     </Nav>
@@ -77,7 +72,7 @@ export default class Header extends React.Component {
                             
                             
                         
-                    </Collapse>
+                    </Navbar.Collapse>
                 </Navbar>
             </div>
         )

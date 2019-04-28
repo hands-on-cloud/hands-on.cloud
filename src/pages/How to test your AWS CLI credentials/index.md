@@ -5,6 +5,8 @@ thumbnail: "./How-to-test-your-AWS-CLI-credentials.png"
 tags:
 -   aws cloud
 category: "aws"
+authors:
+-   Andrei Maksimov
 ---
 
 ![How to test your AWS CLI credentials](How-to-test-your-AWS-CLI-credentials.png)

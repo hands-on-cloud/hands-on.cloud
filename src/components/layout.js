@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import styles from './layout.module.css';
 import Header from './Header/header';
 import Footer from '../components/Footer/footer';
@@ -15,7 +15,7 @@ export default class Layout extends React.Component {
                 <div className={styles.container}>
                     <Container>
                         <Row>
-                            <Col sm="12" md={{ size: 10, offset: 1 }}>
+                            <Col sm="12">
                                 {this.props.children}
                             </Col>
                         </Row>

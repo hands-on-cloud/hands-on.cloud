@@ -16,6 +16,8 @@ tags:
 -   sklearn
 -   tensorflow
 category: "ml"
+authors:
+-   Andrei Maksimov
 ---
 
 ![How to run Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib in Docker container](How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container.png)

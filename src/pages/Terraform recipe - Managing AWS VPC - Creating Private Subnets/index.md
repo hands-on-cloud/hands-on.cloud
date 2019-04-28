@@ -8,6 +8,8 @@ tags:
 -   cloud
 -   terraform
 category: "terraform"
+authors:
+-   Andrei Maksimov
 ---
 
 ![Terraform recipe - Managing AWS VPC - Creating Private Subnets](Terraform-recipe-Managing-AWS-VPC-Creating-Private-Subnets.png)

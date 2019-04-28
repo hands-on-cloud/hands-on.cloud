@@ -9,6 +9,8 @@ tags:
 -   google datastore
 -   migration
 category: "aws"
+authors:
+-   Andrei Maksimov
 ---
 
 ![How to migrate Google DataStore to AWS DynamoDB](How-to-migrate-Google-DataStore-to-AWS-DynamoDB.png)

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
-import { CardColumns } from 'reactstrap';
+import { CardColumns } from 'react-bootstrap';
 import PostCards from '../components/postcards';
 
 const Tags = ({pageContext, data}) => {

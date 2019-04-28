@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
-import { CardColumns } from 'reactstrap';
+import { CardColumns } from 'react-bootstrap';
 import PostCards from '../components/postcards';
 
 const Categories = ({pageContext, data}) => {

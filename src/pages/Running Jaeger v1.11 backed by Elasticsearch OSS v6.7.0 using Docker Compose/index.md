@@ -9,6 +9,8 @@ tags:
 -   jaeger
 -   kibana
 category: "other"
+authors:
+-   Andrei Maksimov
 ---
 
 ![Running Jaeger v1.11 backed by Elasticsearch OSS v6.7.0 using Docker Compose](Running-Jaeger-v1.11-backed-by-Elasticsearch-OSS-v6.7.png)

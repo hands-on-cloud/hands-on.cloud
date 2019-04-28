@@ -10,6 +10,8 @@ tags:
 -   terraform
 -   vpc
 category: "Other"
+authors:
+-   Andrei Maksimov
 ---
 
 ![Terraform recipe - How to create AWS ElasticSearch cluster](Terraform-recipe-How-to-create-AWS-ElasticSearch-cluster.png)

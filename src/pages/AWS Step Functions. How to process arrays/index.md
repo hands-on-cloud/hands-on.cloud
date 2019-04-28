@@ -8,6 +8,8 @@ tags:
 -   serverless
 -   step functions
 category: "aws"
+authors:
+-   Andrei Maksimov
 ---
 
 ![AWS Step Functions. How to process arrays](AWS-Step-Functions-How-to-process-arrays.png)

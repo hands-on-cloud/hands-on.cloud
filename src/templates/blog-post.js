@@ -4,6 +4,7 @@ import Layout from '../components/layout';
 import Disqus from 'disqus-react';
 import SEO from '../components/SEO';
 import PostTags from '../components/PostTags/posttags';
+import PostAuthors from '../components/PostAuthors/PostAuthors';
 
 export default ({ data }) => {
   const post = data.markdownRemark;
@@ -26,6 +27,9 @@ export default ({ data }) => {
         <br />
         <PostTags tags={post.frontmatter.tags} />
         <br />
+        <PostAuthors authors={post.frontmatter.authors} />
+        <br />
+        <br />
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </div>
     </Layout>
@@ -39,6 +43,7 @@ export const query = graphql`
       frontmatter {
         title
         tags
+        authors
       }
       fields {
         slug

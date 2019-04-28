@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import PostCards from '../components/postcards';
-import { CardColumns } from 'reactstrap';
+import { CardColumns } from 'react-bootstrap';
 import SEO from '../components/SEO';
 
 export default ({data}) => {

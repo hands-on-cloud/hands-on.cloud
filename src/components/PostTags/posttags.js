@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge } from 'reactstrap';
+import { Badge } from 'react-bootstrap';
 import kebabCase from 'lodash/kebabCase';
 
 const posttags = (props) => {
@@ -10,7 +10,9 @@ const posttags = (props) => {
     return (
         <div>
             {props.tags.map(tag => (
-                <Badge key={tag} href={`/tags/${kebabCase(tag)}/`} color="dark" style={tagStyle}>{tag}</Badge>
+                <a href={`/tags/${kebabCase(tag)}/`}>
+                    <Badge key={tag} variant="dark" style={tagStyle}>{tag}</Badge>
+                </a>
             ))}
         </div>
     )

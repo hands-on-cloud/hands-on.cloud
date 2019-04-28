@@ -29,11 +29,19 @@ module.exports = {
         ]
     },
     plugins: [
+        `gatsby-transformer-json`,
         {
             resolve: `gatsby-source-filesystem`,
             options: {
-              name: `src`,
-              path: `${__dirname}/src/`,
+              name: `pages`,
+              path: `${__dirname}/src/pages/`,
+            },
+        },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+              name: `data`,
+              path: `${__dirname}/src/data/`,
             },
         },
         `gatsby-transformer-sharp`,
