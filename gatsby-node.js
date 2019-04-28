@@ -1,7 +1,6 @@
 const path = require(`path`)
 const _ = require("lodash")
 const { createFilePath } = require(`gatsby-source-filesystem`)
-const createPaginatedPages = require('gatsby-paginate')
 
 const tagSet = new Set();
 const categorySet = new Set();
@@ -28,15 +27,10 @@ exports.createPages = ({ graphql, actions }) => {
     const categoryTemplate = path.resolve("src/templates/category.js")
 
     return graphql(`
-    query {
-        site {
-            siteMetadata {
-                title
-                description
-            }
-        }
+      {
         allMarkdownRemark (
             sort: { order: DESC, fields: [frontmatter___date] }
+            limit: 2000
         ){
           edges {
             node {
@@ -62,7 +56,7 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
         }
-    }
+      }
     `
     ).then(result => {
         if (result.errors) {
@@ -70,15 +64,6 @@ exports.createPages = ({ graphql, actions }) => {
         }
 
         const posts = result.data.allMarkdownRemark.edges;
-
-        createPaginatedPages({
-            edges: posts,
-            createPage: createPage,
-            pageTemplate: 'src/templates/index.js',
-            pageLength: 6, // This is optional and defaults to 10 if not used
-            pathPrefix: '', // This is optional and defaults to an empty string if not used
-            context: {}, // This is optional and defaults to an empty object if not used
-        })
 
         posts.forEach(({ node }) => {
             // Generating tags set
