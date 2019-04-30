@@ -16,7 +16,7 @@ jobs:
             cd /tmp && \
             wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
             sudo unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin
-            sudo pip install awscli
+            sudo pip install awscli bs4
             cd
       - checkout
       - restore_cache:
@@ -66,6 +66,15 @@ jobs:
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
               aws s3 sync ./public s3://$(terraform output origin_website_bucket) --delete
               aws cloudfront create-invalidation --distribution-id=E2K9OZ801QFKCC --paths /
+            fi
+      - run:
+          name: Validate sitemap URLs
+          command: |
+            terraform init -reconfigure
+            if [ "${CIRCLE_BRANCH}" = "master" ]; then
+              python scripts/url_validator.py http://$(terraform output origin_website_bucket)
+            else
+              python scripts/url_validator.py http://$(terraform output test_website_bucket)
             fi
 
 workflows:
