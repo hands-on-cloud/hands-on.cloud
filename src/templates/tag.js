@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-import Layout from '../components/layout';
 import { CardColumns } from 'react-bootstrap';
+import Layout from '../components/layout';
 import PostCards from '../components/postcards';
+import AdSense from '../components/AdSense/adsense';
 
 const Tags = ({ pageContext, data }) => {
   const { tag } = pageContext;
@@ -14,6 +15,7 @@ const Tags = ({ pageContext, data }) => {
       <CardColumns>
         <PostCards posts={data.allMarkdownRemark.edges} />
       </CardColumns>
+      <AdSense key={`tag-${tag}`} client="ca-pub-2729052102059896" />
     </Layout>
   );
 };

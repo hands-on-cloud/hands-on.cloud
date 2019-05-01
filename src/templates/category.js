@@ -1,8 +1,9 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Layout from '../components/layout';
 import { CardColumns } from 'react-bootstrap';
+import Layout from '../components/layout';
 import PostCards from '../components/postcards';
+import AdSense from '../components/AdSense/adsense';
 
 const Categories = ({ pageContext, data }) => {
   const { category } = pageContext;
@@ -13,6 +14,7 @@ const Categories = ({ pageContext, data }) => {
       <CardColumns>
         <PostCards posts={data.allMarkdownRemark.edges} />
       </CardColumns>
+      <AdSense key={`category-${category}`} client="ca-pub-2729052102059896" />
     </Layout>
   );
 };

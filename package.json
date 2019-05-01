@@ -43,6 +43,7 @@
     "gatsby-transformer-remark": "^2.3.8",
     "gatsby-transformer-sharp": "^2.1.17",
     "jquery": "^3.4.0",
+    "lodash": "^4.17.11",
     "prismjs": "^1.16.0",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.8",

@@ -1,9 +1,10 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { CardColumns } from 'react-bootstrap';
 import Layout from '../components/layout';
 import PostCards from '../components/postcards';
-import { CardColumns } from 'react-bootstrap';
 import SEO from '../components/SEO';
+import AdSense from '../components/AdSense/adsense';
 
 export default ({ data }) => {
   return (
@@ -15,6 +16,7 @@ export default ({ data }) => {
       <CardColumns>
         <PostCards posts={data.allMarkdownRemark.edges} />
       </CardColumns>
+      <AdSense key="index" client="ca-pub-2729052102059896" />
     </Layout>
   );
 };
