@@ -121,5 +121,14 @@ module.exports = {
             },
         },
         `gatsby-plugin-catch-links`,
+        {
+            resolve: "gatsby-plugin-sentry",
+            options: {
+              dsn: "https://2570151402b643bea52671e8a5084cba@sentry.io/1450085",
+              // Optional settings, see https://docs.sentry.io/clients/node/config/#optional-settings
+              // environment: process.env.NODE_ENV,
+              // enabled: (() => ["production", "stage"].indexOf(process.env.NODE_ENV) !== -1)()
+            }
+        }
     ],
 }
