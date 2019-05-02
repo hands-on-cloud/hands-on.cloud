@@ -1,18 +1,18 @@
 ---
-title: "Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 1"
-date: "2018-09-10"
-thumbnail: "./Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.png"
+title: 'Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 1'
+date: '2018-09-10'
+thumbnail: './Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.png'
 tags:
--   aws
--   api gateway
--   cognito
--   dynamodb
--   lambda
--   s3
--   serverless
-category: "aws"
+  - aws
+  - api gateway
+  - cognito
+  - dynamodb
+  - lambda
+  - s3
+  - serverless
+category: 'aws'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 1](Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.png)
@@ -27,20 +27,20 @@ In [part 2](/serverless-framework-building-web-app-using-aws-lambda-amazon-api-g
 
 ## Application architecture
 
-Sure, to allow you to see all details in the same place, we need to copy some content from the original tutorial.  So, our app will consist of:
+Sure, to allow you to see all details in the same place, we need to copy some content from the original tutorial. So, our app will consist of:
 
-*   **Static Web Hosting** – Amazon S3 hosts static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user’s browser.
-*   **User Management** – Amazon Cognito provides user management and authentication functions to secure the backend API.
-*   **Serverless Backend** – Amazon DynamoDB provides a persistence layer where data can be stored by the API’s Lambda function.
-*   **RESTful API** – JavaScript executed in the browser sends and receives data from a public backend API built using Lambda and API Gateway.
+- **Static Web Hosting** – Amazon S3 hosts static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user’s browser.
+- **User Management** – Amazon Cognito provides user management and authentication functions to secure the backend API.
+- **Serverless Backend** – Amazon DynamoDB provides a persistence layer where data can be stored by the API’s Lambda function.
+- **RESTful API** – JavaScript executed in the browser sends and receives data from a public backend API built using Lambda and API Gateway.
 
 I’ll keep the same modules structure for consistency:
 
-*   Static Web Hosting
-*   User Management
-*   Serverless Backend
-*   RESTful APIs
-*   Resource Termination and Next Steps
+- Static Web Hosting
+- User Management
+- Serverless Backend
+- RESTful APIs
+- Resource Termination and Next Steps
 
 ## Project setup
 
@@ -54,8 +54,8 @@ sls create -t aws-nodejs -n wild-rides-serverless-demo
 
 At this moment of time you’ll see two file inside our project directory:
 
-*   `handler.js` – this file contains demo Lambda function code
-*   `serverless.yaml` – this file contains Serverless project deployment configuration
+- `handler.js` – this file contains demo Lambda function code
+- `serverless.yaml` – this file contains Serverless project deployment configuration
 
 Before continue this tutorial I strongly recommend to spend 30 minutes on looking through Serverless framework AWS [documentation](https://serverless.com/framework/docs/providers/aws/guide/).
 
@@ -111,26 +111,23 @@ rm -Rf ./aws-serverless-workshops
 Now we need to specify [S3 bucket policy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html). To do so, add the following content to `resources:` section of `serverless.yaml` file:
 
 ```yaml
-    WildRydesBucketPolicy: 
-      Type: AWS::S3::BucketPolicy
-      Properties: 
-        Bucket:
-          Ref: "WildRydesBucket"
-        PolicyDocument:
-          Statement:
-            -
-              Effect: "Allow"
-              Principal: "*"
-              Action:
-                - "s3:GetObject"
-              Resource:
-                Fn::Join:
-                  - ""
-                  - 
-                    - "arn:aws:s3:::"
-                    - 
-                      Ref: "WildRydesBucket"
-                    - "/*"
+WildRydesBucketPolicy:
+  Type: AWS::S3::BucketPolicy
+  Properties:
+    Bucket:
+      Ref: 'WildRydesBucket'
+    PolicyDocument:
+      Statement:
+        - Effect: 'Allow'
+          Principal: '*'
+          Action:
+            - 's3:GetObject'
+          Resource:
+            Fn::Join:
+              - ''
+              - - 'arn:aws:s3:::'
+                - Ref: 'WildRydesBucket'
+                - '/*'
 ```
 
 ![Serverless Framework - S3 Bucket Policy](Serverless-Framework-S3-Bucket-Policy.png)
@@ -152,7 +149,7 @@ To display bucket website URL, uncomment the Outputs: section and add the follow
 
     WildRydesBucketURL:
       Description: "Wild Rydes Bucket Website URL"
-      Value: 
+      Value:
         "Fn::GetAtt": [ WildRydesBucket, WebsiteURL ]
 ```
 
@@ -186,16 +183,16 @@ After users have a confirmed account (either using the email verification proces
 
 Amazon Cognito provides two different mechanisms for authenticating users:
 
-*   we can use Cognito User Pools to add sign-up and sign-in functionality to your application or use Cognito Identity Pools to authenticate users through social identity providers such as Facebook, Twitter, or Amazon, with SAML identity solutions
-*   we can use our own identity system.
+- we can use Cognito User Pools to add sign-up and sign-in functionality to your application or use Cognito Identity Pools to authenticate users through social identity providers such as Facebook, Twitter, or Amazon, with SAML identity solutions
+- we can use our own identity system.
 
 Here we’ll use a user pool as the backend for the provided registration and sign-in pages. First, let’s create [Cognito User Pool](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html) by adding it’s declaration to `resources:` section of our `serverless.yaml` file:
 
 ```yaml
-    WildRydesCognitoUserPool:
-      Type: AWS::Cognito::UserPool
-      Properties:
-        UserPoolName: WildRydes
+WildRydesCognitoUserPool:
+  Type: AWS::Cognito::UserPool
+  Properties:
+    UserPoolName: WildRydes
 ```
 
 ![Serverless Framework - Cognito User Pool Configuration](Serverless-Framework-Cognito-User-Pool-Configuration.png)
@@ -211,13 +208,13 @@ sls deploy
 Next, we need to create [Cognito User Pool Client](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html). I do not understand, why they call it App Client in web console. To do so, as usual, we need to add new resource to resource: section in serverless.yaml file:
 
 ```yaml
-    WildRydesCognitoUserPoolClient:
-      Type: AWS::Cognito::UserPoolClient
-      Properties:
-        ClientName: WildRydesWebApp
-        GenerateSecret: false
-        UserPoolId:
-          Ref: "WildRydesCognitoUserPool"
+WildRydesCognitoUserPoolClient:
+  Type: AWS::Cognito::UserPoolClient
+  Properties:
+    ClientName: WildRydesWebApp
+    GenerateSecret: false
+    UserPoolId:
+      Ref: 'WildRydesCognitoUserPool'
 ```
 
 ![Serverless Framework - Cognito User Pool Client Configuration](Serverless-Framework-Cognito-User-Pool-Client-Configuration.png)
@@ -233,14 +230,14 @@ sls deploy
 In this section of AWS tutorial they’re asking us to make changes in `js/config.js` file. More over, we’ll need `userPoolId` and `userPoolClientId`. As we’re not using web console, let’s request them as `Outputs:` in our `serverless.yaml` file:
 
 ```yaml
-    WildRydesCognitoUserPoolId:
-      Description: "Wild Rydes Cognito User Pool ID"
-      Value:
-        Ref: "WildRydesCognitoUserPool"
-    WildRydesCognitoUserPoolClientId:
-      Description: "Wild Rydes Cognito User Pool Client ID"
-      Value:
-        Ref: "WildRydesCognitoUserPoolClient"
+WildRydesCognitoUserPoolId:
+  Description: 'Wild Rydes Cognito User Pool ID'
+  Value:
+    Ref: 'WildRydesCognitoUserPool'
+WildRydesCognitoUserPoolClientId:
+  Description: 'Wild Rydes Cognito User Pool Client ID'
+  Value:
+    Ref: 'WildRydesCognitoUserPoolClient'
 ```
 
 ![Serverless Framework - Cognito User Pool Client Configuration 2](Serverless-Framework-Cognito-User-Pool-Client-Configuration-2.png)
@@ -304,22 +301,22 @@ The function is invoked from the browser using Amazon API Gateway.
 As in the original tutorial we’ll call your table `Rides` and give it a partition key called `RideId` with type String. To do so, we need to add the [DynamoDB](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html) resource to `resources:` section of `serverless.yaml` file:
 
 ```yaml
-    WildRydesDynamoDBTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: Rides
-        AttributeDefinitions:
-          - AttributeName: RideId
-            AttributeType: S
-        KeySchema:
-          - AttributeName: RideId
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5
+WildRydesDynamoDBTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: Rides
+    AttributeDefinitions:
+      - AttributeName: RideId
+        AttributeType: S
+    KeySchema:
+      - AttributeName: RideId
+        KeyType: HASH
+    ProvisionedThroughput:
+      ReadCapacityUnits: 5
+      WriteCapacityUnits: 5
 ```
 
-![Serverless Framework - DynamoDB Configuration](Serverless-Framework-DynamoDB-Configuration)
+![Serverless Framework - DynamoDB Configuration](Serverless-Framework-DynamoDB-Configuration.png)
 
 And of cause we need to redeploy our stack:
 
@@ -330,10 +327,10 @@ sls deploy
 Finally, we need to get DynamoDB **ARN**. And you already know how to do it. In the `Outputs:` of `resources:` section in `serverless.yaml` file we need to add the following:
 
 ```yaml
-    WildRydesDynamoDbARN:
-      Description: "Wild Rydes DynamoDB ARN"
-      Value:
-        "Fn::GetAtt": [ WildRydesDynamoDBTable, Arn ]
+WildRydesDynamoDbARN:
+  Description: 'Wild Rydes DynamoDB ARN'
+  Value:
+    'Fn::GetAtt': [WildRydesDynamoDBTable, Arn]
 ```
 
 ![Serverless Framework - DynamoDB Configuration ARN](Serverless-Framework-DynamoDB-Configuration-ARN.png)
@@ -345,41 +342,40 @@ Every Lambda function has an IAM role associated with it. This role defines what
 To do so we need to create Lambda function IAM Role and assign it with a policy:
 
 ```yaml
-    WildRydesLambdaRole:
-      Type: AWS::IAM::Role
-      Properties:
-        RoleName: WildRydesLambda
-        AssumeRolePolicyDocument:
+WildRydesLambdaRole:
+  Type: AWS::IAM::Role
+  Properties:
+    RoleName: WildRydesLambda
+    AssumeRolePolicyDocument:
+      Version: '2012-10-17'
+      Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+              - lambda.amazonaws.com
+          Action: sts:AssumeRole
+    Policies:
+      - PolicyName: DynamoDBWriteAccess
+        PolicyDocument:
           Version: '2012-10-17'
           Statement:
             - Effect: Allow
-              Principal:
-                Service:
-                  - lambda.amazonaws.com
-              Action: sts:AssumeRole
-        Policies:
-          - PolicyName: DynamoDBWriteAccess
-            PolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-                - Effect: Allow
-                  Action:
-                    - logs:CreateLogGroup
-                    - logs:CreateLogStream
-                    - logs:PutLogEvents
-                  Resource: 
-                    - 'Fn::Join':
-                      - ':'
-                      -
-                        - 'arn:aws:logs'
-                        - Ref: 'AWS::Region'
-                        - Ref: 'AWS::AccountId'
-                        - 'log-group:/aws/lambda/*:*:*'
-                - Effect: Allow
-                  Action:
-                    - dynamodb:PutItem
-                  Resource:
-                    'Fn::GetAtt': [ WildRydesDynamoDBTable, Arn ]
+              Action:
+                - logs:CreateLogGroup
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource:
+                - 'Fn::Join':
+                    - ':'
+                    - - 'arn:aws:logs'
+                      - Ref: 'AWS::Region'
+                      - Ref: 'AWS::AccountId'
+                      - 'log-group:/aws/lambda/*:*:*'
+            - Effect: Allow
+              Action:
+                - dynamodb:PutItem
+              Resource:
+                'Fn::GetAtt': [WildRydesDynamoDBTable, Arn]
 ```
 
 ![Serverless Framework - Lambda Function Role Policy](Serverless-Framework-Lambda-Function-Role-Policy.png)
@@ -433,23 +429,23 @@ Test name is `TestRequestEvent`. Test message body:
 
 ```json
 {
-    "path": "/ride",
-    "httpMethod": "POST",
-    "headers": {
-        "Accept": "*/*",
-        "Authorization": "eyJraWQiOiJLTzRVMWZs",
-        "content-type": "application/json; charset=UTF-8"
-    },
-    "queryStringParameters": null,
-    "pathParameters": null,
-    "requestContext": {
-        "authorizer": {
-            "claims": {
-                "cognito:username": "the_username"
-            }
-        }
-    },
-    "body": "{\"PickupLocation\":{\"Latitude\":47.6174755835663,\"Longitude\":-122.28837066650185}}"
+  "path": "/ride",
+  "httpMethod": "POST",
+  "headers": {
+    "Accept": "*/*",
+    "Authorization": "eyJraWQiOiJLTzRVMWZs",
+    "content-type": "application/json; charset=UTF-8"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "requestContext": {
+    "authorizer": {
+      "claims": {
+        "cognito:username": "the_username"
+      }
+    }
+  },
+  "body": "{\"PickupLocation\":{\"Latitude\":47.6174755835663,\"Longitude\":-122.28837066650185}}"
 }
 ```
 
@@ -470,13 +466,13 @@ The static website you deployed in the first steps already has a page configured
 All we need to do now – is to specify [Amazon API Gateway REST API](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html) resource:
 
 ```yaml
-    WildRydesApiGatewayRestApi:
-      Type: AWS::ApiGateway::RestApi
-      Properties:
-        Name: WildRydes
-        EndpointConfiguration:
-          Types:
-            - EDGE
+WildRydesApiGatewayRestApi:
+  Type: AWS::ApiGateway::RestApi
+  Properties:
+    Name: WildRydes
+    EndpointConfiguration:
+      Types:
+        - EDGE
 ```
 
 ![Serverless Framework - API Gateway REST Configuration](Serverless-Framework-API-Gateway-REST-Configuration.png)
@@ -492,16 +488,16 @@ sls deploy
 Amazon API Gateway can use the JWT tokens returned by Cognito User Pools to authenticate API calls. In this step you’ll configure an authorizer for your API to use the user pool you created earlier. First of all we need to create [ApiGateway Authorizer](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-authorizer.html) in our `resources:` section in `serverless.yaml` file:
 
 ```yaml
-    WildRydesApiGatewayAuthorizer:
-      Type: AWS::ApiGateway::Authorizer
-      Properties:
-        Name: WildRydes
-        RestApiId:
-          Ref: WildRydesApiGatewayRestApi
-        Type: COGNITO_USER_POOLS
-        ProviderARNs:
-          - Fn::GetAtt: [ WildRydesCognitoUserPool, Arn ]
-        IdentitySource: method.request.header.Authorization
+WildRydesApiGatewayAuthorizer:
+  Type: AWS::ApiGateway::Authorizer
+  Properties:
+    Name: WildRydes
+    RestApiId:
+      Ref: WildRydesApiGatewayRestApi
+    Type: COGNITO_USER_POOLS
+    ProviderARNs:
+      - Fn::GetAtt: [WildRydesCognitoUserPool, Arn]
+    IdentitySource: method.request.header.Authorization
 ```
 
 ![Serverless Framework - API Gateway Authorizer](Serverless-Framework-API-Gateway-Authorizer.png)
@@ -535,14 +531,14 @@ Next we need to create a new [API Gateway Resource](https://docs.aws.amazon.com/
 No problem, here’s its declaration:
 
 ```yaml
-    WildRydeApiGatewayRidesResource:
-      Type: AWS::ApiGateway::Resource
-      Properties:
-        ParentId:
-          Fn::GetAtt: [ WildRydesApiGatewayRestApi, RootResourceId ]
-        PathPart: ride
-        RestApiId:
-          Ref: WildRydesApiGatewayRestApi
+WildRydeApiGatewayRidesResource:
+  Type: AWS::ApiGateway::Resource
+  Properties:
+    ParentId:
+      Fn::GetAtt: [WildRydesApiGatewayRestApi, RootResourceId]
+    PathPart: ride
+    RestApiId:
+      Ref: WildRydesApiGatewayRestApi
 ```
 
 ![Serverless Framework - API Gateway Resource](Serverless-Framework-API-Gateway-Resource.png)
@@ -550,36 +546,36 @@ No problem, here’s its declaration:
 In the official tutorial we may click **Enable CORS** checkbox to Enable CORS for a needed resource. When you’re dealing with automation it is not always so easy. It means you need to implement “Enable CORS” functionality for an API Gateway Resource yourself. Somebody on StackOverflow [already did it for us](https://stackoverflow.com/questions/40292888/enable-cors-for-api-gateway-in-cloudformation-template), so we thankfully will take resource description example and adopt it for our needs:
 
 ```yaml
-    WildRydesRideOptionsMethod:
-      Type: AWS::ApiGateway::Method
-      Properties:
-        AuthorizationType: NONE
-        RestApiId:
-          Ref: WildRydesApiGatewayRestApi
-        ResourceId:
-          Ref: WildRydeApiGatewayRidesResource
-        HttpMethod: OPTIONS
-        Integration:
-          IntegrationResponses:
-          - StatusCode: 200
-            ResponseParameters:
-              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
-              method.response.header.Access-Control-Allow-Origin: "'*'"
-            ResponseTemplates:
-              application/json: ''
-          PassthroughBehavior: WHEN_NO_MATCH
-          RequestTemplates:
-            application/json: '{"statusCode": 200}'
-          Type: MOCK
-        MethodResponses:
+WildRydesRideOptionsMethod:
+  Type: AWS::ApiGateway::Method
+  Properties:
+    AuthorizationType: NONE
+    RestApiId:
+      Ref: WildRydesApiGatewayRestApi
+    ResourceId:
+      Ref: WildRydeApiGatewayRidesResource
+    HttpMethod: OPTIONS
+    Integration:
+      IntegrationResponses:
         - StatusCode: 200
-          ResponseModels:
-            application/json: 'Empty'
           ResponseParameters:
-              method.response.header.Access-Control-Allow-Headers: false
-              method.response.header.Access-Control-Allow-Methods: false
-              method.response.header.Access-Control-Allow-Origin: false
+            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+            method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+          ResponseTemplates:
+            application/json: ''
+      PassthroughBehavior: WHEN_NO_MATCH
+      RequestTemplates:
+        application/json: '{"statusCode": 200}'
+      Type: MOCK
+    MethodResponses:
+      - StatusCode: 200
+        ResponseModels:
+          application/json: 'Empty'
+        ResponseParameters:
+          method.response.header.Access-Control-Allow-Headers: false
+          method.response.header.Access-Control-Allow-Methods: false
+          method.response.header.Access-Control-Allow-Origin: false
 ```
 
 Redeploy your stack to check that everything’s working as expected:
@@ -591,35 +587,33 @@ sls deploy
 Now we need to create the actual POST method:
 
 ```yaml
-    WildRydesRidePostMethod:
-      Type: AWS::ApiGateway::Method
-      Properties:
-        AuthorizerId:
-          Ref: WildRydesApiGatewayAuthorizer
-        AuthorizationType: COGNITO_USER_POOLS
-        HttpMethod: POST
-        ResourceId:
-          Ref: WildRydeApiGatewayRidesResource
-        RestApiId:
-          Ref: WildRydesApiGatewayRestApi
-        Integration:
-          Type: AWS_PROXY
-          IntegrationHttpMethod: POST
-          Uri: 
-            Fn::Join:
-              - ':'
-              - 
-                - "arn:aws:apigateway"
-                - Ref: 'AWS::Region'
-                - 'lambda'
-                - Fn::Join:
-                  - '/'
-                  -
-                    - 'path'
-                    - '2015-03-31'
-                    - 'functions'
-                    - Fn::GetAtt: [ RequestUnicornLambdaFunction, Arn ]
-                    - 'invocations'
+WildRydesRidePostMethod:
+  Type: AWS::ApiGateway::Method
+  Properties:
+    AuthorizerId:
+      Ref: WildRydesApiGatewayAuthorizer
+    AuthorizationType: COGNITO_USER_POOLS
+    HttpMethod: POST
+    ResourceId:
+      Ref: WildRydeApiGatewayRidesResource
+    RestApiId:
+      Ref: WildRydesApiGatewayRestApi
+    Integration:
+      Type: AWS_PROXY
+      IntegrationHttpMethod: POST
+      Uri:
+        Fn::Join:
+          - ':'
+          - - 'arn:aws:apigateway'
+            - Ref: 'AWS::Region'
+            - 'lambda'
+            - Fn::Join:
+                - '/'
+                - - 'path'
+                  - '2015-03-31'
+                  - 'functions'
+                  - Fn::GetAtt: [RequestUnicornLambdaFunction, Arn]
+                  - 'invocations'
 ```
 
 ![Serverless Framework - API Gateway Method With Lambda Integration](Serverless-Framework-API-Gateway-Method-With-Lambda-Integration.png)
@@ -631,13 +625,13 @@ This will create protected by API Gateway authorization POST method, which will 
 Mostly we’re done. All we need to do is to create [API Gateway Deployment](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-deployment.html) to publish our API. Here it is:
 
 ```yaml
-    WildRydesApiGatewayDeployment:
-      Type: AWS::ApiGateway::Deployment
-      Properties:
-        Description: Wild Rydes Api
-        RestApiId:
-          Ref: WildRydesApiGatewayRestApi
-        StageName: ${opt:stage, 'dev'}
+WildRydesApiGatewayDeployment:
+  Type: AWS::ApiGateway::Deployment
+  Properties:
+    Description: Wild Rydes Api
+    RestApiId:
+      Ref: WildRydesApiGatewayRestApi
+    StageName: ${opt:stage, 'dev'}
 ```
 
 ![Serverless Framework - API Gateway Deployment](Serverless-Framework-API-Gateway-Deployment.png)
@@ -661,25 +655,24 @@ provider:
   stage: ${opt:stage, 'dev'}
 ```
 
-![Serverless Framework - Global Stage Declaration](Serverless-Framework-Global-Stage-Declaration)
+![Serverless Framework - Global Stage Declaration](Serverless-Framework-Global-Stage-Declaration.png)
 
 ## Updating website config
 
 Most of the work done. At this section we’ll complete our website configuration (`config.js` file which is still in our project folder). But first of all let’s get API Gateway Deployment URL. Specify this declaration of your `Outputs:` of `resources:` section:
 
 ```yaml
-    WildRydesApiGatewayUrl:
-      Description: "Wild Rydes Api Gateway URL"
-      Value:
-        "Fn::Join":
-          - ""
-          -
-            - "https://"
-            - Ref: "WildRydesApiGatewayRestApi"
-            - ".execute-api."
-            - Ref: "AWS::Region"
-            - ".amazonaws.com"
-            - "/${opt:stage, 'dev'}"
+WildRydesApiGatewayUrl:
+  Description: 'Wild Rydes Api Gateway URL'
+  Value:
+    'Fn::Join':
+      - ''
+      - - 'https://'
+        - Ref: 'WildRydesApiGatewayRestApi'
+        - '.execute-api.'
+        - Ref: 'AWS::Region'
+        - '.amazonaws.com'
+        - "/${opt:stage, 'dev'}"
 ```
 
 Now to get the url you can do:
