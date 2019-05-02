@@ -120,7 +120,6 @@ module.exports = {
         includeInDevelopment: false,
       },
     },
-    `gatsby-plugin-catch-links`,
     {
       resolve: 'gatsby-plugin-sentry',
       options: {
