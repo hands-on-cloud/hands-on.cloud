@@ -7,7 +7,6 @@ import kebabCase from 'lodash/kebabCase';
 // Components
 import { Link, graphql } from 'gatsby';
 import Layout from '../components/layout';
-import AdSense from '../components/AdSense/adsense';
 
 const TagsPage = ({
   data: {
@@ -27,7 +26,6 @@ const TagsPage = ({
         ))}
       </ul>
     </div>
-    <AdSense key="tags" client="ca-pub-2729052102059896" />
   </Layout>
 );
 

@@ -5,7 +5,6 @@ import Layout from '../components/layout';
 import SEO from '../components/SEO';
 import PostTags from '../components/PostTags/posttags';
 import PostAuthors from '../components/PostAuthors/PostAuthors';
-import AdSense from '../components/AdSense/adsense';
 
 export default ({ data }) => {
   const post = data.markdownRemark;
@@ -36,7 +35,6 @@ export default ({ data }) => {
           config={disqusConfig}
         />
       </div>
-      <AdSense key={post.fields.slug} client="ca-pub-2729052102059896" />
     </Layout>
   );
 };

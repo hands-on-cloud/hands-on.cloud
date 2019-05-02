@@ -1,24 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class AdSense extends React.Component {
-  componentDidMount() {
-    if (window)
-      (window.adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: this.props.client,
-        enable_page_level_ads: true,
-      });
-  }
+const AdSense = props => {
+  const { className, client } = props;
+  return <ins className={`${className} adsbygoogle`} data-ad-client={client} />;
+};
 
-  render() {
-    return (
-      <ins
-        className={`${this.props.className} adsbygoogle`}
-        data-ad-client={this.props.client}
-      />
-    );
-  }
-}
+export default AdSense;
 
 AdSense.propTypes = {
   className: PropTypes.string,
