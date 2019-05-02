@@ -13,7 +13,7 @@ export default ({ authors }) => {
       </Row>
       <Row>
         {authors.map(name => (
-          <Col md={4}>
+          <Col key={name} md={4}>
             <PostAuthor name={name} />
           </Col>
         ))}
