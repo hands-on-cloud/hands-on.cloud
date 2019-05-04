@@ -44,6 +44,7 @@
     "gatsby-transformer-json": "^2.1.11",
     "gatsby-transformer-remark": "^2.3.8",
     "gatsby-transformer-sharp": "^2.1.17",
+    "hashmap": "^2.3.0",
     "jquery": "^3.4.0",
     "lodash": "^4.17.11",
     "prismjs": "^1.16.0",

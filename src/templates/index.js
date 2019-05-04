@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { graphql, StaticQuery } from 'gatsby';
 import { CardColumns } from 'react-bootstrap';
 import Layout from '../components/layout';
@@ -47,7 +46,3 @@ const IndexPage = ({ pageContext }) => {
 };
 
 export default IndexPage;
-
-IndexPage.propTypes = {
-  pageContext: PropTypes.node.isRequired,
-};

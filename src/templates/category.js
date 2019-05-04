@@ -1,52 +1,38 @@
 import React from 'react';
-import { graphql } from 'gatsby';
 import { CardColumns } from 'react-bootstrap';
 import Layout from '../components/layout';
 import PostCards from '../components/postcards';
+import Pager from '../components/Pager/Pager';
 
-const Categories = ({ pageContext, data }) => {
-  const { category } = pageContext;
+const Categories = ({ pageContext }) => {
+  const {
+    group,
+    index,
+    first,
+    last,
+    pathPrefix,
+    additionalContext,
+  } = pageContext;
+  const { category } = additionalContext;
+  const previousUrl =
+    index - 1 === 1 ? `/${pathPrefix}/` : (index - 1).toString();
+  const nextUrl = `/${pathPrefix}/${(index + 1).toString()}`;
 
   return (
     <Layout>
       <h1>{category}</h1>
       <CardColumns>
-        <PostCards posts={data.allMarkdownRemark.edges} />
+        <PostCards posts={group} />
       </CardColumns>
+
+      <Pager
+        first={first}
+        last={last}
+        previousUrl={previousUrl}
+        nextUrl={nextUrl}
+      />
     </Layout>
   );
 };
 
 export default Categories;
-
-export const pageQuery = graphql`
-  query($category: String) {
-    allMarkdownRemark(
-      limit: 2000
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { category: { eq: $category } } }
-    ) {
-      totalCount
-      edges {
-        node {
-          frontmatter {
-            title
-            thumbnail {
-              relativePath
-              childImageSharp {
-                fluid(maxWidth: 700) {
-                  src
-                }
-              }
-            }
-            tags
-          }
-          fields {
-            slug
-          }
-          excerpt
-        }
-      }
-    }
-  }
-`;

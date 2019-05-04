@@ -1,11 +1,17 @@
 const path = require(`path`);
+const HashMap = require(`hashmap`);
 const _ = require('lodash');
 
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const createPaginatedPages = require('gatsby-paginate');
 
-const tagSet = new Set();
-const categorySet = new Set();
+const postsByTags = new HashMap();
+const postsByCategories = new HashMap();
+const pageLength = 6;
+const indexPageTemplate = path.resolve('src/templates/index.js');
+const blogPostTemplate = path.resolve('src/templates/blog-post.js');
+const tagTemplate = path.resolve('src/templates/tag.js');
+const categoryTemplate = path.resolve('src/templates/category.js');
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -19,14 +25,19 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 };
 
+const addObjToHashMap = (hashmap, key, obj) => {
+  if (hashmap.has(key)) {
+    const arr = hashmap.get(key);
+    arr.push(obj);
+  } else {
+    hashmap.set(key, [obj]);
+  }
+};
+
 exports.createPages = ({ graphql, actions }) => {
   // **Note:** The graphql function call returns a Promise
   // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise for more info
   const { createPage } = actions;
-
-  const blogPostTemplate = path.resolve('src/templates/blog-post.js');
-  const tagTemplate = path.resolve('src/templates/tag.js');
-  const categoryTemplate = path.resolve('src/templates/category.js');
 
   return graphql(`
     {
@@ -72,23 +83,23 @@ exports.createPages = ({ graphql, actions }) => {
     createPaginatedPages({
       edges: posts,
       createPage,
-      pageTemplate: 'src/templates/index.js',
-      pageLength: 6, // This is optional and defaults to 10 if not used
-      pathPrefix: '', // This is optional and defaults to an empty string if not used
-      context: {}, // This is optional and defaults to an empty object if not used
+      pageTemplate: indexPageTemplate,
+      pageLength,
+      pathPrefix: '',
+      context: {},
     });
 
     posts.forEach(({ node }) => {
       // Generating tags set
       if (node.frontmatter.tags) {
         node.frontmatter.tags.forEach(tag => {
-          tagSet.add(tag);
+          addObjToHashMap(postsByTags, tag, { node });
         });
       }
 
       // Generating categories set
       if (node.frontmatter.category) {
-        categorySet.add(node.frontmatter.category);
+        addObjToHashMap(postsByCategories, node.frontmatter.category, { node });
       }
 
       // Create post detail pages
@@ -104,22 +115,27 @@ exports.createPages = ({ graphql, actions }) => {
     });
 
     // Generating tags pages
-    const tagList = Array.from(tagSet);
-    tagList.forEach(tag => {
-      createPage({
-        path: `/tags/${_.kebabCase(tag)}/`,
-        component: tagTemplate,
+    postsByTags.forEach((nodes, tag) => {
+      createPaginatedPages({
+        edges: nodes,
+        createPage,
+        pageTemplate: tagTemplate,
+        pageLength,
+        pathPrefix: `tags/${_.kebabCase(tag)}`,
         context: {
           tag,
         },
       });
     });
 
-    const categoryList = Array.from(categorySet);
-    categoryList.forEach(category => {
-      createPage({
-        path: `/${_.kebabCase(category)}/`,
-        component: categoryTemplate,
+    // Generating categories pages
+    postsByCategories.forEach((nodes, category) => {
+      createPaginatedPages({
+        edges: nodes,
+        createPage,
+        pageTemplate: categoryTemplate,
+        pageLength,
+        pathPrefix: `${_.kebabCase(category)}`,
         context: {
           category,
         },
