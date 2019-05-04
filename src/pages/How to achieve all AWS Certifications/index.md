@@ -1,15 +1,15 @@
 ---
-title: "How to achieve all AWS Certifications"
-date: "2019-04-29"
-thumbnail: "./How-to-achieve-all-AWS-Certifications.png"
+title: 'How to achieve all AWS Certifications'
+date: '2019-04-29'
+thumbnail: './How-to-achieve-all-AWS-Certifications.png'
 tags:
--   aws cloud
--   certification
--   aws
--   devops
-category: "aws"
+  - aws cloud
+  - certification
+  - aws
+  - devops
+category: 'aws'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![How to achieve all AWS Certifications](How-to-achieve-all-AWS-Certifications.png)
@@ -20,17 +20,17 @@ In this article we will describe few ways of how to achieve all AWS certificatio
 
 As of now, AWS is offering following certifications:
 
-*   [AWS Certified Cloud Practitioner](https://aws.amazon.com/certification/certified-cloud-practitioner/)
-*   [AWS Certified Developer – Associate](https://aws.amazon.com/certification/certified-developer-associate/)
-*   [AWS Certified Solutions Architect – Associate](https://aws.amazon.com/certification/certified-solutions-architect-associate/)
-*   [AWS Certified SysOps Administrator – Associate](https://aws.amazon.com/certification/certified-sysops-admin-associate/)
-*   [AWS Certified Security – Specialty](https://aws.amazon.com/certification/certified-security-specialty/)
-*   [AWS Certified Alexa Skill Builder – Specialty](https://aws.amazon.com/certification/certified-alexa-skill-builder-specialty/)
-*   [AWS Certified Advanced Networking – Specialty](https://aws.amazon.com/certification/certified-advanced-networking-specialty/)
-*   [AWS Certified DevOps Engineer – Professional](https://aws.amazon.com/certification/certified-devops-engineer-professional/)
-*   [AWS Certified Big Data – Specialty](https://aws.amazon.com/certification/certified-big-data-specialty/)
-*   [AWS Certified Machine Learning – Specialty](https://aws.amazon.com/certification/certified-machine-learning-specialty/)
-*   [AWS Certified Solutions Architect – Professional](https://aws.amazon.com/certification/certified-solutions-architect-professional/)
+- [AWS Certified Cloud Practitioner](https://aws.amazon.com/certification/certified-cloud-practitioner/)
+- [AWS Certified Developer – Associate](https://aws.amazon.com/certification/certified-developer-associate/)
+- [AWS Certified Solutions Architect – Associate](https://aws.amazon.com/certification/certified-solutions-architect-associate/)
+- [AWS Certified SysOps Administrator – Associate](https://aws.amazon.com/certification/certified-sysops-admin-associate/)
+- [AWS Certified Security – Specialty](https://aws.amazon.com/certification/certified-security-specialty/)
+- [AWS Certified Alexa Skill Builder – Specialty](https://aws.amazon.com/certification/certified-alexa-skill-builder-specialty/)
+- [AWS Certified Advanced Networking – Specialty](https://aws.amazon.com/certification/certified-advanced-networking-specialty/)
+- [AWS Certified DevOps Engineer – Professional](https://aws.amazon.com/certification/certified-devops-engineer-professional/)
+- [AWS Certified Big Data – Specialty](https://aws.amazon.com/certification/certified-big-data-specialty/)
+- [AWS Certified Machine Learning – Specialty](https://aws.amazon.com/certification/certified-machine-learning-specialty/)
+- [AWS Certified Solutions Architect – Professional](https://aws.amazon.com/certification/certified-solutions-architect-professional/)
 
 ![AWS Certification Roadmap](AWS-Cert-Roadmap-v10.2.png)
 
@@ -50,13 +50,13 @@ AWS has partnered with selected training organization through its [APN Training 
 
 Online trainings for AWS certifications are also provided by [A Cloud Guru](https://acloud.guru/courses?vendors=aws), [Linux Academy](https://linuxacademy.com/amazon-web-services/courses), [CloudAcademy](https://cloudacademy.com/library/amazon-web-services/) and of cause [Udemy](https://click.linksynergy.com/deeplink?id=sp4muCDZMoA&mid=39197&murl=https%3A%2F%2Fwww.udemy.com%2F&u1=How-to-achieve-all-AWS-Certifications).
 
-*   [Udemy](https://click.linksynergy.com/deeplink?id=sp4muCDZMoA&mid=39197&murl=https%3A%2F%2Fwww.udemy.com%2Fcourses%2Fsearch%2F%3Fq%3Daws%2520certified%26src%3Dsac%26kw%3Daws&u1=How-to-achieve-all-AWS-Certifications) is the cheapest and most popular platform for any professional, who want to get any knowledge (including hands-on experience) very fast and I definitely recommend to start from here. AWS Associate level certification cources from A Cloud Guru available here only for **$12\course** as a platform promo!
+- [Udemy](https://click.linksynergy.com/deeplink?id=sp4muCDZMoA&mid=39197&murl=https%3A%2F%2Fwww.udemy.com%2Fcourses%2Fsearch%2F%3Fq%3Daws%2520certified%26src%3Dsac%26kw%3Daws&u1=How-to-achieve-all-AWS-Certifications) is the cheapest and most popular platform for any professional, who want to get any knowledge (including hands-on experience) very fast and I definitely recommend to start from here. AWS Associate level certification cources from A Cloud Guru available here only for **\$12\course** as a platform promo!
 
-Advanced AWS cloud training courses available at [A Cloud Guru](https://acloud.guru/courses?vendors=aws) and they will help you you to build skills in achieving professional certification level. A Cloud Guru has not only great content, but also exam simulator that lets you practice like in AWS certifications exam. Platform subscription cost you **$30\month**.
+Advanced AWS cloud training courses available at [A Cloud Guru](https://acloud.guru/courses?vendors=aws) and they will help you you to build skills in achieving professional certification level. A Cloud Guru has not only great content, but also exam simulator that lets you practice like in AWS certifications exam. Platform subscription cost you **\$30\month**.
 
-*   [Linux Academy](https://linuxacademy.com/amazon-web-services/courses) provides courses and hands-on labs facility for AWS certifications. Scenarios based labs are deployed in a real environment and you can get hands-on experience from the comfort of your home to anywhere you want. Platform subscription cost you **$50\month**.
+- [Linux Academy](https://linuxacademy.com/amazon-web-services/courses) provides courses and hands-on labs facility for AWS certifications. Scenarios based labs are deployed in a real environment and you can get hands-on experience from the comfort of your home to anywhere you want. Platform subscription cost you **\$50\month**.
 
-*   [CloudAcademy](https://cloudacademy.com/library/amazon-web-services/) is the most expensive cloud educational platform, which will cost you **$80\month**. It allows you to get constantly updated materials and hands-on practice within free labs at real AWS infrastructure (you're using temporary AWS account).
+- [CloudAcademy](https://cloudacademy.com/library/amazon-web-services/) is the most expensive cloud educational platform, which will cost you **\$80\month**. It allows you to get constantly updated materials and hands-on practice within free labs at real AWS infrastructure (you're using temporary AWS account).
 
 ## Success Stories
 

@@ -1,22 +1,22 @@
 ---
-title: "Terraform recipe - How to create AWS ElasticSearch cluster"
-date: "2018-11-19"
-thumbnail: "./Terraform-recipe-How-to-create-AWS-ElasticSearch-cluster.png"
+title: 'Terraform recipe - How to create AWS ElasticSearch cluster'
+date: '2018-11-19'
+thumbnail: './Terraform-recipe-How-to-create-AWS-ElasticSearch-cluster.png'
 tags:
--   amazon cloud
--   aws
--   elasticsearch
--   elk
--   terraform
--   vpc
-category: "Other"
+  - amazon cloud
+  - aws
+  - elasticsearch
+  - elk
+  - terraform
+  - vpc
+category: 'terraform'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![Terraform recipe - How to create AWS ElasticSearch cluster](Terraform-recipe-How-to-create-AWS-ElasticSearch-cluster.png)
 
-From this recipe you’ll learn how to create [AWS ElasticSearch](https://aws.amazon.com/elasticsearch-service/) cluster in VPC using [Terrafrom](https://www.terraform.io/). 
+From this recipe you’ll learn how to create [AWS ElasticSearch](https://aws.amazon.com/elasticsearch-service/) cluster in VPC using [Terrafrom](https://www.terraform.io/).
 
 Source code is available in my [GitHub repo](https://github.com/andreivmaksimov/terraform-recipe-how-to-create-aws-elasticsearch-cluster).
 
@@ -24,9 +24,9 @@ Amazon Elasticsearch Service is an AWS managed service, that makes it easy to de
 
 Elasticsearch is a popular open-source search and analytics engine for the following use cases:
 
-*   log analytics
-*   real-time application monitoring
-*   clickstream analysis
+- log analytics
+- real-time application monitoring
+- clickstream analysis
 
 Amazon ES provisions all the resources for your Elasticsearch cluster and launches it. It also automatically detects and replaces failed Elasticsearch nodes, reducing the overhead associated with self-managed infrastructures. You can scale your cluster with a single API call or a few clicks in the console.
 
@@ -90,7 +90,7 @@ resource "aws_security_group" "es_sg" {
 
 Here we allowing any connections coming from our VPC address range.
 
-The most interesting part is [aws\_elasticsearch\_domain](https://www.terraform.io/docs/providers/aws/r/elasticsearch_domain.html). It is needed to create cluster itself:
+The most interesting part is [aws_elasticsearch_domain](https://www.terraform.io/docs/providers/aws/r/elasticsearch_domain.html). It is needed to create cluster itself:
 
 ```hcl
 resource "aws_elasticsearch_domain" "es" {

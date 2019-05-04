@@ -1,18 +1,18 @@
 ---
-title: "Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 2"
-date: "2018-09-15"
-thumbnail: "./Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.png"
+title: 'Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 2'
+date: '2018-09-15'
+thumbnail: './Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.png'
 tags:
--   aws
--   api gateway
--   cognito
--   dynamodb
--   lambda
--   s3
--   serverless
-category: "aws"
+  - aws
+  - api gateway
+  - cognito
+  - dynamodb
+  - lambda
+  - s3
+  - serverless
+category: 'aws'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 2](Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.png)
@@ -60,16 +60,16 @@ sls deploy
 Now we need to implement API Gateway Authorizer. I think, we can uncomment one of the previously commented resources and modify it’s reference to the API Gateway.
 
 ```yaml
-    WildRydesApiGatewayAuthorizer:
-      Type: AWS::ApiGateway::Authorizer
-      Properties:
-        Name: WildRydes
-        RestApiId:
-          Ref: ApiGatewayRestApi
-        Type: COGNITO_USER_POOLS
-        ProviderARNs:
-          - Fn::GetAtt: [ WildRydesCognitoUserPool, Arn ]
-        IdentitySource: method.request.header.Authorization
+WildRydesApiGatewayAuthorizer:
+  Type: AWS::ApiGateway::Authorizer
+  Properties:
+    Name: WildRydes
+    RestApiId:
+      Ref: ApiGatewayRestApi
+    Type: COGNITO_USER_POOLS
+    ProviderARNs:
+      - Fn::GetAtt: [WildRydesCognitoUserPool, Arn]
+    IdentitySource: method.request.header.Authorization
 ```
 
 ![Serverless Framework - Commenting API Gateway Midified Authorizer](Serverless-Framework-Commenting-API-Gateway-Midified-Authorizer.png)
@@ -120,14 +120,14 @@ Now we’re ready to edit the `config.js` file:
 
 ```js
 window._config = {
-    cognito: {
-        userPoolId: 'us-east-1_dADFuXCii', // e.g. us-east-2_uXboG5pAb
-        userPoolClientId: '5dvnlid054tvjcrv3106762bh7', // e.g. 25ddkmj4v6hfsfvruhpfi7n4hv
-        region: 'us-east-1' // e.g. us-east-2
-    },
-    api: {
-        invokeUrl: 'https://c98nutbckd.execute-api.us-east-1.amazonaws.com/dev' // e.g. https://rc7nyt4tql.execute-api.us-west-2.amazonaws.com/prod',
-    }
+  cognito: {
+    userPoolId: 'us-east-1_dADFuXCii', // e.g. us-east-2_uXboG5pAb
+    userPoolClientId: '5dvnlid054tvjcrv3106762bh7', // e.g. 25ddkmj4v6hfsfvruhpfi7n4hv
+    region: 'us-east-1', // e.g. us-east-2
+  },
+  api: {
+    invokeUrl: 'https://c98nutbckd.execute-api.us-east-1.amazonaws.com/dev', // e.g. https://rc7nyt4tql.execute-api.us-west-2.amazonaws.com/prod',
+  },
 };
 ```
 
@@ -187,26 +187,23 @@ resources:
         BucketName: wildrydes-andrei-maksimov
         WebsiteConfiguration:
           IndexDocument: index.html
-    WildRydesBucketPolicy: 
+    WildRydesBucketPolicy:
       Type: AWS::S3::BucketPolicy
-      Properties: 
+      Properties:
         Bucket:
-          Ref: "WildRydesBucket"
+          Ref: 'WildRydesBucket'
         PolicyDocument:
           Statement:
-            -
-              Effect: "Allow"
-              Principal: "*"
+            - Effect: 'Allow'
+              Principal: '*'
               Action:
-                - "s3:GetObject"
+                - 's3:GetObject'
               Resource:
                 Fn::Join:
-                  - ""
-                  - 
-                    - "arn:aws:s3:::"
-                    - 
-                      Ref: "WildRydesBucket"
-                    - "/*"
+                  - ''
+                  - - 'arn:aws:s3:::'
+                    - Ref: 'WildRydesBucket'
+                    - '/*'
     WildRydesCognitoUserPool:
       Type: AWS::Cognito::UserPool
       Properties:
@@ -217,7 +214,7 @@ resources:
         ClientName: WildRydesWebApp
         GenerateSecret: false
         UserPoolId:
-          Ref: "WildRydesCognitoUserPool"
+          Ref: 'WildRydesCognitoUserPool'
     WildRydesDynamoDBTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -253,19 +250,18 @@ resources:
                     - logs:CreateLogGroup
                     - logs:CreateLogStream
                     - logs:PutLogEvents
-                  Resource: 
+                  Resource:
                     - 'Fn::Join':
-                      - ':'
-                      -
-                        - 'arn:aws:logs'
-                        - Ref: 'AWS::Region'
-                        - Ref: 'AWS::AccountId'
-                        - 'log-group:/aws/lambda/*:*:*'
+                        - ':'
+                        - - 'arn:aws:logs'
+                          - Ref: 'AWS::Region'
+                          - Ref: 'AWS::AccountId'
+                          - 'log-group:/aws/lambda/*:*:*'
                 - Effect: Allow
                   Action:
                     - dynamodb:PutItem
                   Resource:
-                    'Fn::GetAtt': [ WildRydesDynamoDBTable, Arn ]
+                    'Fn::GetAtt': [WildRydesDynamoDBTable, Arn]
     WildRydesApiGatewayAuthorizer:
       Type: AWS::ApiGateway::Authorizer
       Properties:
@@ -274,25 +270,25 @@ resources:
           Ref: ApiGatewayRestApi
         Type: COGNITO_USER_POOLS
         ProviderARNs:
-          - Fn::GetAtt: [ WildRydesCognitoUserPool, Arn ]
+          - Fn::GetAtt: [WildRydesCognitoUserPool, Arn]
         IdentitySource: method.request.header.Authorization
   Outputs:
     WildRydesBucketURL:
-      Description: "Wild Rydes Bucket Website URL"
-      Value: 
-        "Fn::GetAtt": [ WildRydesBucket, WebsiteURL ]
+      Description: 'Wild Rydes Bucket Website URL'
+      Value:
+        'Fn::GetAtt': [WildRydesBucket, WebsiteURL]
     WildRydesCognitoUserPoolId:
-      Description: "Wild Rydes Cognito User Pool ID"
+      Description: 'Wild Rydes Cognito User Pool ID'
       Value:
-        Ref: "WildRydesCognitoUserPool"
+        Ref: 'WildRydesCognitoUserPool'
     WildRydesCognitoUserPoolClientId:
-      Description: "Wild Rydes Cognito User Pool Client ID"
+      Description: 'Wild Rydes Cognito User Pool Client ID'
       Value:
-        Ref: "WildRydesCognitoUserPoolClient"
+        Ref: 'WildRydesCognitoUserPoolClient'
     WildRydesDynamoDbARN:
-      Description: "Wild Rydes DynamoDB ARN"
+      Description: 'Wild Rydes DynamoDB ARN'
       Value:
-        "Fn::GetAtt": [ WildRydesDynamoDBTable, Arn ]
+        'Fn::GetAtt': [WildRydesDynamoDBTable, Arn]
 ```
 
 As you can see, now we have much less code.

@@ -5,7 +5,7 @@ thumbnail: './DevOps-Team-Management.png'
 tags:
   - devops
   - management
-category: 'other'
+category: 'devops'
 authors:
   - Andrei Maksimov
 ---

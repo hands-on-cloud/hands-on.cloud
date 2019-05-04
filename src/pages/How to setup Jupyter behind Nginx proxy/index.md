@@ -1,13 +1,13 @@
 ---
-title: "How to setup Jupyter behind Nginx proxy"
-date: "2017-12-21"
-thumbnail: "./How-to-setup-Jupyter-behind-Nginx-proxy.png"
+title: 'How to setup Jupyter behind Nginx proxy'
+date: '2017-12-21'
+thumbnail: './How-to-setup-Jupyter-behind-Nginx-proxy.png'
 tags:
--   jupyter
--   nginx
-category: "ml"
+  - jupyter
+  - nginx
+category: 'ml'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![How to setup Jupyter behind Nginx proxy](How-to-setup-Jupyter-behind-Nginx-proxy.png)
@@ -16,15 +16,15 @@ Last 2 evenings we spent on setup Nginx + Jupyter configuration where Nginx acts
 
 ## Jupyter configuration
 
-We’re packing Jupyter inside a Docker container to provide each of our users their own isolated environment.  We’re using the following configuration placed inside `/root/.jupyter/jupyter_notebook_config.py`:
+We’re packing Jupyter inside a Docker container to provide each of our users their own isolated environment. We’re using the following configuration placed inside `/root/.jupyter/jupyter_notebook_config.py`:
 
 ```python
 # get the config object
-c = get_config()  
+c = get_config()
 # in-line figure when using Matplotlib
 c.IPKernelApp.pylab = 'inline'
 # listen on all interfaces
-c.NotebookApp.ip = '*' 
+c.NotebookApp.ip = '*'
 # port configuration
 c.NotebookApp.port = 8889
 # do not open a browser window by default when using notebooks
@@ -34,7 +34,7 @@ c.NotebookApp.token = ''
 # Place, where we're mounting Docker volumes with user's notebooks
 c.NotebookApp.notebook_dir = '/notebooks'
 # Allow to run Jupyter from root user inside Docker container
-c.NotebookApp.allow_root = True 
+c.NotebookApp.allow_root = True
 # Setting up Jupyter base URL
 c.NotebookApp.base_url = '/ipython/'
 # Allowing Jupyter iframe embeddings

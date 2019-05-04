@@ -1,13 +1,13 @@
 ---
-title: "AWS CloudFormation. Managing VPC"
-date: "2018-02-11"
-thumbnail: "./AWS-CloudFormation-Managing-VPC.png"
+title: 'AWS CloudFormation. Managing VPC'
+date: '2018-02-11'
+thumbnail: './AWS-CloudFormation-Managing-VPC.png'
 tags:
--   aws cloud
--   vpc
-category: "aws"
+  - aws cloud
+  - vpc
+category: 'aws'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![AWS CloudFormation. Managing VPC](AWS-CloudFormation-Managing-VPC.png)
@@ -42,10 +42,10 @@ It is also possible to generate your infrastructure schema by your own template 
 
 I’m always keeping several tabs opened in my browser:
 
-*   CloudFormation Service inside AWS Console
-*   CloudFormation Designer – for template syntax validation
-*   [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html) – this is the most important tab, where you can find all the elements, their required and optional parameters and output parameters also. You always need to understand how to get access to Instance private or public IP address to refer on it from the other resources inside your template.
-*   [Intrinsic Function Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html) – this tab could be very useful if you’re just starting with CloudFormation and don’t remember actual syntax of all available functions for your templates.
+- CloudFormation Service inside AWS Console
+- CloudFormation Designer – for template syntax validation
+- [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html) – this is the most important tab, where you can find all the elements, their required and optional parameters and output parameters also. You always need to understand how to get access to Instance private or public IP address to refer on it from the other resources inside your template.
+- [Intrinsic Function Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html) – this tab could be very useful if you’re just starting with CloudFormation and don’t remember actual syntax of all available functions for your templates.
 
 ## Managing VPC
 
@@ -61,7 +61,7 @@ Let’s start from initial template content:
 
 ```json
 {
-    "AWSTemplateFormatVersion": "2010-09-09"
+  "AWSTemplateFormatVersion": "2010-09-09"
 }
 ```
 
@@ -75,14 +75,14 @@ Now let’s add an empty VPC service declaration inside our template. This needs
 
 ```json
 {
-    "AWSTemplateFormatVersion": "2010-09-09",
+  "AWSTemplateFormatVersion": "2010-09-09",
 
-    "Resources": {
-        "MyVPC": {
-            "Type": "AWS::EC2::VPC",
-            "Properties": {}
-        }
+  "Resources": {
+    "MyVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {}
     }
+  }
 }
 ```
 
@@ -124,24 +124,24 @@ The full version of our template at this point of time will be:
 
 ```json
 {
-    "AWSTemplateFormatVersion": "2010-09-09",
-    "Resources": {
-        "MyVPC": {
-            "Type": "AWS::EC2::VPC",
-            "Properties": {
-                "CidrBlock": {
-                    "Ref": "VpcCidrBlock"
-                }
-            }
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "MyVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "VpcCidrBlock"
         }
-    },
-    "Parameters": {
-        "VpcCidrBlock": {
-            "Description": "VPC CIDR Range (will be a /16 block)",
-            "Type": "String",
-            "Default": "10.0.0.0/16"
-        }
+      }
     }
+  },
+  "Parameters": {
+    "VpcCidrBlock": {
+      "Description": "VPC CIDR Range (will be a /16 block)",
+      "Type": "String",
+      "Default": "10.0.0.0/16"
+    }
+  }
 }
 ```
 
@@ -188,41 +188,41 @@ The full version of our template at this point of time will be:
 
 ```json
 {
-    "AWSTemplateFormatVersion": "2010-09-09",
-    "Resources": {
-        "MyVPC": {
-            "Type": "AWS::EC2::VPC",
-            "Properties": {
-                "CidrBlock": {
-                    "Ref": "VpcCidrBlock"
-                }
-            }
-        },
-        "PublicSubnet": {
-            "Type": "AWS::EC2::Subnet",
-            "Properties": {
-                "VpcId": {
-                    "Ref": "MyVPC"
-                },
-                "CidrBlock": {
-                    "Ref": "PublicSubnetCidrBlock"
-                },
-                "MapPublicIpOnLaunch": "True"
-            }
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "MyVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "VpcCidrBlock"
         }
+      }
     },
-    "Parameters": {
-        "VpcCidrBlock": {
-            "Description": "VPC CIDR Range (will be a /16 block)",
-            "Type": "String",
-            "Default": "10.0.0.0/16"
+    "PublicSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "MyVPC"
         },
-        "VpcCidrBlock": {
-            "Description": "VPC CIDR Range (will be a /16 block)",
-            "Type": "String",
-            "Default": "10.0.0.0/16"
-        }
+        "CidrBlock": {
+          "Ref": "PublicSubnetCidrBlock"
+        },
+        "MapPublicIpOnLaunch": "True"
+      }
     }
+  },
+  "Parameters": {
+    "VpcCidrBlock": {
+      "Description": "VPC CIDR Range (will be a /16 block)",
+      "Type": "String",
+      "Default": "10.0.0.0/16"
+    },
+    "VpcCidrBlock": {
+      "Description": "VPC CIDR Range (will be a /16 block)",
+      "Type": "String",
+      "Default": "10.0.0.0/16"
+    }
+  }
 }
 ```
 
@@ -232,7 +232,7 @@ If you want to check it in CloudFormation Designer, you’ll get something like 
 
 ### Internet gateway (IGW)
 
-Well done! We’ve just created CloudFormation template that will create new VPC and Public Subnet inside of it. As you know, we call Subnet “Public” only if it is connected to the Internet. Right now it is not connected to the Internet, because we don’t have  Internet Gateway inside out VPC. Also, we need to create a Route through our IGW to the public networks: `0.0.0.0/0`. Let’s do it now.
+Well done! We’ve just created CloudFormation template that will create new VPC and Public Subnet inside of it. As you know, we call Subnet “Public” only if it is connected to the Internet. Right now it is not connected to the Internet, because we don’t have Internet Gateway inside out VPC. Also, we need to create a Route through our IGW to the public networks: `0.0.0.0/0`. Let’s do it now.
 
 First of all we’ll add [AWS::EC2::InternetGateway](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-internetgateway.html) inside our `Resources` template section:
 
@@ -263,52 +263,52 @@ The full code of our template will look like this:
 
 ```json
 {
-    "AWSTemplateFormatVersion": "2010-09-09",
-    "Resources": {
-        "MyVPC": {
-            "Type": "AWS::EC2::VPC",
-            "Properties": {
-                "CidrBlock": {
-                    "Ref": "VpcCidrBlock"
-                }
-            }
-        },
-        "PublicSubnet": {
-            "Type": "AWS::EC2::Subnet",
-            "Properties": {
-                "VpcId": {
-                    "Ref": "MyVPC"
-                },
-                "CidrBlock": {
-                    "Ref": "PublicSubnetCidrBlock"
-                },
-                "MapPublicIpOnLaunch": "True"
-            }
-        },
-        "IGW" : {
-            "Type" : "AWS::EC2::InternetGateway",
-            "Properties" : {}
-        },
-        "IgwAttachment" : {
-            "Type" : "AWS::EC2::VPCGatewayAttachment",
-            "Properties" : {
-                "VpcId" : { "Ref" : "MyVPC" },
-                "InternetGatewayId" : { "Ref" : "IGW" }
-            }
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "MyVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "VpcCidrBlock"
         }
+      }
     },
-    "Parameters": {
-        "VpcCidrBlock": {
-            "Description": "VPC CIDR Range (will be a /16 block)",
-            "Type": "String",
-            "Default": "10.0.0.0/16"
+    "PublicSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "MyVPC"
         },
-        "PublicSubnetCidrBlock": {
-            "Description": "Public Subnet CIDR Range",
-            "Type": "String",
-            "Default": "10.0.1.0/24"
-        }
+        "CidrBlock": {
+          "Ref": "PublicSubnetCidrBlock"
+        },
+        "MapPublicIpOnLaunch": "True"
+      }
+    },
+    "IGW": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {}
+    },
+    "IgwAttachment": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": { "Ref": "MyVPC" },
+        "InternetGatewayId": { "Ref": "IGW" }
+      }
     }
+  },
+  "Parameters": {
+    "VpcCidrBlock": {
+      "Description": "VPC CIDR Range (will be a /16 block)",
+      "Type": "String",
+      "Default": "10.0.0.0/16"
+    },
+    "PublicSubnetCidrBlock": {
+      "Description": "Public Subnet CIDR Range",
+      "Type": "String",
+      "Default": "10.0.1.0/24"
+    }
+  }
 }
 ```
 
@@ -363,74 +363,74 @@ The full code of our template at this time will look like this:
 
 ```json
 {
-    "AWSTemplateFormatVersion": "2010-09-09",
-    "Resources": {
-        "MyVPC": {
-            "Type": "AWS::EC2::VPC",
-            "Properties": {
-                "CidrBlock": {
-                    "Ref": "VpcCidrBlock"
-                }
-            }
-        },
-        "PublicSubnet": {
-            "Type": "AWS::EC2::Subnet",
-            "Properties": {
-                "VpcId": {
-                    "Ref": "MyVPC"
-                },
-                "CidrBlock": {
-                    "Ref": "PublicSubnetCidrBlock"
-                },
-                "MapPublicIpOnLaunch": "True"
-            }
-        },
-        "IGW" : {
-            "Type" : "AWS::EC2::InternetGateway",
-            "Properties" : {}
-        },
-        "IgwAttachment" : {
-            "Type" : "AWS::EC2::VPCGatewayAttachment",
-            "Properties" : {
-                "VpcId" : { "Ref" : "MyVPC" },
-                "InternetGatewayId" : { "Ref" : "IGW" }
-            }
-        },
-        "PublicRouteTable" : {
-            "Type" : "AWS::EC2::RouteTable",
-            "Properties" : {
-                "VpcId" : { "Ref" : "MyVPC" }
-            }
-        },
-        "PublicRoute" : {
-            "Type" : "AWS::EC2::Route",
-            "DependsOn" : "IGW",
-            "Properties" : {
-                "RouteTableId" : { "Ref" : "PublicRouteTable" },
-                "DestinationCidrBlock" : "0.0.0.0/0",
-                "GatewayId" : { "Ref" : "IGW" }
-            }
-        },
-        "PublicSubnetRouteAssociation": {
-            "Type" : "AWS::EC2::SubnetRouteTableAssociation",
-            "Properties" : {
-                "RouteTableId" : { "Ref" : "PublicRouteTable" },
-                "SubnetId" : { "Ref" : "PublicSubnet" }
-            }
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "MyVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "VpcCidrBlock"
         }
+      }
     },
-    "Parameters": {
-        "VpcCidrBlock": {
-            "Description": "VPC CIDR Range (will be a /16 block)",
-            "Type": "String",
-            "Default": "10.0.0.0/16"
+    "PublicSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "MyVPC"
         },
-        "PublicSubnetCidrBlock": {
-            "Description": "Public Subnet CIDR Range",
-            "Type": "String",
-            "Default": "10.0.1.0/24"
-        }
+        "CidrBlock": {
+          "Ref": "PublicSubnetCidrBlock"
+        },
+        "MapPublicIpOnLaunch": "True"
+      }
+    },
+    "IGW": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {}
+    },
+    "IgwAttachment": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": { "Ref": "MyVPC" },
+        "InternetGatewayId": { "Ref": "IGW" }
+      }
+    },
+    "PublicRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": { "Ref": "MyVPC" }
+      }
+    },
+    "PublicRoute": {
+      "Type": "AWS::EC2::Route",
+      "DependsOn": "IGW",
+      "Properties": {
+        "RouteTableId": { "Ref": "PublicRouteTable" },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": { "Ref": "IGW" }
+      }
+    },
+    "PublicSubnetRouteAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": { "Ref": "PublicRouteTable" },
+        "SubnetId": { "Ref": "PublicSubnet" }
+      }
     }
+  },
+  "Parameters": {
+    "VpcCidrBlock": {
+      "Description": "VPC CIDR Range (will be a /16 block)",
+      "Type": "String",
+      "Default": "10.0.0.0/16"
+    },
+    "PublicSubnetCidrBlock": {
+      "Description": "Public Subnet CIDR Range",
+      "Type": "String",
+      "Default": "10.0.1.0/24"
+    }
+  }
 }
 ```
 
@@ -478,103 +478,103 @@ Our full template code right now will look like this:
 
 ```json
 {
-    "AWSTemplateFormatVersion": "2010-09-09",
-    "Resources": {
-        "MyVPC": {
-            "Type": "AWS::EC2::VPC",
-            "Properties": {
-                "CidrBlock": {
-                    "Ref": "VpcCidrBlock"
-                }
-            }
-        },
-        "PublicSubnet": {
-            "Type": "AWS::EC2::Subnet",
-            "Properties": {
-                "VpcId": {
-                    "Ref": "MyVPC"
-                },
-                "CidrBlock": {
-                    "Ref": "PublicSubnetCidrBlock"
-                },
-                "MapPublicIpOnLaunch": "True"
-            }
-        },
-        "IGW" : {
-            "Type" : "AWS::EC2::InternetGateway",
-            "Properties" : {}
-        },
-        "IgwAttachment" : {
-            "Type" : "AWS::EC2::VPCGatewayAttachment",
-            "Properties" : {
-                "VpcId" : { "Ref" : "MyVPC" },
-                "InternetGatewayId" : { "Ref" : "IGW" }
-            }
-        },
-        "PublicRouteTable" : {
-            "Type" : "AWS::EC2::RouteTable",
-            "Properties" : {
-                "VpcId" : { "Ref" : "MyVPC" }
-            }
-        },
-        "PublicRoute" : {
-            "Type" : "AWS::EC2::Route",
-            "DependsOn" : "IGW",
-            "Properties" : {
-                "RouteTableId" : { "Ref" : "PublicRouteTable" },
-                "DestinationCidrBlock" : "0.0.0.0/0",
-                "GatewayId" : { "Ref" : "IGW" }
-            }
-        },
-        "PublicSubnetRouteAssociation": {
-            "Type" : "AWS::EC2::SubnetRouteTableAssociation",
-            "Properties" : {
-                "RouteTableId" : { "Ref" : "PublicRouteTable" },
-                "SubnetId" : { "Ref" : "PublicSubnet" }
-            }
-        },
-        "InstanceSecurityGroup" : {
-            "Type" : "AWS::EC2::SecurityGroup",
-            "Properties" : {
-                "GroupDescription" : "Allow HTTP and SSH traffic to our host",
-                "VpcId" : {"Ref" : "MyVPC"},
-                "SecurityGroupIngress" : [
-                    {
-                        "IpProtocol" : "tcp",
-                        "FromPort" : "22",
-                        "ToPort" : "22",
-                        "CidrIp" : "0.0.0.0/0"
-                    },
-                    {
-                        "IpProtocol" : "tcp",
-                        "FromPort" : "80",
-                        "ToPort" : "80",
-                        "CidrIp" : "0.0.0.0/0"
-                    }
-                ],
-                "SecurityGroupEgress" : [
-                    {
-                        "IpProtocol" : "tcp",
-                        "FromPort" : "1",
-                        "ToPort" : "65535",
-                        "CidrIp" : "0.0.0.0/0"
-                    }
-                ]
-            }
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "MyVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "VpcCidrBlock"
         }
+      }
     },
-    "Parameters": {
-        "VpcCidrBlock": {
-            "Description": "VPC CIDR Range (will be a /16 block)",
-            "Type": "String",
-            "Default": "10.0.0.0/16"
+    "PublicSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "MyVPC"
         },
-        "PublicSubnetCidrBlock": {
-            "Description": "Public Subnet CIDR Range",
-            "Type": "String",
-            "Default": "10.0.1.0/24"
-        }
+        "CidrBlock": {
+          "Ref": "PublicSubnetCidrBlock"
+        },
+        "MapPublicIpOnLaunch": "True"
+      }
+    },
+    "IGW": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {}
+    },
+    "IgwAttachment": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": { "Ref": "MyVPC" },
+        "InternetGatewayId": { "Ref": "IGW" }
+      }
+    },
+    "PublicRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": { "Ref": "MyVPC" }
+      }
+    },
+    "PublicRoute": {
+      "Type": "AWS::EC2::Route",
+      "DependsOn": "IGW",
+      "Properties": {
+        "RouteTableId": { "Ref": "PublicRouteTable" },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": { "Ref": "IGW" }
+      }
+    },
+    "PublicSubnetRouteAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": { "Ref": "PublicRouteTable" },
+        "SubnetId": { "Ref": "PublicSubnet" }
+      }
+    },
+    "InstanceSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Allow HTTP and SSH traffic to our host",
+        "VpcId": { "Ref": "MyVPC" },
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "22",
+            "ToPort": "22",
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "80",
+            "ToPort": "80",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ],
+        "SecurityGroupEgress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "1",
+            "ToPort": "65535",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
+      }
     }
+  },
+  "Parameters": {
+    "VpcCidrBlock": {
+      "Description": "VPC CIDR Range (will be a /16 block)",
+      "Type": "String",
+      "Default": "10.0.0.0/16"
+    },
+    "PublicSubnetCidrBlock": {
+      "Description": "Public Subnet CIDR Range",
+      "Type": "String",
+      "Default": "10.0.1.0/24"
+    }
+  }
 }
 ```
 
@@ -636,134 +636,131 @@ So, our final template version for this point of time will look like this:
 
 ```json
 {
-    "AWSTemplateFormatVersion": "2010-09-09",
-    "Resources": {
-        "MyVPC": {
-            "Type": "AWS::EC2::VPC",
-            "Properties": {
-                "CidrBlock": {
-                    "Ref": "VpcCidrBlock"
-                }
-            }
-        },
-        "PublicSubnet": {
-            "Type": "AWS::EC2::Subnet",
-            "Properties": {
-                "VpcId": {
-                    "Ref": "MyVPC"
-                },
-                "CidrBlock": {
-                    "Ref": "PublicSubnetCidrBlock"
-                },
-                "MapPublicIpOnLaunch": "True"
-            }
-        },
-        "IGW" : {
-            "Type" : "AWS::EC2::InternetGateway",
-            "Properties" : {}
-        },
-        "IgwAttachment" : {
-            "Type" : "AWS::EC2::VPCGatewayAttachment",
-            "Properties" : {
-                "VpcId" : { "Ref" : "MyVPC" },
-                "InternetGatewayId" : { "Ref" : "IGW" }
-            }
-        },
-        "PublicRouteTable" : {
-            "Type" : "AWS::EC2::RouteTable",
-            "Properties" : {
-                "VpcId" : { "Ref" : "MyVPC" }
-            }
-        },
-        "PublicRoute" : {
-            "Type" : "AWS::EC2::Route",
-            "DependsOn" : "IGW",
-            "Properties" : {
-                "RouteTableId" : { "Ref" : "PublicRouteTable" },
-                "DestinationCidrBlock" : "0.0.0.0/0",
-                "GatewayId" : { "Ref" : "IGW" }
-            }
-        },
-        "PublicSubnetRouteAssociation": {
-            "Type" : "AWS::EC2::SubnetRouteTableAssociation",
-            "Properties" : {
-                "RouteTableId" : { "Ref" : "PublicRouteTable" },
-                "SubnetId" : { "Ref" : "PublicSubnet" }
-            }
-        },
-        "InstanceSecurityGroup" : {
-            "Type" : "AWS::EC2::SecurityGroup",
-            "Properties" : {
-                "GroupDescription" : "Allow HTTP and SSH traffic to our host",
-                "VpcId" : {"Ref" : "MyVPC"},
-                "SecurityGroupIngress" : [
-                    {
-                        "IpProtocol" : "tcp",
-                        "FromPort" : "22",
-                        "ToPort" : "22",
-                        "CidrIp" : "0.0.0.0/0"
-                    },
-                    {
-                        "IpProtocol" : "tcp",
-                        "FromPort" : "80",
-                        "ToPort" : "80",
-                        "CidrIp" : "0.0.0.0/0"
-                    }
-                ],
-                "SecurityGroupEgress" : [
-                    {
-                        "IpProtocol" : "tcp",
-                        "FromPort" : "1",
-                        "ToPort" : "65535",
-                        "CidrIp" : "0.0.0.0/0"
-                    }
-                ]
-            }
-        },
-        "MyEC2Instance" : {
-            "Type" : "AWS::EC2::Instance",
-            "Properties" : {
-                "ImageId" : "ami-97785bed",
-                "KeyName" : { "Ref": "SSHKeyName"},
-                "SubnetId": {
-                    "Ref": "PublicSubnet"
-                },
-                "InstanceType": "t2.small",
-                "SecurityGroupIds": [
-                    {
-                        "Ref": "InstanceSecurityGroup"
-                    }
-                ]
-            }
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "MyVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "VpcCidrBlock"
         }
+      }
     },
-    "Parameters": {
-        "VpcCidrBlock": {
-            "Description": "VPC CIDR Range (will be a /16 block)",
-            "Type": "String",
-            "Default": "10.0.0.0/16"
+    "PublicSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "MyVPC"
         },
-        "PublicSubnetCidrBlock": {
-            "Description": "Public Subnet CIDR Range",
-            "Type": "String",
-            "Default": "10.0.1.0/24"
+        "CidrBlock": {
+          "Ref": "PublicSubnetCidrBlock"
         },
-        "SSHKeyName": {
-            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
-            "Type": "AWS::EC2::KeyPair::KeyName",
-            "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
-        }
+        "MapPublicIpOnLaunch": "True"
+      }
     },
-    "Outputs": {
-        "MyEC2InstancePublicIP": {
-            "Value": {
-                "Fn::GetAtt": [
-                    "MyEC2Instance",
-                    "PublicIp"
-                ]
-            }
-        }
+    "IGW": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {}
+    },
+    "IgwAttachment": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": { "Ref": "MyVPC" },
+        "InternetGatewayId": { "Ref": "IGW" }
+      }
+    },
+    "PublicRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": { "Ref": "MyVPC" }
+      }
+    },
+    "PublicRoute": {
+      "Type": "AWS::EC2::Route",
+      "DependsOn": "IGW",
+      "Properties": {
+        "RouteTableId": { "Ref": "PublicRouteTable" },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": { "Ref": "IGW" }
+      }
+    },
+    "PublicSubnetRouteAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": { "Ref": "PublicRouteTable" },
+        "SubnetId": { "Ref": "PublicSubnet" }
+      }
+    },
+    "InstanceSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Allow HTTP and SSH traffic to our host",
+        "VpcId": { "Ref": "MyVPC" },
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "22",
+            "ToPort": "22",
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "80",
+            "ToPort": "80",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ],
+        "SecurityGroupEgress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "1",
+            "ToPort": "65535",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
+      }
+    },
+    "MyEC2Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-97785bed",
+        "KeyName": { "Ref": "SSHKeyName" },
+        "SubnetId": {
+          "Ref": "PublicSubnet"
+        },
+        "InstanceType": "t2.small",
+        "SecurityGroupIds": [
+          {
+            "Ref": "InstanceSecurityGroup"
+          }
+        ]
+      }
     }
+  },
+  "Parameters": {
+    "VpcCidrBlock": {
+      "Description": "VPC CIDR Range (will be a /16 block)",
+      "Type": "String",
+      "Default": "10.0.0.0/16"
+    },
+    "PublicSubnetCidrBlock": {
+      "Description": "Public Subnet CIDR Range",
+      "Type": "String",
+      "Default": "10.0.1.0/24"
+    },
+    "SSHKeyName": {
+      "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+    }
+  },
+  "Outputs": {
+    "MyEC2InstancePublicIP": {
+      "Value": {
+        "Fn::GetAtt": ["MyEC2Instance", "PublicIp"]
+      }
+    }
+  }
 }
 ```
 
@@ -811,9 +808,9 @@ You may also try to connect your instance using SSH:
 
 ## CloudFormation best practices
 
-*   **Don’t hardcode object names**: where is possible try to avoid using hardcoded names for your objects like S3 bucket or IAM objects, for example. As you know, some of the objects needs to be unique in your account, some of the objects globally. Try to launch 2 or more stacks from your template to be sure, that nothing is hardcoded. Following this principle will allow you to use you templates as many times as needed.
-*   **Tag everything**: add Tags everywhere it is possible. it will allow you to control costs for your infrastructure and increase manageability of it.
-*   **Don’t put RDS or instance DB hosts inside the template**: if something goes wrong and you’ll need to recreate your infrastructure, CloudFormation will delete all the resources it has created. So, to avoid your data loss, don’t manage your databases layer using Cloud Formation.
+- **Don’t hardcode object names**: where is possible try to avoid using hardcoded names for your objects like S3 bucket or IAM objects, for example. As you know, some of the objects needs to be unique in your account, some of the objects globally. Try to launch 2 or more stacks from your template to be sure, that nothing is hardcoded. Following this principle will allow you to use you templates as many times as needed.
+- **Tag everything**: add Tags everywhere it is possible. it will allow you to control costs for your infrastructure and increase manageability of it.
+- **Don’t put RDS or instance DB hosts inside the template**: if something goes wrong and you’ll need to recreate your infrastructure, CloudFormation will delete all the resources it has created. So, to avoid your data loss, don’t manage your databases layer using Cloud Formation.
 
 ## Final words
 

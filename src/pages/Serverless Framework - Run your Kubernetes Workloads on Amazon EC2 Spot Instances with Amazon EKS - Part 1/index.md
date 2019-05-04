@@ -1,20 +1,20 @@
 ---
-title: "Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 1"
-date: "2018-09-24"
-thumbnail: "./Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-1.png"
+title: 'Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 1'
+date: '2018-09-24'
+thumbnail: './Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-1.png'
 tags:
--   amazon cloud
--   aws
--   cloudformation
--   ecs
--   eks
--   fargate
--   kubernetes
--   lambda
--   serverless
-category: "aws"
+  - amazon cloud
+  - aws
+  - cloudformation
+  - ecs
+  - eks
+  - fargate
+  - kubernetes
+  - lambda
+  - serverless
+category: 'aws'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 1](Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-1.png)
@@ -37,10 +37,10 @@ We will reproduce Rupak’s idea, but make it working in AWS EKS cluster on top 
 
 **Workflow description**
 
-*   User uploads video file in S3 bucket
-*   Lambda function triggered and launch Kubernetes Job in EKS cluster
-*   Job extract thumbnail from the video file and upload it to another S3 bucket
-*   Next lambda function triggered for future integration (it may send us email, trigger another Kubernetes Job, make some changes in DB, etc).
+- User uploads video file in S3 bucket
+- Lambda function triggered and launch Kubernetes Job in EKS cluster
+- Job extract thumbnail from the video file and upload it to another S3 bucket
+- Next lambda function triggered for future integration (it may send us email, trigger another Kubernetes Job, make some changes in DB, etc).
 
 ## Building up infrastructure
 
@@ -119,7 +119,7 @@ functions:
     handler: upload_video.handler
     events:
       - s3:
-          bucket: "${self:service}-${self:provider.stage}-uploads"
+          bucket: '${self:service}-${self:provider.stage}-uploads'
     event: s3:ObjectCreated:*
 ```
 
@@ -147,7 +147,7 @@ functions:
     handler: upload_thumbnail.handler
     events:
       - s3:
-          bucket: "${self:service}-${self:provider.stage}-thumbnails"
+          bucket: '${self:service}-${self:provider.stage}-thumbnails'
           event: s3:ObjectCreated:*
 ```
 
@@ -166,6 +166,7 @@ sls deploy
 ```
 
 ## EKS cluster setup
+
 Now it’s time to create our EKS AWS managed Kubernetes cluster with spot instances. In this tutorial we’ll create a separate VPC with two public subnets in it for spot instances, so everybody could be on the same page.
 
 ### Creating VPC
@@ -177,13 +178,12 @@ resources:
   Resources:
     KubernetesClusterVPC:
       Type: AWS::EC2::VPC
-      Properties: 
-        CidrBlock: "10.0.0.0/16"
+      Properties:
+        CidrBlock: '10.0.0.0/16'
         EnableDnsSupport: true
         EnableDnsHostnames: true
         Tags:
-          -
-            Key: Name
+          - Key: Name
             Value: ${self:service}-${self:provider.stage}
 ```
 
@@ -194,28 +194,26 @@ Declaring VPC in such way we want Serverless framework to create a VPC with `10.
 Next, we need to create two subnets by declaring [AWS::EC2::Subnet](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html) resources:
 
 ```yaml
-    KubernetesClusterSubnetA:
-      Type: AWS::EC2::Subnet
-      Properties:
-        VpcId:
-          Ref: KubernetesClusterVPC
-        CidrBlock: 10.0.0.0/24
-        AvailabilityZone: "us-east-1a"
-        Tags:
-          -
-            Key: Name
-            Value: ${self:service}-${self:provider.stage}
-    KubernetesClusterSubnetB:
-      Type: AWS::EC2::Subnet
-      Properties:
-        VpcId:
-          Ref: KubernetesClusterVPC
-        CidrBlock: 10.0.1.0/24
-        AvailabilityZone: "us-east-1b"
-        Tags:
-          -
-            Key: Name
-            Value: ${self:service}-${self:provider.stage}
+KubernetesClusterSubnetA:
+  Type: AWS::EC2::Subnet
+  Properties:
+    VpcId:
+      Ref: KubernetesClusterVPC
+    CidrBlock: 10.0.0.0/24
+    AvailabilityZone: 'us-east-1a'
+    Tags:
+      - Key: Name
+        Value: ${self:service}-${self:provider.stage}
+KubernetesClusterSubnetB:
+  Type: AWS::EC2::Subnet
+  Properties:
+    VpcId:
+      Ref: KubernetesClusterVPC
+    CidrBlock: 10.0.1.0/24
+    AvailabilityZone: 'us-east-1b'
+    Tags:
+      - Key: Name
+        Value: ${self:service}-${self:provider.stage}
 ```
 
 ![Serverless Framework - EKS Create VPC Subnets](Serverless-Framework-EKS-Create-VPC-Subnets.png)
@@ -223,25 +221,24 @@ Next, we need to create two subnets by declaring [AWS::EC2::Subnet](https://docs
 To allow Internet communication for instances in that subnets we need to create InternetGateway and add specify route `0.0.0.0/0`. Let’s create [AWS::EC2::InternetGateway](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-internetgateway.html) resource:
 
 ```yaml
-    KubernetesClusterInternetGateway:
-      Type: AWS::EC2::InternetGateway
-      Properties:
-        Tags:
-          -
-            Key: Name
-            Value: ${self:service}-${self:provider.stage}
+KubernetesClusterInternetGateway:
+  Type: AWS::EC2::InternetGateway
+  Properties:
+    Tags:
+      - Key: Name
+        Value: ${self:service}-${self:provider.stage}
 ```
 
 To attach InternetGateway to VPC we need to describe [AWS::EC2::VPCGatewayAttachment](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc-gateway-attachment.html) resource:
 
 ```yaml
-    KubernetesClusterInternetGatewayAttachment:
-      Type: AWS::EC2::VPCGatewayAttachment
-      Properties: 
-        InternetGatewayId:
-          Ref: KubernetesClusterInternetGateway
-        VpcId:
-          Ref: KubernetesClusterVPC
+KubernetesClusterInternetGatewayAttachment:
+  Type: AWS::EC2::VPCGatewayAttachment
+  Properties:
+    InternetGatewayId:
+      Ref: KubernetesClusterInternetGateway
+    VpcId:
+      Ref: KubernetesClusterVPC
 ```
 
 ![Serverless Framework - EKS Create VPC InternetGateway](Serverless-Framework-EKS-Create-VPC-InternetGateway.png)
@@ -249,48 +246,47 @@ To attach InternetGateway to VPC we need to describe [AWS::EC2::VPCGatewayAttach
 We have VPC, Subnets and InternetGateway, now we need to specify necessary `0.0.0.0/0` route. To do so, we need to create a [AWS::EC2::RouteTable](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route-table.html):
 
 ```yaml
-    KubernetesClusterInternetGatewayRouteTable:
-      Type: AWS::EC2::RouteTable
-      Properties: 
-        VpcId:
-          Ref: KubernetesClusterVPC
-        Tags:
-          -
-            Key: Name
-            Value: ${self:service}-${self:provider.stage}
+KubernetesClusterInternetGatewayRouteTable:
+  Type: AWS::EC2::RouteTable
+  Properties:
+    VpcId:
+      Ref: KubernetesClusterVPC
+    Tags:
+      - Key: Name
+        Value: ${self:service}-${self:provider.stage}
 ```
 
 Create a [AWS::EC2::Route](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html) itself:
 
 ```yaml
-    KubernetesClusterInternetGatewayToInternetRoute:
-      Type: AWS::EC2::Route
-      DependsOn: KubernetesClusterInternetGateway
-      Properties:
-        RouteTableId:
-          Ref: KubernetesClusterInternetGatewayRouteTable
-        DestinationCidrBlock: 0.0.0.0/0
-        GatewayId:
-          Ref: KubernetesClusterInternetGateway
+KubernetesClusterInternetGatewayToInternetRoute:
+  Type: AWS::EC2::Route
+  DependsOn: KubernetesClusterInternetGateway
+  Properties:
+    RouteTableId:
+      Ref: KubernetesClusterInternetGatewayRouteTable
+    DestinationCidrBlock: 0.0.0.0/0
+    GatewayId:
+      Ref: KubernetesClusterInternetGateway
 ```
 
 And associate our subnets with just created route table by describing two [AWS::EC2::SubnetRouteTableAssociation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet-route-table-assoc.html) resources:
 
 ```yaml
-    KubernetesClusterSubnetAtoInternetRouteAssociation:
-      Type: AWS::EC2::SubnetRouteTableAssociation
-      Properties: 
-        RouteTableId:
-          Ref: KubernetesClusterInternetGatewayRouteTable
-        SubnetId:
-          Ref: KubernetesClusterSubnetA
-    KubernetesClusterSubnetBtoInternetRouteAssociation:
-      Type: AWS::EC2::SubnetRouteTableAssociation
-      Properties: 
-        RouteTableId:
-          Ref: KubernetesClusterInternetGatewayRouteTable
-        SubnetId:
-          Ref: KubernetesClusterSubnetB
+KubernetesClusterSubnetAtoInternetRouteAssociation:
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties:
+    RouteTableId:
+      Ref: KubernetesClusterInternetGatewayRouteTable
+    SubnetId:
+      Ref: KubernetesClusterSubnetA
+KubernetesClusterSubnetBtoInternetRouteAssociation:
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties:
+    RouteTableId:
+      Ref: KubernetesClusterInternetGatewayRouteTable
+    SubnetId:
+      Ref: KubernetesClusterSubnetB
 ```
 
 ![Serverless Framework - EKS Create VPC Routes](Serverless-Framework-EKS-Create-VPC-Routes.png)
@@ -308,21 +304,21 @@ This is where the AWS EKS service comes into play. It requires a few managed res
 First of all we need to create an [AWS::IAM::Role](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html) role for EKS Kubernetes Master:
 
 ```yaml
-    EksKubernetesServiceRole:
-      Type: AWS::IAM::Role
-      Properties:
-        RoleName: EksKubernetesServiceRole
-        AssumeRolePolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service:
-                  - eks.amazonaws.com
-              Action: sts:AssumeRole
-        ManagedPolicyArns:
-          - 'arn:aws:iam::aws:policy/AmazonEKSClusterPolicy'
-          - 'arn:aws:iam::aws:policy/AmazonEKSServicePolicy'
+EksKubernetesServiceRole:
+  Type: AWS::IAM::Role
+  Properties:
+    RoleName: EksKubernetesServiceRole
+    AssumeRolePolicyDocument:
+      Version: '2012-10-17'
+      Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+              - eks.amazonaws.com
+          Action: sts:AssumeRole
+    ManagedPolicyArns:
+      - 'arn:aws:iam::aws:policy/AmazonEKSClusterPolicy'
+      - 'arn:aws:iam::aws:policy/AmazonEKSServicePolicy'
 ```
 
 Here we’re also attaching pre-defined `AmazonEKSClusterPolicy` and `AmazonEKSServicePolicy` and to our role to allow Kubernetes master manage AWS resources on your behalf.
@@ -334,40 +330,39 @@ For the latest required [policy](https://docs.aws.amazon.com/eks/latest/userguid
 Next we need to create [AWS::EC2::SecurityGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html) to protect Kubernetes Master management port:
 
 ```yaml
-    KubernetesClusterMasterSecurityGroup:
-      Type: AWS::EC2::SecurityGroup
-      Properties:
-        GroupDescription: Allow EKS Cluster communication with worker nodes
-        VpcId:
-          Ref: KubernetesClusterVPC
-        SecurityGroupEgress:
-          - IpProtocol: -1
-            FromPort: 0
-            ToPort: 0
-            CidrIp: 0.0.0.0/0
-        Tags:
-          -
-            Key: Name
-            Value: ${self:service}-${self:provider.stage}
+KubernetesClusterMasterSecurityGroup:
+  Type: AWS::EC2::SecurityGroup
+  Properties:
+    GroupDescription: Allow EKS Cluster communication with worker nodes
+    VpcId:
+      Ref: KubernetesClusterVPC
+    SecurityGroupEgress:
+      - IpProtocol: -1
+        FromPort: 0
+        ToPort: 0
+        CidrIp: 0.0.0.0/0
+    Tags:
+      - Key: Name
+        Value: ${self:service}-${self:provider.stage}
 ```
 
 We will later configure this group with an ingress rule to allow traffic from the worker nodes. But now you may want to enable management connection form your workstation. To do that, you need to create [AWS::EC2::SecurityGroupIngress](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group-ingress.html) resource and attach it to just created `SecurityGroup`:
 
 ```yaml
-    # OPTIONAL: Allow inbound traffic from your local workstation external IP
-    #           to the Kubernetes. You will need to replace A.B.C.D below with
-    #           your real IP. Services like icanhazip.com can help you find this.
-    KubernetesClusterMasterFromWorkstationSecurityGroupRule:
-      Type: AWS::EC2::SecurityGroupIngress
-      Properties: 
-        CidrIp: A.B.C.D/32
-        # CidrIp: 138.68.101.60/32
-        Description: Allow workstation to communicate with the EKS cluster API Server
-        FromPort: 443
-        IpProtocol: tcp
-        ToPort: 443
-        GroupId:
-          Ref: KubernetesClusterMasterSecurityGroup
+# OPTIONAL: Allow inbound traffic from your local workstation external IP
+#           to the Kubernetes. You will need to replace A.B.C.D below with
+#           your real IP. Services like icanhazip.com can help you find this.
+KubernetesClusterMasterFromWorkstationSecurityGroupRule:
+  Type: AWS::EC2::SecurityGroupIngress
+  Properties:
+    CidrIp: A.B.C.D/32
+    # CidrIp: 138.68.101.60/32
+    Description: Allow workstation to communicate with the EKS cluster API Server
+    FromPort: 443
+    IpProtocol: tcp
+    ToPort: 443
+    GroupId:
+      Ref: KubernetesClusterMasterSecurityGroup
 ```
 
 ![Serverless Framework - EKS Master SecurityGroup](Serverless-Framework-EKS-Master-SecurityGroup.png)
@@ -375,19 +370,19 @@ We will later configure this group with an ingress rule to allow traffic from th
 Now we can declare [AWS::EKS::Cluster](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-cluster.html) to create Kubernetes cluster itself:
 
 ```yaml
-    KubernetesCluster:
-      Type: "AWS::EKS::Cluster"
-      Properties:
-        Name: ${self:service}-${self:provider.stage}
-        ResourcesVpcConfig:
-          SecurityGroupIds:
-            - Ref: KubernetesClusterMasterSecurityGroup
-          SubnetIds:
-            - Ref: KubernetesClusterSubnetA
-            - Ref: KubernetesClusterSubnetB
-        RoleArn:
-          Fn::GetAtt: [ EksKubernetesServiceRole, Arn ]
-        Version: "1.10"
+KubernetesCluster:
+  Type: 'AWS::EKS::Cluster'
+  Properties:
+    Name: ${self:service}-${self:provider.stage}
+    ResourcesVpcConfig:
+      SecurityGroupIds:
+        - Ref: KubernetesClusterMasterSecurityGroup
+      SubnetIds:
+        - Ref: KubernetesClusterSubnetA
+        - Ref: KubernetesClusterSubnetB
+    RoleArn:
+      Fn::GetAtt: [EksKubernetesServiceRole, Arn]
+    Version: '1.10'
 ```
 
 ![Serverless Framework - EKS Master Cluster](Serverless-Framework-EKS-Master-Cluster.png)
@@ -395,19 +390,19 @@ Now we can declare [AWS::EKS::Cluster](https://docs.aws.amazon.com/AWSCloudForma
 Finally, we want to get some cluster parameters to create connection configuration file. Let’s declare them in the `Outputs:` section of the `resources:` declaration in `serverless.yaml` file:
 
 ```yaml
-  Outputs:
-    KubernetesClusterName:
-      Description: "EKS Cluster Name"
-      Value:
-        Ref: KubernetesCluster
-    KubernetesClusterEndpoint:
-      Description: "EKS Cluster Endpoint"
-      Value:
-        Fn::GetAtt: [ KubernetesCluster, Endpoint ]
-    KubernetesClusterCertificateAuthorityData:
-      Description: "EKS Cluster Certificate Authority Data"
-      Value:
-        Fn::GetAtt: [ KubernetesCluster, CertificateAuthorityData ]
+Outputs:
+  KubernetesClusterName:
+    Description: 'EKS Cluster Name'
+    Value:
+      Ref: KubernetesCluster
+  KubernetesClusterEndpoint:
+    Description: 'EKS Cluster Endpoint'
+    Value:
+      Fn::GetAtt: [KubernetesCluster, Endpoint]
+  KubernetesClusterCertificateAuthorityData:
+    Description: 'EKS Cluster Certificate Authority Data'
+    Value:
+      Fn::GetAtt: [KubernetesCluster, CertificateAuthorityData]
 ```
 
 ![Serverless Framework - EKS Master Cluster Connection Properties](Serverless-Framework-EKS-Master-Cluster-Connection-Properties.png)
@@ -439,133 +434,121 @@ kubectl get svc
 First of all we need to create a [AWS::IAM::Role](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html) where all necessary permissions would be specified:
 
 ```yaml
-    NodeInstanceRole:
-      Type: AWS::IAM::Role
-      Properties:
-        AssumeRolePolicyDocument:
+NodeInstanceRole:
+  Type: AWS::IAM::Role
+  Properties:
+    AssumeRolePolicyDocument:
+      Version: '2012-10-17'
+      Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+              - ec2.amazonaws.com
+          Action: sts:AssumeRole
+    Path: '/'
+    Policies:
+      - PolicyName: node
+        PolicyDocument:
           Version: '2012-10-17'
           Statement:
             - Effect: Allow
-              Principal:
-                Service:
-                  - ec2.amazonaws.com
-              Action: sts:AssumeRole
-        Path: "/"
-        Policies:
-          -
-            PolicyName: node
-            PolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-                - Effect: Allow
-                  Action:
-                    - ec2:Describe*
-                    - ecr:GetAuthorizationToken
-                    - ecr:BatchCheckLayerAvailability
-                    - ecr:GetDownloadUrlForLayer
-                    - ecr:GetRepositoryPolicy
-                    - ecr:DescribeRepositories
-                    - ecr:ListImages
-                    - ecr:BatchGetImage
-                  Resource: "*"
-          -
-            PolicyName: cni
-            PolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-                -
-                  Effect: Allow
-                  Action:
-                    - ec2:DescribeNetworkInterfaces
-                    - ec2:DescribeInstances
-                    - ec2:CreateNetworkInterface
-                    - ec2:AttachNetworkInterface
-                    - ec2:DeleteNetworkInterface
-                    - ec2:DetachNetworkInterface
-                    - ec2:ModifyNetworkInterfaceAttribute
-                    - ec2:AssignPrivateIpAddresses
-                    - tag:TagResources
-                  Resource: "*"
-          -
-            PolicyName: eks
-            PolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-                -
-                  Effect: Allow
-                  Action:
-                    - eks:DescribeCluster
-                  Resource: "*"
-          -
-            PolicyName: s3-management
-            PolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-                -
-                  Effect: Allow
-                  Action:
-                    - s3:PutObject
-                    - s3:GetObject
-                    - s3:ListBucket
-                    - s3:DeleteObject
-                  Resource:
-                    - Fn::GetAtt: [ S3BucketAwseksspotserverlessdemodevuploads, Arn ]
-                    - Fn::Join:
-                        - "/"
-                        -
-                          - Fn::GetAtt: [ S3BucketAwseksspotserverlessdemodevuploads, Arn ]
-                          - "*"
-                -
-                  Effect: Allow
-                  Action:
-                    - s3:PutObject
-                    - s3:GetObject
-                    - s3:ListBucket
-                    - s3:DeleteObject
-                  Resource:
-                    - Fn::GetAtt: [ S3BucketAwseksspotserverlessdemodevthumbnails, Arn ]
-                    - Fn::Join:
-                        - "/"
-                        -
-                          - Fn::GetAtt: [ S3BucketAwseksspotserverlessdemodevthumbnails, Arn ]
-                          - "*"
-                -
-                  Effect: Allow
-                  Action:
-                    - s3:HeadBucket
-                  Resource: '*'
-          -
-            PolicyName: ClusterAutoscaler
-            PolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-                -
-                  Effect: Allow
-                  Action:
-                    - ec2:DescribeRegions
-                    - ec2:DescribeInstances
-                  Resource: "*"
-                -
-                  Effect: Allow
-                  Action:
-                    - ecr:GetAuthorizationToken
-                    - ecr:BatchCheckLayerAvailability
-                    - ecr:GetDownloadUrlForLayer
-                    - ecr:GetRepositoryPolicy
-                    - ecr:DescribeRepositories
-                    - ecr:ListImages
-                    - ecr:BatchGetImage
-                  Resource: "*"
-                -
-                  Effect: Allow
-                  Action:
-                    - autoscaling:DescribeAutoScalingGroups
-                    - autoscaling:DescribeAutoScalingInstances
-                    - autoscaling:DescribeLaunchConfigurations
-                    - autoscaling:SetDesiredCapacity
-                    - autoscaling:DescribeTags
-                    - autoscaling:TerminateInstanceInAutoScalingGroup
-                  Resource: "*"
+              Action:
+                - ec2:Describe*
+                - ecr:GetAuthorizationToken
+                - ecr:BatchCheckLayerAvailability
+                - ecr:GetDownloadUrlForLayer
+                - ecr:GetRepositoryPolicy
+                - ecr:DescribeRepositories
+                - ecr:ListImages
+                - ecr:BatchGetImage
+              Resource: '*'
+      - PolicyName: cni
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - ec2:DescribeNetworkInterfaces
+                - ec2:DescribeInstances
+                - ec2:CreateNetworkInterface
+                - ec2:AttachNetworkInterface
+                - ec2:DeleteNetworkInterface
+                - ec2:DetachNetworkInterface
+                - ec2:ModifyNetworkInterfaceAttribute
+                - ec2:AssignPrivateIpAddresses
+                - tag:TagResources
+              Resource: '*'
+      - PolicyName: eks
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - eks:DescribeCluster
+              Resource: '*'
+      - PolicyName: s3-management
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:PutObject
+                - s3:GetObject
+                - s3:ListBucket
+                - s3:DeleteObject
+              Resource:
+                - Fn::GetAtt: [S3BucketAwseksspotserverlessdemodevuploads, Arn]
+                - Fn::Join:
+                    - '/'
+                    - - Fn::GetAtt:
+                          [S3BucketAwseksspotserverlessdemodevuploads, Arn]
+                      - '*'
+            - Effect: Allow
+              Action:
+                - s3:PutObject
+                - s3:GetObject
+                - s3:ListBucket
+                - s3:DeleteObject
+              Resource:
+                - Fn::GetAtt:
+                    [S3BucketAwseksspotserverlessdemodevthumbnails, Arn]
+                - Fn::Join:
+                    - '/'
+                    - - Fn::GetAtt:
+                          [S3BucketAwseksspotserverlessdemodevthumbnails, Arn]
+                      - '*'
+            - Effect: Allow
+              Action:
+                - s3:HeadBucket
+              Resource: '*'
+      - PolicyName: ClusterAutoscaler
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - ec2:DescribeRegions
+                - ec2:DescribeInstances
+              Resource: '*'
+            - Effect: Allow
+              Action:
+                - ecr:GetAuthorizationToken
+                - ecr:BatchCheckLayerAvailability
+                - ecr:GetDownloadUrlForLayer
+                - ecr:GetRepositoryPolicy
+                - ecr:DescribeRepositories
+                - ecr:ListImages
+                - ecr:BatchGetImage
+              Resource: '*'
+            - Effect: Allow
+              Action:
+                - autoscaling:DescribeAutoScalingGroups
+                - autoscaling:DescribeAutoScalingInstances
+                - autoscaling:DescribeLaunchConfigurations
+                - autoscaling:SetDesiredCapacity
+                - autoscaling:DescribeTags
+                - autoscaling:TerminateInstanceInAutoScalingGroup
+              Resource: '*'
 ```
 
 Policy `s3-management` specified access permissions to our S3 buckets. All the others are needed for EKS Nodes by default.
@@ -575,10 +558,10 @@ Policy `s3-management` specified access permissions to our S3 buckets. All the o
 To allow EKS Nodes authentication on EKS Master we need to install AWS IAM Authenticator configuration map to EKS cluster. To get Node role ARN we need to add the following to the Outputs: section of resources: declaration:
 
 ```yaml
-    KubernetesClusterNodesRoleArn:
-      Description: "EKS Cluster Nodes Role Arn"
-      Value:
-        Fn::GetAtt: [ NodeInstanceRole, Arn ] 
+KubernetesClusterNodesRoleArn:
+  Description: 'EKS Cluster Nodes Role Arn'
+  Value:
+    Fn::GetAtt: [NodeInstanceRole, Arn]
 ```
 
 Now you may redeploy the stack and get it:
@@ -621,12 +604,12 @@ rm aws-auth-cm.yaml
 Now, we need to describe [AWS::IAM::InstanceProfile](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html) to provide EKS Nodes with appropriate permissions:
 
 ```yaml
-    NodeInstanceProfile:
-      Type: AWS::IAM::InstanceProfile
-      Properties:
-        Path: "/"
-        Roles:
-          - Ref: NodeInstanceRole
+NodeInstanceProfile:
+  Type: AWS::IAM::InstanceProfile
+  Properties:
+    Path: '/'
+    Roles:
+      - Ref: NodeInstanceRole
 ```
 
 ![Serverless Framework - EKS Nodes InstanceProfile](Serverless-Framework-EKS-Nodes-InstanceProfile.png)
@@ -634,16 +617,15 @@ Now, we need to describe [AWS::IAM::InstanceProfile](https://docs.aws.amazon.com
 Next thing to do is to declare [AWS::EC2::SecurityGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html) and allow network communication between Nodes, Nodes and Master and from our workstation to Nodes if needed. SecurityGroup for Nodes:
 
 ```yaml
-    NodeSecurityGroup:
-      Type: AWS::EC2::SecurityGroup
-      Properties:
-        GroupDescription: Security group for all nodes in the EKS cluster
-        VpcId:
-          Ref: KubernetesClusterVPC
-        Tags:
-          -
-            Key: Name
-            Value: ${self:service}-${self:provider.stage}
+NodeSecurityGroup:
+  Type: AWS::EC2::SecurityGroup
+  Properties:
+    GroupDescription: Security group for all nodes in the EKS cluster
+    VpcId:
+      Ref: KubernetesClusterVPC
+    Tags:
+      - Key: Name
+        Value: ${self:service}-${self:provider.stage}
 ```
 
 ![Serverless Framework - EKS Nodes SecurityGroup](Serverless-Framework-EKS-Nodes-SecurityGroup.png)
@@ -651,50 +633,50 @@ Next thing to do is to declare [AWS::EC2::SecurityGroup](https://docs.aws.amazon
 Here’s [AWS::EC2::SecurityGroupIngress](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group-ingress.html) rules which are allowing network traffic:
 
 ```yaml
-    NodeSecurityGroupIngress:
-      Type: AWS::EC2::SecurityGroupIngress
-      Properties:
-        Description: Allow node to communicate with each other
-        GroupId:
-          Ref: NodeSecurityGroup
-        SourceSecurityGroupId:
-          Ref: NodeSecurityGroup
-        IpProtocol: '-1'
-        FromPort: 0
-        ToPort: 65535
-    # Replace A.B.C.D with your workstation IP address
-    NodeSecurityGroupFromWorkstationIngress:
-      Type: AWS::EC2::SecurityGroupIngress
-      Properties:
-        Description: Allow workstation to connect to EC2 nodes (for debugging)
-        GroupId:
-          Ref: NodeSecurityGroup
-        IpProtocol: 'tcp'
-        FromPort: 22
-        ToPort: 22
-        CidrIp: A.B.C.D/32
-    NodeSecurityGroupFromControlPlaneIngress:
-      Type: AWS::EC2::SecurityGroupIngress
-      Properties:
-        Description: Allow worker Kubelets and pods to receive communication from the cluster control plane
-        GroupId:
-          Ref: NodeSecurityGroup
-        SourceSecurityGroupId:
-          Ref: KubernetesClusterMasterSecurityGroup
-        IpProtocol: tcp
-        FromPort: 1025
-        ToPort: 65535
-    KubernetesClusterMasterSecurityGroupIngressFromNodes:
-      Type: AWS::EC2::SecurityGroupIngress
-      Properties:
-        Description: Allow pods to communicate with the cluster API Server
-        GroupId:
-          Ref: KubernetesClusterMasterSecurityGroup
-        SourceSecurityGroupId:
-          Ref: NodeSecurityGroup
-        IpProtocol: tcp
-        ToPort: 443
-        FromPort: 443
+NodeSecurityGroupIngress:
+  Type: AWS::EC2::SecurityGroupIngress
+  Properties:
+    Description: Allow node to communicate with each other
+    GroupId:
+      Ref: NodeSecurityGroup
+    SourceSecurityGroupId:
+      Ref: NodeSecurityGroup
+    IpProtocol: '-1'
+    FromPort: 0
+    ToPort: 65535
+# Replace A.B.C.D with your workstation IP address
+NodeSecurityGroupFromWorkstationIngress:
+  Type: AWS::EC2::SecurityGroupIngress
+  Properties:
+    Description: Allow workstation to connect to EC2 nodes (for debugging)
+    GroupId:
+      Ref: NodeSecurityGroup
+    IpProtocol: 'tcp'
+    FromPort: 22
+    ToPort: 22
+    CidrIp: A.B.C.D/32
+NodeSecurityGroupFromControlPlaneIngress:
+  Type: AWS::EC2::SecurityGroupIngress
+  Properties:
+    Description: Allow worker Kubelets and pods to receive communication from the cluster control plane
+    GroupId:
+      Ref: NodeSecurityGroup
+    SourceSecurityGroupId:
+      Ref: KubernetesClusterMasterSecurityGroup
+    IpProtocol: tcp
+    FromPort: 1025
+    ToPort: 65535
+KubernetesClusterMasterSecurityGroupIngressFromNodes:
+  Type: AWS::EC2::SecurityGroupIngress
+  Properties:
+    Description: Allow pods to communicate with the cluster API Server
+    GroupId:
+      Ref: KubernetesClusterMasterSecurityGroup
+    SourceSecurityGroupId:
+      Ref: NodeSecurityGroup
+    IpProtocol: tcp
+    ToPort: 443
+    FromPort: 443
 ```
 
 ![Serverless Framework - EKS Nodes SecurityGroup IngressRule](Serverless-Framework-EKS-Nodes-SecurityGroup-IngressRule.png)
@@ -702,84 +684,81 @@ Here’s [AWS::EC2::SecurityGroupIngress](https://docs.aws.amazon.com/AWSCloudFo
 Next we need to create [AWS::AutoScaling::LaunchConfiguration](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html) for our Spot instances:
 
 ```yaml
-    SpotNodeLaunchConfig:
-      Type: AWS::AutoScaling::LaunchConfiguration
-      Properties:
-        AssociatePublicIpAddress: true
-        # https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html
-        ImageId: ami-0440e4f6b9713faf6
-        InstanceType: m3.medium
-        IamInstanceProfile:
-          Ref: NodeInstanceProfile
-        KeyName: 'Lenovo T410'
-        # Maximum Spot instance price (not launch if more)
-        SpotPrice: 1
-        SecurityGroups:
-          - Ref: NodeSecurityGroup
-        UserData:
-          Fn::Base64:
-            Fn::Join:
-              - ""
-              -
-                - "#!/bin/bash -xe\n"
-                - "CA_CERTIFICATE_DIRECTORY=/etc/kubernetes/pki"
-                - "\n"
-                - "CA_CERTIFICATE_FILE_PATH=$CA_CERTIFICATE_DIRECTORY/ca.crt"
-                - "\n"
-                - "MODEL_DIRECTORY_PATH=~/.aws/eks"
-                - "\n"
-                - "MODEL_FILE_PATH=$MODEL_DIRECTORY_PATH/eks-2017-11-01.normal.json"
-                - "\n"
-                - "mkdir -p $CA_CERTIFICATE_DIRECTORY"
-                - "\n"
-                - "mkdir -p $MODEL_DIRECTORY_PATH"
-                - "\n"
-                - Fn::Join:
-                  - ""
-                  -
-                    - "aws eks describe-cluster --region=${self:provider.region} --name="
-                    - Ref: KubernetesCluster
-                    - " --query 'cluster.{certificateAuthorityData: certificateAuthority.data, endpoint: endpoint}' > /tmp/describe_cluster_result.json"
-                - "\n"
-                - "cat /tmp/describe_cluster_result.json | grep certificateAuthorityData | awk '{print $2}' | sed 's/[,\"]//g' | base64 -d >  $CA_CERTIFICATE_FILE_PATH"
-                - "\n"
-                - "MASTER_ENDPOINT=$(cat /tmp/describe_cluster_result.json | grep endpoint | awk '{print $2}' | sed 's/[,\"]//g')"
-                - "\n"
-                - "INTERNAL_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)"
-                - "\n"
-                - "sed -i s,MASTER_ENDPOINT,$MASTER_ENDPOINT,g /var/lib/kubelet/kubeconfig"
-                - "\n"
-                - Fn::Join:
-                  - ""
-                  -
-                    - "sed -i s,CLUSTER_NAME,"
-                    - Ref: KubernetesCluster
-                    - ",g /var/lib/kubelet/kubeconfig"
-                - "\n"
-                - "sed -i s,REGION,${AWS::Region},g /etc/systemd/system/kubelet.service"
-                - "\n"
-                - "sed -i s,MAX_PODS,'12 --node-labels lifecycle=Ec2Spot',g /etc/systemd/system/kubelet.service"
-                - "\n"
-                - "sed -i s,INTERNAL_IP,$INTERNAL_IP,g /etc/systemd/system/kubelet.service"
-                - "\n"
-                - "DNS_CLUSTER_IP=10.100.0.10"
-                - "\n"
-                - "if [[ $INTERNAL_IP == 10.* ]] ; then DNS_CLUSTER_IP=172.20.0.10; fi"
-                - "\n"
-                - "sed -i s,DNS_CLUSTER_IP,$DNS_CLUSTER_IP,g  /etc/systemd/system/kubelet.service"
-                - "\n"
-                - "sed -i s,CERTIFICATE_AUTHORITY_FILE,$CA_CERTIFICATE_FILE_PATH,g /var/lib/kubelet/kubeconfig"
-                - "\n"
-                - "sed -i s,CLIENT_CA_FILE,$CA_CERTIFICATE_FILE_PATH,g  /etc/systemd/system/kubelet.service"
-                - "\n"
-                - "systemctl daemon-reload"
-                - "\n"
-                - "systemctl restart kubelet"
-                - "\n"
-                - "/opt/aws/bin/cfn-signal -e $? "
-                - "         --stack ${self:service}-${self:provider.region} "
-                - "         --resource NodeGroup "
-                - "         --region ${self:provider.region}"
+SpotNodeLaunchConfig:
+  Type: AWS::AutoScaling::LaunchConfiguration
+  Properties:
+    AssociatePublicIpAddress: true
+    # https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html
+    ImageId: ami-0440e4f6b9713faf6
+    InstanceType: m3.medium
+    IamInstanceProfile:
+      Ref: NodeInstanceProfile
+    KeyName: 'Lenovo T410'
+    # Maximum Spot instance price (not launch if more)
+    SpotPrice: 1
+    SecurityGroups:
+      - Ref: NodeSecurityGroup
+    UserData:
+      Fn::Base64:
+        Fn::Join:
+          - ''
+          - - "#!/bin/bash -xe\n"
+            - 'CA_CERTIFICATE_DIRECTORY=/etc/kubernetes/pki'
+            - "\n"
+            - 'CA_CERTIFICATE_FILE_PATH=$CA_CERTIFICATE_DIRECTORY/ca.crt'
+            - "\n"
+            - 'MODEL_DIRECTORY_PATH=~/.aws/eks'
+            - "\n"
+            - 'MODEL_FILE_PATH=$MODEL_DIRECTORY_PATH/eks-2017-11-01.normal.json'
+            - "\n"
+            - 'mkdir -p $CA_CERTIFICATE_DIRECTORY'
+            - "\n"
+            - 'mkdir -p $MODEL_DIRECTORY_PATH'
+            - "\n"
+            - Fn::Join:
+                - ''
+                - - 'aws eks describe-cluster --region=${self:provider.region} --name='
+                  - Ref: KubernetesCluster
+                  - " --query 'cluster.{certificateAuthorityData: certificateAuthority.data, endpoint: endpoint}' > /tmp/describe_cluster_result.json"
+            - "\n"
+            - 'cat /tmp/describe_cluster_result.json | grep certificateAuthorityData | awk ''{print $2}'' | sed ''s/[,"]//g'' | base64 -d >  $CA_CERTIFICATE_FILE_PATH'
+            - "\n"
+            - 'MASTER_ENDPOINT=$(cat /tmp/describe_cluster_result.json | grep endpoint | awk ''{print $2}'' | sed ''s/[,"]//g'')'
+            - "\n"
+            - 'INTERNAL_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)'
+            - "\n"
+            - 'sed -i s,MASTER_ENDPOINT,$MASTER_ENDPOINT,g /var/lib/kubelet/kubeconfig'
+            - "\n"
+            - Fn::Join:
+                - ''
+                - - 'sed -i s,CLUSTER_NAME,'
+                  - Ref: KubernetesCluster
+                  - ',g /var/lib/kubelet/kubeconfig'
+            - "\n"
+            - 'sed -i s,REGION,${AWS::Region},g /etc/systemd/system/kubelet.service'
+            - "\n"
+            - "sed -i s,MAX_PODS,'12 --node-labels lifecycle=Ec2Spot',g /etc/systemd/system/kubelet.service"
+            - "\n"
+            - 'sed -i s,INTERNAL_IP,$INTERNAL_IP,g /etc/systemd/system/kubelet.service'
+            - "\n"
+            - 'DNS_CLUSTER_IP=10.100.0.10'
+            - "\n"
+            - 'if [[ $INTERNAL_IP == 10.* ]] ; then DNS_CLUSTER_IP=172.20.0.10; fi'
+            - "\n"
+            - 'sed -i s,DNS_CLUSTER_IP,$DNS_CLUSTER_IP,g  /etc/systemd/system/kubelet.service'
+            - "\n"
+            - 'sed -i s,CERTIFICATE_AUTHORITY_FILE,$CA_CERTIFICATE_FILE_PATH,g /var/lib/kubelet/kubeconfig'
+            - "\n"
+            - 'sed -i s,CLIENT_CA_FILE,$CA_CERTIFICATE_FILE_PATH,g  /etc/systemd/system/kubelet.service'
+            - "\n"
+            - 'systemctl daemon-reload'
+            - "\n"
+            - 'systemctl restart kubelet'
+            - "\n"
+            - '/opt/aws/bin/cfn-signal -e $? '
+            - '         --stack ${self:service}-${self:provider.region} '
+            - '         --resource NodeGroup '
+            - '         --region ${self:provider.region}'
 ```
 
 ![Serverless Framework - EKS Nodes LaunchConfiguration](Serverless-Framework-EKS-Nodes-LaunchConfiguration.png)
@@ -787,36 +766,34 @@ Next we need to create [AWS::AutoScaling::LaunchConfiguration](https://docs.aws.
 And finally we need [AWS::AutoScaling::AutoScalingGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html):
 
 ```yaml
-    SpotNodeGroup:
-      Type: AWS::AutoScaling::AutoScalingGroup
-      Properties:
-        DesiredCapacity: 1
-        LaunchConfigurationName:
-          Ref: SpotNodeLaunchConfig
-        # To allow rolling updates
-        MinSize: 0
-        MaxSize: 2
-        VPCZoneIdentifier:
-          - Ref: KubernetesClusterSubnetA
-          - Ref: KubernetesClusterSubnetB
-        Tags:
-          -
-            Key: Name
-            Value: ${self:service}-${self:provider.stage}
-            PropagateAtLaunch: true
-          - Key:
-              Fn::Join:
-                - "/"
-                -
-                  - "kubernetes.io"
-                  - "cluster"
-                  - "${self:service}-${self:provider.stage}"
-            Value: 'owned'
-            PropagateAtLaunch: 'true'
-      UpdatePolicy:
-        AutoScalingRollingUpdate:
-          MinInstancesInService: 0
-          MaxBatchSize: 1
+SpotNodeGroup:
+  Type: AWS::AutoScaling::AutoScalingGroup
+  Properties:
+    DesiredCapacity: 1
+    LaunchConfigurationName:
+      Ref: SpotNodeLaunchConfig
+    # To allow rolling updates
+    MinSize: 0
+    MaxSize: 2
+    VPCZoneIdentifier:
+      - Ref: KubernetesClusterSubnetA
+      - Ref: KubernetesClusterSubnetB
+    Tags:
+      - Key: Name
+        Value: ${self:service}-${self:provider.stage}
+        PropagateAtLaunch: true
+      - Key:
+          Fn::Join:
+            - '/'
+            - - 'kubernetes.io'
+              - 'cluster'
+              - '${self:service}-${self:provider.stage}'
+        Value: 'owned'
+        PropagateAtLaunch: 'true'
+  UpdatePolicy:
+    AutoScalingRollingUpdate:
+      MinInstancesInService: 0
+      MaxBatchSize: 1
 ```
 
 ![Serverless Framework - EKS Nodes AutoScalingGroup](Serverless-Framework-EKS-Nodes-AutoScalingGroup.png)
@@ -844,6 +821,6 @@ From this article you’ve learned how to add AWS EKS Cluster with Spot Instance
 
 For those of you, who want to know, how to create several AutoScaling Groups with different instance types, I highly recommend original [Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS](https://aws.amazon.com/blogs/compute/run-your-kubernetes-workloads-on-amazon-ec2-spot-instances-with-amazon-eks/) article and [CloudFormation template](https://github.com/awslabs/ec2-spot-labs/blob/master/ec2-spot-eks-solution/provision-worker-nodes/amazon-eks-nodegroup-with-spot.yaml) from [awslabs GitHub repo](https://github.com/awslabs).
 
-In the next article I’ll show you [how to launch Kubernetes Jobs from AWS Lambda](/serverless-framework-run-your-kubernetes-workloads-on-amazon-ec-2-spot-instances-with-amazon-eks-part-2) function to offload heavy Serverless infrastructure jobs. 
+In the next article I’ll show you [how to launch Kubernetes Jobs from AWS Lambda](/serverless-framework-run-your-kubernetes-workloads-on-amazon-ec-2-spot-instances-with-amazon-eks-part-2) function to offload heavy Serverless infrastructure jobs.
 
 Stay tuned!

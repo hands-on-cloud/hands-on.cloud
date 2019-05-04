@@ -1,40 +1,40 @@
 ---
-title: "How to run Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib in Docker container"
-date: "2017-12-11"
-thumbnail: "./How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container.png"
+title: 'How to run Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib in Docker container'
+date: '2017-12-11'
+thumbnail: './How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container.png'
 tags:
--   docker
--   h5py
--   jupyter
--   kears
--   machine learning
--   matplotlib
--   pandas
--   python
--   pyyaml
--   seaborn
--   sklearn
--   tensorflow
-category: "ml"
+  - docker
+  - h5py
+  - jupyter
+  - kears
+  - machine learning
+  - matplotlib
+  - pandas
+  - python
+  - pyyaml
+  - seaborn
+  - sklearn
+  - tensorflow
+category: 'ml'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![How to run Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib in Docker container](How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container.png)
 
 Environment setup is a very common question when you’re trying to start learning Machine Learning (ML). In this article I’ll show you how to create your own Docker container including the following frameworks for comfortable start:
 
-*   [Python 3](https://www.python.org/)
-*   [Jupyter](http://jupyter.org/)
-*   [Keras](https://keras.io/)
-*   [Tensorflow](https://www.tensorflow.org/)
-*   [TensorBoard](https://www.tensorflow.org/guide/summaries_and_tensorboard)
-*   [Pandas](https://pandas.pydata.org/)
-*   [Sklearn](http://scikit-learn.org/stable/)
-*   [Matplotlib](https://matplotlib.org/)
-*   [Seaborn](https://seaborn.pydata.org/)
-*   [pyyaml](https://pypi.python.org/pypi/PyYAML)
-*   [h5py](http://www.h5py.org/)
+- [Python 3](https://www.python.org/)
+- [Jupyter](http://jupyter.org/)
+- [Keras](https://keras.io/)
+- [Tensorflow](https://www.tensorflow.org/)
+- [TensorBoard](https://www.tensorflow.org/guide/summaries_and_tensorboard)
+- [Pandas](https://pandas.pydata.org/)
+- [Sklearn](http://scikit-learn.org/stable/)
+- [Matplotlib](https://matplotlib.org/)
+- [Seaborn](https://seaborn.pydata.org/)
+- [pyyaml](https://pypi.python.org/pypi/PyYAML)
+- [h5py](http://www.h5py.org/)
 
 That are TOP 10 widely used Python frameworks for Data Science and you’ll find most of them in any HOWTO article on the Internet. In the nex article ([How to build Python Data Science Docker container based on Anaconda](how-to-build-python-data-science-docker-container-based-on-anaconda)) I'll show how to build the same image, but on top of Anaconda distribution.
 
@@ -128,7 +128,7 @@ As you can guess from `Dockerfile`, we’ll put it to `/root/.jupyter/` folder d
 
 ## Creating startup script
 
-The last thing we need to do is to create a script, which will launch Jupiter server inside our container during it’s starting process. Create a  with the following content:
+The last thing we need to do is to create a script, which will launch Jupiter server inside our container during it’s starting process. Create a with the following content:
 
 ```sh
 #!/usr/bin/env bash

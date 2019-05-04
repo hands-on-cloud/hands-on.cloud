@@ -54,8 +54,8 @@ export default class Header extends React.Component {
               `}
               render={data => (
                 <Nav className="mr-auto">
-                  {data.site.siteMetadata.categories.map((category, index) => (
-                    <Nav className="span" key={index}>
+                  {data.site.siteMetadata.categories.map((category, key) => (
+                    <Nav className="span" key={key}>
                       <Nav.Link style={menuStyle} href={`/${category.slug}/`}>
                         {category.name}
                       </Nav.Link>

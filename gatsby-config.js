@@ -25,8 +25,8 @@ module.exports = {
         name: 'Terraform',
       },
       {
-        slug: 'other',
-        name: 'Other',
+        slug: 'devops',
+        name: 'DevOps',
       },
     ],
   },

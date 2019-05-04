@@ -1,20 +1,20 @@
 ---
-title: "Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 2"
-date: "2018-11-11"
-thumbnail: "./Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2.png"
+title: 'Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 2'
+date: '2018-11-11'
+thumbnail: './Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2.png'
 tags:
--   amazon cloud
--   aws
--   cloudformation
--   ecs
--   eks
--   fargate
--   kubernetes
--   lambda
--   serverless
-category: "aws"
+  - amazon cloud
+  - aws
+  - cloudformation
+  - ecs
+  - eks
+  - fargate
+  - kubernetes
+  - lambda
+  - serverless
+category: 'aws'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 2](Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2.png)
@@ -37,38 +37,36 @@ cd aws-eks-spot-instances-serverless-framework-demo
 Since my first article publish date AWS significantly improved and simplified minions bootstrap process. You need to replace `SpotNodeLaunchConfig:` section to the following:
 
 ```yaml
-    SpotNodeLaunchConfig:
-      Type: AWS::AutoScaling::LaunchConfiguration
-      Properties:
-        AssociatePublicIpAddress: true
-        # https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html
-        ImageId: ami-0a0b913ef3249b655
-        InstanceType: m3.medium
-        IamInstanceProfile:
-          Ref: NodeInstanceProfile
-        KeyName: 'Lenovo T410'
-        # Maximum Spot instance price (not launch if more)
-        SpotPrice: 1
-        SecurityGroups:
-          - Ref: NodeSecurityGroup
-        UserData:
-          Fn::Base64:
-            Fn::Join:
-              - ""
-              -
-                - "#!/bin/bash -xe\n"
-                - "set -o xtrace"
-                - "\n"
-                - Fn::Join:
-                  - " "
-                  -
-                    - "/etc/eks/bootstrap.sh"
-                    - Ref: KubernetesCluster
-                - "\n"
-                - "/opt/aws/bin/cfn-signal -e $? "
-                - "         --stack ${self:service}-${self:provider.stage} "
-                - "         --resource NodeGroup "
-                - "         --region ${self:provider.region}"
+SpotNodeLaunchConfig:
+  Type: AWS::AutoScaling::LaunchConfiguration
+  Properties:
+    AssociatePublicIpAddress: true
+    # https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html
+    ImageId: ami-0a0b913ef3249b655
+    InstanceType: m3.medium
+    IamInstanceProfile:
+      Ref: NodeInstanceProfile
+    KeyName: 'Lenovo T410'
+    # Maximum Spot instance price (not launch if more)
+    SpotPrice: 1
+    SecurityGroups:
+      - Ref: NodeSecurityGroup
+    UserData:
+      Fn::Base64:
+        Fn::Join:
+          - ''
+          - - "#!/bin/bash -xe\n"
+            - 'set -o xtrace'
+            - "\n"
+            - Fn::Join:
+                - ' '
+                - - '/etc/eks/bootstrap.sh'
+                  - Ref: KubernetesCluster
+            - "\n"
+            - '/opt/aws/bin/cfn-signal -e $? '
+            - '         --stack ${self:service}-${self:provider.stage} '
+            - '         --resource NodeGroup '
+            - '         --region ${self:provider.region}'
 ```
 
 ![Serverless Framework - EKS Create Lambda Functions - SpotLaunchConfig Replacement](Serverless-Framework-EKS-Create-Lambda-Functions-SpotLaunchConfig-Replacement.png)
@@ -76,10 +74,10 @@ Since my first article publish date AWS significantly improved and simplified mi
 Additionally we will need to be able to get Lambda function execution role ARN. So, let’s add `LambdaFunctionsRoleArn` resource output:
 
 ```yaml
-    LambdaFunctionsRoleArn:
-      Description: "Lambda Functions Role Arn"
-      Value:
-        Fn::GetAtt: [ IamRoleLambdaExecution, Arn ]
+LambdaFunctionsRoleArn:
+  Description: 'Lambda Functions Role Arn'
+  Value:
+    Fn::GetAtt: [IamRoleLambdaExecution, Arn]
 ```
 
 ![Serverless Framework - EKS Create Lambda Functions - Getting Execution Role](Serverless-Framework-EKS-Create-Lambda-Functions-Getting-Execution-Role.png)
@@ -144,10 +142,10 @@ sls info --verbose | grep LambdaFunctionsRoleArn
 And add as additional rolearn: declaration to mapRoles::
 
 ```yaml
-    - rolearn: 
-      username: lambda-user
-      groups:
-        - system:masters
+- rolearn:
+  username: lambda-user
+  groups:
+    - system:masters
 ```
 
 ![Serverless Framework - EKS Create Lambda Functions - Allow EKS Access](Serverless-Framework-EKS-Create-Lambda-Functions-Allow-EKS-Access.png)
@@ -177,7 +175,7 @@ Let’s structure our files a little bit and put our functions code in a separat
 
 ```yaml
 package:
-   individually: true
+  individually: true
 ```
 
 Create two folders for each of our functions and put function code `.py` files to this folders:
@@ -192,13 +190,13 @@ mv upload_video.py upload_video/
 Next change handler: for each of our functions to have a name of it’s folder like so:
 
 ```yaml
-    handler: upload_video/upload_video.handler
+handler: upload_video/upload_video.handler
 ```
 
 And
 
 ```yaml
-    handler: upload_thumbnail/upload_thumbnail.handler
+handler: upload_thumbnail/upload_thumbnail.handler
 ```
 
 ![Serverless Framework - EKS Create Lambda Functions - Restructure Code](Serverless-Framework-EKS-Create-Lambda-Functions-1-Restructure-Code.png)
@@ -240,30 +238,30 @@ As `kubectl` is ~80 Mb of data and compressed function size is ~27 Mb, we’ll c
 Let’s include necessary files and exclude everything not needed in our functions. To do so add `package:` option to the functions like so:
 
 ```yaml
-  VideoUploadLambdaFunction:
-    handler: upload_video/upload_video.handler
-    package:
-      include:
-        - upload_video/**
-        - .kube/**
-        - bin/**
-      exclude:
-        - ./**
-    events:
-      - s3:
-          bucket: "${self:service}-${self:provider.stage}-uploads"
-          event: s3:ObjectCreated:*
-  VideoThumbnailLambdaFunction:
-    handler: upload_thumbnail/upload_thumbnail.handler
-    package:
-      include:
-        - upload_thumbnail/**
-      exclude:
-        - ./**
-    events:
-      - s3:
-          bucket: "${self:service}-${self:provider.stage}-thumbnails"
-          event: s3:ObjectCreated:*
+VideoUploadLambdaFunction:
+  handler: upload_video/upload_video.handler
+  package:
+    include:
+      - upload_video/**
+      - .kube/**
+      - bin/**
+    exclude:
+      - ./**
+  events:
+    - s3:
+        bucket: '${self:service}-${self:provider.stage}-uploads'
+        event: s3:ObjectCreated:*
+VideoThumbnailLambdaFunction:
+  handler: upload_thumbnail/upload_thumbnail.handler
+  package:
+    include:
+      - upload_thumbnail/**
+    exclude:
+      - ./**
+  events:
+    - s3:
+        bucket: '${self:service}-${self:provider.stage}-thumbnails'
+        event: s3:ObjectCreated:*
 ```
 
 ![Serverless Framework - EKS Create Lambda Functions - Include kubectl and config](Serverless-Framework-EKS-Create-Lambda-Functions-2-Include-kubectl-and-config.png)
@@ -401,11 +399,11 @@ spec:
 
 Sure, there are a lot of things to improve here, but I wanted to show you the basic idea how we may use `kubectl` with EKS from Lambda Functions:
 
-*   Put `kubectl` and `aws-iam-authenticator` to Lambda function
-*   Put `kubectl` config also
-*   Move `kubectl` and `aws-iam-authenticator` to `/tmp` folder inside Lambda function to be able to make them executable
-*   Make them executable
-*   Launch any Kubernetes command using kubectl from Lambda Function
+- Put `kubectl` and `aws-iam-authenticator` to Lambda function
+- Put `kubectl` config also
+- Move `kubectl` and `aws-iam-authenticator` to `/tmp` folder inside Lambda function to be able to make them executable
+- Make them executable
+- Launch any Kubernetes command using kubectl from Lambda Function
 
 And, yes, I did not build my personal Docker container, but used [Rupak’s](https://www.linkedin.com/in/rupakg/) container ([repo](https://github.com/rupakg/docker-ffmpeg-thumb)) from [his article](https://serverless.com/blog/serverless-application-for-long-running-process-fargate-lambda/) instead. As you can see, everything’s working.
 
@@ -423,16 +421,16 @@ sls remove
 
 ## Future improvements
 
-*   Using this approach you can launch just only one lambda function, as it’s name hardcoded in job_description variable. To overcome this “problem” you need either delete previously run function, either generate timestamp or id to make your function name unique.
-*   Sure, we need to refactor the code a little bit (DRY principle)
-*   Also, you may want to create a Thumbnails Lambda function which can do something with uploaded thumbnails.
+- Using this approach you can launch just only one lambda function, as it’s name hardcoded in job_description variable. To overcome this “problem” you need either delete previously run function, either generate timestamp or id to make your function name unique.
+- Sure, we need to refactor the code a little bit (DRY principle)
+- Also, you may want to create a Thumbnails Lambda function which can do something with uploaded thumbnails.
 
 ## Final words
 
 Passing through both of my articles we’ve learned:
 
-*   How to automatically create EKS cluster backed by cheap Spot Instances
-*   What to do with Lambda Function to manage your EKS cluster
+- How to automatically create EKS cluster backed by cheap Spot Instances
+- What to do with Lambda Function to manage your EKS cluster
 
 Hope, that article will be useful for you. If so, please, share or like it!
 

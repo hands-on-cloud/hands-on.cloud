@@ -1,15 +1,15 @@
 ---
-title: "How to put AWS EC2 Tags to environment variables"
-date: "2018-02-01"
-thumbnail: "./How-to-put-AWS-EC2-Tags-to-environment-variables.png"
+title: 'How to put AWS EC2 Tags to environment variables'
+date: '2018-02-01'
+thumbnail: './How-to-put-AWS-EC2-Tags-to-environment-variables.png'
 tags:
--   aws
--   cloudformation
--   devops
--   terraform
-category: "aws"
+  - aws
+  - cloudformation
+  - devops
+  - terraform
+category: 'aws'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![How to put AWS EC2 Tags to environment variables](How-to-put-AWS-EC2-Tags-to-environment-variables.png)
@@ -125,14 +125,14 @@ First of all you need to add you instance permissions for launching aws cli comm
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": "ec2:DescribeTags",
-            "Resource": "*",
-            "Effect": "Allow"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "ec2:DescribeTags",
+      "Resource": "*",
+      "Effect": "Allow"
+    }
+  ]
 }
 ```
 

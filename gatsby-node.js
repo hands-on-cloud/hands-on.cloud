@@ -135,7 +135,7 @@ exports.createPages = ({ graphql, actions }) => {
         createPage,
         pageTemplate: categoryTemplate,
         pageLength,
-        pathPrefix: `${_.kebabCase(category)}`,
+        pathPrefix: `${category}`,
         context: {
           category,
         },

@@ -1,17 +1,17 @@
 ---
-title: "CloudFormation. How to access CodeCommit repo from EC2 instance"
-date: "2018-02-05"
-thumbnail: "./CloudFormation-How-to-access-CodeCommit-repo-from-EC2-instance.png"
+title: 'CloudFormation. How to access CodeCommit repo from EC2 instance'
+date: '2018-02-05'
+thumbnail: './CloudFormation-How-to-access-CodeCommit-repo-from-EC2-instance.png'
 tags:
--   aws cloud
--   cloudformation
--   codecommit
--   devops
--   mongodb
--   packer
-category: "aws"
+  - aws cloud
+  - cloudformation
+  - codecommit
+  - devops
+  - mongodb
+  - packer
+category: 'aws'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![CloudFormation. How to access CodeCommit repo from EC2 instance](CloudFormation-How-to-access-CodeCommit-repo-from-EC2-instance.png)
@@ -26,8 +26,8 @@ Our task is to automate initial data import from CodeCommit repository to dev Mo
 
 To solve this task we need to do several things:
 
-*   Create MongoDB AMI
-*   Update your existing CloudFormation template
+- Create MongoDB AMI
+- Update your existing CloudFormation template
 
 Easy.
 
@@ -37,43 +37,41 @@ Let’s build our MongoDB AMI on top of Ubuntu 16.04 using [Packer](https://www.
 
 ```json
 {
-    "variables": {
-        "aws_profile":    "default"
+  "variables": {
+    "aws_profile": "default"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "profile": "{{ user `aws_profile`}}",
+      "ami_name": "mongodb_server-{{timestamp}}",
+      "instance_type": "t2.small",
+      "source_ami": "ami-66506c1c",
+      "ssh_username": "ubuntu"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927",
+        "sudo echo \"deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse\" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list",
+        "sudo apt-get update",
+        "sudo apt-get install -y mongodb-org python-pip",
+        "sudo systemctl enable mongod",
+        "sudo pip install awscli boto3"
+      ]
     },
-    "builders": [
-        {
-            "type": "amazon-ebs",
-            "profile": "{{ user `aws_profile`}}",
-            "ami_name": "mongodb_server-{{timestamp}}",
-            "instance_type": "t2.small",
-            "source_ami": "ami-66506c1c",
-            "ssh_username": "ubuntu"
-        }
-    ],
-    "provisioners": [
-        {
-            "type": "shell",
-            "inline":[
-                "sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927",
-                "sudo echo \"deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse\" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list",
-                "sudo apt-get update",
-                "sudo apt-get install -y mongodb-org python-pip",
-                "sudo systemctl enable mongod",
-                "sudo pip install awscli boto3"
-            ]
-        },
-        {
-            "type": "file",
-            "source": "./configs/mongod.conf",
-            "destination": "/tmp/"
-        },
-        {
-            "type": "shell",
-            "inline":[
-                "sudo mv /tmp/mongod.conf /etc/"
-            ]
-        }
-    ]
+    {
+      "type": "file",
+      "source": "./configs/mongod.conf",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline": ["sudo mv /tmp/mongod.conf /etc/"]
+    }
+  ]
 }
 ```
 
@@ -239,9 +237,9 @@ Such MongoDB instance declaration will install [cfn-init](https://docs.aws.amazo
 
 We’re passing all automation logic through instance `user-data`. It consists of 3 parts:
 
-*   Install cfn-init
-*   Clone repository with MongoDB backups and restore them only once during instance first boot.
-*   Launch cfn-init automation, if you’d like to add something.
+- Install cfn-init
+- Clone repository with MongoDB backups and restore them only once during instance first boot.
+- Launch cfn-init automation, if you’d like to add something.
 
 I moved out MongoDB backup import to `user-data` because `cfn-init` did not allow me to launch and configure git properly.
 
@@ -259,6 +257,7 @@ git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/mongodb-backup
 ```
 
 ## IAM instance profile
+
 In order to allow everything to work properly you need to create IAM instance profile with the right permissions. Here it is:
 
 ```json

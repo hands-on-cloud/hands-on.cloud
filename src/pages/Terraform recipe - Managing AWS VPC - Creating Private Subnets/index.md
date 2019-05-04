@@ -1,15 +1,15 @@
 ---
-title: "Terraform recipe - Managing AWS VPC - Creating Private Subnets"
-date: "2018-11-24"
-thumbnail: "./Terraform-recipe-Managing-AWS-VPC-Creating-Private-Subnets.png"
+title: 'Terraform recipe - Managing AWS VPC - Creating Private Subnets'
+date: '2018-11-24'
+thumbnail: './Terraform-recipe-Managing-AWS-VPC-Creating-Private-Subnets.png'
 tags:
--   vpc
--   aws
--   cloud
--   terraform
-category: "terraform"
+  - vpc
+  - aws
+  - cloud
+  - terraform
+category: 'terraform'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![Terraform recipe - Managing AWS VPC - Creating Private Subnets](Terraform-recipe-Managing-AWS-VPC-Creating-Private-Subnets.png)
@@ -19,8 +19,8 @@ In previous article ([Terraform recipe – Managing AWS VPC – Creating Public 
 
 In this article we’ll add to our VPC a couple of Private Subnets:
 
-*   Fully isolated Private Subnet
-*   NAT-ed Private Subnet
+- Fully isolated Private Subnet
+- NAT-ed Private Subnet
 
 You may find complete example for `.tf` file in my [GitHub repo](https://github.com/andreivmaksimov/terraform-recipe-managing-aws-vpc-creating-private-subnets).
 
@@ -36,10 +36,10 @@ Here’s how the infrastructure looks like:
 
 To extend our VPC with this NAT-ed Private network, we need to create the following resources:
 
-*   VPC NAT Gateway
-*   Subnet
-*   Route Table with route to VPC NAT Gateway
-*   Association between Route Table and Subnet
+- VPC NAT Gateway
+- Subnet
+- Route Table with route to VPC NAT Gateway
+- Association between Route Table and Subnet
 
 Let’s begin from Subnet, by declaring additional [aws_subnet](https://www.terraform.io/docs/providers/aws/r/subnet.html) resource:
 
@@ -55,7 +55,7 @@ resource "aws_subnet" "nated" {
 }
 ```
 
-Now let’s create NAT Gateway in a public subnet by declaring [aws\_nat\_gateway](https://www.terraform.io/docs/providers/aws/r/nat_gateway.html) and [aws_eip](https://www.terraform.io/docs/providers/aws/r/eip.html).
+Now let’s create NAT Gateway in a public subnet by declaring [aws_nat_gateway](https://www.terraform.io/docs/providers/aws/r/nat_gateway.html) and [aws_eip](https://www.terraform.io/docs/providers/aws/r/eip.html).
 
 You can not launch NAT Gateway without Elastic IP address associated with it, that’s why [aws_eip](https://www.terraform.io/docs/providers/aws/r/eip.html) required:
 
@@ -70,7 +70,7 @@ resource "aws_nat_gateway" "gw" {
 }
 ```
 
-Now we need to create Main Route Table by declaring additional already know for you resources [aws\_route\_table](https://www.terraform.io/docs/providers/aws/r/route_table.html) and associate it with our NAT-ed Subnet ([aws\_route\_table\_association](https://www.terraform.io/docs/providers/aws/r/route_table_association.html)):
+Now we need to create Main Route Table by declaring additional already know for you resources [aws_route_table](https://www.terraform.io/docs/providers/aws/r/route_table.html) and associate it with our NAT-ed Subnet ([aws_route_table_association](https://www.terraform.io/docs/providers/aws/r/route_table_association.html)):
 
 ```hcl
 resource "aws_route_table" "my_vpc_us_east_1a_nated" {
@@ -108,9 +108,9 @@ Here’s how the infrastructure looks like:
 
 To implement fully isolated Private Subnet we need to create the following resources:
 
-*   Subnet
-*   Route Table
-*   Association between Route Table and Subnet
+- Subnet
+- Route Table
+- Association between Route Table and Subnet
 
 Let’s start from Subnet:
 

@@ -1,18 +1,18 @@
 ---
-title: "How to integrate Zendesk Mobile SDK with Firebase using AWS Lambda or Google Cloud Functions"
-date: "2017-12-04"
-thumbnail: "./How-to-integrate-Zendesk-Mobile-SDK-with-Firebase-using-AWS-Lambda-or-Google-Cloud-Functions.png"
+title: 'How to integrate Zendesk Mobile SDK with Firebase using AWS Lambda or Google Cloud Functions'
+date: '2017-12-04'
+thumbnail: './How-to-integrate-Zendesk-Mobile-SDK-with-Firebase-using-AWS-Lambda-or-Google-Cloud-Functions.png'
 tags:
--   aws cloud
--   firebase
--   google cloud
--   ios
--   nodejs
--   swift
--   zendesk
-category: "gcp"
+  - aws cloud
+  - firebase
+  - google cloud
+  - ios
+  - nodejs
+  - swift
+  - zendesk
+category: 'gcp'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![How to integrate Zendesk Mobile SDK with Firebase using AWS Lambda or Google Cloud Functions](How-to-integrate-Zendesk-Mobile-SDK-with-Firebase-using-AWS-Lambda-or-Google-Cloud-Functions.png)
@@ -29,7 +29,7 @@ And the third one – API. Of cause in my own opinion Google’s API is the best
 
 ## What is "serverless", "cloud functions" and "Lambda"
 
-Think of it like a lightweight PaaS hosting based on container technologies with some limitations which makes this technology  super fast and scalable. This hosting is storing your pieces of code which are, ready to be launched independently to solve one simple problem (call another function of web-service, save something to the database or send a email, for example), which could be solved in a short period of time.
+Think of it like a lightweight PaaS hosting based on container technologies with some limitations which makes this technology super fast and scalable. This hosting is storing your pieces of code which are, ready to be launched independently to solve one simple problem (call another function of web-service, save something to the database or send a email, for example), which could be solved in a short period of time.
 
 Your piece of code is launched inside a container each time other cloud service triggers it or calls it directly via HTTP/HTTPS protocol like a traditional web service.
 
@@ -45,9 +45,9 @@ Of cause, all cloud providers are supporting Serverless technologies, so, you do
 
 First of all I’m assuming, that you already have:
 
-*   Google Firebase account (Traditional Google Cloud is also OK, if you’re not using Firebase) and created Project inside.
-*   You’ve [installed Firebase SDK for Cloud Functions](https://firebase.google.com/docs/functions/get-started#set_up_and_initialize_functions_sdk) and created the initial project structure for your cloud functions.
-*   You’ve read about [Writing HTTP cloud functions](https://firebase.google.com/docs/functions/http-events)
+- Google Firebase account (Traditional Google Cloud is also OK, if you’re not using Firebase) and created Project inside.
+- You’ve [installed Firebase SDK for Cloud Functions](https://firebase.google.com/docs/functions/get-started#set_up_and_initialize_functions_sdk) and created the initial project structure for your cloud functions.
+- You’ve read about [Writing HTTP cloud functions](https://firebase.google.com/docs/functions/http-events)
 
 After that you’ll be easily be able to write something like this on Node.js Put the following code to you `index.js` file to create a cloud function called `jwt_auth`:
 
@@ -61,74 +61,78 @@ var jwt = require('jwt-simple');
 var uuid = require('uuid');
 var url = require('url');
 
-var subdomain = 'dev-ops-notes'; // You Zendesk sub-domain 
+var subdomain = 'dev-ops-notes'; // You Zendesk sub-domain
 var shared_key = '.....'; // Zendesk provided shared key
 
 exports.jwt_auth = functions.https.onRequest((req, res) => {
-    // Uncomment the following code if you want to 
-    //console.log('Request method', req.method);
-    //console.log('Request: ', req);
-    //console.log('Body: ', req.body);
-    //console.log('Query: ', req.query);
+  // Uncomment the following code if you want to
+  //console.log('Request method', req.method);
+  //console.log('Request: ', req);
+  //console.log('Body: ', req.body);
+  //console.log('Query: ', req.query);
 
-    if (!req.body.user_token) {
-        console.error('No jwt token provided in URL');
-        res.status(401).send('Unauthorized');
-        return;
-    }
+  if (!req.body.user_token) {
+    console.error('No jwt token provided in URL');
+    res.status(401).send('Unauthorized');
+    return;
+  }
 
-    const jwt_token = req.body.user_token;
+  const jwt_token = req.body.user_token;
 
-    console.log("Verifying token...");
-    admin.auth().verifyIdToken(jwt_token).then(decodedIdToken => {
-        console.log('ID Token correctly decoded', decodedIdToken);
-        let user = decodedIdToken;
+  console.log('Verifying token...');
+  admin
+    .auth()
+    .verifyIdToken(jwt_token)
+    .then(decodedIdToken => {
+      console.log('ID Token correctly decoded', decodedIdToken);
+      let user = decodedIdToken;
 
-        var displayName = user.email;
-        if (user.displayName != null) { 
-            displayName = user.displayName;
-        }
+      var displayName = user.email;
+      if (user.displayName != null) {
+        displayName = user.displayName;
+      }
 
-        var payload = {
-            iat: (new Date().getTime() / 1000),
-            jti: uuid.v4(),
-            name: displayName,
-            email: user.email
-        };
+      var payload = {
+        iat: new Date().getTime() / 1000,
+        jti: uuid.v4(),
+        name: displayName,
+        email: user.email,
+      };
 
-        // encode
-        var token = jwt.encode(payload, shared_key);
-        console.log('Token', token)
-        var redirect = 'https://' + subdomain + '.zendesk.com/access/jwt?jwt=' + token;
+      // encode
+      var token = jwt.encode(payload, shared_key);
+      console.log('Token', token);
+      var redirect =
+        'https://' + subdomain + '.zendesk.com/access/jwt?jwt=' + token;
 
-        var query = url.parse(req.url, true).query;
+      var query = url.parse(req.url, true).query;
 
-        if(query['return_to']) {
-            redirect += '&return_to=' + encodeURIComponent(query['return_to']);
-        }
-        console.log('Redirect response', redirect)
-        let response = {
-            "jwt": token
-        }
+      if (query['return_to']) {
+        redirect += '&return_to=' + encodeURIComponent(query['return_to']);
+      }
+      console.log('Redirect response', redirect);
+      let response = {
+        jwt: token,
+      };
 
-        res.status(200).send(response)
-        return;
-    }).catch(error => {
-        console.error('Error while verifying Firebase ID token:', error);
-        res.status(401).send('Unauthorized');
-        return;
+      res.status(200).send(response);
+      return;
+    })
+    .catch(error => {
+      console.error('Error while verifying Firebase ID token:', error);
+      res.status(401).send('Unauthorized');
+      return;
     });
-
 });
 ```
 
 In the code abode we’re importing some additional dependencies
 
-*   `firebase-functions` – to have an ability to access to HTTP Request (req) and Response (res) objects and their properties.
-*   `firebase-admin` – to have an ability to access Firebase Authentication features (like the checking of users tokens or credentials)
-*   `jwt-simple` – it’s a small lib allowing us to form a right JWT response
-*   `uuid` – lib for generating random UUID for JWT token for Zendesk
-*   `url`
+- `firebase-functions` – to have an ability to access to HTTP Request (req) and Response (res) objects and their properties.
+- `firebase-admin` – to have an ability to access Firebase Authentication features (like the checking of users tokens or credentials)
+- `jwt-simple` – it’s a small lib allowing us to form a right JWT response
+- `uuid` – lib for generating random UUID for JWT token for Zendesk
+- `url`
 
 Checking for existence of `user_token` parameter inside HTTP Request and responding **401 Unauthorized** if we did not find that parameter.
 
@@ -166,10 +170,10 @@ Then we need to go to settings to Mobile SDK configuration and click “Add App�
 
 At the Mobile App Settings do the following:
 
-*   Fill the **Name** of your application at Setup tab and enable JWT Authentication method.
-*   Fill **JWT URL** with the URL you’ve got during cloud function deployment.
-*   Put the **JWT Secret** to the shared_key variable and deploy the function once more again to update it with the same command you’ve already used.
-*   Enable Zendesk Guide and Conversations support if needed at Support SDK tab.
+- Fill the **Name** of your application at Setup tab and enable JWT Authentication method.
+- Fill **JWT URL** with the URL you’ve got during cloud function deployment.
+- Put the **JWT Secret** to the shared_key variable and deploy the function once more again to update it with the same command you’ve already used.
+- Enable Zendesk Guide and Conversations support if needed at Support SDK tab.
 
 Now, you’re able to use Zendesk Mobile SDK in your iOS application.
 
@@ -179,16 +183,16 @@ I’ll not duplicate this great Zendesk tutorial, just watch the video and follo
 
 Will add just a few things here.
 
-*   If you want to embed Zendesk Support as UITabBarItem, follow this tutorial: Quick start – Support SDK for iOS
-*   If you want to use Zendesk Support as usual UIViewController, just use this code to launch it:
+- If you want to embed Zendesk Support as UITabBarItem, follow this tutorial: Quick start – Support SDK for iOS
+- If you want to use Zendesk Support as usual UIViewController, just use this code to launch it:
 
-    ```swift
-    URLProtocol.registerClass(ZDKAuthenticationURLProtocol.self)
-    let jwtUserIdentity = ZDKJwtIdentity(jwtUserIdentifier:idToken)
-    ZDKConfig.instance().userIdentity = jwtUserIdentity
-    let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
-    ZDKHelpCenter.presentOverview(self, with: helpCenterContentModel)
-    ```
+  ```swift
+  URLProtocol.registerClass(ZDKAuthenticationURLProtocol.self)
+  let jwtUserIdentity = ZDKJwtIdentity(jwtUserIdentifier:idToken)
+  ZDKConfig.instance().userIdentity = jwtUserIdentity
+  let helpCenterContentModel = ZDKHelpCenterOverviewContentModel.defaultContent()
+  ZDKHelpCenter.presentOverview(self, with: helpCenterContentModel)
+  ```
 
 Let’s come back to JWT Authentication in iOS App.
 
@@ -196,10 +200,10 @@ Full process of JWT Authentication process is shown here: [Building a dedicated 
 
 IMPORTANT: The common mistake in most cases is misconfigured JWT token, which is usually not containing this 4 MUST HAVE fields:
 
-*   `iat`
-*   `jti`
-*   `name`
-*   `email`
+- `iat`
+- `jti`
+- `name`
+- `email`
 
 Next, you need to provide current user information to Zendesk before launching Zendesk Support UIViewController. If you’re using Firebase as Authentication backend for your users in the app, just use the following code for example inside **Get Support** UIButton action:
 

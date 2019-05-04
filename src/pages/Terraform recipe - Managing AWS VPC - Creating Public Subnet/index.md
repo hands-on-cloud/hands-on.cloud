@@ -1,21 +1,21 @@
 ---
-title: "Terraform recipe - Managing AWS VPC - Creating Public Subnet"
-date: "2018-11-25"
-thumbnail: "./Terraform-Recipe-Managing-AWS-VPC-Creating-Public-Subnet.png"
+title: 'Terraform recipe - Managing AWS VPC - Creating Public Subnet'
+date: '2018-11-25'
+thumbnail: './Terraform-Recipe-Managing-AWS-VPC-Creating-Public-Subnet.png'
 tags:
--   aws
--   terraform
--   vpc
-category: "aws"
+  - aws
+  - terraform
+  - vpc
+category: 'terraform'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![Terraform recipe - Managing AWS VPC - Creating Public Subnet](Terraform-Recipe-Managing-AWS-VPC-Creating-Public-Subnet.png)
 
 One of the basic task of your cloud infrastructure management is managing your VPC’s networks. In this article we’ll learn, how to declare most commonly used configuration:
 
-*   Public subnet
+- Public subnet
 
 In the [next article](/terraform-recipe-managing-aws-vpc-creating-private-subnets) we’ll extend this infrastructure by adding a private subnet to our VPC.
 
@@ -70,7 +70,7 @@ Each subnet in a VPC belongs to one of available AWS Availability Zones within A
 
 Public Subnets are called so, because they have public route (`0.0.0.0/0`) in their Route Table, which is attached to VPC Internet Gateway.
 
-So, let’s create an Internet Gateway now by specifying [aws\_internet\_gateway](https://www.terraform.io/docs/providers/aws/r/internet_gateway.html) resource:
+So, let’s create an Internet Gateway now by specifying [aws_internet_gateway](https://www.terraform.io/docs/providers/aws/r/internet_gateway.html) resource:
 
 ```hcl
 resource "aws_internet_gateway" "my_vpc_igw" {
@@ -82,7 +82,7 @@ resource "aws_internet_gateway" "my_vpc_igw" {
 }
 ```
 
-This entity attached to a VPC will allow Internet traffic to\from our Subnet. As we already discussed, we also need to create a Route Table with the route to outside world and map it to our Internet Gateway. Let’s do it by declaring [aws\_route\_table](https://www.terraform.io/docs/providers/aws/r/route_table.html) and [aws\_route\_table\_association](https://www.terraform.io/docs/providers/aws/r/route_table_association.html) resources:
+This entity attached to a VPC will allow Internet traffic to\from our Subnet. As we already discussed, we also need to create a Route Table with the route to outside world and map it to our Internet Gateway. Let’s do it by declaring [aws_route_table](https://www.terraform.io/docs/providers/aws/r/route_table.html) and [aws_route_table_association](https://www.terraform.io/docs/providers/aws/r/route_table_association.html) resources:
 
 ```hcl
 resource "aws_route_table" "my_vpc_us_east_1a_public" {
@@ -106,13 +106,13 @@ resource "aws_route_table_association" "my_vpc_us_east_1a_public" {
 
 Here we just declared Route Table for our Subnet, and make an association between them.
 
-Our Public Subnet is ready to launch new instances inside of it.  Let’s do it now.
+Our Public Subnet is ready to launch new instances inside of it. Let’s do it now.
 
 One of the security features of AWS is Security Group – it is a stateful firewall rule, which is allowing inbound traffic to the network object it’s applied. In our case we’ll use it block any outside connections to our instance except of SSH.
 
 ![Terraform recipe - Managing AWS VPC Single Public Subnet With Security Group](Terraform-recipe-Managing-AWS-VPC-Single-Public-Subnet-With-Security-Group.png)
 
-Let’s add Security Group by adding [aws\_security\_group](https://www.terraform.io/docs/providers/aws/r/security_group.html) resource to our `.tf` file:
+Let’s add Security Group by adding [aws_security_group](https://www.terraform.io/docs/providers/aws/r/security_group.html) resource to our `.tf` file:
 
 ```hcl
 resource "aws_security_group" "allow_ssh" {

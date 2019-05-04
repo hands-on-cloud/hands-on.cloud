@@ -1,21 +1,21 @@
 ---
-title: "How to build Python Data Science Docker container based on Anaconda"
-date: "2017-12-13"
-thumbnail: "./How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda.png"
+title: 'How to build Python Data Science Docker container based on Anaconda'
+date: '2017-12-13'
+thumbnail: './How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda.png'
 tags:
--   anaconda
--   docker
--   jupyter
--   keras
--   matplotlib
--   opencv
--   pandas
--   python
--   sklearn
--   tensorflow
-category: "other"
+  - anaconda
+  - docker
+  - jupyter
+  - keras
+  - matplotlib
+  - opencv
+  - pandas
+  - python
+  - sklearn
+  - tensorflow
+category: 'ml'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![How to build Python Data Science Docker container based on Anaconda](How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda.png)
@@ -34,7 +34,7 @@ It takes ~1 hour on usual laptop and can not be build on free [Travis-CI](https:
 
 Nobody wants to wait so much time, that’s why we’ve decided to build the same image, but based on Anaconda.
 
-> Anaconda is a freemium open source distribution of the Python and R programming languages for large-scale data processing, predictive analytics, and scientific computing, that aims to simplify package management and deployment. ([Wikipedia](https://en.wikipedia.org/wiki/Anaconda_(Python_distribution)))
+> Anaconda is a freemium open source distribution of the Python and R programming languages for large-scale data processing, predictive analytics, and scientific computing, that aims to simplify package management and deployment. ([Wikipedia](<https://en.wikipedia.org/wiki/Anaconda_(Python_distribution)>))
 
 We’ve used the same [sources](https://github.com/andreivmaksimov/python_data_science/), but completely changed `Dockerfile`. Now it looks like this:
 

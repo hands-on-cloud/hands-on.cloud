@@ -1,12 +1,12 @@
 ---
-title: "How to test your AWS CLI credentials"
-date: "2018-01-10"
-thumbnail: "./How-to-test-your-AWS-CLI-credentials.png"
+title: 'How to test your AWS CLI credentials'
+date: '2018-01-10'
+thumbnail: './How-to-test-your-AWS-CLI-credentials.png'
 tags:
--   aws cloud
-category: "aws"
+  - aws cloud
+category: 'aws'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![How to test your AWS CLI credentials](How-to-test-your-AWS-CLI-credentials.png)
@@ -27,8 +27,8 @@ You will get the output in the following format if everything is OK:
 
 ```json
 {
-    "Account": "000654207548",
-    "UserId": "AIDAJID6SZSGMUGC5T3YA",
-    "Arn": "arn:aws:iam::000654207548:user/k8s"
+  "Account": "000654207548",
+  "UserId": "AIDAJID6SZSGMUGC5T3YA",
+  "Arn": "arn:aws:iam::000654207548:user/k8s"
 }
 ```

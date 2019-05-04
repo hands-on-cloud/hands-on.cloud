@@ -1,22 +1,22 @@
 ---
-title: "AWS Step Functions. How to process arrays"
-date: "2018-02-07"
-thumbnail: "./AWS-Step-Functions-How-to-process-arrays.png"
+title: 'AWS Step Functions. How to process arrays'
+date: '2018-02-07'
+thumbnail: './AWS-Step-Functions-How-to-process-arrays.png'
 tags:
--   aws cloud
--   lambda
--   serverless
--   step functions
-category: "aws"
+  - aws cloud
+  - lambda
+  - serverless
+  - step functions
+category: 'aws'
 authors:
--   Andrei Maksimov
+  - Andrei Maksimov
 ---
 
 ![AWS Step Functions. How to process arrays](AWS-Step-Functions-How-to-process-arrays.png)
 
 Nowadays Serverless computing topic become extrimely popular. It is so tasty to implement business process using several AWS Lambda functions and pay very low price for it’s execution. But everybody who tried to implement several Lambda functions interraction knows, that it is not so easy task.
 
-At the 1st of Descember of 2016 AWS anonced, that they brought us a Step Functions  – a visual workflow way to coordinate microservices. The main idea of the service is to give us an ability to describe the whole microservice architecture as a finite state machine and visualize it of cause.
+At the 1st of Descember of 2016 AWS anonced, that they brought us a Step Functions – a visual workflow way to coordinate microservices. The main idea of the service is to give us an ability to describe the whole microservice architecture as a finite state machine and visualize it of cause.
 
 Everybody who’s trying to use Step Functions first time usually don’t understand how to process arrays using this approach. In this post I’ll show you how to do it.
 
@@ -30,17 +30,17 @@ Let’s create a Lambda Function, that produces an array (`fruits` in our exampl
 
 ```js
 exports.handler = (event, context, callback) => {
-    var fruits = ['apple', 'orange', 'pinaple'];
+  var fruits = ['apple', 'orange', 'pinaple'];
 
-    event.fruits = fruits;
+  event.fruits = fruits;
 
-    if (event.fruits.length > 0) {
-        event.has_elements = true;
-    } else {
-        event.has_elements = false;
-    }
+  if (event.fruits.length > 0) {
+    event.has_elements = true;
+  } else {
+    event.has_elements = false;
+  }
 
-    callback(null, event);
+  callback(null, event);
 };
 ```
 
@@ -50,22 +50,22 @@ Let’s create another Lambda Function, that will process array elements:
 
 ```js
 exports.handler = (event, context, callback) => {
-    let fruit = event.fruits.shift();
-    // Process array element
-    console.log('Processing fruit: ' + fruit);
+  let fruit = event.fruits.shift();
+  // Process array element
+  console.log('Processing fruit: ' + fruit);
 
-    // Array still has elements:
-    if (event.fruits.length > 0) {
-        event.has_elements = true;
-    } else {
-        event.has_elements = false;
-    }
+  // Array still has elements:
+  if (event.fruits.length > 0) {
+    event.has_elements = true;
+  } else {
+    event.has_elements = false;
+  }
 
-    // Log array elements (for demonstration purpose)
-    console.log('Elements in array: ' + event.fruits);
-    console.log('Array has more elements: ' + event.has_elements);
+  // Log array elements (for demonstration purpose)
+  console.log('Elements in array: ' + event.fruits);
+  console.log('Array has more elements: ' + event.has_elements);
 
-    callback(null, event);
+  callback(null, event);
 };
 ```
 
@@ -122,30 +122,24 @@ And our Step Function algorythm:
 
 This algorythm consists of several steps:
 
-*   `GetArray` – Step Function Task which will execute array_example Lambda functions, which will return fruits array:
+- `GetArray` – Step Function Task which will execute array_example Lambda functions, which will return fruits array:
 
-    ```json
-    {
-    "fruits": [
-        "apple",
-        "orange",
-        "pinaple"
-    ],
+  ```json
+  {
+    "fruits": ["apple", "orange", "pinaple"],
     "has_elements": true
-    }
-    ```
+  }
+  ```
 
-*   `CheckArrayForMoreElements` – Conditional Step to check if we have more array elements to process. If yes, go to `ProcessArrayElement` Step, otherwise finish going to Step `Done`
-*   `ProcessArrayElement` – Step Function Task that will process an array item. For example, it’s Input for last element:
+- `CheckArrayForMoreElements` – Conditional Step to check if we have more array elements to process. If yes, go to `ProcessArrayElement` Step, otherwise finish going to Step `Done`
+- `ProcessArrayElement` – Step Function Task that will process an array item. For example, it’s Input for last element:
 
-    ```json
-    {
-    "fruits": [
-        "pinaple"
-    ],
+  ```json
+  {
+    "fruits": ["pinaple"],
     "has_elements": true
-    }
-    ```
+  }
+  ```
 
 And the final Output:
 
