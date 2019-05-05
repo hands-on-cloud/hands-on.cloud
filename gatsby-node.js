@@ -1,8 +1,13 @@
+const fs = require('fs');
+
 const path = require(`path`);
+
 const HashMap = require(`hashmap`);
+
 const _ = require('lodash');
 
 const { createFilePath } = require(`gatsby-source-filesystem`);
+
 const createPaginatedPages = require('gatsby-paginate');
 
 const postsByTags = new HashMap();
@@ -13,14 +18,25 @@ const blogPostTemplate = path.resolve('src/templates/blog-post.js');
 const tagTemplate = path.resolve('src/templates/tag.js');
 const categoryTemplate = path.resolve('src/templates/category.js');
 
+const getFileUpdatedDate = path => {
+  const stats = fs.statSync(path);
+  return stats.mtime;
+};
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
   if (node.internal.type === `MarkdownRemark`) {
     const slug = createFilePath({ node, getNode, basePath: `pages` });
+
     createNodeField({
       node,
       name: `slug`,
       value: _.kebabCase(slug),
+    });
+    createNodeField({
+      node,
+      name: `modified_date`,
+      value: getFileUpdatedDate(`./src/pages/${slug}/index.md`),
     });
   }
 };

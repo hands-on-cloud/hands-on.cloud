@@ -3,7 +3,7 @@ import { graphql, StaticQuery } from 'gatsby';
 import { CardColumns } from 'react-bootstrap';
 import Layout from '../components/layout';
 import PostCards from '../components/postcards';
-import SEO from '../components/SEO';
+import SEO from '../components/SEO/SEO';
 import Pager from '../components/Pager/Pager';
 
 const IndexPage = ({ pageContext }) => {

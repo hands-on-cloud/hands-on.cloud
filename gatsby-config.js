@@ -1,12 +1,23 @@
-const favicon_image = './src/assets/images/hands-on.cloud-logo.png';
+const website = require('./config/website');
+
+const pathPrefix = website.pathPrefix === '/' ? '' : website.pathPrefix;
 
 module.exports = {
+  pathPrefix: website.pathPrefix,
   siteMetadata: {
-    title: `Your hands-on.cloud experience`,
-    siteUrl: `https://hands-on.cloud`,
-    description: `This open source project provides hands-on materials on different aspects of working in the clouds like AWS and GCP.`,
-    author: 'Andrei Maksimov',
-    canonicalUrl: 'https://hands-on.cloud',
+    title: website.title,
+    siteUrl: website.url + pathPrefix, // For gatsby-plugin-sitemap
+    pathPrefix,
+    description: website.description,
+    banner: website.logo,
+    headline: website.headline,
+    siteLanguage: website.siteLanguage,
+    ogLanguage: website.ogLanguage,
+    canonicalUrl: website.url,
+    author: website.author,
+    facebook: website.facebook,
+    twitter: website.twitter,
+
     categories: [
       {
         slug: 'aws',
@@ -77,21 +88,22 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'Hands-On.Cloud',
-        short_name: 'Hands-On.Cloud',
-        start_url: '/',
-        background_color: '#ffffff',
-        theme_color: '#6b37bf',
+        name: website.title,
+        short_name: website.titleAlt,
+        description: website.description,
+        start_url: website.pathPrefix,
+        background_color: website.backgroundColor,
+        theme_color: website.themeColor,
         // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
         // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
         display: 'minimal-ui',
-        icon: favicon_image,
+        icon: website.logo,
       },
     },
     {
       resolve: `gatsby-plugin-favicon`,
       options: {
-        logo: favicon_image,
+        logo: website.logo,
         icons: {
           android: true,
           appleIcon: true,
@@ -130,6 +142,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-catch-links`,
+    'gatsby-plugin-offline',
     `gatsby-plugin-netlify`,
   ],
 };

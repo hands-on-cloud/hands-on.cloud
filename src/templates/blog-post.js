@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Disqus from 'disqus-react';
 import Layout from '../components/layout';
-import SEO from '../components/SEO';
+import SEO from '../components/SEO/SEO';
 import PostTags from '../components/PostTags/posttags';
 import PostAuthors from '../components/PostAuthors/PostAuthors';
 
@@ -18,6 +18,15 @@ export default ({ data }) => {
   return (
     <Layout>
       <SEO title={post.frontmatter.title} keywords={post.frontmatter.tags} />
+      <SEO
+        title={post.frontmatter.title}
+        banner={post.frontmatter.thumbnail.childImageSharp.fluid.src}
+        pathname={post.frontmatter.slug}
+        desc={data.description}
+        node={post}
+        article
+      />
+
       <div>
         <h1>{post.frontmatter.title}</h1>
         <br />
@@ -47,9 +56,18 @@ export const query = graphql`
         title
         tags
         authors
+        thumbnail {
+          childImageSharp {
+            fluid(maxWidth: 1024, maxHeight: 628) {
+              src
+            }
+          }
+        }
+        date
       }
       fields {
         slug
+        modified_date
       }
     }
   }
