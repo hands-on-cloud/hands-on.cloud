@@ -13,16 +13,16 @@ const Layout = props => {
 
   return (
     <div className="application">
+      <Header />
+      <div className={styles.container}>
+        <Container>
+          <Row>
+            <Col sm="12">{children}</Col>
+          </Row>
+        </Container>
+      </div>
+      <Footer />
       <ErrorBoundry>
-        <Header />
-        <div className={styles.container}>
-          <Container>
-            <Row>
-              <Col sm="12">{children}</Col>
-            </Row>
-          </Container>
-        </div>
-        <Footer />
         <AdSense client="ca-pub-2729052102059896" />
       </ErrorBoundry>
     </div>
