@@ -6,24 +6,22 @@ import Header from './Header/header';
 import Footer from './Footer/footer';
 import ErrorBoundry from './Sentry/ErrorBoundry';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AdSense from './AdSense/adsense';
 
 const Layout = props => {
   const { children } = props;
 
   return (
     <div className="application">
-      <Header />
-      <div className={styles.container}>
-        <Container>
-          <Row>
-            <Col sm="12">{children}</Col>
-          </Row>
-        </Container>
-      </div>
-      <Footer />
       <ErrorBoundry>
-        <AdSense client="ca-pub-2729052102059896" />
+        <Header />
+        <div className={styles.container}>
+          <Container>
+            <Row>
+              <Col sm="12">{children}</Col>
+            </Row>
+          </Container>
+        </div>
+        <Footer />
       </ErrorBoundry>
     </div>
   );

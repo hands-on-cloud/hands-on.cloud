@@ -11,20 +11,6 @@ export default function HTML(props) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <script
-          async
-          src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-2729052102059896",
-                enable_page_level_ads: true
-              });
-            `,
-          }}
-        />
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>
@@ -33,7 +19,7 @@ export default function HTML(props) {
           This app works best with JavaScript enabled.
         </noscript>
         <div
-          key={`body`}
+          key="body"
           id="___gatsby"
           dangerouslySetInnerHTML={{ __html: props.body }}
         />
