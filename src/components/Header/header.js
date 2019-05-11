@@ -61,6 +61,11 @@ export default class Header extends React.Component {
                       </Nav.Link>
                     </Nav>
                   ))}
+                  <Nav className="span" key="for-authors">
+                    <Nav.Link style={menuStyle} href="/for-authors/">
+                      For Authors
+                    </Nav.Link>
+                  </Nav>
                 </Nav>
               )}
             />

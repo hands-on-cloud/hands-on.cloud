@@ -7,9 +7,14 @@ const posttags = props => {
     marginRight: '2px',
   };
 
+  let tags = [];
+  if (props.tags === undefined) {
+    tags = props.tags;
+  }
+
   return (
     <div>
-      {props.tags.map(tag => (
+      {tags.map(tag => (
         <a key={tag} href={`/tags/${kebabCase(tag)}/`}>
           <Badge variant="dark" style={tagStyle}>
             {tag}
