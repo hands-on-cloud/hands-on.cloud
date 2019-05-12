@@ -8,8 +8,12 @@
   hands-on.cloud - Gatsby based Serverless Blog
 </h1>
 
-[![CircleCI](https://circleci.com/gh/andreivmaksimov/hands-on.cloud.svg?style=svg)](https://circleci.com/gh/andreivmaksimov/hands-on.cloud)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fandreivmaksimov%2Fhands-on.cloud.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fandreivmaksimov%2Fhands-on.cloud?ref=badge_shield)
+[![CircleCI](https://circleci.com/gh/hands-on-cloud/hands-on.cloud.svg?style=svg)](https://circleci.com/gh/hands-on-cloud/hands-on.cloud)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhands-on-cloud%2Fhands-on.cloud.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhands-on-cloud%2Fhands-on.cloud?ref=badge_shield)
+
+## ✍️ Adding articles
+
+Pull request workflow described in detail at our [For Authors](https://hands-on.cloud/for-authors/) blog page.
 
 ## 🚀 Quick start
 
@@ -45,11 +49,11 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 
 1.  **Terraform configuration**
 
-    * Change Terraform backend configuration in `infrastructure.tf` file.
+    - Change Terraform backend configuration in `infrastructure.tf` file.
 
-    * Change `root_domain_name` variable to your Route53 hosted zone name.
+    - Change `root_domain_name` variable to your Route53 hosted zone name.
 
-    * Create your static website AWS infrastructure by running:
+    - Create your static website AWS infrastructure by running:
 
       ```sh
       terrafrom plan
@@ -58,27 +62,28 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 
 1.  **Generate Gatsby static content**
 
-      ```sh
-      gatsby build
-      ```
+    ```sh
+    gatsby build
+    ```
 
 1.  **Publish test changes**
 
-      ```sh
-      aws s3 sync ./public s3://$(terraform output test_website_bucket)
-      ```
+    ```sh
+    aws s3 sync ./public s3://$(terraform output test_website_bucket)
+    ```
 
 1.  **Validate your changes**
 
-      ```sh
-      open $(terraform output test_website_url)
-      ```
+    ```sh
+    open $(terraform output test_website_url)
+    ```
 
 1.  **Publish production changes**
 
-      ```sh
-      aws s3 sync ./public s3://$(terraform output origin_website_bucket)
-      ```
+    ```sh
+    aws s3 sync ./public s3://$(terraform output origin_website_bucket)
+    ```
 
 ## License
+
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fandreivmaksimov%2Fhands-on.cloud.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fandreivmaksimov%2Fhands-on.cloud?ref=badge_large)
