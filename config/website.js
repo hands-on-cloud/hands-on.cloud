@@ -7,7 +7,7 @@ module.exports = {
   headline: `Your hands-on.cloud experiecne`, // Headline for schema.org JSONLD
   url: `https://hands-on.cloud`,
   siteLanguage: `en`, // Language Tag on <html> element
-  logo: `./src/assets/images/hands-on.cloud-logo.png`, // Used for SEO
+  logo: `./assets/images/hands-on.cloud-logo.png`, // Used for SEO
   ogLanguage: `en_US`, // Facebook Language
   backgroundColor: `#ffffff`,
   themeColor: `#6b37bf`,

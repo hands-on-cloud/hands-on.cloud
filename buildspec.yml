@@ -1,0 +1,54 @@
+version: 0.2
+
+env:
+  variables:
+    TERRAFORM_VERSION: "0.11.8"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+    commands:
+      - bash -c "$CODEBUILD_SRC_DIR/scripts/aws-codebuild-extras.sh"
+      - env
+      - echo Updating APT
+      - apt-get update -y
+      - echo Installing dev dependencies
+      - apt-get install -y curl jq python bash ca-certificates git openssl unzip wget python-dev python-pip
+      - apt-get install -y xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 build-essential
+      - cd /tmp && \
+      - echo Installing Terraform
+      - wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+      - unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin
+      - echo Installing awscli
+      - pip install awscli bs4
+  pre_build:
+    commands:
+      - echo Installing node modules
+      - cd $CODEBUILD_SRC_DIR
+      - npm install
+      - echo Enforcing node security patches install
+      - npm audit fix
+  build:
+    commands:
+      - echo Builging Gatsby site
+      - npx gatsby build
+  post_build:
+    commands:
+      - echo Deploying test site
+      - cd terraform
+      - terraform init -reconfigure
+      - aws s3 sync $CODEBUILD_SRC_DIR/public s3://$(terraform output test_website_bucket) --delete
+      - |
+        if [ "${CODEBUILD_GIT_BRANCH}" = "master" ]; then
+          aws s3 sync $CODEBUILD_SRC_DIR/public s3://$(terraform output origin_website_bucket) --delete
+          aws cloudfront create-invalidation --distribution-id=E2K9OZ801QFKCC --paths /
+        fi
+
+cache:
+  paths:
+    # all NPM modules
+    - ~/.npm
+    - ./node_modules
+    # Cypress binary (or yarn dependencies)
+    - ~/.cache

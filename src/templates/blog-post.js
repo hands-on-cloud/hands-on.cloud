@@ -20,7 +20,7 @@ export default ({ data }) => {
       <SEO title={post.frontmatter.title} keywords={post.frontmatter.tags} />
       <SEO
         title={post.frontmatter.title}
-        banner={post.frontmatter.thumbnail.childImageSharp.fluid.src}
+        banner={post.frontmatter.thumbnail.childImageSharp.sizes.src}
         pathname={post.frontmatter.slug}
         desc={data.description}
         node={post}
@@ -58,8 +58,8 @@ export const query = graphql`
         authors
         thumbnail {
           childImageSharp {
-            fluid(maxWidth: 1024, maxHeight: 628) {
-              src
+            sizes(maxWidth: 1240) {
+              ...GatsbyImageSharpSizes_tracedSVG
             }
           }
         }

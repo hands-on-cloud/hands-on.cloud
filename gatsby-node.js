@@ -103,6 +103,8 @@ exports.createPages = ({ graphql, actions }) => {
       pageLength,
       pathPrefix: '',
       context: {},
+      buildPath: (index, pathPrefix) =>
+        index > 1 ? `${pathPrefix}/${index}` : `/${pathPrefix}`,
     });
 
     posts.forEach(({ node }) => {
