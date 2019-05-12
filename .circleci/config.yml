@@ -5,25 +5,28 @@ jobs:
       - image: "circleci/node:11.5.0"
     working_directory: ~/src
     environment:
-      TERRAFORM_VERSION: 0.11.8
+      TERRAFORM_VERSION: "0.11.8"
     steps:
       - run: sudo apt-get update
       - run:
-          name: install AWS CLI and Terraform
+          name: Install AWS CLI and Terraform
           command: |
             sudo apt-get install -y curl jq python bash ca-certificates git openssl unzip wget python-dev python-pip \
-              xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
+              xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 build-essential
             cd /tmp && \
             wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
             sudo unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin
             sudo pip install awscli bs4
             cd
       - checkout
-      - restore_cache:
-          keys:
-          - dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - dependencies-
+      - run:
+          name: Update npm
+          command: sudo npm install -g npm@latest
+#      - restore_cache:
+#          keys:
+#          - dependencies-{{ checksum "package.json" }}
+#          # fallback to using the latest cache if no exact match is found
+#          - dependencies-
       - run: npm install
       - run:
           name: Enforcing node security patches install
@@ -33,9 +36,13 @@ jobs:
           paths:
             # all NPM modules
             - ~/.npm
+            - ./node_modules
             # Cypress binary (or yarn dependencies)
             - ~/.cache
           key: dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Gatsby info
+          command: npx gatsby info
       - run:
           name: Running remark (.md linting)
           command: npx remark src/pages
@@ -43,11 +50,13 @@ jobs:
           name: Cleaning up Gatsby
           command: npx gatsby clean
       - run:
-          name: Building site
-          command: npx gatsby build
+          name: Building frontend
+          command: |
+            GATSBY_CPU_COUNT=2 node --max_old_space_size=2048 ./node_modules/.bin/gatsby build
       - run:
           name: Deploying test site
           command: |
+            cd terraform
             terraform init -reconfigure
             aws s3 sync ./public s3://$(terraform output test_website_bucket) --delete
 #      - run:
@@ -62,6 +71,7 @@ jobs:
       - deploy:
           name: Deploying to production ENV
           command: |
+            cd terraform
             terraform init -reconfigure
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
               aws s3 sync ./public s3://$(terraform output origin_website_bucket) --delete
@@ -70,6 +80,7 @@ jobs:
       - run:
           name: Validate sitemap URLs
           command: |
+            cd terraform
             terraform init -reconfigure
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
               python scripts/url_validator.py http://$(terraform output origin_website_bucket)
