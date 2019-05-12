@@ -2,21 +2,21 @@ version: 2
 jobs:
   build:
     docker:
-      - image: "circleci/node:11.5.0"
+      - image: "node:12.2.0"
     working_directory: ~/src
     environment:
       TERRAFORM_VERSION: 0.11.8
     steps:
-      - run: sudo apt-get update
+      - run: apt-get update
       - run:
           name: install AWS CLI and Terraform
           command: |
-            sudo apt-get install -y curl jq python bash ca-certificates git openssl unzip wget python-dev python-pip \
-              xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
+            apt-get install -y curl jq python bash ca-certificates git openssl unzip wget python-dev python-pip \
+              xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 build-essential
             cd /tmp && \
             wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-            sudo unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin
-            sudo pip install awscli bs4
+            unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin
+            pip install awscli bs4
             cd
       - checkout
       - restore_cache:
@@ -37,14 +37,17 @@ jobs:
             - ~/.cache
           key: dependencies-{{ checksum "package.json" }}
       - run:
+          name: Gatsby info
+          command: npx gatsby info
+      - run:
           name: Running remark (.md linting)
           command: npx remark src/pages
       - run:
           name: Cleaning up Gatsby
           command: npx gatsby clean
       - run:
-          name: Building site
-          command: npx gatsby build
+          name: Building frontend
+          command: GATSBY_CPU_COUNT=2 npx gatsby build
       - run:
           name: Deploying test site
           command: |
