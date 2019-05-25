@@ -8,7 +8,7 @@ const posttags = props => {
   };
 
   let tags = [];
-  if (props.tags === undefined) {
+  if (props.tags !== null) {
     tags = props.tags;
   }
 
