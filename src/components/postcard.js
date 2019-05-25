@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'gatsby';
-import PostTags from '../components/PostTags/posttags';
+import PostTags from './PostTags/posttags';
 
 const postcard = props => {
   return (
