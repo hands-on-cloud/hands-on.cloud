@@ -33,7 +33,7 @@ phases:
       - npx gatsby build
   post_build:
     commands:
-      - source "$CODEBUILD_SRC_DIR/scripts/aws-codebuild-extras.sh"
+      - . $CODEBUILD_SRC_DIR/scripts/aws-codebuild-extras.sh
       - env
       - echo Deploying test site
       - cd terraform
@@ -41,7 +41,7 @@ phases:
       - aws s3 sync $CODEBUILD_SRC_DIR/public s3://$(terraform output test_website_bucket) --delete
       - aws s3 cp $CODEBUILD_SRC_DIR/src/components/AdSense/ads.txt s3://$(terraform output test_website_bucket)
       - |
-        if [ "${CODEBUILD_GIT_BRANCH}" = "master" ]; then
+        if [ "${CODEBUILD_WEBHOOK_TRIGGER}" = "branch/master" ]; then
           aws s3 sync $CODEBUILD_SRC_DIR/public s3://$(terraform output origin_website_bucket) --delete
           aws s3 cp $CODEBUILD_SRC_DIR/src/components/AdSense/ads.txt s3://$(terraform output origin_website_bucket)
           aws cloudfront create-invalidation --distribution-id=E2K9OZ801QFKCC --paths /
