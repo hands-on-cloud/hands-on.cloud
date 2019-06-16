@@ -9,8 +9,6 @@ phases:
     runtime-versions:
       nodejs: 10
     commands:
-      - bash -c "$CODEBUILD_SRC_DIR/scripts/aws-codebuild-extras.sh"
-      - env
       - echo Updating APT
       - apt-get update -y
       - echo Installing dev dependencies
@@ -35,6 +33,8 @@ phases:
       - npx gatsby build
   post_build:
     commands:
+      - source "$CODEBUILD_SRC_DIR/scripts/aws-codebuild-extras.sh"
+      - env
       - echo Deploying test site
       - cd terraform
       - terraform init -reconfigure
