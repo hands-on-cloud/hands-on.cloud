@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import styles from './layout.module.css';
 import Header from './Header/header';
 import Footer from './Footer/footer';
+import AdSense from './AdSense/AdSense';
 import ErrorBoundry from './Sentry/ErrorBoundry';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -22,6 +23,7 @@ const Layout = props => {
           </Container>
         </div>
         <Footer />
+        <AdSense />
       </ErrorBoundry>
     </div>
   );
