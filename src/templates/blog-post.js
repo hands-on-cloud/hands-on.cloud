@@ -5,6 +5,7 @@ import Layout from '../components/layout';
 import SEO from '../components/SEO/SEO';
 import PostTags from '../components/PostTags/posttags';
 import PostAuthors from '../components/PostAuthors/PostAuthors';
+import AdSense from '../components/AdSense/AdSense';
 
 export default ({ data }) => {
   const post = data.markdownRemark;
@@ -43,6 +44,7 @@ export default ({ data }) => {
           shortname={disqusShortname}
           config={disqusConfig}
         />
+        <AdSense key={post.frontmatter.slug} />
       </div>
     </Layout>
   );
