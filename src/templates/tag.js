@@ -15,8 +15,8 @@ const Tags = ({ pageContext }) => {
   } = pageContext;
   const { tag } = additionalContext;
   const previousUrl =
-    index - 1 === 1 ? `/${pathPrefix}/` : (index - 1).toString();
-  const nextUrl = `/${pathPrefix}/${(index + 1).toString()}`;
+    index - 1 === 1 ? `/${pathPrefix}/` : `${(index - 1).toString()}/`;
+  const nextUrl = `/${pathPrefix}/${(index + 1).toString()}/`;
 
   return (
     <Layout>

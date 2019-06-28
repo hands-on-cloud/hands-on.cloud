@@ -31,7 +31,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({
       node,
       name: `slug`,
-      value: _.kebabCase(slug),
+      value: `${_.kebabCase(slug)}/`,
     });
     createNodeField({
       node,
