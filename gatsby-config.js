@@ -9,6 +9,7 @@ module.exports = {
     siteUrl: website.url + pathPrefix, // For gatsby-plugin-sitemap
     pathPrefix,
     description: website.description,
+    keywords: website.keywords,
     banner: website.logo,
     headline: website.headline,
     siteLanguage: website.siteLanguage,

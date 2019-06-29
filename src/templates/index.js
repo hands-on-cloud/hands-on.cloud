@@ -3,8 +3,8 @@ import { graphql, StaticQuery } from 'gatsby';
 import { CardColumns } from 'react-bootstrap';
 import Layout from '../components/layout';
 import PostCards from '../components/postcards';
-import SEO from '../components/SEO/SEO';
 import Pager from '../components/Pager/Pager';
+import SEO from '../components/SEO/SEO';
 
 const IndexPage = ({ pageContext }) => {
   const { group, index, first, last } = pageContext;
@@ -13,24 +13,7 @@ const IndexPage = ({ pageContext }) => {
 
   return (
     <Layout>
-      <StaticQuery
-        query={graphql`
-          query {
-            site {
-              siteMetadata {
-                title
-                description
-              }
-            }
-          }
-        `}
-        render={data => (
-          <SEO
-            title={data.site.siteMetadata.title}
-            description={data.site.siteMetadata.description}
-          />
-        )}
-      />
+      <SEO title="Hands-On.Cloud" />
       <CardColumns>
         <PostCards posts={group} />
       </CardColumns>

@@ -1,217 +1,98 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
-import Facebook from './Facebook';
-import Twitter from './Twitter';
+import React from "react";
+import Helmet from "react-helmet";
+import PropTypes from "prop-types";
+import { StaticQuery, graphql } from "gatsby";
 
-const SEO = ({ title, desc, banner, pathname, article, node }) => {
-  const { site } = useStaticQuery(
-    graphql`
-      query SEO {
-        site {
-          siteMetadata {
-            siteUrl
-            defaultTitle: title
-            defaultDescription: description
-            defaultBanner: banner
-            headline
-            siteLanguage
-            ogLanguage
-            author
-            twitter
-            facebook
-          }
-        }
-      }
-    `,
-  );
-
-  const {
-    siteMetadata: {
-      siteUrl,
-      defaultTitle,
-      defaultDescription,
-      defaultBanner,
-      headline,
-      siteLanguage,
-      ogLanguage,
-      author,
-      twitter,
-      facebook,
-    },
-  } = site;
-
-  const seo = {
-    title: title || defaultTitle,
-    description: desc || defaultDescription,
-    image: `${siteUrl}${banner || defaultBanner}`,
-    url: `${siteUrl}${pathname || ''}`,
-  };
-
-  // schema.org in JSONLD format
-  // https://developers.google.com/search/docs/guides/intro-structured-data
-  // You can fill out the 'author', 'creator' with more data or another type (e.g. 'Organization')
-
-  const schemaOrgWebPage = {
-    '@context': 'http://schema.org',
-    '@type': 'WebPage',
-    url: siteUrl,
-    headline,
-    inLanguage: siteLanguage,
-    mainEntityOfPage: siteUrl,
-    description: defaultDescription,
-    name: defaultTitle,
-    author: {
-      '@type': 'Person',
-      name: author,
-    },
-    copyrightHolder: {
-      '@type': 'Person',
-      name: author,
-    },
-    copyrightYear: '2019',
-    creator: {
-      '@type': 'Person',
-      name: author,
-    },
-    publisher: {
-      '@type': 'Person',
-      name: author,
-    },
-    datePublished: '2019-01-18T10:30:00+01:00',
-    dateModified: '2019-01-18T10:30:00+01:00',
-    image: {
-      '@type': 'ImageObject',
-      url: `${siteUrl}${defaultBanner}`,
-    },
-  };
-
-  // Initial breadcrumb list
-
-  const itemListElement = [
-    {
-      '@type': 'ListItem',
-      item: {
-        '@id': siteUrl,
-        name: 'Homepage',
-      },
-      position: 1,
-    },
-  ];
-
-  let schemaArticle = null;
-
-  if (article) {
-    schemaArticle = {
-      '@context': 'http://schema.org',
-      '@type': 'Article',
-      author: {
-        '@type': 'Person',
-        name: author,
-      },
-      copyrightHolder: {
-        '@type': 'Person',
-        name: author,
-      },
-      copyrightYear: '2019',
-      creator: {
-        '@type': 'Person',
-        name: author,
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: author,
-        logo: {
-          '@type': 'ImageObject',
-          url: `${siteUrl}${defaultBanner}`,
-        },
-      },
-      datePublished: new Date(node.frontmatter.date),
-      dateModified: node.fields.modified_date,
-      description: seo.description,
-      headline: seo.title,
-      inLanguage: 'en',
-      url: seo.url,
-      name: seo.title,
-      image: {
-        '@type': 'ImageObject',
-        url: seo.image,
-      },
-      mainEntityOfPage: seo.url,
-    };
-    // Push current blogpost into breadcrumb list
-    itemListElement.push({
-      '@type': 'ListItem',
-      item: {
-        '@id': seo.url,
-        name: seo.title,
-      },
-      position: 2,
-    });
-  }
-
-  const breadcrumb = {
-    '@context': 'http://schema.org',
-    '@type': 'BreadcrumbList',
-    description: 'Breadcrumbs list',
-    name: 'Breadcrumbs',
-    itemListElement,
-  };
-
+function SEO({ description, image: metaImage, title }) {
   return (
-    <>
-      <Helmet title={seo.title}>
-        <html lang={siteLanguage} />
-        <meta name="description" content={seo.description} />
-        <meta name="image" content={seo.image} />
-        <meta name="gatsby-starter" content="Gatsby Starter Prismic" />
-        {/* Insert schema.org data conditionally (webpage/article) + everytime (breadcrumbs) */}
-        {!article && (
-          <script type="application/ld+json">
-            {JSON.stringify(schemaOrgWebPage)}
-          </script>
-        )}
-        {article && (
-          <script type="application/ld+json">
-            {JSON.stringify(schemaArticle)}
-          </script>
-        )}
-        <script type="application/ld+json">{JSON.stringify(breadcrumb)}</script>
-      </Helmet>
-      <Facebook
-        desc={seo.description}
-        image={seo.image}
-        title={seo.title}
-        type={article ? 'article' : 'website'}
-        url={seo.url}
-        locale={ogLanguage}
-        name={facebook}
-      />
-      <Twitter
-        title={seo.title}
-        image={seo.image}
-        desc={seo.description}
-        username={twitter}
-      />
-    </>
+    <StaticQuery
+        query={graphql`
+            {
+                site {
+                    siteMetadata {
+                        author
+                        description
+                        siteUrl
+                        keywords
+                    }
+                }
+            }
+        `}
+        render={data => {
+            const metaDescription = description || data.site.siteMetadata.description;
+            const image = metaImage && metaImage.src
+                ? `${data.site.siteMetadata.siteUrl}${metaImage.src}`
+                : null;
+            return (
+                <Helmet
+                    htmlAttributes={{
+                        lang: "en"
+                    }}
+                    title={title}
+                    meta={
+                        [
+                            {
+                                name: "description",
+                                content: metaDescription
+                            },
+                            {
+                                name: "keywords",
+                                content: data.site.siteMetadata.keywords.join(",")
+                            },
+                            {
+                                property: "og:title",
+                                content: title
+                            },
+                            {
+                                property: "og:description",
+                                content: metaDescription
+                            },
+                            {
+                                name: "twitter:creator",
+                                content: data.site.siteMetadata.author
+                            },
+                            {
+                                name: "twitter:title",
+                                content: title
+                            },
+                            {
+                                name: "twitter:description",
+                                content: metaDescription
+                            }
+                        ]
+                        .concat(
+                            metaImage
+                            ? [
+                                {
+                                    property: "og:image",
+                                    content: image
+                                },
+                                {
+                                    property: "og:image:width",
+                                    content: metaImage.width
+                                },
+                                {
+                                    property: "og:image:height",
+                                    content: metaImage.height
+                                },
+                                {
+                                    name: "twitter:card",
+                                    content: "summary_large_image"
+                                }
+                            ]
+                            : [
+                                {
+                                    name: "twitter:card",
+                                    content: "summary"
+                                }
+                            ]
+                        )
+                    }
+                />
+            );
+        }}
+    />
   );
-};
-
-SEO.propTypes = {
-  title: PropTypes.string,
-  desc: PropTypes.string,
-  banner: PropTypes.string,
-  pathname: PropTypes.string,
-  article: PropTypes.bool,
-};
-
-SEO.defaultProps = {
-  title: null,
-  desc: null,
-  banner: null,
-  pathname: null,
-  article: false,
-};
+}
 
 export default SEO;

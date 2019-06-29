@@ -1,8 +1,8 @@
 module.exports = {
   pathPrefix: `/`,
   title: `Hands-On.Cloud`,
-  titleAlt: `Your Hands-On.Cloud Experience`,
   description: `This open source project provides hands-on materials on different aspects of working in the clouds like AWS and GCP.`,
+  keywords: ['aws', 'gcp', 'cloud computing', 'devops', 'serverless'],
   author: `Andrei Maksimov`,
   headline: `Your hands-on.cloud experiecne`, // Headline for schema.org JSONLD
   url: `https://hands-on.cloud`,

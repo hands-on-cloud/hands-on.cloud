@@ -2,12 +2,15 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Disqus from 'disqus-react';
 import Layout from '../components/layout';
-import SEO from '../components/SEO/SEO';
 import PostTags from '../components/PostTags/posttags';
 import PostAuthors from '../components/PostAuthors/PostAuthors';
+import SEO from '../components/SEO/SEO';
 
 export default ({ data }) => {
   const post = data.markdownRemark;
+  const { markdownRemark: { excerpt, html, frontmatter } } = data
+  const image = frontmatter.thumbnail ? frontmatter.thumbnail.childImageSharp.sizes.src : null
+
   const disqusShortname = 'hands-on-cloud';
   const disqusConfig = {
     url: post.frontmatter.slug,
@@ -17,16 +20,7 @@ export default ({ data }) => {
 
   return (
     <Layout>
-      <SEO title={post.frontmatter.title} keywords={post.frontmatter.tags} />
-      <SEO
-        title={post.frontmatter.title}
-        banner={post.frontmatter.thumbnail.childImageSharp.sizes.src}
-        pathname={post.frontmatter.slug}
-        desc={data.description}
-        node={post}
-        article
-      />
-
+      <SEO title="Hands-On.Cloud" description={excerpt} image={image} />
       <div>
         <h1>{post.frontmatter.title}</h1>
         <br />
@@ -65,6 +59,7 @@ export const query = graphql`
         }
         date
       }
+      excerpt(format: PLAIN)
       fields {
         slug
         modified_date
