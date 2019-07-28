@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}en{{ end }}">
+{{ partial "head" . }}
+<body>
+  <div id="wrap" class="wrap">
+    {{ partial "header" . }}
+    <main class="main main--single">
+      <!-- post -->
+      <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
+        <h1 class="post__title">{{ .Title }}</h1>
+        <p class="post__date">
+          <time itemprop="datePublished" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" | safeHTML }}">{{ .Date.Format "2006.01.02" }}</time>
+        </p>
+        <div class="post-content">
+          {{ .Content }}
+        </div>
+      </article>
+      <!-- /post -->
+      <hr class="post-hr">
+      <!-- post-nav -->
+      <nav class="post-nav">
+        <ol class="pure-g">
+            {{ if .PrevInSection }}
+            <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
+              <a href="{{.PrevInSection.Permalink}}">
+                <span class="post-nav-label">Previous Post</span>
+                <span class="post-nav-title">
+                  {{ .PrevInSection.Title }}
+                </span>
+              </a>
+            </li>
+            {{ else }}
+            <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
+            </li>
+          {{ end }}
+          {{ if .NextInSection }}
+          <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
+            <a href="{{.NextInSection.Permalink}}">
+              <span class="post-nav-label">Next Post</span>
+              <span class="post-nav-title">
+                {{ .NextInSection.Title }}
+              </span>
+            </a>
+          </li>
+          {{ else }}
+          <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
+          </li>
+          {{ end }}
+        </ol>
+        <div class="post-nav-back">
+          <a class="pure-button" href="/">Hands-On.Cloud</a>
+        </div>
+      </nav>
+    <!-- /post-nav -->
+    </main>
+    {{ partial "footer" . }}
+  </div>
+{{ partial "js" . }}
+</body>
+</html>

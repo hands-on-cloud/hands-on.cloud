@@ -1,0 +1,22 @@
+baseURL = "http://localhost"
+languageCode = "en-us"
+title = "Hands-On.Cloud"
+theme = "hands-on-cloud"
+pygmentsCodeFences = true
+summaryLength = 40
+
+[author]
+    author = 'Andrei Maksimov'
+    profile = 'Passionate Cloud Solutions Architect with 8+ years of experience.'
+    image = 'https://avatars2.githubusercontent.com/u/1902417?s=460&v=4'
+
+[Params]
+    localeOgp = "en-us"
+    description = "This open source project provides hands-on materials on different aspects of working in the clouds like AWS and GCP."
+    keywords = "aws,devops,docker,terraform,cloudformation,serverless"
+    twitter = "andreivmaksimov"
+    github = "andreivmaksimov"
+    facebook = "andrei.maksimov.3"
+    linkedin = "avmaksimov"
+    googleanalytics = "UA-137355839-1"
+    googlecustomsearch = "005409723859646106283:xrxw99mawa4"

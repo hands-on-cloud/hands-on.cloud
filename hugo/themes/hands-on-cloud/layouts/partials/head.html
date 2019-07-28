@@ -1,0 +1,30 @@
+{{ $main_css := "assets/styles/styles.css" | absURL }}
+{{ $bootstrap_css := "assets/bootstrap-4.3.1/css/bootstrap.min.css" | absURL }}
+{{ $respond_js := "assets/scripts/respond.min.js" | absURL }}
+{{ $pie_js := "assets/scripts/PIE.js" | absURL }}
+<head>
+  <title>{{ .Title }}</title>
+  <meta charset="utf-8" />
+  <meta name="keywords" content="{{ .Site.Params.keywords }}" />
+  <meta name="description" content="{{ .Site.Params.description }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Bootstrap core CSS -->
+  <link href="{{ $bootstrap_css }}" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{{ $main_css }}" />
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="{{ $respond_js }}"></script>
+    <script src="{{ $pie_js }}"></script>
+  <![endif]-->
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2729052102059896",
+            enable_page_level_ads: true
+      });
+  </script>
+</head>

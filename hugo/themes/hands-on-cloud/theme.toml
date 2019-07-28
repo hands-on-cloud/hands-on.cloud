@@ -1,0 +1,16 @@
+name = "Hands On Cloud"
+license = "MIT"
+licenselink = "https://github.com/hands-on-cloud/hands-on.cloud/blob/master/LICENSE"
+description = "Hugo Theme for Hands-On.Cloud"
+homepage = "https://hands-on.cloud/"
+tags = []
+features = []
+min_version = "0.01"
+
+[author]
+  name = "Andrei Maksimov"
+  homepage = "https://hands-on.cloud/"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
