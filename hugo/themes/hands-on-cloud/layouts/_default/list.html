@@ -1,0 +1,71 @@
+{{ define "main" }}
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">hands-on.cloud</h1>
+        <p class="lead text-muted">{{ .Site.Params.description }}</p>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        {{ range (.Paginator 9).Pages.ByPublishDate.Reverse }}
+
+        <div class="col-md-4">
+            
+                <div class="card mb-4 shadow-sm">
+                    <a href="{{ .RelPermalink }}">
+                        <img src="{{ .Permalink }}{{ .Params.image }}" alt="" width="100%" />
+                    </a>
+                    <div class="card-body">
+                        <a href="{{ .RelPermalink }}">
+                            <p>
+                                <h3>{{ .Title }}</h3>
+                            </p>
+                            <p class="card-text">
+                                {{ .Summary }}
+                            </p>
+                        </a>
+                        <br />
+                        <div class="d-flex">
+                                <small class="text-muted">
+                                    {{ if .Params.tags }}
+                                        {{range .Params.tags}}
+                                        <a class="btn btn-dark tag" href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/">{{ . }}</a>
+                                        {{ end }}
+                                    {{ end }}
+                                </small>
+                        </div>
+                        <div class="d-flex align-items-end flex-column">
+                            <small class="text-muted">
+                                {{ $readTime := mul (div (countwords .Content) 220.0) 60 }}
+                                {{ $minutes := math.Floor (div $readTime 60) }}
+
+                                Reading time: {{ $minutes }} {{ cond (eq $minutes 1) "min" "mins" }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+        {{ end }}
+    </div>
+
+    {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
+
+    <div class="d-flex justify-content-center">
+        <div class="btn-group">
+            {{ if .Paginator.HasPrev }}
+            <a class="btn btn-dark" href="{{ .Paginator.Prev.URL }}" tabindex="-1">Previous</a>
+            {{ end }}
+
+            <div class="btn">{{ .Paginator.PageNumber}} / {{ .Paginator.TotalPages }}</div>
+
+            {{ if .Paginator.HasNext }}
+            <a class="btn btn-dark" href="{{ .Paginator.Next.URL }}">Next</a>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+
+</div>
+{{ end }}
