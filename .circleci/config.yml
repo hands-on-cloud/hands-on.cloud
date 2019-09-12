@@ -30,10 +30,10 @@ jobs:
           name: Deploy to AWS
           command: |
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
-              aws s3 sync $HUGO_BUILD_DIR s3://$HUGO_PROD_DOMAIN --delete
+              aws s3 sync ${HUGO_BUILD_DIR} s3://origin.${HUGO_PROD_DOMAIN} --delete
               aws cloudfront create-invalidation --distribution-id=E2K9OZ801QFKCC --paths /
             else
-              aws s3 sync $HUGO_BUILD_DIR s3://$HUGO_TEST_DOMAIN --delete
+              aws s3 sync ${HUGO_BUILD_DIR} s3://${HUGO_TEST_DOMAIN} --delete
             fi
 
 workflows:
