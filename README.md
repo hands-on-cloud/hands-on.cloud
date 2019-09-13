@@ -1,11 +1,13 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
+  <a href="https://gohugo.io">
+    <img alt="Hugo" src="https://raw.githubusercontent.com/gohugoio/gohugoioTheme/master/static/images/hugo-logo-wide.svg?sanitize=true" width="120" />
+  </a> <br />
   <a href="https://hands-on.cloud">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
+    <img alt="hands-on.cloud" src="./hugo/themes/hands-on-cloud/static/assets/images/hands-on.cloud-logo.png" width="120" />
   </a>
 </p>
 <h1 align="center">
-  hands-on.cloud - Gatsby based Serverless Blog
+  hands-on.cloud - Hugo based Serverless Blog
 </h1>
 
 [![CircleCI](https://circleci.com/gh/hands-on-cloud/hands-on.cloud.svg?style=svg)](https://circleci.com/gh/hands-on-cloud/hands-on.cloud)
@@ -19,31 +21,25 @@ Pull request workflow described in detail at our [For Authors](https://hands-on.
 
 1.  **Set up your development environment**
 
-    Set up your development environment using [this part](https://www.gatsbyjs.org/tutorial/part-zero/) of Gatsby Tutorial.
+    Set up your development environment using [this part](https://gohugo.io/getting-started/) of Hugo Tutorial.
 
-1.  **Gatsby developing.**
+1.  **Developing with Hugo.**
 
     Do not need to do anything special, just
 
     ```sh
-    gatsby develop
+    hugo server -D
     ```
 
 1.  **Open the source code and start editing!**
 
-    Your site is now running at `http://localhost:8000`!
+    Your site is now running at `http://localhost:1313/`!
 
-    \_Note: You'll also see a second link: `http://localhost:8000/___graphql`. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql).\_
+    Open `hugo` project directory in your code editor of choice and edit any content inside `hugo/content/`. Save your changes and the browser will update in real time!
 
-    Open this project directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+## 🎓 Learning Hugo
 
-## 🎓 Learning Gatsby
-
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
-
-- **For most developers, we recommend starting with [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
+Looking for more guidance? Full documentation for Hugo lives [on the website](https://gohugo.io). 
 
 ## 💫 Deploy
 
@@ -60,10 +56,10 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
       terraform apply
       ```
 
-1.  **Generate Gatsby static content**
+1.  **Generate Hugo static content**
 
     ```sh
-    gatsby build
+    hugo -v -d ./public
     ```
 
 1.  **Publish test changes**
