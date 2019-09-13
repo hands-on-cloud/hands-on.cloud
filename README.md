@@ -8,7 +8,7 @@
   hands-on.cloud - Gatsby based Serverless Blog
 </h1>
 
-[![AWS CodeBuild](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiVDFjNGtDK2dWVVlFNHBaQU5YV0FNQlRYWkswM0NqU0NiNHdRU2czMmRSaldpVHRYVml2VkZjNUlNb2F3VVU2b1pCZjVLemJ5RFYydGUrLzRmTi9uMGxzPSIsIml2UGFyYW1ldGVyU3BlYyI6IjRwaWFUNXlwY2laK2hwdEsiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiVDFjNGtDK2dWVVlFNHBaQU5YV0FNQlRYWkswM0NqU0NiNHdRU2czMmRSaldpVHRYVml2VkZjNUlNb2F3VVU2b1pCZjVLemJ5RFYydGUrLzRmTi9uMGxzPSIsIml2UGFyYW1ldGVyU3BlYyI6IjRwaWFUNXlwY2laK2hwdEsiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
+[![CircleCI](https://circleci.com/gh/hands-on-cloud/hands-on.cloud.svg?style=svg)](https://circleci.com/gh/hands-on-cloud/hands-on.cloud)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhands-on-cloud%2Fhands-on.cloud.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhands-on-cloud%2Fhands-on.cloud?ref=badge_shield)
 
 ## ✍️ Adding articles
