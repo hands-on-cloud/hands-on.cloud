@@ -1,7 +1,0 @@
-{
-    "printWidth": 80,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "write": "src/**/*.js",
-    "jsxBracketSameLine": true
-}
