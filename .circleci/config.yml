@@ -10,10 +10,9 @@ jobs:
       HUGO_PROD_DOMAIN: "hands-on.cloud"
       HUGO_TEST_DOMAIN: "test.hands-on.cloud"
     steps:
-      - run: apk update && apk add git
+      - run: apt-get update && apt-get -y install git python python-dev python-pip build-essential
       - checkout
       - run: git submodule sync && git submodule update --init
-      - run: apk add --update python python-dev py-pip build-base
       - run: pip install awscli
       - run: |
           cd $HUGO_HOME
