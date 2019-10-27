@@ -20,3 +20,16 @@ summaryLength = 40
     linkedin = "avmaksimov"
     googleanalytics = "UA-137355839-1"
     googlecustomsearch = "005409723859646106283:xrxw99mawa4"
+
+[outputFormats.Algolia]
+    baseName = "algolia"
+    isPlainText = true
+    mediaType = "application/json"
+    notAlternative = true
+
+[params.algolia]
+    vars = ["title", "content", "date", "authors", "permalink"]
+    params = ["categories", "tags"]
+
+[outputs]
+    home = ["HTML", "RSS", "Algolia"]

@@ -1,0 +1,24 @@
+{
+  "name": "hugo-algolia",
+  "version": "1.0.0",
+  "description": "Add Algolia search support to the project ",
+  "main": "index.js",
+  "dependencies": {
+    "atomic-algolia": "^0.3.17"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "algolia": "atomic-algolia",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreivmaksimov/hands-on.cloud.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andreivmaksimov/hands-on.cloud/issues"
+  },
+  "homepage": "https://hands-on.cloud"
+}
