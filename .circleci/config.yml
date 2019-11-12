@@ -1,42 +1,72 @@
 version: 2.1
+
+orbs:
+  node: circleci/node@1.1.6
+
 jobs:
   build:
     docker:
       - image: "cibuilds/hugo:latest"
-    working_directory: /root/project
     environment:
-      HUGO_HOME: /root/project/hugo
-      HUGO_BUILD_DIR: /root/project/hugo/public
       HUGO_PROD_DOMAIN: "hands-on.cloud"
       HUGO_TEST_DOMAIN: "test.hands-on.cloud"
     steps:
-      - run: apt-get update && apt-get -y install git python python-dev python-pip build-essential
       - checkout
-      - run: git submodule sync && git submodule update --init
-      - run: pip install awscli
       - run: |
-          cd $HUGO_HOME
+          cd hugo
           if [ "${CIRCLE_BRANCH}" = "master" ]; then
             sed -r -i.bak "s/http:\/\/localhost/https:\/\/${HUGO_PROD_DOMAIN}/g" config.toml
           else
             sed -r -i.bak "s/http:\/\/localhost/http:\/\/${HUGO_TEST_DOMAIN}/g" config.toml
           fi
-          hugo -v -d $HUGO_BUILD_DIR
-#      - run: |
-#          htmlproofer $HUGO_BUILD_DIR --allow-hash-href --check-html \
-#          --empty-alt-ignore --disable-external
+          hugo -v -d public
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - '*'
+
+  # update_search_index:
+  #   executor:
+  #     name: node/default
+  #     tag: '10.4'
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/
+  #     - node/with-cache:
+  #         steps:
+  #           - run: npm install
+  #     - run: npm run algolia
+
+  deploy:
+    docker:
+      - image: "cibuilds/hugo:latest"
+    environment:
+      HUGO_PROD_DOMAIN: "hands-on.cloud"
+      HUGO_TEST_DOMAIN: "test.hands-on.cloud"
+    steps:
+      - run: apt-get update && apt-get -y install git python python-dev python-pip build-essential
+      - run: pip install awscli
+      - attach_workspace:
+          at: ~/
       - deploy:
           name: Deploy to AWS
           command: |
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
-              aws s3 sync ${HUGO_BUILD_DIR} s3://origin.${HUGO_PROD_DOMAIN} --delete
+              aws s3 sync hugo/public s3://origin.${HUGO_PROD_DOMAIN} --delete
               aws cloudfront create-invalidation --distribution-id=E2K9OZ801QFKCC --paths /
             else
-              aws s3 sync ${HUGO_BUILD_DIR} s3://${HUGO_TEST_DOMAIN} --delete
+              aws s3 sync hugo/public s3://${HUGO_TEST_DOMAIN} --delete
             fi
 
 workflows:
   version: 2
-  tests:
+  build-test-and-approval-deploy:
     jobs:
       - build
+      # - update_search_index:
+      #     requires:
+      #       - build
+      - deploy:
+          requires:
+            - build
+            #- update_search_index
