@@ -51,6 +51,8 @@ jobs:
       - deploy:
           name: Deploy to AWS
           command: |
+            echo "Adding ads.txt to support AdSense requirements..."
+            echo "google.com, pub-2729052102059896, DIRECT, f08c47fec0942fa0" > hugo/public/ads.txt
             if [ "${CIRCLE_BRANCH}" = "master" ]; then
               aws s3 sync hugo/public s3://origin.${HUGO_PROD_DOMAIN} --delete
               aws cloudfront create-invalidation --distribution-id=E2K9OZ801QFKCC --paths /
