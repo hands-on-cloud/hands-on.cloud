@@ -1,12 +1,21 @@
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm">
-  <h5 class="my-0 mr-md-auto font-weight-normal">
+<script async src="https://cse.google.com/cse.js?cx=004668650145876600057:xty3dplgta3"></script>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a href="/"><img src="/assets/images/logo-small.png" alt="footer logo" /></a>
-  </h5>
-  <nav class="my-2 my-md-0 mr-md-3">
-    {{ range $name, $items := .Site.Taxonomies.categories }}
-    <a class="p-2 text-light" href="{{ $.Site.BaseURL }}/categories/{{ $name | urlize | lower }}/">
-      {{ $name }}
-    </a>
-    {{ end }}
-  </nav>
-</div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse" id="navbarsDefault">
+    <ul class="navbar-nav mr-auto">
+        {{ range $name, $items := .Site.Taxonomies.categories }}
+        <li class="nav-item">
+          <a class="nav-link p-2 text-light" href="{{ $.Site.BaseURL }}/categories/{{ $name | urlize | lower }}/">
+            {{ $name | upper }}
+          </a>
+        </li>
+        {{ end }}
+    </ul>
+
+    <div class="gcse-search" type="text" placeholder="Search" width="3em" aria-label="Search" />
+  </div>
+</nav>

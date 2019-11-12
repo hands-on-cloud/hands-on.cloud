@@ -9,6 +9,11 @@ body {
   color: #262626;
 }
 
+body > nav > a > img {
+  margin-top: -.3em;
+  padding-right: 1em;
+}
+
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
@@ -20,6 +25,10 @@ body {
 
 div.container {
   padding-bottom: 1rem;
+}
+
+div.container div.post {
+  padding-top: 8rem !important;
 }
 
 /* Menu links */
@@ -53,7 +62,7 @@ div.container div.post img {
 }
 
 .jumbotron {
-  padding-top: 3rem;
+  padding-top: 10rem !important;
   padding-bottom: 3rem;
   margin-bottom: 0;
   background-color: #fff;
@@ -181,4 +190,9 @@ div.post > div.highlight > pre {
   border-radius: 0.25rem;
   padding: .25em .4em;
   margin: .2em;
+}
+
+/* Google Custom Search widget*/
+.gsc-input {
+    min-width: 15em !important;
 }
