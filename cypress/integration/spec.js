@@ -9,12 +9,9 @@ describe('Cypress E2E test', function() {
     it('Test main page', function() {
       cy.visit('/')
 
-      cy.get('button[class="mr-2 navbar-toggler"]').click()
-      cy.get('ul.navbar-nav>li').should('have.length', 5) // true
       cy.contains('AWS')
       cy.contains('GCP')
-      cy.contains('ML')
-      cy.contains('Terraform')
-      cy.contains('Other')
+      cy.contains('DEVOPS')
+      cy.contains('MACHINE-LEARNING')
     })
 })

@@ -10,21 +10,19 @@ terraform {
 
 provider "aws" {
   region  = "${var.aws_region}"
-  version = "~> 1.54"
+  version = "~> 2.35" 
 }
 
 data "aws_caller_identity" "current" {}
 
 locals {
-  full_domain        = "${terraform.workspace != "default" ? join(".", list(terraform.workspace, var.root_domain_name)) : var.root_domain_name}"
+  full_domain        = "${var.root_domain_name}"
   origin_domain_name = "origin.${local.full_domain}"
-  test_domain_name   = "test.${local.full_domain}"
   www_domain_name    = "www.${local.full_domain}"
 }
 
 resource "aws_s3_bucket" "origin_hands_on_cloud" {
   bucket = "${local.origin_domain_name}"
-  acl    = "public-read"
 
   policy = <<POLICY
 {
@@ -36,31 +34,6 @@ resource "aws_s3_bucket" "origin_hands_on_cloud" {
             "Principal": "*",
             "Action": ["s3:GetObject"],
             "Resource": ["arn:aws:s3:::${local.origin_domain_name}/*"]
-        }
-    ]
-}
-POLICY
-
-  website {
-    index_document = "index.html"
-    error_document = "index.html"
-  }
-}
-
-resource "aws_s3_bucket" "test_hands_on_cloud" {
-  bucket = "${local.test_domain_name}"
-  acl    = "public-read"
-
-  policy = <<POLICY
-{
-    "Version":"2012-10-17",
-    "Statement":[
-        {
-            "Sid": "AddPerm",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": ["s3:GetObject"],
-            "Resource": ["arn:aws:s3:::${local.test_domain_name}/*"]
         }
     ]
 }
@@ -85,18 +58,6 @@ resource "aws_route53_record" "origin" {
   alias {
     name                   = "${aws_s3_bucket.origin_hands_on_cloud.website_domain}"
     zone_id                = "${aws_s3_bucket.origin_hands_on_cloud.hosted_zone_id}"
-    evaluate_target_health = false
-  }
-}
-
-resource "aws_route53_record" "test" {
-  zone_id = "${data.aws_route53_zone.zone.id}"
-  name    = "${local.test_domain_name}"
-  type    = "A"
-
-  alias {
-    name                   = "${aws_s3_bucket.test_hands_on_cloud.website_domain}"
-    zone_id                = "${aws_s3_bucket.test_hands_on_cloud.hosted_zone_id}"
     evaluate_target_health = false
   }
 }
@@ -189,30 +150,18 @@ resource "aws_route53_record" "www" {
   name    = "${local.www_domain_name}"
   type    = "A"
 
-  alias = {
+  alias {
     name                   = "${aws_cloudfront_distribution.hands_on_cloud_distribution.domain_name}"
     zone_id                = "${aws_cloudfront_distribution.hands_on_cloud_distribution.hosted_zone_id}"
     evaluate_target_health = false
   }
 }
 
-output "origin_website_url" {
-  value = "http://${local.origin_domain_name}"
-}
-
 output "origin_website_bucket" {
   value = "${aws_s3_bucket.origin_hands_on_cloud.id}"
 }
 
-output "test_website_url" {
-  value = "http://${local.test_domain_name}"
-}
-
-output "test_website_bucket" {
-  value = "${aws_s3_bucket.test_hands_on_cloud.id}"
-}
-
-output "main_website_url" {
+output "origin_website_url" {
   value = "https://${local.origin_domain_name}"
 }
 
