@@ -202,22 +202,41 @@ workflows:
       - create_or_update_testing:
           requires:
             - build
+          filters:
+            branches:
+              ignore:
+                - master
       - deploy_test_website:
           requires:
             - create_or_update_testing
+          filters:
+            branches:
+              ignore:
+                - master
       - run_ui_tests:
           requires:
             - deploy_test_website
+          filters:
+            branches:
+              ignore:
+                - master
       - destroy_testing:
           requires:
             - run_ui_tests
+          filters:
+            branches:
+              ignore:
+                - master
       - create_or_update_prod:
           requires:
-            - destroy_testing
+            - build
+          filters:
+            branches:
+              only: master
 # TODO: add master branch filter 
       - deploy_prod_website:
           requires:
-            - run_ui_tests
+            - create_or_update_prod
           filters:
             branches:
               only: master
