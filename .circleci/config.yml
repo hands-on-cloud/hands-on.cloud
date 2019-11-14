@@ -130,7 +130,7 @@ jobs:
             terraform init
             terraform workspace select default
             terraform plan -out=../terraform_prod.plan
-#            terraform apply --auto-approve ../terraform_prod.plan
+            terraform apply --auto-approve ../terraform_prod.plan
       - persist_to_workspace:
           root: *working_directory
           paths:
