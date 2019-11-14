@@ -149,7 +149,7 @@ jobs:
           command: |
             . $BASH_ENV
             aws s3 sync hugo/public_prod s3://origin.hands-on.cloud --delete
-            aws cloudfront create-invalidation --distribution-id=E2K9OZ801QFKCC --paths /
+            aws cloudfront create-invalidation --distribution-id=EWBD72KPWWTA4 --paths /
 
   run_ui_tests:
     docker:
@@ -233,7 +233,6 @@ workflows:
           filters:
             branches:
               only: master
-# TODO: add master branch filter 
       - deploy_prod_website:
           requires:
             - create_or_update_prod
