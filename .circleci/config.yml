@@ -28,7 +28,7 @@ set_environment: &set_environment
         echo 'export ENVIRONMENT_DOMAIN=hands-on.cloud' >> $BASH_ENV
       else
         echo 'export ENVIRONMENT=staging' >> $BASH_ENV
-        ENVIRONMENT_ID="${CIRCLE_BRANCH//_/-}"
+        ENVIRONMENT_ID="pr-${CIRCLE_PR_NUMBER}"
         echo "export ENVIRONMENT_ID=${ENVIRONMENT_ID}" >> $BASH_ENV
         ENVIRONMENT_DOMAIN="${ENVIRONMENT_ID}.hands-on.cloud"
         echo "export ENVIRONMENT_DOMAIN=${ENVIRONMENT_DOMAIN}" >> $BASH_ENV
@@ -61,23 +61,18 @@ jobs:
   build:
     <<: *default_hugo_config
     steps:
-      - checkout
       - *set_environment
-      - run:
-          name: Configure build
-          command: |
-            . $BASH_ENV
-            cd hugo
-            sed -r -i.bak "s/http:\/\/localhost/http:\/\/${ENVIRONMENT_DOMAIN}/g" config.toml
+      - checkout
       - run:
           name: Build Hugo website
           command: |
             . $BASH_ENV
             echo "Running Hugo build..."
             cd hugo
+            sed -r -i.bak "s@http:\/\/localhost@http:\/\/${ENVIRONMENT_DOMAIN}@g" config.toml
             hugo -v -d public_test
             cp config.toml.bak config.toml
-            sed -r -i.bak "s/http:\/\/localhost/https:\/\/hands-on.cloud/g" config.toml
+            sed -r -i.bak "s@http:\/\/localhost@https:\/\/hands-on.cloud@g" config.toml
             hugo -v -d public_prod
             echo "Adding ads.txt to support AdSense requirements..."
             echo "google.com, pub-2729052102059896, DIRECT, f08c47fec0942fa0" > public_test/ads.txt
@@ -87,8 +82,8 @@ jobs:
   create_or_update_testing:
     <<: *default_terraform_config
     steps:
-      - *restore_repo
       - *set_environment
+      - *restore_repo
       - *terraform_init
       - run:
           name: Creating Terraform TEST environment 
@@ -107,8 +102,8 @@ jobs:
     docker:
       - image: xueshanf/awscli
     steps:
-      - *restore_repo
       - *set_environment
+      - *restore_repo
       - attach_workspace:
           at: *working_directory
       - deploy:
@@ -120,8 +115,8 @@ jobs:
   create_or_update_prod:
     <<: *default_terraform_config
     steps:
-      - *restore_repo
       - *set_environment
+      - *restore_repo
       - run:
           name: Updating Terraform PROD environment
           command: |
@@ -140,8 +135,8 @@ jobs:
     docker:
       - image: xueshanf/awscli
     steps:
-      - *restore_repo
       - *set_environment
+      - *restore_repo
       - attach_workspace:
           at: *working_directory
       - deploy:
@@ -156,8 +151,8 @@ jobs:
       - image: cypress/base:10
     working_directory: *working_directory
     steps:
-      - *restore_repo
       - *set_environment
+      - *restore_repo
       - attach_workspace:
           at: *working_directory
       - run:
@@ -167,7 +162,7 @@ jobs:
       - run:
           name: Run Cypress tests
           command: |
-            source $BASH_ENV
+            . $BASH_ENV
             export CYPRESS_BASE_URL="http://${ENVIRONMENT_DOMAIN}"
             $(npm bin)/cypress run #--record --key ${ENVIRONMENT_ID}
       - store_artifacts:
@@ -179,8 +174,8 @@ jobs:
   destroy_testing:
     <<: *default_terraform_config
     steps:
-      - *restore_repo
       - *set_environment
+      - *restore_repo
       - *terraform_init
       - attach_workspace:
           at: *working_directory
@@ -196,10 +191,12 @@ jobs:
 
 workflows:
   version: 2
-  build-test-and-approval-deploy:
+  build-test-deploy:
     jobs:
-      - build
+      - build:
+          context: hands-on-cloud
       - create_or_update_testing:
+          context: hands-on-cloud
           requires:
             - build
           filters:
@@ -207,6 +204,7 @@ workflows:
               ignore:
                 - master
       - deploy_test_website:
+          context: hands-on-cloud
           requires:
             - create_or_update_testing
           filters:
@@ -221,6 +219,7 @@ workflows:
               ignore:
                 - master
       - destroy_testing:
+          context: hands-on-cloud
           requires:
             - run_ui_tests
           filters:
@@ -228,12 +227,14 @@ workflows:
               ignore:
                 - master
       - create_or_update_prod:
+          context: hands-on-cloud
           requires:
             - build
           filters:
             branches:
               only: master
       - deploy_prod_website:
+          context: hands-on-cloud
           requires:
             - create_or_update_prod
           filters:
