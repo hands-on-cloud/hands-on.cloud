@@ -8,6 +8,7 @@ tags:
   - awscli
 categories:
   - AWS
+  - DevOps
 authors:
   - Andrei Maksimov
 ---
