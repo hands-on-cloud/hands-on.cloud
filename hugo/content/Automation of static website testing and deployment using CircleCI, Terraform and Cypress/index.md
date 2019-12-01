@@ -1,5 +1,5 @@
 ---
-title: 'Using Docker, CircleCI and Cypress to automate static website deployment to AWS cloud'
+title: 'Automation of static website testing and deployment using CircleCI, Terraform and Cypress'
 date: '2019-11-15'
 image: 'hands-on-cloud-architecture-cicd-pipeline.png'
 tags:
@@ -14,7 +14,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-![Using Docker, CircleCI and Cypress to automate static website deployment to AWS cloud](hands-on-cloud-architecture-cicd-pipeline.png)
+![Automation of static website testing and deployment using CircleCI, Terraform and Cypress](hands-on-cloud-architecture-cicd-pipeline.png)
 
 In this article you'll find a set of instructions and builerplate code, which will help you to organize end-to-end CI/CD pipeline for your static website deployment to AWS S3 bucket.
 
