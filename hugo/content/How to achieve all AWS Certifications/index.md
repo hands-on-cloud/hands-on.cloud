@@ -1,7 +1,7 @@
 ---
 title: 'How to achieve all AWS Certifications'
 date: '2019-04-29'
-image: 'How-to-achieve-all-AWS-Certifications.png'
+image: 'How-to-achieve-all-AWS-Certifications.webp'
 tags:
   - certification
 categories:
@@ -10,7 +10,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![How to achieve all AWS Certifications](How-to-achieve-all-AWS-Certifications.png)
+![How to achieve all AWS Certifications](How-to-achieve-all-AWS-Certifications.webp)
 
 AWS certifications are a great way to narrow the gap between team skills and skills needed in achieving organizational objectives. These certifications really set you apart from other candidates in your career. As AWS certification is most difficult certification in IT nowadays, my collegues always asking me the best way to get certified.
 
@@ -30,7 +30,7 @@ As of now, AWS is offering following certifications:
 - [AWS Certified Machine Learning – Specialty](https://aws.amazon.com/certification/certified-machine-learning-specialty/)
 - [AWS Certified Solutions Architect – Professional](https://aws.amazon.com/certification/certified-solutions-architect-professional/)
 
-![AWS Certification Roadmap](AWS-Cert-Roadmap-v10.2.png)
+![AWS Certification Roadmap](AWS-Cert-Roadmap-v10.2.webp)
 
 Oct 11, 2018, AWS [removed the pre-requisite](https://aws.amazon.com/about-aws/whats-new/2018/10/announcing-more-flexibility-for-aws-certification-exams/) of having an Associate certification before taking on Professional certification and Foundational or Associate certification before taking on Specialty certification. So now you can take any exam of your choice at any order.
 

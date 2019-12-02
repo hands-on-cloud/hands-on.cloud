@@ -1,7 +1,7 @@
 ---
 title: 'Terraform recipe - Managing AWS VPC - Creating Private Subnets'
 date: '2018-11-24'
-image: 'Terraform-recipe-Managing-AWS-VPC-Creating-Private-Subnets.png'
+image: 'Terraform-recipe-Managing-AWS-VPC-Creating-Private-Subnets.webp'
 tags:
   - vpc
   - terraform
@@ -12,7 +12,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![Terraform recipe - Managing AWS VPC - Creating Private Subnets](Terraform-recipe-Managing-AWS-VPC-Creating-Private-Subnets.png)
+![Terraform recipe - Managing AWS VPC - Creating Private Subnets](Terraform-recipe-Managing-AWS-VPC-Creating-Private-Subnets.webp)
 Terraform recipe - Managing AWS VPC - Creating Private Subnets
 
 In previous article ([Terraform recipe – Managing AWS VPC – Creating Public Subnet](terraform-recipe-managing-aws-vpc-creating-public-subnet/)) we’ve used Terraform to create a VPC, Internet Gateway and Route Table to form Public Subnet. Also, we’ve tested our configuration by SSH-ing to the instance, which we’ve launched in our Public Subnet.
@@ -32,7 +32,7 @@ AWS recommends to use this type of network if you’re running for example a pub
 
 Here’s how the infrastructure looks like:
 
-![Terraform recipe - Managing AWS VPC - Public and Private (NAT) Subnet](Terraform-recipe-Managing-AWS-VPC-Public-and-Private-NAT-Subnet.png)
+![Terraform recipe - Managing AWS VPC - Public and Private (NAT) Subnet](Terraform-recipe-Managing-AWS-VPC-Public-and-Private-NAT-Subnet.webp)
 
 To extend our VPC with this NAT-ed Private network, we need to create the following resources:
 
@@ -104,7 +104,7 @@ This type of networks are commonly used when you need to connect your organizati
 
 Here’s how the infrastructure looks like:
 
-![Terraform recipe - Managing AWS VPC - Public, Private (NAT) and Private fully isolated Subnets](Terraform-recipe-Managing-AWS-VPC-Public-Private-NAT-and-Private-fully-isolated-Subnets.png)
+![Terraform recipe - Managing AWS VPC - Public, Private (NAT) and Private fully isolated Subnets](Terraform-recipe-Managing-AWS-VPC-Public-Private-NAT-and-Private-fully-isolated-Subnets.webp)
 
 To implement fully isolated Private Subnet we need to create the following resources:
 

@@ -1,7 +1,7 @@
 ---
 title: 'How to integrate Zendesk Mobile SDK with Firebase using AWS Lambda or Google Cloud Functions'
 date: '2017-12-04'
-image: 'How-to-integrate-Zendesk-Mobile-SDK-with-Firebase-using-AWS-Lambda-or-Google-Cloud-Functions.png'
+image: 'How-to-integrate-Zendesk-Mobile-SDK-with-Firebase-using-AWS-Lambda-or-Google-Cloud-Functions.webp'
 tags:
   - firebase
   - ios
@@ -14,7 +14,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![How to integrate Zendesk Mobile SDK with Firebase using AWS Lambda or Google Cloud Functions](How-to-integrate-Zendesk-Mobile-SDK-with-Firebase-using-AWS-Lambda-or-Google-Cloud-Functions.png)
+![How to integrate Zendesk Mobile SDK with Firebase using AWS Lambda or Google Cloud Functions](How-to-integrate-Zendesk-Mobile-SDK-with-Firebase-using-AWS-Lambda-or-Google-Cloud-Functions.webp)
 
 Everybody knows, that you may authenticate you users for Zendesk Mobile SDK using JWT (JSON Web Token). More over, that are a lot of HOWTO-s, which are showing JWT implementation in many different programming languages. In this tutorial I’ll show you, how to use Google Cloud Functions, NodeJS with some additional npm additions to create a fully scalable and absolutely free Serverless JWT authentication backend for Zendesk Mobile SDK.
 
@@ -161,11 +161,11 @@ At the command output you’ll see the function URL, which we’d need to provid
 
 First of all you need to Enable Mobile SDK at you account admin page:
 
-![Serverless backend for Zendesk Mobile SDK Enabling SDK](Serverless-backend-for-Zendesk-Mobile-SDK-Enabling-SDK.png)
+![Serverless backend for Zendesk Mobile SDK Enabling SDK](Serverless-backend-for-Zendesk-Mobile-SDK-Enabling-SDK.webp)
 
 Then we need to go to settings to Mobile SDK configuration and click “Add App” button
 
-![Serverless backend for Zendesk Mobile SDK - Settings](Serverless-backend-for-Zendesk-Mobile-SDK-Settings.png)
+![Serverless backend for Zendesk Mobile SDK - Settings](Serverless-backend-for-Zendesk-Mobile-SDK-Settings.webp)
 
 At the Mobile App Settings do the following:
 

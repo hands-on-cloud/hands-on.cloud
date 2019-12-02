@@ -1,7 +1,7 @@
 ---
 title: 'Terraform recipe - Managing AWS VPC - Creating Public Subnet'
 date: '2018-11-25'
-image: 'Terraform-Recipe-Managing-AWS-VPC-Creating-Public-Subnet.png'
+image: 'Terraform-Recipe-Managing-AWS-VPC-Creating-Public-Subnet.webp'
 tags:
   - terraform
   - vpc
@@ -12,7 +12,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![Terraform recipe - Managing AWS VPC - Creating Public Subnet](Terraform-Recipe-Managing-AWS-VPC-Creating-Public-Subnet.png)
+![Terraform recipe - Managing AWS VPC - Creating Public Subnet](Terraform-Recipe-Managing-AWS-VPC-Creating-Public-Subnet.webp)
 
 One of the basic task of your cloud infrastructure management is managing your VPC’s networks. In this article we’ll learn, how to declare most commonly used configuration:
 
@@ -28,7 +28,7 @@ Configuration for this scenario includes a virtual private cloud (VPC) with a si
 
 Here’s how the infrastructure looks like:
 
-![Terraform recipe - Managing AWS VPC - Single Public Subnet](Terraform-recipe-Managing-AWS-VPC-Single-Public-Subnet.png)
+![Terraform recipe - Managing AWS VPC - Single Public Subnet](Terraform-recipe-Managing-AWS-VPC-Single-Public-Subnet.webp)
 
 Let’s create this infrastructure step by step.
 
@@ -111,7 +111,7 @@ Our Public Subnet is ready to launch new instances inside of it. Let’s do it n
 
 One of the security features of AWS is Security Group – it is a stateful firewall rule, which is allowing inbound traffic to the network object it’s applied. In our case we’ll use it block any outside connections to our instance except of SSH.
 
-![Terraform recipe - Managing AWS VPC Single Public Subnet With Security Group](Terraform-recipe-Managing-AWS-VPC-Single-Public-Subnet-With-Security-Group.png)
+![Terraform recipe - Managing AWS VPC Single Public Subnet With Security Group](Terraform-recipe-Managing-AWS-VPC-Single-Public-Subnet-With-Security-Group.webp)
 
 Let’s add Security Group by adding [aws_security_group](https://www.terraform.io/docs/providers/aws/r/security_group.html) resource to our `.tf` file:
 

@@ -80,6 +80,17 @@ Looking for more guidance? Full documentation for Hugo lives [on the website](ht
     aws s3 sync ./public s3://$(terraform output origin_website_bucket)
     ```
 
+## Converting `.png` to `.webp`
+
+```sh
+cd hugo
+docker run -v $(pwd):/src --rm -it v4tech/imagemagick /bin/sh
+
+cd /src/content/article
+for file in *.png ; do convert $file -quality 50 -define webp:lossless=true "${file%.png}.webp"; done
+rm -Rf *.png
+```
+
 ## License
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fandreivmaksimov%2Fhands-on.cloud.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fandreivmaksimov%2Fhands-on.cloud?ref=badge_large)
