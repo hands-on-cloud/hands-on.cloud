@@ -1,7 +1,7 @@
 ---
 title: 'Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 2'
 date: '2018-09-15'
-image: 'Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.png'
+image: 'Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.webp'
 tags:
   - api gateway
   - cognito
@@ -15,7 +15,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 2](Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.png)
+![Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 2](Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.webp)
 
 In previous article we’ve created and deployed a [simple web application which architecture consists of AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito](/serverless-framework-building-web-app-using-aws-lambda-amazon-api-gateway-s-3-dynamo-db-and-cognito-part-1) using Serverless framework. That and this articles are based on [original AWS hands-on](https://aws.amazon.com/getting-started/projects/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/) tutorial, which we slightly automated.
 
@@ -27,11 +27,11 @@ You may find the final result, which we got at the end of the previous post at m
 
 First thing we need to do is to comment all resources, which has `Type: AWS::ApiGateway::*` in `serverless.yaml` file:
 
-![Serverless Framework - Commenting API Gateway Resources](Serverless-Framework-Commenting-API-Gateway-Resources.png)
+![Serverless Framework - Commenting API Gateway Resources](Serverless-Framework-Commenting-API-Gateway-Resources.webp)
 
 Also, you’ll need to comment `WildRydesApiGatewayUrl` in the `Outputs:` section, because we’re removed API Gateway declaration:
 
-![Serverless Framework - Commenting API Gateway Resources Outputs](Serverless-Framework-Commenting-API-Gateway-Resources-Outputs.png)
+![Serverless Framework - Commenting API Gateway Resources Outputs](Serverless-Framework-Commenting-API-Gateway-Resources-Outputs.webp)
 
 Now we can start adding the same configuration by using `events:` declaration in `functions:` section. Let’s publish our existing function `RequestUnicorn` using API Gateway with CORS enabled:
 
@@ -47,7 +47,7 @@ functions:
           cors: true
 ```
 
-![Serverless Framework - Publish API Gateway Resources Events](Serverless-Framework-Publish-API-Gateway-Resources-Events.png)
+![Serverless Framework - Publish API Gateway Resources Events](Serverless-Framework-Publish-API-Gateway-Resources-Events.webp)
 
 I removed all not necessary comments from the file to make the file more readable.
 
@@ -72,13 +72,13 @@ WildRydesApiGatewayAuthorizer:
     IdentitySource: method.request.header.Authorization
 ```
 
-![Serverless Framework - Commenting API Gateway Midified Authorizer](Serverless-Framework-Commenting-API-Gateway-Midified-Authorizer.png)
+![Serverless Framework - Commenting API Gateway Midified Authorizer](Serverless-Framework-Commenting-API-Gateway-Midified-Authorizer.webp)
 
 You may be interested, where I got `ApiGatewayRestApi` as a reference to the API Gateway, which we never declared. The reason is the Serverless framework which converts `serverless.yaml` file to the CloudFormation template which we deploying each time we’re calling `sls deploy` command. You may find it’s content in `.serverless/cloudformation-template-update-stack.json` file inside our project structure after the first deploy.
 
 All we need to do is to find [AWS::ApiGateway::RestApi](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html) (API Gateway itself) resource declaration and take it’s name as a reference.
 
-![Serverless Framework - Generated CloudFormation Template](Serverless-Framework-Generated-CloudFormation-Template.png)
+![Serverless Framework - Generated CloudFormation Template](Serverless-Framework-Generated-CloudFormation-Template.webp)
 
 And finally, we need to add declared authorizer to our `WildRydesLambdaRole` Lambda function like this:
 
@@ -131,7 +131,7 @@ window._config = {
 };
 ```
 
-![Serverless Framework - Static Web Application Configuration](Serverless-Framework-Static-Web-Application-Configuration.png)
+![Serverless Framework - Static Web Application Configuration](Serverless-Framework-Static-Web-Application-Configuration.webp)
 
 Now let’s upload web application content to S3 and remove it from our project sources:
 
@@ -150,7 +150,7 @@ sls deploy
 
 Now our application is up and running. All we need to do is to verify its functionality by opening the `WildRydesBucketURL`, registering new user using `/register.html` URL, verifying user manually using Cognito web interface and logging in using `/ride.html` URL. The whole testing process is described in my [first post](/serverless-framework-building-web-app-using-aws-lambda-amazon-api-gateway-s-3-dynamo-db-and-cognito-part-1) and [original AWS](https://aws.amazon.com/getting-started/projects/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/) tutorial.
 
-![Serverless Framework - Deployed Web Application End Result](Serverless-Framework-Deployed-Web-Application-End-Result.png)
+![Serverless Framework - Deployed Web Application End Result](Serverless-Framework-Deployed-Web-Application-End-Result.webp)
 
 ## Result
 

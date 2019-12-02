@@ -1,7 +1,7 @@
 ---
 title: 'How to migrate Google DataStore to AWS DynamoDB'
 date: '2018-01-29'
-image: 'How-to-migrate-Google-DataStore-to-AWS-DynamoDB.png'
+image: 'How-to-migrate-Google-DataStore-to-AWS-DynamoDB.webp'
 tags:
   - dynamodb
   - datastore
@@ -13,7 +13,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![How to migrate Google DataStore to AWS DynamoDB](How-to-migrate-Google-DataStore-to-AWS-DynamoDB.png)
+![How to migrate Google DataStore to AWS DynamoDB](How-to-migrate-Google-DataStore-to-AWS-DynamoDB.webp)
 
 In this small post I’ll show you how you can migrate Google DataStore kind to AWS DynamoDB table.
 

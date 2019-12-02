@@ -1,7 +1,7 @@
 ---
 title: 'Automation of static website testing and deployment using CircleCI, Terraform and Cypress'
 date: '2019-11-15'
-image: 'hands-on-cloud-architecture-cicd-pipeline.png'
+image: 'hands-on-cloud-architecture-cicd-pipeline.webp'
 tags:
   - docker
   - git
@@ -14,7 +14,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-![Automation of static website testing and deployment using CircleCI, Terraform and Cypress](hands-on-cloud-architecture-cicd-pipeline.png)
+![Automation of static website testing and deployment using CircleCI, Terraform and Cypress](hands-on-cloud-architecture-cicd-pipeline.webp)
 
 In this article you'll find a set of instructions and builerplate code, which will help you to organize end-to-end CI/CD pipeline for your static website deployment to AWS S3 bucket.
 
@@ -32,7 +32,7 @@ To demonstrate our solution we'll be using the following technology stack:
 
 Website itself ([this blog](https://github.com/hands-on-cloud/hands-on.cloud/)) is deployed to S3 bucket to AWS cloud and has the following simple architecture.
 
-![Production deployment](hands-on-cloud-architecture-production.png)
+![Production deployment](hands-on-cloud-architecture-production.webp)
 
 The goal is to build CI/CD pipeline, which will do the following set of action for every single pull-reguest:
 
@@ -43,7 +43,7 @@ The goal is to build CI/CD pipeline, which will do the following set of action f
 
 We just mentioned staging environment. To speedup infrastructure deployment let's simplify it a little bit and remove CloudFront distribution to minimize deployment part.
 
-![Staging deployment](hands-on-cloud-architecture-staging.png)
+![Staging deployment](hands-on-cloud-architecture-staging.webp)
 
 We'll be deploying the same environment with the same URL constructed from
 
@@ -61,7 +61,7 @@ As soon as pull-request is merged, we'll be using the same pipeline for deployin
 
 Now it's time to describe developer workflow. I highly recommend to use "single branch" or "[trunk based development](https://trunkbaseddevelopment.com/)" strategy to work with your GitHub repository.
 
-![GitHub developer workflow](hands-on-cloud-architecture-github-developer-workflow.png)
+![GitHub developer workflow](hands-on-cloud-architecture-github-developer-workflow.webp)
 
 Please, pay attention, that we're speaking about strategy of working with Git repository, and not about structuring your code. We'll come back to monorepository question later.
 
@@ -193,7 +193,7 @@ We're using [CircleCI](https://circleci.com/) to automate this blog development,
 
 Each time we're making new pull request, we'll be launching the following set of steps:
 
-![CI/CD pipeline: staging deployment and running UI tests](CICD-pipeline-staging-deployment-and-tests.png)
+![CI/CD pipeline: staging deployment and running UI tests](CICD-pipeline-staging-deployment-and-tests.webp)
 
 Steps description:
 
@@ -205,7 +205,7 @@ Steps description:
 
 As soon as we're accepting pull-request to main repository, our CI/CD pipeline will automatically update production website:
 
-![CI/CD pipeline: production deployment](CICD-pipeline-production-deployment.png)
+![CI/CD pipeline: production deployment](CICD-pipeline-production-deployment.webp)
 
 Steps description:
 

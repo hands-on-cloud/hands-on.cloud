@@ -1,7 +1,7 @@
 ---
 title: 'Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 2'
 date: '2018-11-11'
-image: 'Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2.png'
+image: 'Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2.webp'
 tags:
   - cloudformation
   - ecs
@@ -16,7 +16,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 2](Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2.png)
+![Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 2](Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2.webp)
 
 In previous article "[Serverless Framework – Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS – Part 1](/serverless-framework-run-your-kubernetes-workloads-on-amazon-ec-2-spot-instances-with-amazon-eks-part-1)" we created fully functional Kubernetes cluster backed by Spot instances using AWS EKS service.
 
@@ -68,7 +68,7 @@ SpotNodeLaunchConfig:
             - '         --region ${self:provider.region}'
 ```
 
-![Serverless Framework - EKS Create Lambda Functions - SpotLaunchConfig Replacement](Serverless-Framework-EKS-Create-Lambda-Functions-SpotLaunchConfig-Replacement.png)
+![Serverless Framework - EKS Create Lambda Functions - SpotLaunchConfig Replacement](Serverless-Framework-EKS-Create-Lambda-Functions-SpotLaunchConfig-Replacement.webp)
 
 Additionally we will need to be able to get Lambda function execution role ARN. So, let’s add `LambdaFunctionsRoleArn` resource output:
 
@@ -79,7 +79,7 @@ LambdaFunctionsRoleArn:
     Fn::GetAtt: [IamRoleLambdaExecution, Arn]
 ```
 
-![Serverless Framework - EKS Create Lambda Functions - Getting Execution Role](Serverless-Framework-EKS-Create-Lambda-Functions-Getting-Execution-Role.png)
+![Serverless Framework - EKS Create Lambda Functions - Getting Execution Role](Serverless-Framework-EKS-Create-Lambda-Functions-Getting-Execution-Role.webp)
 
 Here `IamRoleLambdaExecution` is default Lambda Function execution role created by Serverless framework. You may find it’s declaration in `.serverless/cloudformation-template-update-stack.json` file inside the project folder.
 
@@ -97,7 +97,7 @@ The process will take a while. As soon as Kubernetes cluster deployment finishes
 aws eks update-kubeconfig --name $(sls info --verbose | grep 'stack:' | awk '{split($0,a," "); print a[2]}')
 ```
 
-![Serverless Framework - EKS Create Cluster Step 1](Serverless-Framework-EKS-Create-Cluster-Step-1.png)
+![Serverless Framework - EKS Create Cluster Step 1](Serverless-Framework-EKS-Create-Cluster-Step-1.webp)
 
 Test, that kubectl is working by launching the following command:
 
@@ -128,7 +128,7 @@ sls info --verbose | grep KubernetesClusterNodesRoleArn
 
 And paste returned value as a value to `rolearn:` in `aws-auth-cm.yaml`.
 
-![Serverless Framework - EKS Create Cluster Step 2 - Connecting Workers to Kubernetes Master](Serverless-Framework-EKS-Create-Cluster-Step-2-Connecting-Workers-to-Kubernetes-Master.png)
+![Serverless Framework - EKS Create Cluster Step 2 - Connecting Workers to Kubernetes Master](Serverless-Framework-EKS-Create-Cluster-Step-2-Connecting-Workers-to-Kubernetes-Master.webp)
 
 As you remember, we’ve added `LambdaFunctionsRoleArn`. We need also add it to `aws-auth-cm.yaml` file to allow `kubectl` authentication from Lambda Function.
 
@@ -147,7 +147,7 @@ And add as additional rolearn: declaration to mapRoles::
     - system:masters
 ```
 
-![Serverless Framework - EKS Create Lambda Functions - Allow EKS Access](Serverless-Framework-EKS-Create-Lambda-Functions-Allow-EKS-Access.png)
+![Serverless Framework - EKS Create Lambda Functions - Allow EKS Access](Serverless-Framework-EKS-Create-Lambda-Functions-Allow-EKS-Access.webp)
 
 Deploy this config map to EKS Master as it is done usually in Kubernetes and remove the file, we’ll not need it anymore:
 
@@ -164,7 +164,7 @@ kubectl get nodes --watch
 
 You may need to reboot\recreate already launched by Auto Scaling group instances to let them connect to the cluster. In our case it could be done manually:
 
-![Serverless Framework - EKS Create Cluster Step 3 Restarting Workers](Serverless-Framework-EKS-Create-Cluster-Step-3-Restarting-Workers.png)
+![Serverless Framework - EKS Create Cluster Step 3 Restarting Workers](Serverless-Framework-EKS-Create-Cluster-Step-3-Restarting-Workers.webp)
 
 ## Creating Lambda function
 
@@ -198,7 +198,7 @@ And
 handler: upload_thumbnail/upload_thumbnail.handler
 ```
 
-![Serverless Framework - EKS Create Lambda Functions - Restructure Code](Serverless-Framework-EKS-Create-Lambda-Functions-1-Restructure-Code.png)
+![Serverless Framework - EKS Create Lambda Functions - Restructure Code](Serverless-Framework-EKS-Create-Lambda-Functions-1-Restructure-Code.webp)
 
 Let’s redeploy our stack to check that we made everything correctly:
 
@@ -263,11 +263,11 @@ VideoThumbnailLambdaFunction:
         event: s3:ObjectCreated:*
 ```
 
-![Serverless Framework - EKS Create Lambda Functions - Include kubectl and config](Serverless-Framework-EKS-Create-Lambda-Functions-2-Include-kubectl-and-config.png)
+![Serverless Framework - EKS Create Lambda Functions - Include kubectl and config](Serverless-Framework-EKS-Create-Lambda-Functions-2-Include-kubectl-and-config.webp)
 
 Such declaration will assemble `VideoUploadLambdaFunction` function and put function source code, `kubectl` and connection config inside, so we could easily use them from our python code in Lambda function.
 
-![Serverless Framework - EKS Create Lambda Functions - VideoUploadLambdaFunction Function Structure](Serverless-Framework-EKS-Create-Lambda-Functions-3-VideoUploadLambdaFunction-Function-Structure.png)
+![Serverless Framework - EKS Create Lambda Functions - VideoUploadLambdaFunction Function Structure](Serverless-Framework-EKS-Create-Lambda-Functions-3-VideoUploadLambdaFunction-Function-Structure.webp)
 
 At the same time we’re not including `kubectl` and connection config to the `VideoThumbnailLambdaFunction` function.
 
@@ -368,7 +368,7 @@ spec:
 """.format(
     bucket_name,
     file_key,
-    '{}.png'.format(file_key.split('.')[0])
+    '{}.webp'.format(file_key.split('.')[0])
 )
 
     cmd = 'kubectl --kubeconfig {} create -f -'.format(KUBE_CONFIG)
@@ -406,7 +406,7 @@ Sure, there are a lot of things to improve here, but I wanted to show you the ba
 
 And, yes, I did not build my personal Docker container, but used [Rupak’s](https://www.linkedin.com/in/rupakg/) container ([repo](https://github.com/rupakg/docker-ffmpeg-thumb)) from [his article](https://serverless.com/blog/serverless-application-for-long-running-process-fargate-lambda/) instead. As you can see, everything’s working.
 
-![Serverless Framework - EKS Lambda Function Execution Result](Serverless-Framework-EKS-Lambda-Function-Execution-Result.png)
+![Serverless Framework - EKS Lambda Function Execution Result](Serverless-Framework-EKS-Lambda-Function-Execution-Result.webp)
 
 Hope, you’ve already checked his article and I do not need to prove, that his solution working.
 

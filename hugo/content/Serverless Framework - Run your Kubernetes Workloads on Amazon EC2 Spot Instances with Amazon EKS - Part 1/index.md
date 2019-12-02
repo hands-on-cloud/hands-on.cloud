@@ -1,7 +1,7 @@
 ---
 title: 'Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 1'
 date: '2018-09-24'
-image: 'Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-1.png'
+image: 'Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-1.webp'
 tags:
   - cloudformation
   - ecs
@@ -16,7 +16,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 1](Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-1.png)
+![Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 1](Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-1.webp)
 
 You may be already familiar with [How to use AWS Fargate and Lambda for long-running processes in a Serverless app](https://serverless.com/blog/serverless-application-for-long-running-process-fargate-lambda/) article from official [Serveless blog](https://serverless.com/blog/), where [Rupak Ganguly](https://www.linkedin.com/in/rupakg/) shows us how to offload heavy jobs to ECS cluster. This is very nice, but very [expensive solution](https://blog.csanchez.org/2018/02/06/serverless-ci-cd-with-aws-ecs-fargate/).
 
@@ -32,7 +32,7 @@ Part 2 of this article is available [here](/serverless-framework-run-your-kubern
 
 We will reproduce Rupak’s idea, but make it working in AWS EKS cluster on top of Spot instances.
 
-![Serverless Framework - Lambda and EKS cluster integration on top of Spot instances Architecture](Serverless-Framework-Lambda-and-EKS-cluster-integration-on-top-of-Spot-instances-Architecture.png)
+![Serverless Framework - Lambda and EKS cluster integration on top of Spot instances Architecture](Serverless-Framework-Lambda-and-EKS-cluster-integration-on-top-of-Spot-instances-Architecture.webp)
 
 **Workflow description**
 
@@ -69,7 +69,7 @@ functions:
 
 See [Variables](https://serverless.com/framework/docs/providers/aws/guide/variables/) to get more info about variables declaration in Serverless framework.
 
-![Serverless Framework - EKS Project Setup](Serverless-Framework-EKS-Project-Setup.png)
+![Serverless Framework - EKS Project Setup](Serverless-Framework-EKS-Project-Setup.webp)
 
 ## Upload Lambda function
 
@@ -100,7 +100,7 @@ def handler(event, context):
     return response
 ```
 
-![Serverless Framework - EKS Upload Lambda Function Initial Setup](Serverless-Framework-EKS-Upload-Lambda-Function-Initial-Setup.png)
+![Serverless Framework - EKS Upload Lambda Function Initial Setup](Serverless-Framework-EKS-Upload-Lambda-Function-Initial-Setup.webp)
 
 Also, we need to change function `handler:` declaration in `serverless.yaml` file:
 
@@ -124,7 +124,7 @@ functions:
 
 You may paid attention on `bucket:` key. It’s value consists of two internal variables `${self:service}` (has the value of our service name – **aws-eks-spot-serverless-demo**) and `${self:provider.stage}` (has the value of the stage name – dev, as a default value). So, the full name of our bucket will be **aws-eks-spot-serverless-demo-dev-uploads**.
 
-![Serverless Framework - EKS Upload Lambda Function Declaration Change](Serverless-Framework-EKS-Upload-Lambda-Function-Declaration-Change.png)
+![Serverless Framework - EKS Upload Lambda Function Declaration Change](Serverless-Framework-EKS-Upload-Lambda-Function-Declaration-Change.webp)
 
 **Reminder**: all S3 buckets must have unique names. So, if you see the message that this bucket is already exists, just change your service name to something unique.
 
@@ -150,7 +150,7 @@ functions:
           event: s3:ObjectCreated:*
 ```
 
-![Serverless Framework - EKS Thumbnails Lambda Function Declaration](Serverless-Framework-EKS-Thumbnails-Lambda-Function-Declaration.png)
+![Serverless Framework - EKS Thumbnails Lambda Function Declaration](Serverless-Framework-EKS-Thumbnails-Lambda-Function-Declaration.webp)
 
 Of cause, also we need to create `upload_thumbnail.py` and declare handler function there. Let’s copy `upload_video.py` content there. We’ll come back to the function implementations later.
 
@@ -188,7 +188,7 @@ resources:
 
 Declaring VPC in such way we want Serverless framework to create a VPC with `10.0.0.0/16` address space.
 
-![Serverless Framework - EKS Create VPC](Serverless-Framework-EKS-Create-VPC.png)
+![Serverless Framework - EKS Create VPC](Serverless-Framework-EKS-Create-VPC.webp)
 
 Next, we need to create two subnets by declaring [AWS::EC2::Subnet](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html) resources:
 
@@ -215,7 +215,7 @@ KubernetesClusterSubnetB:
         Value: ${self:service}-${self:provider.stage}
 ```
 
-![Serverless Framework - EKS Create VPC Subnets](Serverless-Framework-EKS-Create-VPC-Subnets.png)
+![Serverless Framework - EKS Create VPC Subnets](Serverless-Framework-EKS-Create-VPC-Subnets.webp)
 
 To allow Internet communication for instances in that subnets we need to create InternetGateway and add specify route `0.0.0.0/0`. Let’s create [AWS::EC2::InternetGateway](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-internetgateway.html) resource:
 
@@ -240,7 +240,7 @@ KubernetesClusterInternetGatewayAttachment:
       Ref: KubernetesClusterVPC
 ```
 
-![Serverless Framework - EKS Create VPC InternetGateway](Serverless-Framework-EKS-Create-VPC-InternetGateway.png)
+![Serverless Framework - EKS Create VPC InternetGateway](Serverless-Framework-EKS-Create-VPC-InternetGateway.webp)
 
 We have VPC, Subnets and InternetGateway, now we need to specify necessary `0.0.0.0/0` route. To do so, we need to create a [AWS::EC2::RouteTable](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route-table.html):
 
@@ -288,7 +288,7 @@ KubernetesClusterSubnetBtoInternetRouteAssociation:
       Ref: KubernetesClusterSubnetB
 ```
 
-![Serverless Framework - EKS Create VPC Routes](Serverless-Framework-EKS-Create-VPC-Routes.png)
+![Serverless Framework - EKS Create VPC Routes](Serverless-Framework-EKS-Create-VPC-Routes.webp)
 
 We did a great job! Let’s redeploy our stack to make sure, that everything’s working:
 
@@ -324,7 +324,7 @@ Here we’re also attaching pre-defined `AmazonEKSClusterPolicy` and `AmazonEKSS
 
 For the latest required [policy](https://docs.aws.amazon.com/eks/latest/userguide/IAM_policies.html), see the [EKS User Guide](https://docs.aws.amazon.com/eks/latest/userguide/).
 
-![Serverless Framework - EKS Master ServiceRole](Serverless-Framework-EKS-Master-ServiceRole.png)
+![Serverless Framework - EKS Master ServiceRole](Serverless-Framework-EKS-Master-ServiceRole.webp)
 
 Next we need to create [AWS::EC2::SecurityGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html) to protect Kubernetes Master management port:
 
@@ -364,7 +364,7 @@ KubernetesClusterMasterFromWorkstationSecurityGroupRule:
       Ref: KubernetesClusterMasterSecurityGroup
 ```
 
-![Serverless Framework - EKS Master SecurityGroup](Serverless-Framework-EKS-Master-SecurityGroup.png)
+![Serverless Framework - EKS Master SecurityGroup](Serverless-Framework-EKS-Master-SecurityGroup.webp)
 
 Now we can declare [AWS::EKS::Cluster](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-eks-cluster.html) to create Kubernetes cluster itself:
 
@@ -384,7 +384,7 @@ KubernetesCluster:
     Version: '1.10'
 ```
 
-![Serverless Framework - EKS Master Cluster](Serverless-Framework-EKS-Master-Cluster.png)
+![Serverless Framework - EKS Master Cluster](Serverless-Framework-EKS-Master-Cluster.webp)
 
 Finally, we want to get some cluster parameters to create connection configuration file. Let’s declare them in the `Outputs:` section of the `resources:` declaration in `serverless.yaml` file:
 
@@ -404,7 +404,7 @@ Outputs:
       Fn::GetAtt: [KubernetesCluster, CertificateAuthorityData]
 ```
 
-![Serverless Framework - EKS Master Cluster Connection Properties](Serverless-Framework-EKS-Master-Cluster-Connection-Properties.png)
+![Serverless Framework - EKS Master Cluster Connection Properties](Serverless-Framework-EKS-Master-Cluster-Connection-Properties.webp)
 
 Now we’re ready to deploy Kubernetes cluster as a part of our Serverless stack:
 
@@ -552,7 +552,7 @@ NodeInstanceRole:
 
 Policy `s3-management` specified access permissions to our S3 buckets. All the others are needed for EKS Nodes by default.
 
-![Serverless Framework - EKS Nodes Role](Serverless-Framework-EKS-Nodes-Role.png)
+![Serverless Framework - EKS Nodes Role](Serverless-Framework-EKS-Nodes-Role.webp)
 
 To allow EKS Nodes authentication on EKS Master we need to install AWS IAM Authenticator configuration map to EKS cluster. To get Node role ARN we need to add the following to the Outputs: section of resources: declaration:
 
@@ -611,7 +611,7 @@ NodeInstanceProfile:
       - Ref: NodeInstanceRole
 ```
 
-![Serverless Framework - EKS Nodes InstanceProfile](Serverless-Framework-EKS-Nodes-InstanceProfile.png)
+![Serverless Framework - EKS Nodes InstanceProfile](Serverless-Framework-EKS-Nodes-InstanceProfile.webp)
 
 Next thing to do is to declare [AWS::EC2::SecurityGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html) and allow network communication between Nodes, Nodes and Master and from our workstation to Nodes if needed. SecurityGroup for Nodes:
 
@@ -627,7 +627,7 @@ NodeSecurityGroup:
         Value: ${self:service}-${self:provider.stage}
 ```
 
-![Serverless Framework - EKS Nodes SecurityGroup](Serverless-Framework-EKS-Nodes-SecurityGroup.png)
+![Serverless Framework - EKS Nodes SecurityGroup](Serverless-Framework-EKS-Nodes-SecurityGroup.webp)
 
 Here’s [AWS::EC2::SecurityGroupIngress](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group-ingress.html) rules which are allowing network traffic:
 
@@ -678,7 +678,7 @@ KubernetesClusterMasterSecurityGroupIngressFromNodes:
     FromPort: 443
 ```
 
-![Serverless Framework - EKS Nodes SecurityGroup IngressRule](Serverless-Framework-EKS-Nodes-SecurityGroup-IngressRule.png)
+![Serverless Framework - EKS Nodes SecurityGroup IngressRule](Serverless-Framework-EKS-Nodes-SecurityGroup-IngressRule.webp)
 
 Next we need to create [AWS::AutoScaling::LaunchConfiguration](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html) for our Spot instances:
 
@@ -760,7 +760,7 @@ SpotNodeLaunchConfig:
             - '         --region ${self:provider.region}'
 ```
 
-![Serverless Framework - EKS Nodes LaunchConfiguration](Serverless-Framework-EKS-Nodes-LaunchConfiguration.png)
+![Serverless Framework - EKS Nodes LaunchConfiguration](Serverless-Framework-EKS-Nodes-LaunchConfiguration.webp)
 
 And finally we need [AWS::AutoScaling::AutoScalingGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html):
 
@@ -795,7 +795,7 @@ SpotNodeGroup:
       MaxBatchSize: 1
 ```
 
-![Serverless Framework - EKS Nodes AutoScalingGroup](Serverless-Framework-EKS-Nodes-AutoScalingGroup.png)
+![Serverless Framework - EKS Nodes AutoScalingGroup](Serverless-Framework-EKS-Nodes-AutoScalingGroup.webp)
 
 Now all we need to do is to redeploy the stack and see how our instances are joining to the cluster:
 

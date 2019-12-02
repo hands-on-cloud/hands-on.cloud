@@ -1,7 +1,7 @@
 ---
 title: 'AWS Step Functions. How to process arrays'
 date: '2018-02-07'
-image: 'AWS-Step-Functions-How-to-process-arrays.png'
+image: 'AWS-Step-Functions-How-to-process-arrays.webp'
 tags:
   - lambda
   - serverless
@@ -12,7 +12,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![AWS Step Functions. How to process arrays](AWS-Step-Functions-How-to-process-arrays.png)
+![AWS Step Functions. How to process arrays](AWS-Step-Functions-How-to-process-arrays.webp)
 
 Nowadays Serverless computing topic become extrimely popular. It is so tasty to implement business process using several AWS Lambda functions and pay very low price for it’s execution. But everybody who tried to implement several Lambda functions interraction knows, that it is not so easy task.
 
@@ -79,7 +79,7 @@ Now we’re ready to create a Step Function algorythm.
 
 Here’s our algorythm visualization:
 
-![AWS Step Functions. How to process arrays. Example](AWS-Step-Functions-How-to-process-arrays-Example.png)
+![AWS Step Functions. How to process arrays. Example](AWS-Step-Functions-How-to-process-arrays-Example.webp)
 
 And our Step Function algorythm:
 
