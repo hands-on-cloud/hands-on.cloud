@@ -15,6 +15,11 @@
                 <div class="card mb-4 shadow-sm">
                     <a href="{{ .RelPermalink }}">
                         <img src="{{ .Permalink }}{{ .Params.image }}" alt="" width="100%" />
+                        <picture>
+                            <source media="(width: 100%)" srcset="{{ .Permalink }}{{ .Params.image }}.webp" type="image/webp">
+                            <source media="(width: 100%)" srcset="{{ .Permalink }}{{ .Params.image }}.jpg" type="image/jpg">
+                            <img src="{{ .Permalink }}{{ .Params.image }}.png" width="100%">
+                        </picture>
                     </a>
                     <div class="card-body">
                         <a href="{{ .RelPermalink }}">

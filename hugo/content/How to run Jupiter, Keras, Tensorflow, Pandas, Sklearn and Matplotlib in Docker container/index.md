@@ -1,7 +1,7 @@
 ---
 title: 'How to run Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib in Docker container'
 date: '2017-12-11'
-image: 'How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container.webp'
+image: 'How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container'
 tags:
   - docker
   - h5py
@@ -20,7 +20,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![How to run Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib in Docker container](How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container.webp)
+{{< my-picture name="How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container" >}}
 
 Environment setup is a very common question when you’re trying to start learning Machine Learning (ML). In this article I’ll show you how to create your own Docker container including the following frameworks for comfortable start:
 

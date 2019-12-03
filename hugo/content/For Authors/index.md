@@ -1,12 +1,12 @@
 ---
 title: 'For Authors'
 date: '2019-05-11'
-image: 'For-Authors.webp'
+image: 'For-Authors'
 authors:
   - Andrei Maksimov
 ---
 
-![For Authors](For-Authors.webp)
+{{< my-picture name="For-Authors">}}
 
 This is fully open source blog, where you can propose and make any kind of changes: UI, UX, blog articles, and many others.
 
@@ -37,27 +37,27 @@ Here we'll show you a process of adding new article using GitHub Web interface.
 
 First of all you need to fork our public repository: [https://github.com/hands-on-cloud/hands-on.cloud](https://github.com/hands-on-cloud/hands-on.cloud). Go to repository page and press `Fork` button.
 
-![Fork Repository](1-Fork-repository.webp)
+{{< my-picture name="1-Fork-repository">}}
 
 If you're contriguting to multiple organizations, choose your personal GitHub account.
 
-![Fork Repository Destination](2-Fork-repository-destination.webp)
+{{< my-picture name="2-Fork-repository-destination">}}
 
 Give GitHub a couple of seconds to make a copy of our repository.
 
-![Fork Repository Process](3-Fork-repository-process.webp)
+{{< my-picture name="3-Fork-repository-process">}}
 
 ## Create an article
 
 First of all, create a new branch, where you'll be working under your article. In our case we'll be using `my_new_article` branch name.
 
-![New branch](5-New-Branch.webp)
+{{< my-picture name="5-New-Branch">}}
 
 As soon as new branch created, we may start working unders our article.
 
 Go to `src/pages` folder.
 
-![Blog Articles Folder](4-Blog-Articles-Folder.webp)
+{{< my-picture name="4-Blog-Articles-Folder">}}
 
 Here we need create an article foder, which will contain article images and content written in Markdown (`index.md`). Folder name will be automatically converted to an article URL (for example, folder `New Interesting Article` will be automatically converted to `/new-interesting-article/` URL.
 
@@ -65,17 +65,17 @@ Let's create folder and `index.md` file.
 
 Press `Create new file` button.
 
-![Create New File](6-Create-new-file.webp)
+{{< my-picture name="6-Create-new-file">}}
 
 Type folder name at input field.
 
-![Creat Folder - Step 1](7-Create-Folder-1.webp)
+{{< my-picture name="7-Create-Folder-1">}}
 
 Press `/` to start typing file name.
 
 Inter `index.md` to a field.
 
-![Creat Folder - Step 2](8-Create-Folder-2.webp)
+{{< my-picture name="8-Create-Folder-2">}}
 
 ### Article text and metadata
 
@@ -107,15 +107,15 @@ Which will add additional medadata to your post like:
 
 Switch to `Preview` tab to see your changes. Do not pay attention to invisible images for now. We'll upload them later. At the next step.
 
-![Article preview](9-Article-Preview.webp)
+{{< my-picture name="9-Article-Preview">}}
 
 As soon as you're ready to publish your changes, describe your changes at the `Commit new file` section and press `Commit new file` button.
 
-![Commit Article](10-Commit-article.webp)
+{{< my-picture name="10-Commit-article">}}
 
 As a result you should have something like that:
 
-![Article Without Images](11-Article-without-images.webp)
+{{< my-picture name="11-Article-without-images">}}
 
 ### Adding images to the article
 
@@ -125,13 +125,13 @@ At post metadata we specified thumbnail image with the name `New-Interesting-Art
 
 Press `Upload files` button and upload your image(s).
 
-![Uploading Images](12-Uploading-images.webp)
+{{< my-picture name="12-Uploading-images">}}
 
 ### Checking final result
 
 After uploading all images you may click on your article `index.md` file to review, how it looks like
 
-![Pre pull request review](13-Pre-pull-request-review.webp)
+{{< my-picture name="13-Pre-pull-request-review">}}
 
 If everything looks good, you may submit pull request.
 
@@ -141,7 +141,7 @@ At post metadata we specified `John Doe` as an author name.
 
 To add information about this author, we need to create file `John Doe.json` at `src/data/authors` folder of our project:
 
-![Authors folder](14-Authors-Folder.webp)
+{{< my-picture name="14-Authors-Folder">}}
 
 Press `Create new file` button and add `John Doe.json` to the file name field. Use the following template to add information about yourself:
 
@@ -172,20 +172,20 @@ Here's the filds description:
 - `twitter` - link to your [Twitter](https://twitter.com) profile
 - `instagram` - link to your [Instagram](https://instagram.com) profile
 
-![Author information](15-Author-information.webp)
+{{< my-picture name="15-Author-information">}}
 
 ## Making pull request
 
 To send us your changes, go to repository homepage and click `Compare & pull request` button.
 
-![Making pull request - 1](16-Making-pull-request-1.webp)
+{{< my-picture name="16-Making-pull-request-1">}}
 
 Describe the changes you've made and press `Send pull request button`
 
-![Making pull request - 2](17-Making-pull-request-2.webp)
+{{< my-picture name="17-Making-pull-request-2">}}
 
 You'll see, how our automation is working
 
-![Making pull request - 3](18-Making-pull-request-3.webp)
+{{< my-picture name="18-Making-pull-request-3">}}
 
 Next, somebody from our team will verify your changes and merge them.
