@@ -1,7 +1,7 @@
 ---
 title: 'AWS CloudFormation. Managing VPC'
 date: '2018-02-11'
-image: 'AWS-CloudFormation-Managing-VPC.webp'
+image: 'AWS-CloudFormation-Managing-VPC'
 tags:
   - vpc
 categories:
@@ -11,7 +11,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![AWS CloudFormation. Managing VPC](AWS-CloudFormation-Managing-VPC.webp)
+{{< my-picture name="AWS-CloudFormation-Managing-VPC" >}}
 
 [CloudFormation](https://aws.amazon.com/cloudformation/) is the service which provides us an ability to create and manage any AWS infrastructure “as code” in a fully declarative way using a single or multiple files as a source of truth for your cloud environment. Usually it is not needed to understand it very deeply to pass AWS Associate Certification exams, but it is very important to use it on a daily basis especially for Solution Architects.
 
@@ -23,13 +23,13 @@ CloudFormation supports two both JSON and Yaml syntax in your templates. You may
 
 In any case, I recommend you to use [MS Visual Studio Code](https://code.visualstudio.com/) as your main editor and .template file extension for your templates. In that case VS Code will advice you to to use [CloudFormation plugin](https://marketplace.visualstudio.com/items?itemName=aws-scripting-guy.cform), which will highlight the file syntax a make you life much more easier.
 
-![Visual Studio Code](CloudFormation-Visual-Studio-Code-Editor.webp)
+{{< my-picture name="CloudFormation-Visual-Studio-Code-Editor" >}}
 
 ## Visual designer
 
 To simplify our life AWS brought us CloudFormation Designer, where we could build our target infrastructure using “Drag-n-Drop” technics in a visual manner. If you’re start building your template from scratch, it could be much more easy to start from the Designer.
 
-![CloudFormation - Designer](CloudFormation-Designer.webp)
+{{< my-picture name="CloudFormation-Designer" >}}
 
 At this point of time it is not very stable (it is not working with Chrome correctly and sometimes not drawing your complex infrastructures). You may find some issues reports from the community at [AWS CloudFormation Forums](https://forums.aws.amazon.com/forum.jspa?forumID=92).
 
@@ -89,7 +89,7 @@ Now let’s add an empty VPC service declaration inside our template. This needs
 
 Here we’re declaring [AWS::EC2::VPC](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc.html). So now, if you will paste whole template to the **Template** tab of the CloudFormation Designer, you’ll see the following picture:
 
-![CloudFormation - VPC declaration](CloudFormation-VPC-declaration.webp)
+{{< my-picture name="CloudFormation-VPC-declaration" >}}
 
 ### VPC ip address range
 
@@ -229,7 +229,7 @@ The full version of our template at this point of time will be:
 
 If you want to check it in CloudFormation Designer, you’ll get something like this
 
-![CloudFormation - VPC and Public Subnet](CloudFormation-VPC-and-Public-Subnet.webp)
+{{< my-picture name="CloudFormation-VPC-and-Public-Subnet" >}}
 
 ### Internet gateway (IGW)
 
@@ -315,7 +315,7 @@ The full code of our template will look like this:
 
 Let’s check everything in CloudFormation Designer:
 
-![CloudFormation - VPC, Public Subnet and IGW](CloudFormation-VPC-Public-Subnet-and-IGW.webp)
+{{< my-picture name="CloudFormation-VPC-Public-Subnet-and-IGW" >}}
 
 And the last thing to be done here before we could launch Instances inside this VPC is Public Route declaration. Let’s do it now.
 
@@ -437,7 +437,7 @@ The full code of our template at this time will look like this:
 
 And CloudFormation Designer version:
 
-![CloudFormation - VPC, Public Subnet, IGW and Public Route](CloudFormation-VPC-Public-Subnet-IGW-and-Public-Route.webp)
+{{< my-picture name="CloudFormation-VPC-Public-Subnet-IGW-and-Public-Route" >}}
 
 ### Security group
 
@@ -581,7 +581,7 @@ Our full template code right now will look like this:
 
 And the Designer, of cause:
 
-![CloudFormation - VPC, Public Subnet, IGW, Public Route and Security Group](CloudFormation-VPC-Public-Subnet-IGW-Public-Route-and-Security-Group.webp)
+{{< my-picture name="CloudFormation-VPC-Public-Subnet-IGW-Public-Route-and-Security-Group" >}}
 
 ### Instance
 
@@ -767,7 +767,7 @@ So, our final template version for this point of time will look like this:
 
 And at the Designer:
 
-![CloudFormation - VPC, Public Subnet, IGW, Public Route, Security Group and Instance](CloudFormation-VPC-Public-Subnet-IGW-Public-Route-Security-Group-and-Instance.webp)
+{{< my-picture name="CloudFormation-VPC-Public-Subnet-IGW-Public-Route-Security-Group-and-Instance" >}}
 
 I think it’s enough for now. Let’s try to launch our template.
 
@@ -775,37 +775,37 @@ I think it’s enough for now. Let’s try to launch our template.
 
 Paste our final template in the **Template** tab of the Designer and press **Launch Template** button. CloudFormation Designer will upload our template code to S3 and show you that screen. Don’t change anything and press **Next**:
 
-![CloudFormation Template Launch - Step 1](CloudFormation-Template-Launch-Step-1.webp)
+{{< my-picture name="CloudFormation-Template-Launch-Step-1" >}}
 
 On the next page input **Stack Name** and choose a **SSH Key** from the drop down menu. I’ll be using my own Key with name Lenovo. Also, you may change VPC and Subnet address space if needed. I’ll leave everything as is. Click **Next**.
 
-![CloudFormation Template Launch - Step 2](CloudFormation-Template-Launch-Step-2.webp)
+{{< my-picture name="CloudFormation-Template-Launch-Step-2" >}}
 
 At the next step we may add additional resource tags, IAM role for CloudFomation and other Stack creation parameters, which are out of the scope of this article. Leave everything as is and click **Next**.
 
-![CloudFormation Template Launch - Step 3](CloudFormation-Template-Launch-Step-3.webp)
+{{< my-picture name="CloudFormation-Template-Launch-Step-3" >}}
 
 This is the final screen where you can review all the parameters before launching the Stack. If everything is OK, click **Create** button.
 
-![CloudFormation Template Launch - Step 4](CloudFormation-Template-Launch-Step-4.webp)
+{{< my-picture name="CloudFormation-Template-Launch-Step-4" >}}
 
 As soon as you’ll click Create button, CloudFormation start processing your template and launch your declared infrastructure.
 
-![CloudFormation Template Launch - Stack Creation Process](CloudFormation-Template-Launch-Stack-Creation-Process.webp)
+{{< my-picture name="CloudFormation-Template-Launch-Stack-Creation-Process" >}}
 
 In a couple of minutes, you’ll see **CREATE_COMPLETE** status for your Stack.
 
-![CloudFormation Template Launch - Stack Creation Complete](CloudFormation-Template-Launch-Stack-Creation-Complete.webp)
+{{< my-picture name="CloudFormation-Template-Launch-Stack-Creation-Complete" >}}
 
 Congratulations! You’ve just created your first CloudFormation Stack. You’ve created everything from scratch: VPC, Subnets, Internet Gateway, Route Table, Security Group and launched the Instance.
 
 You may find your Instance public IP Address at the `Output` tab of your Stack.
 
-![CloudFormation Template Launch - Output Parameters](CloudFormation-Template-Launch-Output-Parameters.webp)
+{{< my-picture name="CloudFormation-Template-Launch-Output-Parameters" >}}
 
 You may also try to connect your instance using SSH:
 
-![CloudFormation Template Launch - Stack Testing](CloudFormation-Template-Launch-Stack-Testing.webp)
+{{< my-picture name="CloudFormation-Template-Launch-Stack-Testing" >}}
 
 ## CloudFormation best practices
 

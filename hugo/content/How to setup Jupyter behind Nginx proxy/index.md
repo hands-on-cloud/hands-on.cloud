@@ -1,7 +1,7 @@
 ---
 title: 'How to setup Jupyter behind Nginx proxy'
 date: '2017-12-21'
-image: 'How-to-setup-Jupyter-behind-Nginx-proxy.webp'
+image: 'How-to-setup-Jupyter-behind-Nginx-proxy'
 tags:
   - jupyter
   - nginx
@@ -11,7 +11,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![How to setup Jupyter behind Nginx proxy](How-to-setup-Jupyter-behind-Nginx-proxy.webp)
+{{< my-picture name="How-to-setup-Jupyter-behind-Nginx-proxy" >}}
 
 Last 2 evenings we spent on setup Nginx + Jupyter configuration where Nginx acts as reverse proxy in front of Jupyter which we need to embed in our website by the suburl like `/ipython/`. The question was not so easy. First of all there’re a lot of issues and gists on GitHub and it is very difficult to choose a right one. Also you may find a lot of different articles describing how to do it but.. All of them are pretty much outdated and not covering CORS configuration. So, right now I’ll show you our results.
 

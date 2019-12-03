@@ -1,7 +1,7 @@
 ---
 title: 'Terraform recipe – Managing Auto Scaling Groups and Load Balancers'
 date: '2018-11-25'
-image: 'Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers.webp'
+image: 'Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers'
 tags:
   - autoscaling
   - terraform
@@ -12,7 +12,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![Terraform recipe – Managing Auto Scaling Groups and Load Balancers](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers.webp)
+{{< my-picture name="Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers" >}}
 
 As soon as you learn how to manage basic network infrastructure in AWS using Terraform (see “Terraform recipe – Managing AWS VPC – Creating Public Subnet” and “Terraform recipe – Managing AWS VPC – Creating Private Subnets“) , you definitely want to start creating auto-scalable infrastructures.
 
@@ -28,7 +28,7 @@ Let’s build the simple infrastructure, which consists of several web-servers f
 
 Our infrastructure will be the following:
 
-![Terraform recipe – Managing Auto Scaling Groups and Load Balancers - Target Infrastructure](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-Target-Infrastructure.webp)
+{{< my-picture name="Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-Target-Infrastructure" >}}
 
 You may find full `.tf` file source code in my [GitHub repository](https://github.com/andreivmaksimov/terraform-recipe-managing-auto-scaling-groups-and-load-balancers).
 
@@ -308,7 +308,7 @@ terraform plan
 terraform apply
 ```
 
-![Terraform recipe – Managing Auto Scaling Groups and Load Balancers - Launch](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-Launch.webp)
+{{< my-picture name="Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-Launch" >}}
 
 Starting from this point you can open provided ELB URL in your browser and refresh the page several times to see different local IP addresses of your just launched instances.
 
@@ -395,11 +395,11 @@ terraform apply
 
 In a couple of minutes you’ll see a fired alarm in CloudWatch:
 
-![Terraform recipe – Managing Auto Scaling Groups and Load Balancers - CloudWatch Alarm](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-CloudWatch-Alarm.webp)
+{{< my-picture name="Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-CloudWatch-Alarm" >}}
 
 Which will cause one of two instances termination:
 
-![Terraform recipe – Managing Auto Scaling Groups and Load Balancers - CloudWatch Alarm Result](Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-CloudWatch-Alarm-Result.webp)
+{{< my-picture name="Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-CloudWatch-Alarm-Result" >}}
 
 ## Summary
 

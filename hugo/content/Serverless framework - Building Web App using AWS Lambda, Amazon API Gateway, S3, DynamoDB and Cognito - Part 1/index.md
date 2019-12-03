@@ -1,7 +1,7 @@
 ---
 title: 'Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 1'
 date: '2018-09-10'
-image: 'Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.webp'
+image: 'Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito'
 tags:
   - api gateway
   - cognito
@@ -15,7 +15,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 1](Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito.webp)
+{{< my-picture name="Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito" >}}
 
 Yesterday I decided to test [Serverless framework](https://serverless.com/) and rewrite AWS "[Build a Serverless Web Application with AWS Lambda, Amazon API Gateway, Amazon S3, Amazon DynamoDB, and Amazon Cognito](https://aws.amazon.com/getting-started/projects/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/)" tutorial.
 
@@ -104,7 +104,7 @@ Right after that we may need to delete aws-serverless-workshops from our project
 rm -Rf ./aws-serverless-workshops
 ```
 
-![Serverless Framework - Copy Static Website Content.webp](Serverless-Framework-Copy-Static-Website-Content.webp)
+{{< my-picture name="Serverless-Framework-Copy-Static-Website-Content" >}}
 
 ## Add bucket policy to allow public reads
 
@@ -130,7 +130,7 @@ WildRydesBucketPolicy:
                 - '/*'
 ```
 
-![Serverless Framework - S3 Bucket Policy](Serverless-Framework-S3-Bucket-Policy.webp)
+{{< my-picture name="Serverless-Framework-S3-Bucket-Policy" >}}
 
 Deploy your changes:
 
@@ -153,7 +153,7 @@ To display bucket website URL, uncomment the Outputs: section and add the follow
         "Fn::GetAtt": [ WildRydesBucket, WebsiteURL ]
 ```
 
-![Serverless Framework - S3 Bucket Website Configuration](Serverless-Framework-S3-Bucket-Website-Configuration.webp)
+{{< my-picture name="Serverless-Framework-S3-Bucket-Website-Configuration" >}}
 
 Let’s redeploy the changes and test that static website is now accessible:
 
@@ -169,7 +169,7 @@ sls info --verbose
 
 You may open your website URL in the browser to check, that everything’s deployed as expected:
 
-![Serverless Framework - S3 Static Website Deployed](Serverless-Framework-S3-Static-Website-Deployed.webp)
+{{< my-picture name="Serverless-Framework-S3-Static-Website-Deployed" >}}
 
 ## User management
 
@@ -195,7 +195,7 @@ WildRydesCognitoUserPool:
     UserPoolName: WildRydes
 ```
 
-![Serverless Framework - Cognito User Pool Configuration](Serverless-Framework-Cognito-User-Pool-Configuration.webp)
+{{< my-picture name="Serverless-Framework-Cognito-User-Pool-Configuration" >}}
 
 Let’s deploy our changes:
 
@@ -217,7 +217,7 @@ WildRydesCognitoUserPoolClient:
       Ref: 'WildRydesCognitoUserPool'
 ```
 
-![Serverless Framework - Cognito User Pool Client Configuration](Serverless-Framework-Cognito-User-Pool-Client-Configuration.webp)
+{{< my-picture name="Serverless-Framework-Cognito-User-Pool-Client-Configuration" >}}
 
 Let’s deploy our changes:
 
@@ -240,7 +240,7 @@ WildRydesCognitoUserPoolClientId:
     Ref: 'WildRydesCognitoUserPoolClient'
 ```
 
-![Serverless Framework - Cognito User Pool Client Configuration 2](Serverless-Framework-Cognito-User-Pool-Client-Configuration-2.webp)
+{{< my-picture name="Serverless-Framework-Cognito-User-Pool-Client-Configuration-2" >}}
 
 Now we need to redeploy our changes:
 
@@ -262,7 +262,7 @@ aws s3 cp s3://wildrydes-firstname-lastname/js/config.js ./
 
 After that, fill `userPoolId`, `userPoolClientId` and `region` (all this information available from `sls info --verbose` command):
 
-![Serverless Framework - Cognito User Pool Client Configuration 3](Serverless-Framework-Cognito-User-Pool-Client-Configuration-3.webp)
+{{< my-picture name="Serverless-Framework-Cognito-User-Pool-Client-Configuration-3" >}}
 
 Save the file and upload it back:
 
@@ -274,19 +274,19 @@ aws s3 cp ./config.js s3://wildrydes-firstname-lastname/js/config.js
 
 Now we’re ready to validate our Cognito configuration. I’ll not copy-paste it from AWS tutorial. Here’s the [link](https://aws.amazon.com/getting-started/projects/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/module-2/). You need last step and manual user verification. It means, when you’ll register new user:
 
-![Serverless Framework - Cognito User Pool Client Testing Registration](Serverless-Framework-Cognito-User-Pool-Client-Testing-Registration.webp)
+{{< my-picture name="Serverless-Framework-Cognito-User-Pool-Client-Testing-Registration" >}}
 
 You need to go to AWS console (Services – Cognito – WildRydes – Users and groups menu):
 
-![Serverless Framework - Cognito User Pool Client Testing Registratered User](Serverless-Framework-Cognito-User-Pool-Client-Testing-Registratered-User.webp)
+{{< my-picture name="Serverless-Framework-Cognito-User-Pool-Client-Testing-Registratered-User" >}}
 
 And confirm registered user manually (click on the user and use **Confirm user** button):
 
-![Serverless Framework - Cognito User Pool Client Testing Confirm Registered-User](Serverless-Framework-Cognito-User-Pool-Client-Testing-Confirm-Registered-User.webp)
+{{< my-picture name="Serverless-Framework-Cognito-User-Pool-Client-Testing-Confirm-Registered-User" >}}
 
 After user confirmation, we’re able to login using `/signin.html` page where we will be redirected to `/ride.html`:
 
-![Serverless Framework - Cognito User Pool Client Testing Login](Serverless-Framework-Cognito-User-Pool-Client-Testing-Login.webp)
+{{< my-picture name="Serverless-Framework-Cognito-User-Pool-Client-Testing-Login" >}}
 
 ## Serverless service backend
 
@@ -316,7 +316,7 @@ WildRydesDynamoDBTable:
       WriteCapacityUnits: 5
 ```
 
-![Serverless Framework - DynamoDB Configuration](Serverless-Framework-DynamoDB-Configuration.webp)
+{{< my-picture name="Serverless-Framework-DynamoDB-Configuration" >}}
 
 And of cause we need to redeploy our stack:
 
@@ -333,7 +333,7 @@ WildRydesDynamoDbARN:
     'Fn::GetAtt': [WildRydesDynamoDBTable, Arn]
 ```
 
-![Serverless Framework - DynamoDB Configuration ARN](Serverless-Framework-DynamoDB-Configuration-ARN.webp)
+{{< my-picture name="Serverless-Framework-DynamoDB-Configuration-ARN" >}}
 
 ## Create IAM role for Lambda runction
 
@@ -378,7 +378,7 @@ WildRydesLambdaRole:
                 'Fn::GetAtt': [WildRydesDynamoDBTable, Arn]
 ```
 
-![Serverless Framework - Lambda Function Role Policy](Serverless-Framework-Lambda-Function-Role-Policy.webp)
+{{< my-picture name="Serverless-Framework-Lambda-Function-Role-Policy" >}}
 
 You may redeploy our stack, if you want to:
 
@@ -401,13 +401,13 @@ functions:
     role: WildRydesLambdaRole
 ```
 
-![Serverless-Framework-Lambda-Function-Declaration](Serverless-Framework-Lambda-Function-Declaration.webp)
+{{< my-picture name="Serverless-Framework-Lambda-Function-Declaration" >}}
 
 This will tell Serverless framework to create our function with appropriate name and specified entry point. Please, take a look under `handler:` declaration. First `handler` specifies the filename where to look our function content. The second `handler` is the name of exported function to call each time Lambda function is triggered.
 
 Now we need to change the code of our lambda function. Open `handler.js` file and replace everything with a provided [requestUnicorn.js](https://github.com/awslabs/aws-serverless-workshops/blob/master/WebApplication/3_ServerlessBackend/requestUnicorn.js) code example as it is.
 
-![Serverless Framework - Lambda Function Code](Serverless-Framework-Lambda-Function-Code.webp)
+{{< my-picture name="Serverless-Framework-Lambda-Function-Code" >}}
 
 Now it is definitely a time to redeploy our stack:
 
@@ -419,11 +419,11 @@ sls deploy
 
 To validate our current service implementation we need to follow official instructions from AWS tutorial. Let’s open our Lambda function in AWS console. As you can see, it has permissions to access to CloudWatch and DynamoDB.
 
-![Serverless Framework - Lambda Function Details](Serverless-Framework-Lambda-Function-Details.webp)
+{{< my-picture name="Serverless-Framework-Lambda-Function-Details" >}}
 
 Let’s create a test by clicking **Test** button. Fill the form as it shown below:
 
-![Serverless Framework - Lambda Function Testing](Serverless-Framework-Lambda-Function-Testing.webp)
+{{< my-picture name="Serverless-Framework-Lambda-Function-Testing" >}}
 
 Test name is `TestRequestEvent`. Test message body:
 
@@ -453,7 +453,7 @@ Click **Create** button to create test.
 
 Click **Test** button once more again to see successful test results:
 
-![Serverless Framework - Lambda Function Testing Results](Serverless-Framework-Lambda-Function-Testing-Results.webp)
+{{< my-picture name="Serverless-Framework-Lambda-Function-Testing-Results" >}}
 
 ## Restful APIs
 
@@ -475,7 +475,7 @@ WildRydesApiGatewayRestApi:
         - EDGE
 ```
 
-![Serverless Framework - API Gateway REST Configuration](Serverless-Framework-API-Gateway-REST-Configuration.webp)
+{{< my-picture name="Serverless-Framework-API-Gateway-REST-Configuration" >}}
 
 Redeploy your stack to get AWS Api Gateway up and running.
 
@@ -500,7 +500,7 @@ WildRydesApiGatewayAuthorizer:
     IdentitySource: method.request.header.Authorization
 ```
 
-![Serverless Framework - API Gateway Authorizer](Serverless-Framework-API-Gateway-Authorizer.webp)
+{{< my-picture name="Serverless-Framework-API-Gateway-Authorizer" >}}
 
 Redeploy your stack to setup Api Gateway Authorizer:
 
@@ -510,19 +510,19 @@ sls deploy
 
 Let’s test our Authorizer. Open `/ride.html` web page and copy Authorization Token:
 
-![Serverless Framework - Cognito User Pool Client Testing Login](Serverless-Framework-Cognito-User-Pool-Client-Testing-Login.webp)
+{{< my-picture name="Serverless-Framework-Cognito-User-Pool-Client-Testing-Login" >}}
 
 Go to **API Gateway** service in AWS console, open **WildRydes** API Gateway and select **Authorizers** in left menu. Click **Test** link:
 
-![Serverless Framework - API Gateway Authorizer Test](Serverless-Framework-API-Gateway-Authorizer-Test.webp)
+{{< my-picture name="Serverless-Framework-API-Gateway-Authorizer-Test" >}}
 
 Paste your Authorization Token in the field and press **Test** button:
 
-![Serverless Framework - API Gateway Authorizer Test Token](Serverless-Framework-API-Gateway-Authorizer-Test-Token.webp)
+{{< my-picture name="Serverless-Framework-API-Gateway-Authorizer-Test-Token" >}}
 
 If you did everything correctly, you’ll see successful response:
 
-![Serverless Framework - API Gateway Authorizer Test Result](Serverless-Framework-API-Gateway-Authorizer-Test-Result.webp)
+{{< my-picture name="Serverless-Framework-API-Gateway-Authorizer-Test-Result" >}}
 
 ## Create new resource and method
 
@@ -541,7 +541,7 @@ WildRydeApiGatewayRidesResource:
       Ref: WildRydesApiGatewayRestApi
 ```
 
-![Serverless Framework - API Gateway Resource](Serverless-Framework-API-Gateway-Resource.webp)
+{{< my-picture name="Serverless-Framework-API-Gateway-Resource" >}}
 
 In the official tutorial we may click **Enable CORS** checkbox to Enable CORS for a needed resource. When you’re dealing with automation it is not always so easy. It means you need to implement “Enable CORS” functionality for an API Gateway Resource yourself. Somebody on StackOverflow [already did it for us](https://stackoverflow.com/questions/40292888/enable-cors-for-api-gateway-in-cloudformation-template), so we thankfully will take resource description example and adopt it for our needs:
 
@@ -616,7 +616,7 @@ WildRydesRidePostMethod:
                   - 'invocations'
 ```
 
-![Serverless Framework - API Gateway Method With Lambda Integration](Serverless-Framework-API-Gateway-Method-With-Lambda-Integration.webp)
+{{< my-picture name="Serverless-Framework-API-Gateway-Method-With-Lambda-Integration" >}}
 
 This will create protected by API Gateway authorization POST method, which will call Lambda function for authorized users.
 
@@ -634,7 +634,7 @@ WildRydesApiGatewayDeployment:
     StageName: ${opt:stage, 'dev'}
 ```
 
-![Serverless Framework - API Gateway Deployment](Serverless-Framework-API-Gateway-Deployment.webp)
+{{< my-picture name="Serverless-Framework-API-Gateway-Deployment" >}}
 
 Here we’re using `${opt:stage, 'dev'}` to dynamically specify stage name. See [Variables](https://serverless.com/framework/docs/providers/aws/guide/variables/) for more info.
 
@@ -655,7 +655,7 @@ provider:
   stage: ${opt:stage, 'dev'}
 ```
 
-![Serverless Framework - Global Stage Declaration](Serverless-Framework-Global-Stage-Declaration.webp)
+{{< my-picture name="Serverless-Framework-Global-Stage-Declaration" >}}
 
 ## Updating website config
 
@@ -682,11 +682,11 @@ sls deploy
 sls info --verbose
 ```
 
-![Serverless Framework - API Gateway Stage URL](Serverless-Framework-API-Gateway-Stage-URL.webp)
+{{< my-picture name="Serverless-Framework-API-Gateway-Stage-URL" >}}
 
 Next, we need to copy `WildRydesApiGatewayUrl` value to `invokeUrl:` of `config.js` file:
 
-![Serverless Framework - Final Website Configuration](Serverless-Framework-Final-Website-Configuration.webp)
+{{< my-picture name="Serverless-Framework-Final-Website-Configuration" >}}
 
 Upload `config.js` file to its location in S3 bucket and remove the file:
 
@@ -699,7 +699,7 @@ rm ./config.js
 
 All we need to do here, is to visit `/ride.html` and click anywhere on the map to set a pickup Unicorn location.
 
-![Serverless Framework - Final Result](Serverless-Framework-Final-Result.webp)
+{{< my-picture name="Serverless-Framework-Final-Result" >}}
 
 Choose **Request Unicorn**. You should see a notification in the right sidebar that a unicorn is on its way and then see a unicorn icon fly to your pickup location.
 

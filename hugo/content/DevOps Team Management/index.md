@@ -1,7 +1,7 @@
 ---
 title: 'DevOps Team Management'
 date: '2019-05-02'
-image: 'DevOps-Team-Management.webp'
+image: 'DevOps-Team-Management'
 tags:
   - management
 categories:
@@ -10,7 +10,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![DevOps Team Management](DevOps-Team-Management.webp)
+{{< my-picture name="DevOps-Team-Management">}}
 
 ## Introduction
 

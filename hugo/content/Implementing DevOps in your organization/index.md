@@ -1,7 +1,7 @@
 ---
 title: 'Implementing DevOps in your organization'
 date: '2019-05-05'
-image: 'Implementing-DevOps-in-your-organization.webp'
+image: 'Implementing-DevOps-in-your-organization'
 tags:
   - management
 categories:
@@ -10,7 +10,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![Implementing DevOps in your organization](Implementing-DevOps-in-your-organization.webp)
+{{< my-picture name="Implementing-DevOps-in-your-organization" >}}
 
 ## Benefits of Implementing DevOps
 

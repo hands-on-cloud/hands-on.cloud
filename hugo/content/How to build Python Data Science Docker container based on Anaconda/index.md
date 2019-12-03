@@ -1,7 +1,7 @@
 ---
 title: 'How to build Python Data Science Docker container based on Anaconda'
 date: '2017-12-13'
-image: 'How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda.webp'
+image: 'How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda'
 tags:
   - anaconda
   - docker
@@ -19,7 +19,7 @@ authors:
   - Andrei Maksimov
 ---
 
-![How to build Python Data Science Docker container based on Anaconda](How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda.webp)
+{{< my-picture name="How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda" >}}
 
 Last time we’ve created [Docker container with Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib](/how-to-run-jupiter-keras-tensorflow-pandas-sklearn-and-matplotlib-in-docker-container). Suddenly, I understood, that I’ve missed OpenCV for Docker image and video manipulations. Well, I spent whole day preparing new image build. And in this article I’ll show you how to do it much faster using [Anaconda](https://anaconda.org/) official [Docker Image](https://hub.docker.com/r/continuumio/anaconda3/).
 
