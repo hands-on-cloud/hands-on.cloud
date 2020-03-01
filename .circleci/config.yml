@@ -2,15 +2,12 @@ version: 2.1
 
 references:
 
-base_image: &base_image
-  cibuilds/hugo:latest
-
 working_directory: &working_directory
-  ~/project
+  /home/circleci/project
 
 default_hugo_config: &default_hugo_config
   docker:
-    - image: *base_image
+    - image: cibuilds/hugo:latest
   working_directory: *working_directory
 
 default_terraform_config: &default_terraform_config
@@ -33,6 +30,8 @@ set_environment: &set_environment
         ENVIRONMENT_DOMAIN="${ENVIRONMENT_ID}.hands-on.cloud"
         echo "export ENVIRONMENT_DOMAIN=${ENVIRONMENT_DOMAIN}" >> $BASH_ENV
       fi
+      printenv
+      pwd
 
 repo_cache_key: &repo_cache_key
   v1-repo-{{ .Branch }}-{{ .Revision }}
@@ -78,6 +77,11 @@ jobs:
             echo "google.com, pub-2729052102059896, DIRECT, f08c47fec0942fa0" > public_test/ads.txt
             echo "google.com, pub-2729052102059896, DIRECT, f08c47fec0942fa0" > public_prod/ads.txt
       - *save_repo
+      - persist_to_workspace:
+          root: *working_directory
+          paths:
+            - hugo/public_test/ads.txt
+            - hugo/public_prod/ads.txt
 
   create_or_update_testing:
     <<: *default_terraform_config
@@ -101,6 +105,7 @@ jobs:
   deploy_test_website:
     docker:
       - image: xueshanf/awscli
+    working_directory: *working_directory
     steps:
       - *set_environment
       - *restore_repo
@@ -134,6 +139,7 @@ jobs:
   deploy_prod_website:
     docker:
       - image: xueshanf/awscli
+    working_directory: *working_directory
     steps:
       - *set_environment
       - *restore_repo
@@ -218,10 +224,14 @@ workflows:
             branches:
               ignore:
                 - master
+      - request_approval:
+          type: approval
+          requires:
+            - run_ui_tests
       - destroy_testing:
           context: hands-on-cloud
           requires:
-            - run_ui_tests
+            - request_approval
           filters:
             branches:
               ignore:

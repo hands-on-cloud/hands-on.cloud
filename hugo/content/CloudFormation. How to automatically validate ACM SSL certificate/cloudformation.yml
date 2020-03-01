@@ -1,0 +1,156 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  This CloudFormation template validates ACM certificate using AWS Route53 DNS
+  service.
+Parameters:
+  Route53HostedZoneName:
+    Type: String
+  DomainName:
+    Type: String
+Resources:
+  ACMCertificate:
+    Type: 'AWS::CertificateManager::Certificate'
+    Properties:
+      DomainName: !Ref DomainName
+      SubjectAlternativeNames:
+        - !Sub '*.${DomainName}'
+      ValidationMethod: DNS
+  ACMCertificateValidationResource:
+    Type: 'Custom::ACMCertificateValidation'
+    Properties:
+      ServiceToken: !GetAtt ACMLambdaFunction.Arn
+      Route53HostedZoneName: !Ref Route53HostedZoneName
+      StackName: !Ref 'AWS::StackName'
+  ACMLambdaFunctionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'route53:ChangeResourceRecordSets'
+                  - 'route53:ListHostedZonesByName'
+                  - 'cloudformation:DescribeStackEvents'
+                Resource: '*'
+  ACMLambdaFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Runtime: python3.7
+      Timeout: '300'
+      Handler: index.handler
+      Role: !GetAtt ACMLambdaFunctionRole.Arn
+      Code:
+        ZipFile: !Sub
+          - |-
+            #!/usr/bin/env python3
+
+            import cfnresponse
+            import boto3
+            import logging
+            import traceback
+
+            CFN_CLIENT = boto3.client('cloudformation')
+            ROUTE53_CLIENT = boto3.client('route53')
+
+            LOGGER = logging.getLogger()
+            LOGGER.setLevel(logging.INFO)
+
+            def get_route53_record_from_stack_events(stack_name):
+              status_reason_text = ''
+              params = {'StackName': stack_name}
+
+              while True:
+                cfn_response = CFN_CLIENT.describe_stack_events(**params)
+
+                LOGGER.info('Stack events: %s', cfn_response)
+
+                for event in cfn_response['StackEvents']:
+                  if (
+                    event['ResourceType'] == 'AWS::CertificateManager::Certificate' and
+                    event['ResourceStatus'] == 'CREATE_IN_PROGRESS' and
+                    'ResourceStatusReason' in event and
+                        'Content of DNS Record' in event['ResourceStatusReason']
+                  ):
+                    status_reason_text = event['ResourceStatusReason']
+                  if 'NextToken' in cfn_response:
+                    params['NextToken'] = cfn_response['NextToken']
+
+                if status_reason_text != '':
+                  break
+
+              _dns_request_text=status_reason_text[status_reason_text.find("{")+1:status_reason_text.find("}")]
+              _name_text = _dns_request_text.split(',')[0]
+              _type_text = _dns_request_text.split(',')[1]
+              _value_text = _dns_request_text.split(',')[2]
+
+              return {
+                'Name': _name_text.split(': ')[1],
+                'Type': _type_text.split(': ')[1],
+                'Value': _value_text.split(': ')[1]
+              }
+
+            def handler(event, context):
+              try:
+                LOGGER.info('Event structure: %s', event)
+
+                if event['RequestType'] == 'Create':
+
+                  stack_name = event['ResourceProperties']['StackName']
+                  hosted_zone_name = event['ResourceProperties']['Route53HostedZoneName']
+
+                  route53_record = get_route53_record_from_stack_events(stack_name)
+                  LOGGER.info('Route 53 record: %s', route53_record)
+
+                  route53_response = ROUTE53_CLIENT.list_hosted_zones_by_name(DNSName=hosted_zone_name)
+                  hosted_zone_id = route53_response['HostedZones'][0]['Id']
+                  route53_request_params = {
+                    'HostedZoneId': hosted_zone_id,
+                    'ChangeBatch': {
+                      'Changes': [
+                        {
+                          'Action': 'UPSERT',
+                          'ResourceRecordSet': {
+                            'Name': route53_record['Name'],
+                            'Type': route53_record['Type'],
+                            'TTL': 60,
+                            'ResourceRecords': [
+                              {
+                                'Value': route53_record['Value']
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                  LOGGER.info('Route 53 request params: %s', route53_request_params)
+                  ROUTE53_CLIENT.change_resource_record_sets(**route53_request_params)
+
+              except Exception as e:
+                LOGGER.error(e)
+                traceback.print_exc()
+              finally:
+                cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+          - stack_name: !Ref 'AWS::StackName'
+Outputs:
+  ACMCertificateArn:
+    Value: !Ref ACMCertificate
