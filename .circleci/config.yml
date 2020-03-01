@@ -116,6 +116,8 @@ jobs:
           command: |
             . $BASH_ENV
             aws s3 sync hugo/public_test s3://${ENVIRONMENT_DOMAIN} --delete
+            echo "Set Cache-Control header for all objects within a bucket"
+            aws s3 cp s3://${ENVIRONMENT_DOMAIN}/ s3://${ENVIRONMENT_DOMAIN}/ --metadata-directive REPLACE --recursive --cache-control max-age=2592000
 
   create_or_update_prod:
     <<: *default_terraform_config
@@ -150,6 +152,7 @@ jobs:
           command: |
             . $BASH_ENV
             aws s3 sync hugo/public_prod s3://origin.hands-on.cloud --delete
+            aws s3 cp s3://origin.hands-on.cloud/ s3://origin.hands-on.cloud/ --metadata-directive REPLACE --recursive --cache-control max-age=2592000
             aws cloudfront create-invalidation --distribution-id=EWBD72KPWWTA4 --paths /
 
   run_ui_tests:
