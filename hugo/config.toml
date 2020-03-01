@@ -4,6 +4,7 @@ title = "Hands-On.Cloud"
 theme = "hands-on-cloud"
 pygmentsCodeFences = true
 summaryLength = 40
+enableRobotsTXT = true
 
 [author]
     author = 'Andrei Maksimov'
