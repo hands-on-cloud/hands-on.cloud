@@ -61,6 +61,10 @@ div.container div.post img {
   height: auto;
 }
 
+picture img {
+  padding-bottom: 2em !important;
+}
+
 .jumbotron {
   padding-top: 10rem !important;
   padding-bottom: 3rem;
