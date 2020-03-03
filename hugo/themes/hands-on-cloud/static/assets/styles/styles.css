@@ -61,7 +61,7 @@ div.container div.post img {
   height: auto;
 }
 
-picture img {
+div.container div.post picture img {
   padding-bottom: 2em !important;
 }
 
@@ -199,4 +199,16 @@ div.post > div.highlight > pre {
 /* Google Custom Search widget*/
 .gsc-input {
     min-width: 15em !important;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+h3 {
+  font-size: 1.3rem;
 }
