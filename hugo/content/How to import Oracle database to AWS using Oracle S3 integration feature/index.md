@@ -206,3 +206,17 @@ Now you may import your dump file using Oracle Import utility:
 ```
 
 As soon as process finishes I definitely recommend to export your DB using Oracle Data Pump to have an ability to import it much faster next time.
+
+## Common errors
+
+Oracle S3 integration not configured:
+
+```
+ORA-00904: "RDSADMIN"."RDSADMIN_S3_TASKS"."UPLOAD_TO_S3": invalid identifier
+00904. 00000 -  "%s: invalid identifier"
+*Cause:    
+*Action:
+Error at Line: 52 Column: 8
+```
+
+You need to apply correct Option Group or check S3 integration role.
