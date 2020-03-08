@@ -117,6 +117,14 @@ SELECT owner_name, job_name, operation, job_mode,DEGREE, state FROM dba_datapump
 
 ## Exporting Oracle Data Pump file
 
+**Note**: The following dump query may not export ALL your tables, if some [tables may not be extent allocated](https://stackoverflow.com/a/18925415). So, you need to generate a script to alter those tables:
+
+```sql
+SELECT 'ALTER TABLE '||table_name||' ALLOCATE EXTENT;' FROM user_tables WHERE segment_created = 'NO';
+```
+
+Run generated queries before executing dump query to get a full dump.
+
 To export Oracle Data Pump file you need to export your DB first:
 
 ```sql
@@ -155,7 +163,6 @@ And again, to check upload status, execute the following query:
 ```sql
 SELECT text FROM table(rdsadmin.rds_file_util.read_text_file('BDUMP','dbtask-<task_id>.log'))
 ```
-
 
 ## Importing regular exported file
 
