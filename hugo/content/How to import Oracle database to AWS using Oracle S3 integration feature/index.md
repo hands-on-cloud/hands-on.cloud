@@ -172,7 +172,7 @@ Create schema (user) for imported database:
 
 ```sql
 create user MY_USER identified by <password>;
-grant create session, resource to MY_USER;
+grant create session, resource, DBA to MY_USER;
 alter user MY_USER quota 100M on users;
 ```
 
@@ -202,7 +202,7 @@ sudo yum -y install oracle-instantclient19.6-tools-19.6.0.0.0-1.x86_64.rpm
 Now you may import your dump file using Oracle Import utility:
 
 ```sh
-/usr/lib/oracle/19.6/client64/bin/imp MY_USER@rds-instance-connection-endpoint-url/ORCL FILE=/opt/my_exported_db.dmp FULL=y GRANT=y
+/usr/lib/oracle/19.6/client64/bin/imp MY_USER@rds-instance-connection-endpoint-url/ORCL FILE=/opt/my_exported_db.dmp FULL=y GRANTS=y
 ```
 
 As soon as process finishes I definitely recommend to export your DB using Oracle Data Pump to have an ability to import it much faster next time.
