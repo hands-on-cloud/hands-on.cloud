@@ -66,6 +66,13 @@ As a result Option Group is at your stack will be locked by automatically create
 
 ## Importing Oracle Data Pump file
 
+Create nesessary tablespace if needed:
+
+```sql
+CREATE TABLESPACE MY_TABLESPACE DATAFILE SIZE 5G
+AUTOEXTEND ON NEXT 1G;
+```
+
 To initiate dump file copy from S3 bucket, execute the following query:
 
 ```sql
@@ -104,6 +111,7 @@ hdnl NUMBER;
 BEGIN
 hdnl := DBMS_DATAPUMP.OPEN( operation => 'IMPORT', job_mode => 'SCHEMA', job_name=>null);
 DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'your_file_name', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_dump_file);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'imp.log', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_log_file);
 DBMS_DATAPUMP.METADATA_FILTER(hdnl,'SCHEMA_EXPR','IN (''your_schema_name'')');
 DBMS_DATAPUMP.START_JOB(hdnl);
 END;
@@ -115,6 +123,12 @@ To check status of your job execute the following query:
 
 ```sql
 SELECT owner_name, job_name, operation, job_mode,DEGREE, state FROM dba_datapump_jobs where state='EXECUTING'
+```
+
+Read import log file to get more information about errors or unexpected results:
+
+```sql
+SELECT text FROM table(rdsadmin.rds_file_util.read_text_file('DATA_PUMP_DIR','imp.log'))
 ```
 
 ## Exporting Oracle Data Pump file
