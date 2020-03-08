@@ -147,6 +147,12 @@ To check status of your job execute the following query:
 SELECT owner_name, job_name, operation, job_mode,DEGREE, state FROM dba_datapump_jobs where state='EXECUTING'
 ```
 
+Also, you may read `exp.log` during export operation:
+
+```sql
+SELECT text FROM table(rdsadmin.rds_file_util.read_text_file('DATA_PUMP_DIR','exp.log'))
+```
+
 As soon as export finishes, you may copy your exported file to S3 bucket:
 
 ```sql
