@@ -3,6 +3,8 @@ title: 'How to import Oracle database to AWS using Oracle S3 integration feature
 date: '2020-03-07'
 image: 'How-to-import-Oracle-database-to-AWS-using-Oracle-S3-integration-feature'
 tags:
+  - rds
+  - oracle
   - sql
   - s3
 categories:
