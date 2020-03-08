@@ -82,6 +82,12 @@ SELECT text FROM table(rdsadmin.rds_file_util.read_text_file('BDUMP','dbtask-<ta
 
 Replace **<task_id>** with the value returned from the previous query.
 
+You may list all uploaded files using the following query:
+
+```sql
+select * from table(RDSADMIN.RDS_FILE_UTIL.LISTDIR('DATA_PUMP_DIR')) order by filename
+```
+
 **Note**: sometimes it's required to delete imported file. You may do it with the following command:
 
 ```sql
