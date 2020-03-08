@@ -66,11 +66,25 @@ As a result Option Group is at your stack will be locked by automatically create
 
 ## Importing Oracle Data Pump file
 
-Create nesessary tablespace if needed:
+Create all nesessary tablespaces if needed. Each can be created by:
 
 ```sql
 CREATE TABLESPACE MY_TABLESPACE DATAFILE SIZE 5G
 AUTOEXTEND ON NEXT 1G;
+```
+
+Create necessary schema(user) and grant it the following permissions:
+
+```sql
+CREATE USER MY_USER IDENTIFIED BY "MY_PASSWORD";
+GRANT UNLIMITED TABLESPACE TO MY_USER;
+GRANT CREATE SESSION, RESOURCE, DBA to MY_USER;
+ALTER USER MY_USER QUOTA 100M on users;
+```
+
+Also, for every tablespace you created:
+```sql
+ALTER USER MY_USER QUOTA 100M ON MY_TABLESPACE;
 ```
 
 To initiate dump file copy from S3 bucket, execute the following query:
