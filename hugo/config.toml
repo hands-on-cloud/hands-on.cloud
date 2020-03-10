@@ -12,6 +12,8 @@ enableRobotsTXT = true
     image = 'https://avatars2.githubusercontent.com/u/1902417?s=460&v=4'
 
 [Params]
+    logo = "hands-on-cloud-logo.png"
+    header = "Hands-On.Cloud"
     localeOgp = "en-us"
     description = "This open source project provides hands-on materials on different aspects of working in the clouds like AWS and GCP."
     keywords = "aws,devops,docker,terraform,cloudformation,serverless"
@@ -19,5 +21,6 @@ enableRobotsTXT = true
     github = "andreivmaksimov"
     facebook = "andrei.maksimov.3"
     linkedin = "avmaksimov"
+    instagram = "andrei_v_maksimov"
     googleanalytics = "UA-137355839-1"
     googlecustomsearch = "005409723859646106283:xrxw99mawa4"
