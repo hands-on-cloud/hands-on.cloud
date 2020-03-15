@@ -7,6 +7,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 5rem;
   color: #262626;
+  font-family: "Exo", Georgia, "Times New Roman", serif;
 }
 
 body > nav > a > img {
@@ -185,6 +186,7 @@ footer p {
 
 /*! prism code custom styles */
 div.post > div.highlight > pre {
+  font-size: 0.8rem;
   padding: 1rem
 }
 
@@ -203,6 +205,7 @@ div.post > div.highlight > pre {
 
 h1 {
   font-size: 2.5rem;
+  font-style: bold;
 }
 
 h2 {
