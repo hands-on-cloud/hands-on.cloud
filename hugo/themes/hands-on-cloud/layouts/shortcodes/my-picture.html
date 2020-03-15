@@ -1,5 +1,5 @@
 <picture>
-    <source media="(width: 100%)" {{ if isset .Params "name" }}srcset="./{{ index .Params "name" }}.webp"{{ end }} type="image/webp"> 
-    <source media="(width: 100%)" {{ if isset .Params "name" }}srcset="./{{ index .Params "name" }}.jpg"{{ end }} type="image/jpg"> 
-    <img width="100%" {{ if isset .Params "name" }}src="./{{ index .Params "name" }}.png"{{ end }}>
+    <source media="(width: 100%)" {{ if isset .Params "name" }}data-lazy-src="./{{ index .Params "name" }}.webp"{{ end }} type="image/webp"> 
+    <source media="(width: 100%)" {{ if isset .Params "name" }}data-lazy-src="./{{ index .Params "name" }}.jpg"{{ end }} type="image/jpg"> 
+    <img width="100%" {{ if isset .Params "name" }}data-lazy-src="./{{ index .Params "name" }}.png"{{ end }}>
 </picture>
