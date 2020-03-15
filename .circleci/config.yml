@@ -73,15 +73,12 @@ jobs:
           command: |
             . $BASH_ENV
             pytest tests -s
-      - *save_repo
 
   build:
     <<: *default_hugo_config
     steps:
       - *set_environment
-      - *restore_repo
-      - attach_workspace:
-          at: *working_directory
+      - checkout
       - run:
           name: Build Hugo website
           command: |
