@@ -57,11 +57,31 @@ terraform_init: &terraform_init
 
 jobs:
 
+  run_unit_tests:
+    docker:
+      - image: python:3.7
+    working_directory: *working_directory
+    steps:
+      - *set_environment
+      - checkout
+      - run:
+          name: Install Pytest
+          command: |
+            pip install pytest
+      - run:
+          name: Run Pytest tests
+          command: |
+            . $BASH_ENV
+            pytest tests -s
+      - *save_repo
+
   build:
     <<: *default_hugo_config
     steps:
       - *set_environment
-      - checkout
+      - *restore_repo
+      - attach_workspace:
+          at: *working_directory
       - run:
           name: Build Hugo website
           command: |
@@ -202,8 +222,11 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
+      - run_unit_tests
       - build:
           context: hands-on-cloud
+          requires:
+            - run_unit_tests
       - create_or_update_testing:
           context: hands-on-cloud
           requires:
@@ -220,21 +243,17 @@ workflows:
             branches:
               ignore:
                 - master
-      - run_ui_tests:
-          requires:
-            - deploy_test_website
-          filters:
-            branches:
-              ignore:
-                - master
-      - request_approval:
-          type: approval
-          requires:
-            - run_ui_tests
+      # - run_ui_tests:
+      #     requires:
+      #       - deploy_test_website
+      #     filters:
+      #       branches:
+      #         ignore:
+      #           - master
       - destroy_testing:
           context: hands-on-cloud
           requires:
-            - request_approval
+            - deploy_test_website
           filters:
             branches:
               ignore:
