@@ -2,12 +2,12 @@
 {{ $bootstrap_css := "assets/bootstrap-4.3.1/css/bootstrap.min.css" | absURL }}
 {{ $respond_js := "assets/scripts/respond.min.js" | absURL }}
 {{ $pie_js := "assets/scripts/PIE.js" | absURL }}
-<head lang="en">
-  <title>{{ .Title }}</title>
+<head itemscope itemtype="{{ .Site.BaseURL }}">
   <meta charset="utf-8" />
-  <meta name="keywords" content="{{ .Site.Params.keywords }}" />
-  <meta name="description" content="{{ .Site.Params.description }}" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  {{- partial "meta.html" . -}}
 
   <!-- Bootstrap core CSS -->
   <link href="{{ $bootstrap_css }}" rel="stylesheet" />
