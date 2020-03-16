@@ -1,0 +1,62 @@
+<!--Title Tags-->
+<title itemprop="name">{{ .Title }} | {{ .Site.Title }}</title>
+<meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}" />
+<meta name="twitter:title" content="{{ .Title }} | {{ .Site.Title }}" />
+<meta itemprop="name" content="{{ .Title }} | {{ .Site.Title }}" />
+<meta name="application-name" content="{{ .Title }} | {{ .Site.Title }}" />
+<meta property="og:site_name" content="{{ .Site.Params.sitename }}" />
+
+<!--Description Tags-->
+{{ if .Params.tags }}
+<meta name="keywords" content="{{ delimit .Params.tags ", " }}" />
+{{ else }}
+<meta name="keywords" content="{{ .Site.Params.keywords }}" />
+{{ end }}
+<meta name="description" content="{{ .Summary }}" />
+<meta itemprop="description" content="{{ .Summary }}" />
+<meta property="og:description" content="{{ .Summary }}" />
+<meta name="twitter:description" content="{{ .Summary }}" />
+
+<!--Link Tags-->
+<base href="{{ .Permalink }}">
+<link rel="canonical" href="{{ .Permalink }}" itemprop="url" />
+<meta name="url" content="{{ .Permalink }}" />
+<meta name="twitter:url" content="{{ .Permalink }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+
+<!--Language Tags-->
+<meta property="og:locale" content="{{ .Language.Lang }}">
+<meta name="language" content="{{ .Language.LanguageName }}">
+{{ range .AllTranslations }}
+  <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" title="{{ .Language.LanguageName }}">
+{{ end }}
+
+<!--Image Tags-->
+{{ with .Params.image }}
+  <meta itemprop="image" content="{{ . | absURL | lower }}/{{ . }}.png" />
+  <meta property="og:image" content="{{ . | absURL | lower }}/{{ . }}.png" />
+  <meta name="twitter:image" content="{{ . | absURL | lower }}/{{ . }}.png" />
+  <meta name="twitter:image:src" content="{{ . | absURL | lower }}/{{ . }}.png" />
+{{ else }}
+  <meta itemprop="image" content="{{ .Site.Params.og_image | absURL | lower }}" />
+  <meta property="og:image" content="{{ .Site.Params.og_image | absURL | lower }}" />
+  <meta name="twitter:image" content="{{ .Site.Params.og_image | absURL | lower }}" />
+  <meta name="twitter:image:src" content="{{ .Site.Params.og_image | absURL | lower }}" />
+{{ end }}
+
+<!--Search Engine Crawler Tags-->
+<meta name="robots" content="index,follow" />
+<meta name="googlebot" content="index,follow" />
+
+<!--Date Tags-->
+<meta property="og:updated_time" content={{ .Lastmod.Format "2006-01-02T15:04:05Z0700" | safeHTML }} />
+
+<!--Sitemap & RSS Feed Tags-->
+<link rel="sitemap" type="application/xml" title="Sitemap" href="{{ .Site.BaseURL }}sitemap.xml" />
+
+{{ with .OutputFormats.Get "RSS" }}
+  <link href="{{ .Permalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
+  <link href="{{ .Permalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
+{{ end }}
+
+
