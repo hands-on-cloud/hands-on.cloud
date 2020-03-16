@@ -36,7 +36,7 @@ Environment setup is a very common question when you’re trying to start learni
 - [pyyaml](https://pypi.python.org/pypi/PyYAML)
 - [h5py](http://www.h5py.org/)
 
-That are TOP 10 widely used Python frameworks for Data Science and you’ll find most of them in any HOWTO article on the Internet. In the nex article ([How to build Python Data Science Docker container based on Anaconda](how-to-build-python-data-science-docker-container-based-on-anaconda)) I'll show how to build the same image, but on top of Anaconda distribution.
+That are TOP 10 widely used Python frameworks for Data Science and you’ll find most of them in any HOWTO article on the Internet. In the nex article ([How to build Python Data Science Docker container based on Anaconda](https://hands-on.cloud/how-to-build-python-data-science-docker-container-based-on-anaconda/)) I'll show how to build the same image, but on top of Anaconda distribution.
 
 ## Requirements
 

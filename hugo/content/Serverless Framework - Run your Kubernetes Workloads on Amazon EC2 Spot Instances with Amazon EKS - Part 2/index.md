@@ -18,7 +18,7 @@ authors:
 
 {{< my-picture name="Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2" >}}
 
-In previous article "[Serverless Framework – Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS – Part 1](/serverless-framework-run-your-kubernetes-workloads-on-amazon-ec-2-spot-instances-with-amazon-eks-part-1)" we created fully functional Kubernetes cluster backed by Spot instances using AWS EKS service.
+In previous article "[Serverless Framework – Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS – Part 1](https://hands-on.cloud/serverless-framework-run-your-kubernetes-workloads-on-amazon-ec2-spot-instances-with-amazon-eks-part-1/)" we created fully functional Kubernetes cluster backed by Spot instances using AWS EKS service.
 
 In this article we will accomplish automation of converting video files uploaded to S3 bucket using Kubernetes jobs. We’ll run this jobs on top of Spot instances and trigger them from AWS Lambda function on reaction to S3 file upload event.
 
