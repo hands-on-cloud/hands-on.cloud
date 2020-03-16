@@ -1,5 +1,5 @@
 ---
-title: 'Serverless framework – Building Web App using AWS Lambda, Amazon API Gateway, S3, DynamoDB and Cognito – Part 1'
+title: 'Serverless framework – Building Web App using AWS Lambda Amazon API Gateway S3 DynamoDB and Cognito – Part 1'
 date: '2018-09-10'
 image: 'Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito'
 tags:
@@ -23,7 +23,7 @@ In this tutorial we’ll deploy the same [Wild Rides](http://www.wildrydes.com/)
 
 You can find full configuration and code in my [GitHub repo](https://github.com/andreivmaksimov/serverless-framework-aws-lambda-amazon-api-gateway-s3-dynamodb-and-cognito). Use tag v1.0 for this article.
 
-In [part 2](/serverless-framework-building-web-app-using-aws-lambda-amazon-api-gateway-s-3-dynamo-db-and-cognito-part-2) of this post you’ll find how to replace API Gateway resources created in this article to Serverless framework `events`.
+In [part 2](https://hands-on.cloud/serverless-framework-building-web-app-using-aws-lambda-amazon-api-gateway-s3-dynamodb-and-cognito-part-2/) of this post you’ll find how to replace API Gateway resources created in this article to Serverless framework `events`.
 
 ## Application architecture
 

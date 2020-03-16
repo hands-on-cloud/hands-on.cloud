@@ -26,7 +26,7 @@ I like the idea of minimizing the computational costs, so I decided to combine b
 
 Everything will be done using [Serveless framework](https://serverless.com/). All source code is available in my [GitHub repo](https://github.com/andreivmaksimov/aws-eks-spot-instances-serverless-framework-demo).
 
-Part 2 of this article is available [here](/serverless-framework-run-your-kubernetes-workloads-on-amazon-ec-2-spot-instances-with-amazon-eks-part-2).
+Part 2 of this article is available [here](https://hands-on.cloud/serverless-framework-run-your-kubernetes-workloads-on-amazon-ec2-spot-instances-with-amazon-eks-part-2/).
 
 ## Architecture
 
