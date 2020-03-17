@@ -4,6 +4,5 @@ Allow: /
 Sitemap: https://hands-on.cloud/sitemap.xml
 
 Disallow: /tags/
-Disallow: /categories/
 Disallow: /page/
 Disallow: /*/page/
