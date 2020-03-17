@@ -1,0 +1,210 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: >
+    This stack is creating RDS instance snapshot and wait till process finishes.
+
+Parameters:
+
+    DBInstanceIdentifier:
+        Description: >
+            Identifier of RDS DB instance
+        Type: String
+
+Resources:
+
+    LambdaIamRole:
+        Type: 'AWS::IAM::Role'
+        Properties:
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    -
+                        Effect: Allow
+                        Principal:
+                            Service:
+                                - lambda.amazonaws.com
+                        Action:
+                            - 'sts:AssumeRole'
+            Path: /
+            Policies:
+                -
+                    PolicyName: root
+                    PolicyDocument:
+                        Version: 2012-10-17
+                        Statement:
+                            -
+                                Effect: Allow
+                                Action:
+                                    - 'rds:CreateDBSnapshot'
+                                    - 'rds:DescribeDBSnapshots'
+                                Resource: '*'
+                            -
+                                Effect: Allow
+                                Action:
+                                    - 'logs:CreateLogGroup'
+                                    - 'logs:CreateLogStream'
+                                    - 'logs:PutLogEvents'
+                                Resource: 'arn:aws:logs:*:*:*'
+
+    CreateSnapshotLambda:
+        Type: AWS::Lambda::Function
+        Properties:
+            Handler: index.handler
+            Role: !GetAtt LambdaIamRole.Arn
+            Runtime: python3.6
+            Timeout: 30
+            Code:
+                ZipFile:
+                    !Sub
+                        - |-
+                            import boto3
+                            import datetime
+                            import math
+
+                            RDS_CLIENT = boto3.client('rds')
+
+                            def handler(event,context):
+                                print('Event: {}'.format(event))
+
+                                now = datetime.datetime.now()
+                                timestamp = math.ceil(datetime.datetime.timestamp(now))
+
+                                params = {
+                                    'DBSnapshotIdentifier': '${db_instance_identifier}-rds-snapshot-{}'.format(
+                                        timestamp
+                                    ),
+                                    'DBInstanceIdentifier': '${db_instance_identifier}'
+                                }
+
+                                response = RDS_CLIENT.create_db_snapshot(**params)
+
+                                return {
+                                    'DBSnapshot': {
+                                        'DBSnapshotIdentifier': response['DBSnapshot']['DBSnapshotIdentifier'],
+                                        'DBInstanceIdentifier': response['DBSnapshot']['DBInstanceIdentifier']
+                                    }
+                                }
+                        -
+                            db_instance_identifier:
+                                !Sub '${DBInstanceIdentifier}'
+
+    DescribeSnapshotLambda:
+        Type: AWS::Lambda::Function
+        Properties:
+            Handler: index.handler
+            Role: !GetAtt LambdaIamRole.Arn
+            Runtime: python3.6
+            Timeout: 30
+            Code:
+                ZipFile: |
+                    import boto3
+                    import datetime
+
+                    RDS_CLIENT = boto3.client('rds')
+
+                    def handler(event,context):
+                        print('Event: {}'.format(event))
+                        db_snapshot_identifier = event['DBSnapshot']['DBSnapshotIdentifier']
+                        db_instance_identifier = event['DBSnapshot']['DBInstanceIdentifier']
+
+                        response = RDS_CLIENT.describe_db_snapshots(
+                            DBSnapshotIdentifier=db_snapshot_identifier,
+                            DBInstanceIdentifier=db_instance_identifier,
+                            SnapshotType='manual'
+                        )
+
+                        return {
+                            'DBSnapshot': {
+                                'DBSnapshotIdentifier': response['DBSnapshots'][0]['DBSnapshotIdentifier'],
+                                'DBInstanceIdentifier': response['DBSnapshots'][0]['DBInstanceIdentifier'],
+                                'Status': response['DBSnapshots'][0]['Status']
+                            }
+                        }
+
+    StateMachineExecutionRole:
+        Type: "AWS::IAM::Role"
+        Properties:
+            AssumeRolePolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                    -
+                        Effect: "Allow"
+                        Principal:
+                            Service:
+                                - !Sub states.${AWS::Region}.amazonaws.com
+                        Action: "sts:AssumeRole"
+            Path: "/"
+            Policies:
+                -
+                    PolicyName: StatesExecutionPolicy
+                    PolicyDocument:
+                        Version: "2012-10-17"
+                        Statement:
+                            -
+                                Effect: Allow
+                                Action:
+                                    - "lambda:InvokeFunction"
+                                Resource: "*"
+
+    StateMachine:
+        Type: "AWS::StepFunctions::StateMachine"
+        Properties:
+            DefinitionString:
+                !Sub
+                    - |-
+                        {
+                            "Comment": "State machine to create RDS DB instance Snapshot",
+                            "StartAt": "Create snapshot",
+                            "States": {
+                                "Create snapshot": {
+                                    "Type": "Task",
+                                    "Resource": "${create_snapshot_lambda_arn}",
+                                    "Next": "Wait 1 minute"
+                                },
+                                "Wait 1 minute": {
+                                    "Type": "Wait",
+                                    "Seconds": 60,
+                                    "Next": "Get snapshot status"
+                                },
+                                "Get snapshot status": {
+                                    "Type": "Task",
+                                    "Resource": "${get_snapshot_status_lambda_arn}",
+                                    "Next": "Snapshot completed?"
+                                },
+                                "Snapshot completed?": {
+                                    "Type": "Choice",
+                                    "Choices": [
+                                        {
+                                            "Variable": "$.DBSnapshot.Status",
+                                            "StringEquals": "available",
+                                            "Next": "Done"
+                                        },
+                                        {
+                                            "Variable": "$.DBSnapshot.Status",
+                                            "StringEquals": "failed",
+                                            "Next": "Failed"
+                                        }
+                                    ],
+                                    "Default": "Wait 1 minute"
+                                },
+                                "Done": {
+                                    "Type": "Pass",
+                                    "End": true
+                                },
+                                "Failed": {
+                                    "Type": "Pass",
+                                    "End": true
+                                }
+                            }
+                        }
+                    -
+                        create_snapshot_lambda_arn: !GetAtt [ CreateSnapshotLambda, Arn ]
+                        get_snapshot_status_lambda_arn: !GetAtt [ DescribeSnapshotLambda, Arn ]
+
+            RoleArn: !GetAtt [ StateMachineExecutionRole, Arn ]
+
+Outputs:
+
+    StateMachine:
+        Value: !Ref StateMachine
+        Description: Step Function workflow Arn
