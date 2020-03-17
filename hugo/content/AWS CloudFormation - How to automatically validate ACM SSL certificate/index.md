@@ -22,7 +22,7 @@ Here's the list of technologies to be used:
 * boto3
 * CloudFormation
 
-Final version of CloudFormation template is available at [GitHub](https://raw.githubusercontent.com/hands-on-cloud/hands-on.cloud/cloudformation-acm-lambda/hugo/content/CloudFormation.%20How%20to%20automatically%20validate%20ACM%20SSL%20certificate/cloudformation.yml).
+Final version of CloudFormation template is available at [GitHub](https://raw.githubusercontent.com/hands-on-cloud/hands-on.cloud/master/hugo/content/AWS%20CloudFormation%20-%20How%20to%20automatically%20validate%20ACM%20SSL%20certificate/cloudformation.yml).
 
 ## Automation process
 
