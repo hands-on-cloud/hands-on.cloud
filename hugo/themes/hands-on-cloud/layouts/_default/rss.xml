@@ -1,0 +1,47 @@
+<rss version="2.0"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:dc="http://purl.org/dc/elements/1.1"
+    xmlns:content="http://purl.org/rss/1.0/modules/content"
+    xmlns:media="http://search.yahoo.com/mrss/"
+    xmlns:webfeeds="http://webfeeds.org/rss/1.0"
+    >
+    <channel>
+        <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} | {{ end }}{{ .Site.Title }}{{ end }}</title>
+        <link>{{ .Permalink }}</link>
+        <language>en-EN</language>
+        <description>{{ .Site.Params.description }}</description>
+        <atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />
+        {{ if not .Date.IsZero }}
+        <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>
+        {{ end }}
+        {{ with .OutputFormats.Get "RSS" }}
+            {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+        {{ end }}
+
+        <webfeeds:cover image="{{ .Site.BaseURL }}hands-on-cloud-logo.png" />
+        <webfeeds:logo>{{ .Site.BaseURL }}hands-on-cloud-logo.svg</webfeeds:logo>
+        <webfeeds:icon>{{ .Site.BaseURL }}hands-on-cloud-logo.png</webfeeds:icon>
+        <webfeeds:analytics id="{{ .Site.Params.googleanalytics }}" engine="GoogleAnalytics"/>
+        <webfeeds:related layout="card" target="browser"/>
+
+        <generator>Hugo -- gohugo.io</generator>{{ with .Site.LanguageCode }}
+        
+        <managingEditor>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</managingEditor>{{end}}{{ with .Site.Author.email }}
+        <webMaster>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</webMaster>{{end}}{{ with .Site.Copyright }}
+        <copyright>{{.}}</copyright>{{end}}
+
+        {{ range .Data.Pages }}
+            <item>
+            <title>{{ .Title }}</title>
+            <link>{{ .Permalink }}</link>
+            <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+            {{ with .Site.Author.email }}<author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>{{end}}
+            <guid>{{ .Permalink }}</guid>
+            <media:content type="image/png" medium="image" width="900" height="600"
+                  url="{{ .Permalink }}{{ .Params.image }}.png" />
+            <description>{{chomp "\n"}}{{ .Summary | html }}{{chomp "\n"}}</description>
+            <content:encoded>{{chomp "\n"}}{{ .Content | html }}{{chomp "\n"}}</content:encoded>
+            </item>
+        {{ end }}
+    </channel>
+</rss>
