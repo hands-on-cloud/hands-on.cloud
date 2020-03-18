@@ -247,10 +247,19 @@ workflows:
       #       branches:
       #         ignore:
       #           - master
+      # - request-manual-approval:
+      #     type: approval
+      #     requires:
+      #       - deploy_test_website
+      #     filters:
+      #       branches:
+      #         ignore:
+      #           - master
       - destroy_testing:
           context: hands-on-cloud
           requires:
             - deploy_test_website
+            #- request-manual-approval
           filters:
             branches:
               ignore:

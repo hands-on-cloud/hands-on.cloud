@@ -1,5 +1,8 @@
+<!--
 <picture>
-    <source media="(width: 100%)" {{ if isset .Params "name" }}data-lazy-src="./{{ index .Params "name" }}.webp"{{ end }} type="image/webp"> 
-    <source media="(width: 100%)" {{ if isset .Params "name" }}data-lazy-src="./{{ index .Params "name" }}.jpg"{{ end }} type="image/jpg"> 
-    <img width="100%" {{ if isset .Params "name" }}data-lazy-src="./{{ index .Params "name" }}.png"{{ end }}>
+    <source media="(width: 100%)" src="{{ with .Page.Resources.GetMatch (printf "*%s.webp" (.Get "src")) }}{{ .RelPermalink }}{{ end }}" data-lazy-src="{{ with .Page.Resources.GetMatch (printf "*%s.webp" (.Get "src")) }}{{ .RelPermalink }}{{ end }}" type="image/webp">
+    <source media="(width: 100%)" src="{{ with .Page.Resources.GetMatch (printf "*%s.jpg" (.Get "src")) }}{{ .RelPermalink }}{{ end }}" data-lazy-src="{{ with .Page.Resources.GetMatch (printf "*%s.jpg" (.Get "src")) }}{{ .RelPermalink }}{{ end }}" type="image/jpg">
+    <img width="100%" src="{{ with .Page.Resources.GetMatch (printf "*%s.png" (.Get "src")) }}{{ .RelPermalink }}{{ end }}" data-lazy-src="{{ with .Page.Resources.GetMatch (printf "*%s.png" (.Get "src")) }}{{ .RelPermalink }}{{ end }}">
 </picture>
+-->
+<img width="100%" src="{{ with .Page.Resources.GetMatch (printf "*%s.png" (.Get "src")) }}{{ .RelPermalink }}{{ end }}" data-lazy-src="{{ with .Page.Resources.GetMatch (printf "*%s.png" (.Get "src")) }}{{ .RelPermalink }}{{ end }}">
