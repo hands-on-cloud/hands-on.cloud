@@ -14,7 +14,7 @@
             
                 <div class="card mb-4 shadow-sm">
                     <a href="{{ .RelPermalink }}">
-                        <img data-lazy-src="{{ .Permalink }}{{ .Params.image }}.png" width="100%">
+                        <img data-lazy-src="{{ .Permalink | absURL }}{{ .Params.image }}.png" width="100%">
                     </a>
                     <div class="card-body">
                         <a href="{{ .RelPermalink }}">
