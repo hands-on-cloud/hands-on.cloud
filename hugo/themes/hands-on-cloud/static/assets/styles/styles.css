@@ -56,11 +56,13 @@ div.card-body > a:visited {
   -webkit-tap-highlight-color: white;
 }
 
-div.container div.post img {
+div.container-fluid div.blog-content img {
   text-align: center;
   max-width: 100%;
   width: 100%;
   height: auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 div.container div.post picture img {
