@@ -29,5 +29,7 @@ jQuery(document).ready(function($){
 		siteBody.toggleClass('no-scroll');
 	}
 
-	DeferLoadImages()
+	DeferLoadImages();
+
+	$("#TableOfContents").scrollspy({ offset: -85 });
 })

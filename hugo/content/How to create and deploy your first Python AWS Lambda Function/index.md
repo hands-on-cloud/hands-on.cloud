@@ -14,7 +14,11 @@ authors:
 
 {{< my-picture name="How-to-create-and-deploy-your-first-python-aws-lambda-function" >}}
 
+## What is Lambda function
+
 [AWS Lambda Functions](https://aws.amazon.com/lambda/) is a service, which provides short execution time compute service for running your code in response to any kind of events. 
+
+## Lambda function use cases
 
 For example, here's some perfect use-cases for Lambda Functions:
 

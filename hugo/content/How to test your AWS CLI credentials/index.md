@@ -1,7 +1,7 @@
 ---
 title: 'How to test your AWS CLI credentials'
 date: '2018-01-10'
-image: 'How-to-test-your-AWS-CLI-credentials.webp'
+image: 'How-to-test-your-AWS-CLI-credentials'
 tags:
   - cli
 categories:

@@ -7,19 +7,31 @@
 
 <body>
   {{- partial "header.html" . -}}
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10 offset-md-1">
-        <div class="post">
-          <h1>{{ .Title }}</h1>
-          <br />
-          {{ .Content }}
-        </div>
+  <div class="container-fluid">
+        {{ if gt (len .TableOfContents) 80}}
+
+          <!-- Version of the page with table of contents -->
+          <main>
+              <div class="content blog-content">
+                  {{ .Content }}
+              </div>
+              <aside class="hidden lg:block tableOfContentContainer" id="tableOfContentContainer">
+                  <h3>Table of contents</h3>
+                  {{ .TableOfContents }}
+              </aside>
+          </main>
+
+        {{ else }}
+
+            <!-- Version of the page without table of contents -->
+            <div class="content blog-content">
+                {{ .Content }}
+            </div>
+
+        {{ end }}
 
         <div id="disqus_thread"></div>
 
-      </div>
-    </div>
   </div>
   {{- partial "footer.html" . -}}
   <script>

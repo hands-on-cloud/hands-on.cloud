@@ -15,6 +15,8 @@ authors:
 
 AWS Database Migration Service (AWS DMS) is a cloud service that makes it easy to migrate relational databases, data warehouses, NoSQL databases, and other types of data stores. You can use AWS DMS to migrate your data into the Cloud, between on-premises DB servers, or between any combinations of cloud and on-premises setups. You may get more information about AWS DMS in the official [AWS documentation](https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html).
 
+## Solution components
+
 So, my goal for this post is to provide you with a template, which you may use to automate DMS infrastructure setup. Whole template consists of:
 
 * DMS Replication Subnet Group ([AWS::DMS::ReplicationSubnetGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationsubnetgroup.html))
@@ -430,5 +432,7 @@ Outputs:
         Export:
             Name: !Sub '${AWS::StackName}-dms-replication-task'
 ```
+
+## Conclusion
 
 Of cause, this is very simple template and not everything is the parameterized, but I'm still hoping, that it saves you some amount of time.
