@@ -5,4 +5,4 @@
     <img width="100%" src="{{ with .Page.Resources.GetMatch (printf "*%s.png" (.Get "src")) }}{{ .RelPermalink }}{{ end }}" data-lazy-src="{{ with .Page.Resources.GetMatch (printf "*%s.png" (.Get "src")) }}{{ .RelPermalink }}{{ end }}">
 </picture>
 -->
-<img width="100%" src="{{ with .Page.Resources.GetMatch (printf "*%s.png" (.Get "src")) }}{{ .RelPermalink }}{{ end }}" data-lazy-src="{{ with .Page.Resources.GetMatch (printf "*%s.png" (.Get "src")) }}{{ .RelPermalink }}{{ end }}">
+<img width="100%" src="{{ with .Page.Resources.GetMatch (printf "%s.png" (.Get "name")) }}{{ .RelPermalink }}{{ end }}" data-lazy-src="{{ with .Page.Resources.GetMatch (printf "%s.png" (.Get "name")) }}{{ .RelPermalink }}{{ end }}">

@@ -16,10 +16,14 @@ authors:
 
 This article is a contains a simple CloudFormation template for correct launch automation of AWS EC2 instance.
 
+## Solution description
+
 Here we'll setup a basic VPC infrastructure, with 4 subnets (2 public, 2 private) and launch Amazon Linux EC2 instance in one of the public subnets. Also we'll use CloudFormation Metadata ([AWS::CloudFormation::Init](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html)) to provide automation instructions for `cfn-init` scripts.
 For our JumpHost also create create and attach instance profile with full Administrative permissions for yuor AWS the account. Plase, feel free to restrict permissions for your use-case.
 
 This is a basic infrastructure building block, which may be used as a base for any automation, so prity much any CloudFormation template starts from it.
+
+## Solution implementation
 
 So, here's our template:
 
@@ -341,5 +345,7 @@ Metadata:
                 docker_for_ec2_user:
                     command: usermod -G docker ec2-user
 ```
+
+## Conclusion
 
 In short, it installs Docker package using yum, enables and runs it. Finally it adds `ec2-user` to docker group, so we can launch Docker containers without sudo.

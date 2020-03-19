@@ -1,4 +1,5 @@
 html {
+  scroll-behavior: smooth;
   position: relative;
   min-height: 100%;
 }
@@ -185,9 +186,11 @@ footer p {
 }
 
 /*! prism code custom styles */
-div.post > div.highlight > pre {
+div.blog-content > div.highlight > pre {
   font-size: 0.8rem;
-  padding: 1rem
+  padding: 1rem;
+  margin-left: 1rem;
+  margin-right: 2rem;
 }
 
 /* tags */
@@ -214,4 +217,68 @@ h2 {
 
 h3 {
   font-size: 1.3rem;
+}
+
+main div.blog-content {
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+@media (min-width: 768px) {
+  /* 2. Make nav sticky */
+  #tableOfContentContainer {
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+    padding-left: 1.5rem;
+  }
+
+  /* 3. ScrollSpy active styles (see JS tab for activation) */
+  #tableOfContentContainer nav#TableOfContents li.active > a {
+    color: #333;
+    font-weight: 500;
+  }
+
+  /* Sidebar Navigation */
+  #tableOfContentContainer nav#TableOfContents {
+    padding-left: 0;
+    border-left: 1px solid #efefef;
+  }
+
+  #tableOfContentContainer nav#TableOfContents a {
+    text-decoration: none;
+    display: block;
+    padding: .125rem 0;
+    color: #ccc;
+    transition: all 50ms ease-in-out; /* 💡 This small transition makes setting of the active state smooth */
+  }
+
+  #tableOfContentContainer nav#TableOfContents a:hover,
+  nav#TableOfContents a:focus {
+    color: #666;
+  }
+
+  #tableOfContentContainer ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #tableOfContentContainer li {
+    margin-left: 1rem;
+  }
+
+  /** page layout **/
+  div.container-fluid main {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    max-width: 100em;
+    width: 90%;
+    margin: 6rem auto;
+  }
+
+  /** enlarge the sections for this demo, so that we have a long scrollable page **/
+  section {
+    padding-bottom: 20rem;
+  }
 }
