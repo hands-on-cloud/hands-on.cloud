@@ -8,27 +8,22 @@
     <channel>
         <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} | {{ end }}{{ .Site.Title }}{{ end }}</title>
         <link>{{ .Permalink }}</link>
-        <language>en-EN</language>
+        <author>{{ .Site.Author.author }}</author>
         <description>{{ .Site.Params.description }}</description>
-        <atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />
         {{ if not .Date.IsZero }}
         <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>
         {{ end }}
         {{ with .OutputFormats.Get "RSS" }}
             {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
         {{ end }}
-
         <webfeeds:cover image="{{ .Site.BaseURL }}hands-on-cloud-logo.png" />
         <webfeeds:logo>{{ .Site.BaseURL }}hands-on-cloud-logo.svg</webfeeds:logo>
         <webfeeds:icon>{{ .Site.BaseURL }}hands-on-cloud-logo.png</webfeeds:icon>
         <webfeeds:analytics id="{{ .Site.Params.googleanalytics }}" engine="GoogleAnalytics"/>
         <webfeeds:related layout="card" target="browser"/>
-
-        <generator>Hugo -- gohugo.io</generator>{{ with .Site.LanguageCode }}
-        
-        <managingEditor>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</managingEditor>{{end}}{{ with .Site.Author.email }}
-        <webMaster>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</webMaster>{{end}}{{ with .Site.Copyright }}
-        <copyright>{{.}}</copyright>{{end}}
+        {{ with .Site.LanguageCode }}
+        <language>en-EN</language>
+        {{ end }}
 
         {{ range .Data.Pages }}
             <item>
@@ -39,8 +34,7 @@
             <guid>{{ .Permalink }}</guid>
             <media:content type="image/png" medium="image" width="900" height="600"
                   url="{{ .Permalink }}{{ .Params.image }}.png" />
-            <description>{{chomp "\n"}}{{ .Summary | html }}{{chomp "\n"}}</description>
-            <content:encoded>{{chomp "\n"}}{{ .Content | html }}{{chomp "\n"}}</content:encoded>
+            <content:encoded>{{chomp "\n"}}{{ `<![CDATA[` | safeHTML }}{{ .Content | safeHTML }}{{chomp "\n"}}{{ `]]>` | safeHTML }}</content:encoded>
             </item>
         {{ end }}
     </channel>
