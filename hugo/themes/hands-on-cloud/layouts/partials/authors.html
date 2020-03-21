@@ -1,0 +1,40 @@
+<div class="authors">
+    <h3 style="text-align: center;">Authors</h3>
+    <hr />
+    {{- range .Params.authors }}
+        {{- with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (urlize .)) }}
+        <div class="about_author">
+            <div class="author_avatar">
+                <img src="{{ .Params.photo }}" alt=""/>
+            </div>
+            <div class="author_bio">
+                <strong>{{ .Params.name }}</strong><br/>
+                {{ .Content }}
+                <div class="social_networks">
+                    {{ if and (.Params.linkedin) (ne .Params.linkedin "") }}
+                        <a href="https://www.linkedin.com/in/{{.Params.linkedin}}/" target="_blank" class="fa fa-linkedin"></a>
+                    {{ end }}
+
+                    {{ if and (.Params.github) (ne .Params.github "") }}
+                        <a href="https://www.github.com/{{.Params.github}}" target="_blank" class="fa fa-github"></a>
+                    {{ end }}
+
+                    {{ if and (.Params.facebook) (ne .Params.facebook "") }}
+                        <a href="https://www.facebook.com/{{.Params.facebook}}" target="_blank" class="fa fa-facebook" ></a>
+                    {{ end }}
+
+                    {{ if and (.Params.twitter) (ne .Params.twitter "") }}
+                        <a href="https://twitter.com/{{.Params.twitter}}" target="_blank" class="fa fa-twitter"></a>
+                    {{ end }}
+
+                    {{ if and (.Params.instagram) (ne .Params.instagram "") }}
+                        <a href="https://www.instagram.com/{{.Params.instagram}}" target="_blank" class="fa fa-instagram"></a>
+                    {{ end }}
+
+                </div>
+            </div>
+        </div>
+        {{ end }}
+    {{ end }}
+    <hr />
+</div>
