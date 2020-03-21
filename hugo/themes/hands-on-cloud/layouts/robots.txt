@@ -3,6 +3,7 @@ Allow: /
 
 Sitemap: https://hands-on.cloud/sitemap.xml
 
+Disallow: /authors/
 Disallow: /tags/
 Disallow: /page/
 Disallow: /*/page/

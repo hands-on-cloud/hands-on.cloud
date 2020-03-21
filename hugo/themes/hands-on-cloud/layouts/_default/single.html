@@ -14,6 +14,7 @@
           <main>
               <div class="content blog-content">
                   {{ .Content }}
+                  {{ partial "authors.html" . }}
               </div>
               <aside class="hidden lg:block tableOfContentContainer" id="tableOfContentContainer">
                   <h3>Table of contents</h3>
@@ -24,8 +25,13 @@
         {{ else }}
 
             <!-- Version of the page without table of contents -->
-            <div class="content blog-content">
-                {{ .Content }}
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="content blog-content">
+                        {{ .Content }}
+                        {{ partial "authors.html" . }}
+                    </div>
+                </div>
             </div>
 
         {{ end }}

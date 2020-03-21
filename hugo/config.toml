@@ -7,9 +7,9 @@ summaryLength = 40
 enableRobotsTXT = true
 
 [author]
-    author = 'Andrei Maksimov'
-    profile = 'Passionate Cloud Solutions Architect with 8+ years of experience.'
-    image = 'https://avatars2.githubusercontent.com/u/1902417?s=460&v=4'
+    name = 'Andrei Maksimov'
+    profile = 'Passionate Cloud Solutions Architect with 10+ years of experience.'
+    avatar = 'https://avatars2.githubusercontent.com/u/1902417?s=460&v=4'
 
 [Params]
     logo = "hands-on-cloud-logo.png"
@@ -27,3 +27,8 @@ enableRobotsTXT = true
     googleanalytics = "UA-137355839-1"
     googlecustomsearch = "005409723859646106283:xrxw99mawa4"
     toc = true
+
+[taxonomies]
+  author = "authors"
+  tag = "tags"
+  category = "categories"
