@@ -80,6 +80,10 @@ Looking for more guidance? Full documentation for Hugo lives [on the website](ht
     aws s3 sync ./public s3://$(terraform output origin_website_bucket)
     ```
 
+## Image manipulation
+
+The most comfortable and easy way of doing this is to use [Photopea](https://www.photopea.com/) - online free Photoshop alternative.
+
 ## Converting `.png` to `.webp`
 
 ```sh
