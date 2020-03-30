@@ -1,7 +1,7 @@
 ---
-title: 'EventBridge - Building loosely coupled event drivent serverless architectures'
+title: 'EventBridge - Building loosely coupled event driven serverless architectures'
 date: '2020-03-29'
-image: 'EventBridge-Building-loosely-coupled-event-drivent-serverless-architectures'
+image: 'EventBridge-Building-loosely-coupled-event-driven-serverless-architectures'
 tags:
   - python
   - cloudformation
@@ -16,7 +16,7 @@ authors:
   - Andrei Maksimov
 ---
 
-{{< my-picture name="EventBridge-Building-loosely-coupled-event-drivent-serverless-architectures" >}}
+{{< my-picture name="EventBridge-Building-loosely-coupled-event-driven-serverless-architectures" >}}
 
 From this article you'll learn, what is [Amazon EventBridge](https://aws.amazon.com/eventbridge/), what problems it help to solve and how you can use it to simplify your event driven workflows.
 
@@ -342,7 +342,7 @@ Resources:
 
 Of cause, you can use Lambda Function as a target to do something meaningfull with this information. For example, you may copy DB snapshot to another region for DR purpose.
 
-## Serverless AWS Workshops
+## AWS Serverless Workshops
 
 If you'd like to get more hands-on experience working with EventBridge and serverless technologies, I'd recommend you to take a look on those AWS Workshops:
 
