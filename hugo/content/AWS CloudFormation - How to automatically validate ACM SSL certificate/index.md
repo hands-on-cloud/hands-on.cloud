@@ -1,11 +1,17 @@
 ---
-title: 'CloudFormation. How to validate ACM SSL certificate'
+title: 'CloudFormation - How to validate ACM SSL certificate'
 date: '2020-02-29'
 image: 'CloudFormation-Validate-ACM-Certificate'
 tags:
-  - CloudFormation
-  - ACM
-  - SSL
+  - cloudformation
+  - template
+  - acm
+  - ssl
+  - certificate
+  - lambda
+  - route53
+  - dns
+  - python
 categories:
   - DevOps
 authors:

@@ -5,6 +5,7 @@ image: 'AWS-CloudFormation-How-to-create-DMS-infrastructure-for-relational-DB-mi
 tags:
   - cloudformation
   - dms
+  - instance
 categories:
   - AWS
 authors:

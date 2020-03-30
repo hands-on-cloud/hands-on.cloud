@@ -3,9 +3,12 @@ title: 'How to use CloudFormation to launch EC2 instance and automate its provis
 date: '2020-03-09'
 image: 'How-to-use-CloudFormation-to-launch-EC2-instance-and-automate-its-provisioning'
 tags:
+  - instance
   - cloudformation
   - ec2
   - docker
+  - vpc
+  - cfn-init
 categories:
   - AWS
 authors:

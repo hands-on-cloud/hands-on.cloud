@@ -7,6 +7,8 @@ tags:
   - serverless
   - SAM
   - python
+  - api
+  - deploy
 categories:
   - AWS
 authors:

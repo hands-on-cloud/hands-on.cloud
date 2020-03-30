@@ -7,6 +7,7 @@ tags:
   - security
   - iam
   - sts
+  - aws-vault
 categories:
   - AWS
 authors:

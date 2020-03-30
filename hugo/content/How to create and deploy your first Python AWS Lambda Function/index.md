@@ -6,6 +6,8 @@ tags:
   - python
   - cloudformation
   - tensorflow
+  - lambda
+  - bucket
 categories:
   - AWS
 authors:
