@@ -1,0 +1,32 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: >
+    This stack shows how to build your own EventBridge
+    bus
+
+Resources:
+
+    MyCustomEventBus:
+        Type: AWS::Events::EventBus
+        Properties: 
+            Name: !Sub '${AWS::StackName}-MyCustomEventBus'
+
+    MyCustomEventBusLogGroup:
+        Type: AWS::Logs::LogGroup
+        Properties: 
+            LogGroupName: !Sub '/aws/events/${AWS::StackName}-mycustomevents'
+            RetentionInDays: 7
+
+    MyCustomEventBusEventRule:
+        Type: AWS::Events::Rule
+        Properties:
+            Description: 'Catch All EventRule'
+            State: 'ENABLED'
+            EventBusName: !Ref 'MyCustomEventBus'
+            EventPattern:
+                account:
+                  - !Sub '${AWS::AccountId}'
+            Targets:
+                -
+                    Arn: !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${MyCustomEventBusLogGroup}'
+                    Id: !Sub 'MyCustomEventBusLogGroup'
