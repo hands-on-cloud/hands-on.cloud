@@ -1,0 +1,147 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: >
+    This stack shows how to trigger Lambda function in response
+    on S3 event
+
+Resources:
+
+    CloudTrailS3bucket:
+        Type: AWS::S3::Bucket
+
+    S3bucket:
+        Type: AWS::S3::Bucket
+
+    LambdaIamRole:
+        Type: 'AWS::IAM::Role'
+        Properties:
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    -
+                        Effect: Allow
+                        Principal:
+                            Service:
+                                - lambda.amazonaws.com
+                        Action:
+                            - 'sts:AssumeRole'
+            Path: /
+            Policies:
+                -
+                    PolicyName: root
+                    PolicyDocument:
+                        Version: 2012-10-17
+                        Statement:
+                            -
+                                Effect: Allow
+                                Action:
+                                    - 's3:GetObject'
+                                Resource:
+                                  - !Sub '${S3bucket.Arn}'
+                                  - !Sub '${S3bucket.Arn}/*'
+                            -
+                                Effect: Allow
+                                Action:
+                                    - 'logs:CreateLogGroup'
+                                    - 'logs:CreateLogStream'
+                                    - 'logs:PutLogEvents'
+                                Resource: 'arn:aws:logs:*:*:*'
+
+    LambdaPermissions:
+        Type: AWS::Lambda::Permission
+        Properties:
+            FunctionName: !GetAtt LambdaFunction.Arn
+            Action: lambda:InvokeFunction
+            Principal: events.amazonaws.com
+            SourceArn: !GetAtt EventBridgeRule.Arn
+
+    LambdaFunction:
+        Type: AWS::Lambda::Function
+        Properties:
+            Handler: index.handler
+            Role: !GetAtt LambdaIamRole.Arn
+            Runtime: python3.6
+            Timeout: 30
+            Code:
+                ZipFile: |
+                    import logging
+
+                    LOGGER = logging.getLogger(__name__)
+                    LOGGER.setLevel(logging.INFO)
+
+                    def handler(event, context):
+                        LOGGER.info('Event: %s', event)
+
+    EventBridgeLogGroup:
+        Type: AWS::Logs::LogGroup
+        Properties: 
+            LogGroupName: !Sub '/aws/events/${AWS::StackName}-s3-events'
+            RetentionInDays: 7
+
+    EventBridgeRule:
+        Type: AWS::Events::Rule
+        Properties:
+            Description: 'Rule, that send S3 events to Lambda function'
+            State: 'ENABLED'
+            EventPattern:
+                source:
+                    - 'aws.s3'
+                detail-type:
+                    - 'AWS API Call via CloudTrail'
+                detail:
+                    eventSource:
+                        - 's3.amazonaws.com'
+                    eventName:
+                        - 'PutObject'
+                    requestParameters:
+                        bucketName:
+                            - !Sub '${S3bucket}'
+            Targets:
+                -
+                    Arn: !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${EventBridgeLogGroup}'
+                    Id: !Sub 'EventBridgeLogGroup'
+                -
+                    Arn: !Sub '${LambdaFunction.Arn}'
+                    Id: 'TargetFunctionV1'
+
+    CloudTrailS3Policy:
+        Type: AWS::S3::BucketPolicy
+        Properties:
+            Bucket: !Sub '${CloudTrailS3bucket}'
+            PolicyDocument:
+                Version: '2012-10-17'
+                Statement:
+                    -
+                        Effect: Allow
+                        Principal:
+                            Service: 'cloudtrail.amazonaws.com'
+                        Action: 's3:GetBucketAcl'
+                        Resource: !Sub '${CloudTrailS3bucket.Arn}'
+                    - 
+                        Effect: Allow
+                        Principal:
+                            Service: 'cloudtrail.amazonaws.com'
+                        Action: 's3:PutObject'
+                        Resource: !Sub '${CloudTrailS3bucket.Arn}/*AWSLogs/${AWS::AccountId}/*'
+                        Condition:
+                            StringEquals:
+                                's3:x-amz-acl': 'bucket-owner-full-control'
+
+    S3ObjectLevelCloudTrail:
+        Type: 'AWS::CloudTrail::Trail'
+        DependsOn:
+            - CloudTrailS3Policy
+        Properties:
+            IsLogging: true
+            IsMultiRegionTrail: true
+            IncludeGlobalServiceEvents: true
+            S3BucketName: !Sub '${CloudTrailS3bucket}'
+            EventSelectors:
+                -
+                    DataResources:
+                        -
+                            Type: 'AWS::S3::Object'
+                            Values:
+                                - !Sub '${S3bucket.Arn}/'
+                    IncludeManagementEvents: true
+                    ReadWriteType: All
