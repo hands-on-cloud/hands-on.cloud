@@ -5,9 +5,13 @@ image: 'hands-on-cloud-architecture-cicd-pipeline'
 tags:
   - docker
   - git
+  - repository
+  - pipeline
   - circleci
   - cypress
   - terraform
+  - environment
+  - infrastructure
 categories:
   - AWS
   - DevOps

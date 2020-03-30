@@ -7,6 +7,9 @@ tags:
   - cloudformation
   - step functions
   - lambda
+  - rds
+  - snapshot
+  - boto3
 categories:
   - AWS
 authors:
