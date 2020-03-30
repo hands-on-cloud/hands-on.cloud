@@ -5,7 +5,7 @@
         {{- with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (urlize .)) }}
         <div class="about_author">
             <div class="author_avatar">
-                <img src="{{ .Params.photo }}" alt=""/>
+                <img src="{{ .Params.photo }}" alt="Author avatar"/>
             </div>
             <div class="author_bio">
                 <strong>{{ .Params.name }}</strong><br/>
