@@ -9,4 +9,5 @@
     width="100%"
     src="{{ with .Page.Resources.GetMatch (printf "%s.png" (.Get "name")) }}{{ .RelPermalink | absURL }}{{ end }}"
     data-lazy-src="{{ with .Page.Resources.GetMatch (printf "%s.png" (.Get "name")) }}{{ .RelPermalink | absURL }}{{ end }}"
+    {{ if .Params.alt }}alt="{{ .Params.alt }}"{{else}}alt="{{ replace (.Get "name") "-" " " }}"{{end}}
 />
