@@ -17,7 +17,7 @@ authors:
 
 {{< my-picture name="How-to-use-AWS-SAM-to-simplify-Serverless-Python-applications-development" >}}
 
-We already know [How to create and deploy your first Python AWS Lambda Function](https://hands-on.cloud/how-to-create-and-deploy-your-first-python-3.6-aws-lambda-function/) from scratch without using any frameworks. Meanwhile, we mentioned some, and one of those was SAM.
+We already know [How to create and deploy your first Python AWS Lambda Function](https://hands-on.cloud/how-to-create-and-deploy-your-first-python-aws-lambda-function/) from scratch without using any frameworks. Meanwhile, we mentioned some, and one of those was SAM.
 
 [AWS Serverless Application Model (SAM)](https://aws.amazon.com/serverless/sam/) is a open-source framework that allows you to simplify development of Lambda functions for your serverless applications in AWS Cloud, where you need fine graned control of your cloud infrastructure components.
 
