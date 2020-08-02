@@ -12,6 +12,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# How to manage multiple CodeCommit repositories from the single machine
 
 {{< my-picture name="How-to-manage-multiple-CodeCommit-repositories-from-the-single-machine" >}}
 

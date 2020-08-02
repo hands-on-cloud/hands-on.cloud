@@ -13,6 +13,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# Running Jaeger v1.11 backed by Elasticsearch OSS v6.7.0 using Docker Compose
 
 {{< my-picture name="Running-Jaeger-v1.11-backed-by-Elasticsearch-OSS-v6.7" >}}
 

@@ -11,6 +11,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# AWS Step Functions. How to process arrays
 
 {{< my-picture name="AWS-Step-Functions-How-to-process-arrays">}}
 

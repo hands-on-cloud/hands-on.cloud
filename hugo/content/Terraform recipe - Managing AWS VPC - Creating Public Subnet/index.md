@@ -11,6 +11,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# Terraform recipe - Managing AWS VPC - Creating Public Subnet
 
 {{< my-picture name="Terraform-Recipe-Managing-AWS-VPC-Creating-Public-Subnet" >}}
 

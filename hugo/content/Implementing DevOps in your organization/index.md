@@ -9,6 +9,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# Implementing DevOps in your organization
 
 {{< my-picture name="Implementing-DevOps-in-your-organization" >}}
 

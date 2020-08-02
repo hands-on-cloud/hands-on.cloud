@@ -15,6 +15,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 2
 
 {{< my-picture name="Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2" >}}
 

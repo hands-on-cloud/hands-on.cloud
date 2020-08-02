@@ -15,6 +15,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# AWS Step Functions - How to manage long running tasks
 
 {{< my-picture name="AWS-Step-Functions-How-to-manage-long-running-tasks" >}}
 

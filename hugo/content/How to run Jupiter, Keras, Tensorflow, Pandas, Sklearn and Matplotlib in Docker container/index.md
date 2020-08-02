@@ -19,6 +19,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# How to run Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib in Docker container
 
 {{< my-picture name="How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container" >}}
 

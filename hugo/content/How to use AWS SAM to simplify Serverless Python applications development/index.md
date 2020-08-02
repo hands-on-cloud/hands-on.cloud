@@ -14,6 +14,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# How to use AWS SAM to simplify Serverless Python applications development
 
 {{< my-picture name="How-to-use-AWS-SAM-to-simplify-Serverless-Python-applications-development" >}}
 

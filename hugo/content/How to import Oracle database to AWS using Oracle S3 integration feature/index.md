@@ -12,6 +12,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# How to import Oracle database to AWS using Oracle S3 integration feature
 
 {{< my-picture name="How-to-import-Oracle-database-to-AWS-using-Oracle-S3-integration-feature" >}}
 

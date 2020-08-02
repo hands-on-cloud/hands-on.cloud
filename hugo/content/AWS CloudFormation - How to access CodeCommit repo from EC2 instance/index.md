@@ -13,6 +13,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# CloudFormation. How to access CodeCommit repo from EC2 instance
 
 {{< my-picture name="CloudFormation-How-to-access-CodeCommit-repo-from-EC2-instance">}}
 
