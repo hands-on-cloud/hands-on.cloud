@@ -11,6 +11,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# Terraform recipe – Managing Auto Scaling Groups and Load Balancers
 
 {{< my-picture name="Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers" >}}
 

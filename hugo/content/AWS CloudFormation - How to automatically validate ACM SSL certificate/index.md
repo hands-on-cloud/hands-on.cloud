@@ -17,6 +17,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# CloudFormation - How to validate ACM SSL certificate
 
 {{< my-picture name="CloudFormation-Validate-ACM-Certificate">}}
 

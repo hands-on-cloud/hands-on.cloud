@@ -12,6 +12,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# How to migrate Google DataStore to AWS DynamoDB
 
 {{< my-picture name="How-to-migrate-Google-DataStore-to-AWS-DynamoDB" >}}
 

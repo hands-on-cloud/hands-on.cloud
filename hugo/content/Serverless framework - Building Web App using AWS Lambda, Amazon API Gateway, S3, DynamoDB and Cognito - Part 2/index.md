@@ -14,6 +14,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# Serverless framework – Building Web App using AWS Lambda Amazon API Gateway S3 DynamoDB and Cognito – Part 2
 
 {{< my-picture name="Serverless-framework-Building-Web-App-using-AWS-Lambda-Amazon-API-Gateway-S3-DynamoDB-and-Cognito" >}}
 

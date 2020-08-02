@@ -11,6 +11,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# AWS CloudFormation - How to create DMS infrastructure for relational DB migration
 
 {{< my-picture name="AWS-CloudFormation-How-to-create-DMS-infrastructure-for-relational-DB-migration" >}}
 

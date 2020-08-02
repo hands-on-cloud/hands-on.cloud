@@ -11,6 +11,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# Terraform recipe - Managing AWS VPC - Creating Private Subnets
 
 {{< my-picture name="Terraform-recipe-Managing-AWS-VPC-Creating-Private-Subnets" >}}
 

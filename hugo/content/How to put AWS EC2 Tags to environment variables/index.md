@@ -11,6 +11,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# How to put AWS EC2 Tags to environment variables
 
 {{< my-picture name="How-to-put-AWS-EC2-Tags-to-environment-variables" >}}
 

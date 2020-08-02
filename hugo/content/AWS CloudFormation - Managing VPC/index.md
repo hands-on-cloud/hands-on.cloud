@@ -10,6 +10,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# AWS CloudFormation - Managing VPC
 
 {{< my-picture name="AWS-CloudFormation-Managing-VPC" >}}
 

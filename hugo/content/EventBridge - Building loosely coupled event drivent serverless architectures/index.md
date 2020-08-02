@@ -15,6 +15,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# EventBridge - Building loosely coupled event driven serverless architectures
 
 {{< my-picture name="EventBridge-Building-loosely-coupled-event-driven-serverless-architectures" >}}
 

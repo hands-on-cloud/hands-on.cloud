@@ -10,6 +10,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# How to setup Jupyter behind Nginx proxy
 
 {{< my-picture name="How-to-setup-Jupyter-behind-Nginx-proxy" >}}
 

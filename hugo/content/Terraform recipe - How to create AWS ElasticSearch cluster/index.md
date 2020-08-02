@@ -13,6 +13,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# Terraform recipe - How to create AWS ElasticSearch cluster
 
 {{< my-picture name="Terraform-recipe-How-to-create-AWS-ElasticSearch-cluster" >}}
 

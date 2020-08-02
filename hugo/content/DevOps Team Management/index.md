@@ -9,6 +9,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# DevOps Team Management
 
 {{< my-picture name="DevOps-Team-Management">}}
 

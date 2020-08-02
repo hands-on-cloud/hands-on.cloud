@@ -9,6 +9,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# How to achieve all AWS Certifications
 
 {{< my-picture name="How-to-achieve-all-AWS-Certifications">}}
 

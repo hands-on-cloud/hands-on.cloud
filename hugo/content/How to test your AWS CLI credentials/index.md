@@ -9,6 +9,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# How to test your AWS CLI credentials
 
 {{< my-picture name="How-to-test-your-AWS-CLI-credentials" >}}
 

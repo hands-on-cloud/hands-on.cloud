@@ -14,6 +14,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
+# How to use CloudFormation to launch EC2 instance and automate its provisioning
 
 {{< my-picture name="How-to-use-CloudFormation-to-launch-EC2-instance-and-automate-its-provisioning" >}}
 
