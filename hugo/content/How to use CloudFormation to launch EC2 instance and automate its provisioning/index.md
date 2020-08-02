@@ -22,10 +22,18 @@ This article is a contains a simple CloudFormation template for correct launch a
 
 ## Solution description
 
-Here we'll setup a basic VPC infrastructure, with 4 subnets (2 public, 2 private) and launch Amazon Linux EC2 instance in one of the public subnets. Also we'll use CloudFormation Metadata ([AWS::CloudFormation::Init](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html)) to provide automation instructions for `cfn-init` scripts.
-For our JumpHost also create create and attach instance profile with full Administrative permissions for yuor AWS the account. Plase, feel free to restrict permissions for your use-case.
+Basic VPC infrastructure setup with 4 subnets:
 
-This is a basic infrastructure building block, which may be used as a base for any automation, so prity much any CloudFormation template starts from it.
+* 2 public subnets
+* 2 private subnets
+
+Amazon Linux EC2 instance is to be launched in one of the public subnets.
+
+CloudFormation Metadata ([AWS::CloudFormation::Init](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html)) is to provide automation instructions for `cfn-init` scripts.
+
+`JumpHost` is to have instance profile with full Administrative permissions for your AWS the account. Feel free to restrict permissions for your use-case.
+
+This is a basic infrastructure building block. It may be used as a base for any automation, so prity much any CloudFormation template starts from it.
 
 ## Solution implementation
 
@@ -56,16 +64,16 @@ Resources:
 
     Vpc:
         Type: AWS::EC2::VPC
-        Properties: 
+        Properties:
             CidrBlock: !Ref VpcCidrBlock
             EnableDnsHostnames: true
             EnableDnsSupport: true
             InstanceTenancy: default
-            Tags: 
+            Tags:
                 -
                     Key: Name
                     Value: !Sub '${AWS::StackName}-vpc'
-    
+
     PrivateSubnetOne:
         Type: AWS::EC2::Subnet
         Properties:
@@ -76,10 +84,10 @@ Resources:
             VpcId: !Ref 'Vpc'
             CidrBlock: !Select [ 0, !Cidr [ !GetAtt Vpc.CidrBlock, 4, 6 ]]
             Tags:
-                - 
+                -
                     Key: Name
                     Value: !Sub '${AWS::StackName}-private-subnet-one'
-    
+
     PrivateRouteTable:
         Type: AWS::EC2::RouteTable
         Properties:
@@ -88,7 +96,7 @@ Resources:
                 -
                     Key: Name
                     Value: !Sub '${AWS::StackName}-private-rt'
-    
+
     PrivateRouteTableSubnetAssociationOne:
         Type: AWS::EC2::SubnetRouteTableAssociation
         Properties:
@@ -100,7 +108,7 @@ Resources:
         Properties:
             RouteTableId: !Ref PrivateRouteTable
             SubnetId: !Ref PrivateSubnetTwo
-    
+
     PrivateSubnetTwo:
         Type: AWS::EC2::Subnet
         Properties:
@@ -114,7 +122,7 @@ Resources:
                 -
                     Key: Name
                     Value: !Sub '${AWS::StackName}-private-subnet-two'
-    
+
     PublicSubnetOne:
         Type: AWS::EC2::Subnet
         Properties:
@@ -139,7 +147,7 @@ Resources:
             VpcId: !Ref 'Vpc'
             CidrBlock: !Select [ 3, !Cidr [ !GetAtt Vpc.CidrBlock, 4, 6 ]]
             Tags:
-                - 
+                -
                     Key: Name
                     Value: !Sub '${AWS::StackName}-public-subnet-two'
 
@@ -150,13 +158,13 @@ Resources:
                 -
                     Key: Name
                     Value: !Sub '${AWS::StackName}-igw'
-      
+
     GatewayAttachement:
         Type: AWS::EC2::VPCGatewayAttachment
         Properties:
           VpcId: !Ref Vpc
           InternetGatewayId: !Ref InternetGW
-    
+
     PublicRouteTable:
         Type: AWS::EC2::RouteTable
         Properties:
@@ -165,7 +173,7 @@ Resources:
                 -
                     Key: Name
                     Value: !Sub '${AWS::StackName}-public-rt'
-    
+
     PublicRoute:
         Type: AWS::EC2::Route
         DependsOn: GatewayAttachement
@@ -173,7 +181,7 @@ Resources:
             RouteTableId: !Ref PublicRouteTable
             DestinationCidrBlock: 0.0.0.0/0
             GatewayId: !Ref InternetGW
-    
+
     PublicRouteTableSubnetAssociationOne:
         Type: AWS::EC2::SubnetRouteTableAssociation
         Properties:
@@ -185,7 +193,7 @@ Resources:
         Properties:
             RouteTableId: !Ref PublicRouteTable
             SubnetId: !Ref PublicSubnetTwo
-    
+
     PublicAccessSecurityGroup:
         Type: AWS::EC2::SecurityGroup
         Properties:
@@ -314,12 +322,12 @@ There're several important metadata blocks, which are used for `JumpHost` instan
 ```yaml
 CreationPolicy:
     ResourceSignal:
-    	Timeout: PT5M
+        Timeout: PT5M
 ```
 
-This block is telling CloudFormation to rollback stack changes, if it does not receive successfull resource creation signal. This signal is sent by either `cfn_success`, either `cfn_fail` function depending on a condition.
+This block waits 15 minutes for successful resource creation signal. Then it signals CloudFormation to rollback stack changes. This signal can be send by `cfn_success` or `cfn_fail` function depending on a condition.
 
-Project [quickstart-linux-utilities](https://github.com/aws-quickstart/quickstart-linux-utilities) significantly simplifies cfn-init installation for the instances, where it has not been installed.
+Project [quickstart-linux-utilities](https://github.com/aws-quickstart/quickstart-linux-utilities) simplifies `cfn-init` installation for the instances.
 
 ```sh
 cfn-init -v --stack ${AWS::StackName} \
