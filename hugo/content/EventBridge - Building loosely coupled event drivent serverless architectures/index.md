@@ -22,34 +22,34 @@ From this article you'll learn, what is [Amazon EventBridge](https://aws.amazon.
 
 ## What's Amazon EventBridge
 
-The very first thing we need to do, is to briefly describe EventBridge. From the official service page:
+The very first thing we need to do, is to describe EventBridge. From the official service page:
 
 > Amazon EventBridge is a serverless event bus that makes it easy to connect applications together using data from your own applications, integrated Software-as-a-Service (SaaS) applications, and AWS services.
 
-The main purpouse of this service is to accept events from many different services (not only AWS services, but also 3-rd parties) and route them to one or more targets to do some meaningfull work in response to received event.
+The main purpose of Amazon EventBridge is to accept events from many different sources and route them to one or more targets. That helps you simplify events routing before doing meaningfull work in response to received event.
 
 EventBridge consists of the following entities:
 
 * **Events** - represents a state changes at remote system; you're receiving events as a JSON structure
 * **Rules** - matches incoming events and routes them to targets for futher processing
 * **Targets** - something, that should react on the events; it is usually something like a Lambda Function, SQS, SNS, EC2 instance, Fargate Task, etc.
-* **Event buses** - event bus that receives events, `default` one is receiving your AWS events; you may add additional ones to receive events from your partners
+* **Event buses** - those receives and routes events. `default` one is receiving your AWS events. You may add more Event Buses to receive events from your partners
 
-Having Amazon EventBridge as apart of your serverless architecture has several very important benefits:
+Using Amazon EventBridge in your Serverless architecture has several very important benefits:
 
 * It simplifies your entire architecture, as you don't have to manage complex events routing rules
-* It simplifies your development process - most of heavy lisfting is done for you by AWS; all you need to do, is to implement you lambda function logic
-* It unifies the event processing logic - all events are delivered to your targets automatically, no more need to do SQS pull, for example
+* It simplifies your development process - most of heavy-lifting is done for you by AWS; all you need to do, is to develop you lambda function logic
+* It unifies the event processing logic - all events are delivered to your targets, no more need to do SQS pull
 
 ## Creating you own EventBridge bus
 
-If you already built a system, which produces events, you may want to start publishing them to a separate EventBidge bus and allow other systems get those event notifications.
+If you already built a system, which produces events, you may want to start publishing them to EventBidge. Here's an example of doing that.
 
 Let's create a simple EventBus, which receives Events and logs them to CloudWatch (for debugging purpose, for example).
 
 {{< my-picture name="EventBridge-Custom-EventBus" >}}
 
-CloudFormation stack template to create EventBus, which uses CloudWatch LogGroup as a target, may look something like that:
+CloudFormation stack is to create EventBus, which uses CloudWatch LogGroup as a target, may look something like that:
 
 ```yaml
 AWSTemplateFormatVersion: 2010-09-09
@@ -135,9 +135,9 @@ In the stack template below we're creating two buckets:
 * `S3bucket` - bucket to demo upload operation
 * `CloudTrailS3bucket` - bucket to store CloudTrail Logs
 
-CloudTrail may be configured dirrerently for each of you, so we'll create a new trail to garantee the result. We need to enable Object Level Logging (`S3ObjectLevelCloudTrail`) for S3 bucket to be able receive EventBridge events and process them later by our Lambda function. 
+CloudTrail may be configured for each of you, so we'll create a new trail to garantee the result. We need to enable Object Level Logging (`S3ObjectLevelCloudTrail`) for S3 bucket first. Now we can receive EventBridge events and process them in Lambda function.
 
-Lambda function does only logging operation of incoming event for a simplicity of an example. And we also use CloudWatch logging as a second target (that helped me to debug the satack).
+Lambda function does only logging operation of incoming event for a simplicity of an example. And we also use CloudWatch logging as a second target (that helped me to debug the stack).
 
 ```yaml
 AWSTemplateFormatVersion: 2010-09-09
@@ -344,7 +344,7 @@ Of cause, you can use Lambda Function as a target to do something meaningfull wi
 
 ## AWS Serverless Workshops
 
-If you'd like to get more hands-on experience working with EventBridge and serverless technologies, I'd recommend you to take a look on those AWS Workshops:
+If you’d like to get more hands-on experience using EventBridge and serverless technologies, I’d recommend you to take a look on those AWS Workshops:
 
 * [CDK Workshop](https://cdkworkshop.com)
 * [Building Event-Driven Architectures on AWS](https://event-driven-architecture.workshop.aws/getting-started.html)
