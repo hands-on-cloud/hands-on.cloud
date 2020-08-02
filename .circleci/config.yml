@@ -172,31 +172,6 @@ jobs:
             aws s3 cp s3://origin.hands-on.cloud/ s3://origin.hands-on.cloud/ --metadata-directive REPLACE --recursive --cache-control max-age=2592000
             aws cloudfront create-invalidation --distribution-id=EWBD72KPWWTA4 --paths "/*"
 
-  run_ui_tests:
-    docker:
-      - image: cypress/base:10
-    working_directory: *working_directory
-    steps:
-      - *set_environment
-      - *restore_repo
-      - attach_workspace:
-          at: *working_directory
-      - run:
-          name: Install Cypress
-          command: |
-            npm install
-      - run:
-          name: Run Cypress tests
-          command: |
-            . $BASH_ENV
-            export CYPRESS_BASE_URL="http://${ENVIRONMENT_DOMAIN}"
-            $(npm bin)/cypress run #--record --key ${ENVIRONMENT_ID}
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-      - *save_repo
-
   destroy_testing:
     <<: *default_terraform_config
     steps:
@@ -240,13 +215,6 @@ workflows:
             branches:
               ignore:
                 - master
-      # - run_ui_tests:
-      #     requires:
-      #       - deploy_test_website
-      #     filters:
-      #       branches:
-      #         ignore:
-      #           - master
       # - request-manual-approval:
       #     type: approval
       #     requires:
