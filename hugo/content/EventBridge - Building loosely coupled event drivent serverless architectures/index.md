@@ -7,7 +7,6 @@ tags:
   - cloudformation
   - step functions
   - lambda
-  - eventbridge
   - s3
   - cloudwatch
 categories:
