@@ -1,0 +1,104 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: >
+  This stack creates DynamoDB table and subscribe looging Lambda function to
+  DynamoDB stream.
+
+Resources:
+
+  rLoggingFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: python3.7
+      Timeout: '300'
+      Handler: index.handler
+      Role: !GetAtt rLambdaRole.Arn
+      Code:
+        ZipFile: |
+          import logging
+
+          LOGGER = logging.getLogger()
+          LOGGER.setLevel(logging.INFO)
+
+          def handler(event, context):
+            LOGGER.info('Received Event: %s', event)
+            for rec in event['Records']:
+              LOGGER.info('Record: %s', rec)
+
+  rLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        # Allow Lambda to assume this role
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: LambdaRolePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            # Allow Lambda to write logs to CloudWatch
+            - Effect: Allow
+              Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              Resource: arn:aws:logs:*:*:*
+            # Allow Lambda to read from the DynamoDB stream
+            - Effect: Allow
+              Action:
+              - dynamodb:DescribeStream
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:ListStreams
+              Resource: "*"
+
+  rDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+
+  rDynamoDBTableStream:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      # The maximum number of DB items to send to Lambda
+      BatchSize: 1
+      Enabled: True
+      EventSourceArn: !GetAtt rDynamoDBTable.StreamArn
+      FunctionName: !GetAtt rLoggingFunction.Arn
+      # Always start at the tail of the Stream
+      StartingPosition: LATEST
+
+  rLambdaFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Join
+        - ''
+        - - '/aws/lambda/'
+          -  !Ref rLoggingFunction
+      RetentionInDays: 14
+
+Outputs:
+
+  rLoggingFunctionName:
+    Value: !Ref rLoggingFunction
+
+  oDynamoDBTableName:
+    Value: !Ref rDynamoDBTable
