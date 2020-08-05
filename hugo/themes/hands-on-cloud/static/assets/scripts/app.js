@@ -32,4 +32,23 @@ jQuery(document).ready(function($){
 	DeferLoadImages();
 
 	$("#TableOfContents").scrollspy({ offset: -85 });
+
+	const tags = document.getElementsByTagName('meta')['keywords']['content'].replace(',', '');
+	if (tags != undefined) {
+		const url = "https://api.hands-on.cloud/?tags=" + tags;
+		$.get(url, function(a) {
+			const data = JSON.parse(a);
+			data.forEach(element => {
+				var div_item = $('<div>', {class: 'carousel-item'});
+				var div_item_a = $('<a>',{href: element.linkurl});
+				var div_item_img = $('<img>',{src: element.imageurl, class: 'd-block w-100', alt: element.productname});
+				var div_item_caption = $('<div>',{class: 'carousel-caption d-none d-md-block'});
+				var div_item_caption_h6 = $('<h6>',{text: element.productname});
+
+				var banner = div_item.append(div_item_a.append(div_item_img, div_item_caption.append(div_item_caption_h6)));
+				$("div.linkshare_carousel div.carousel-inner").append(banner);
+				$("div.linkshare_carousel div.carousel-inner div.carousel-item:first").addClass("active");
+			});
+		});
+	}
 })
