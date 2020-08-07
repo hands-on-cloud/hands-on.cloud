@@ -14,7 +14,15 @@
             
                 <div class="card mb-4 shadow-sm">
                     <a href="{{ .RelPermalink }}">
-                        <img data-lazy-src="{{ .Permalink | absURL }}{{ .Params.image }}.png" width="100%" alt="{{ .Title }}">
+                        <!--
+                            <img data-lazy-src="{{ .Permalink | absURL }}{{ .Params.image }}.png" width="100%" alt="{{ .Title }}">
+                        -->
+                        {{ with .Resources.Match (print .Params.image ".png") }}
+                            {{ range . }}
+                                {{ $r := .Resize "500x" }}
+                                <img data-lazy-src="{{ $r.Permalink | absURL }}" width="100%" alt="{{ .Title }}">
+                            {{ end }}
+                        {{ end }}
                     </a>
                     <div class="card-body">
                         <a href="{{ .RelPermalink }}">
