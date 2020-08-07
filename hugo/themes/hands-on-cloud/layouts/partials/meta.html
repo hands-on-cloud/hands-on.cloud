@@ -9,13 +9,17 @@
 <!--Description Tags-->
 {{ if .Params.tags }}
 <meta name="keywords" content="{{ delimit .Params.tags ", " }}" />
-{{ else }}
-<meta name="keywords" content="{{ .Site.Params.keywords }}" />
-{{ end }}
 <meta name="description" content="{{ .Summary }}" />
 <meta itemprop="description" content="{{ .Summary }}" />
 <meta property="og:description" content="{{ .Summary }}" />
 <meta name="twitter:description" content="{{ .Summary }}" />
+{{ else }}
+<meta name="keywords" content="{{ .Site.Params.keywords }}" />
+<meta name="description" content="{{ .Site.Params.description }}" />
+<meta itemprop="description" content="{{ .Site.Params.description }}" />
+<meta property="og:description" content="{{ .Site.Params.description }}" />
+<meta name="twitter:description" content="{{ .Site.Params.description }}" />
+{{ end }}
 
 <!--Link Tags-->
 <base href="{{ .Permalink }}">

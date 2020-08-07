@@ -77,3 +77,6 @@ yarn-error.log
 # Cypress videos
 cypress/videos/
 cypress/screenshots/
+
+#Hugo
+_gen/
