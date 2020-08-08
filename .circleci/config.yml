@@ -124,23 +124,24 @@ jobs:
           name: Build Hugo website
           command: |
             . $BASH_ENV
+            PROJECT_HOME=$(pwd)
             echo "Running Hugo build..."
             ls -al
             cd hugo
             sed -r -i.bak "s@http:\/\/localhost@http:\/\/${ENVIRONMENT_DOMAIN}@g" config.toml
-            hugo -v -d public_test
+            hugo -v -d public_test || hugo -v -d public_test
             cp config.toml.bak config.toml
             sed -r -i.bak "s@http:\/\/localhost@https:\/\/hands-on.cloud@g" config.toml
-            hugo -v -d public_prod
+            hugo -v -d public_prod || hugo -v -d public_test
             echo "Adding ads.txt to support AdSense requirements..."
             echo "google.com, pub-2729052102059896, DIRECT, f08c47fec0942fa0" > public_test/ads.txt
             echo "google.com, pub-2729052102059896, DIRECT, f08c47fec0942fa0" > public_prod/ads.txt
+            cd "$PROJECT_HOME"
       - *save_repo
       - persist_to_workspace:
           root: *working_directory
           paths:
-            - hugo/public_test/ads.txt
-            - hugo/public_prod/ads.txt
+            - ./
 
   create_or_update_testing:
     <<: *default_terraform_config
@@ -159,7 +160,7 @@ jobs:
       - persist_to_workspace:
           root: *working_directory
           paths:
-            - terraform/terraform_testing.plan
+            - ./
 
   deploy_test_website:
     docker:
@@ -195,7 +196,7 @@ jobs:
       - persist_to_workspace:
           root: *working_directory
           paths:
-            - terraform/terraform_prod.plan
+            - ./
 
   deploy_prod_website:
     docker:
@@ -261,19 +262,19 @@ workflows:
             branches:
               ignore:
                 - master
-      # - request-manual-approval:
-      #     type: approval
-      #     requires:
-      #       - deploy_test_website
-      #     filters:
-      #       branches:
-      #         ignore:
-      #           - master
+      - request-manual-approval:
+          type: approval
+          requires:
+            - deploy_test_website
+          filters:
+            branches:
+              ignore:
+                - master
       - destroy_testing:
           context: hands-on-cloud
           requires:
-            - deploy_test_website
-            #- request-manual-approval
+            #- deploy_test_website
+            - request-manual-approval
           filters:
             branches:
               ignore:

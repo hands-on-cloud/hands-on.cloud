@@ -17,12 +17,19 @@
                         <!--
                             <img data-lazy-src="{{ .Permalink | absURL }}{{ .Params.image }}.png" width="100%" alt="{{ .Title }}">
                         -->
-                        {{ with .Resources.Match (print .Params.image ".png") }}
-                            {{ range . }}
-                                {{ $r := .Resize "500x" }}
-                                <img data-lazy-src="{{ $r.Permalink | absURL }}" width="100%" alt="{{ .Title }}">
+                        <picture>
+                            {{ with .Resources.Match (print .Params.image ".webp") }}
+                                {{ range . }}
+                                    <source srcset="{{ .Permalink | absURL }}" type="image/webp" class="lazyload">
+                                {{ end }}
                             {{ end }}
-                        {{ end }}
+                            {{ with .Resources.Match (print .Params.image ".png") }}
+                                {{ range . }}
+                                    {{ $r := .Resize "500x" }}
+                                    <img data-lazy-src="{{ $r.Permalink | absURL }}" width="100%" alt="{{ .Title }}" class="lazyload">
+                                {{ end }}
+                            {{ end }}
+                        </picture>
                     </a>
                     <div class="card-body">
                         <a href="{{ .RelPermalink }}">
