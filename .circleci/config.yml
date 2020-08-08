@@ -74,16 +74,58 @@ jobs:
             . $BASH_ENV
             pytest tests -s
 
+  build_next_gen_images:
+    docker:
+      - image: v4tech/imagemagick:latest
+    working_directory: *working_directory
+    steps:
+      - *set_environment
+      - checkout
+      - run:
+          name: Install libwebp-tools
+          command: |
+            apk --update add libwebp-tools ca-certificates
+      - run:
+          name: Generate images
+          command: |
+            . $BASH_ENV
+            PROJECT_HOME=$(pwd)
+            HUGO_CONTENT=$(pwd)/hugo/content
+            cd $HUGO_CONTENT
+            for article in *; do
+              if [ "$article" = "authors" ]; then
+                continue
+              fi
+              echo "[Processing]: $article"
+              cd "$HUGO_CONTENT/$article"
+              for file in *.png; do
+                convert "$file" -quality 50 -define webp:lossless=true "${file%.png}.webp";
+              done
+              for file in *.webp; do
+                dwebp "$file" -o "${file%.webp}.jpg";
+              done
+              #for file in *.webp; do
+              #  dwebp "$file" -o "${file%.webp}.png";
+              #done
+            done
+            cd "$PROJECT_HOME"
+      - *save_repo
+      - persist_to_workspace:
+          root: *working_directory
+          paths:
+            - ./
+
   build:
     <<: *default_hugo_config
     steps:
       - *set_environment
-      - checkout
+      - *restore_repo
       - run:
           name: Build Hugo website
           command: |
             . $BASH_ENV
             echo "Running Hugo build..."
+            ls -al
             cd hugo
             sed -r -i.bak "s@http:\/\/localhost@http:\/\/${ENVIRONMENT_DOMAIN}@g" config.toml
             hugo -v -d public_test
@@ -195,10 +237,14 @@ workflows:
   build-test-deploy:
     jobs:
       - run_unit_tests
-      - build:
+      - build_next_gen_images:
           context: hands-on-cloud
           requires:
             - run_unit_tests
+      - build:
+          context: hands-on-cloud
+          requires:
+            - build_next_gen_images
       - create_or_update_testing:
           context: hands-on-cloud
           requires:
