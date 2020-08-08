@@ -6,7 +6,6 @@ pygmentsCodeFences = true
 summaryLength = 40
 enableRobotsTXT = true
 timeout = 60000
-ignorecache = false
 
 [author]
     name = 'Andrei Maksimov'
