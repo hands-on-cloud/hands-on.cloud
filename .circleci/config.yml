@@ -101,9 +101,9 @@ jobs:
               for file in *.png; do
                 convert "$file" -quality 50 -define webp:lossless=true "${file%.png}.webp";
               done
-              for file in *.webp; do
-                dwebp "$file" -o "${file%.webp}.jpg";
-              done
+              # for file in *.webp; do
+              #   dwebp "$file" -o "${file%.webp}.jpg";
+              # done
               #for file in *.webp; do
               #  dwebp "$file" -o "${file%.webp}.png";
               #done
@@ -262,19 +262,19 @@ workflows:
             branches:
               ignore:
                 - master
-      - request-manual-approval:
-          type: approval
-          requires:
-            - deploy_test_website
-          filters:
-            branches:
-              ignore:
-                - master
+      # - request-manual-approval:
+      #     type: approval
+      #     requires:
+      #       - deploy_test_website
+      #     filters:
+      #       branches:
+      #         ignore:
+      #           - master
       - destroy_testing:
           context: hands-on-cloud
           requires:
-            #- deploy_test_website
-            - request-manual-approval
+            - deploy_test_website
+            #- request-manual-approval
           filters:
             branches:
               ignore:
