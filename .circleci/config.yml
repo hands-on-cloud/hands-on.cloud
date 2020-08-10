@@ -12,7 +12,7 @@ default_hugo_config: &default_hugo_config
 
 default_terraform_config: &default_terraform_config
   docker:
-    - image: hashicorp/terraform:0.12.28
+    - image: hashicorp/terraform:0.12.29
   working_directory: *working_directory
 
 set_environment: &set_environment
