@@ -1,5 +1,5 @@
 ---
-title: 'AWS CloudFormation - How to create DMS infrastructure for relational DB migration'
+title: 'CloudFormation: How to create DMS infrastructure for DB migration'
 date: '2020-03-16'
 image: 'AWS-CloudFormation-How-to-create-DMS-infrastructure-for-relational-DB-migration'
 tags:
@@ -11,7 +11,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# AWS CloudFormation - How to create DMS infrastructure for relational DB migration
+# CloudFormation: How to create DMS infrastructure for DB migration
 
 {{< my-picture name="AWS-CloudFormation-How-to-create-DMS-infrastructure-for-relational-DB-migration" >}}
 

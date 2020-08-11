@@ -1,5 +1,5 @@
 ---
-title: 'How to build Python Data Science Docker container based on Anaconda'
+title: 'How to build Anaconda Python Data Science Docker container'
 date: '2017-12-13'
 image: 'How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda'
 tags:
@@ -18,7 +18,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to build Python Data Science Docker container based on Anaconda
+# How to build Anaconda Python Data Science Docker container
 
 {{< my-picture name="How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda" >}}
 

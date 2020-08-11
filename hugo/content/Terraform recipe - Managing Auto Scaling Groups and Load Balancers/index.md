@@ -1,5 +1,5 @@
 ---
-title: 'Terraform recipe – Managing Auto Scaling Groups and Load Balancers'
+title: 'Terraform recipe – Managing Auto Scaling Groups & Load Balancers'
 date: '2018-11-25'
 image: 'Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers'
 tags:
@@ -11,7 +11,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Terraform recipe – Managing Auto Scaling Groups and Load Balancers
+# Terraform recipe – Managing Auto Scaling Groups & Load Balancers
 
 {{< my-picture name="Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers" >}}
 

@@ -1,5 +1,5 @@
 ---
-title: 'EventBridge - Building loosely coupled event driven serverless architectures'
+title: 'EventBridge - Building event driven Serverless architectures'
 date: '2020-03-29'
 image: 'EventBridge-Building-loosely-coupled-event-driven-serverless-architectures'
 tags:
@@ -14,7 +14,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# EventBridge - Building loosely coupled event driven serverless architectures
+# EventBridge - Building event driven Serverless architectures
 
 {{< my-picture name="EventBridge-Building-loosely-coupled-event-driven-serverless-architectures" >}}
 

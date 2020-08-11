@@ -1,5 +1,5 @@
 ---
-title: 'How to use AWS SAM to simplify Serverless Python applications development'
+title: 'How to use AWS SAM to simplify Serverless Python development'
 date: '2020-03-19'
 image: 'How-to-use-AWS-SAM-to-simplify-Serverless-Python-applications-development'
 tags:
@@ -14,7 +14,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to use AWS SAM to simplify Serverless Python applications development
+# How to use AWS SAM to simplify Serverless Python development
 
 {{< my-picture name="How-to-use-AWS-SAM-to-simplify-Serverless-Python-applications-development" >}}
 

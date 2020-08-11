@@ -1,5 +1,5 @@
 ---
-title: 'How to import Oracle database to AWS using Oracle S3 integration feature'
+title: 'How to import Oracle database to AWS using S3 integration feature'
 date: '2020-03-07'
 image: 'How-to-import-Oracle-database-to-AWS-using-Oracle-S3-integration-feature'
 tags:
@@ -12,7 +12,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to import Oracle database to AWS using Oracle S3 integration feature
+# How to import Oracle database to AWS using S3 integration feature
 
 {{< my-picture name="How-to-import-Oracle-database-to-AWS-using-Oracle-S3-integration-feature" >}}
 

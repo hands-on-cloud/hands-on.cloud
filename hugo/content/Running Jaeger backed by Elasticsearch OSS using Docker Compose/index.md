@@ -1,5 +1,5 @@
 ---
-title: 'Running Jaeger v1.11 backed by Elasticsearch OSS v6.7.0 using Docker Compose'
+title: 'Running Jaeger backed by Elasticsearch OSS using Docker Compose'
 date: '2019-04-10'
 image: 'Running-Jaeger-v1.11-backed-by-Elasticsearch-OSS-v6.7'
 tags:
@@ -13,7 +13,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Running Jaeger v1.11 backed by Elasticsearch OSS v6.7.0 using Docker Compose
+# Running Jaeger backed by Elasticsearch OSS using Docker Compose
 
 {{< my-picture name="Running-Jaeger-v1.11-backed-by-Elasticsearch-OSS-v6.7" >}}
 
