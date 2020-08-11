@@ -1,5 +1,5 @@
 ---
-title: 'How to use CloudFormation to launch EC2 instance and automate its provisioning'
+title: 'How to use CloudFormation to launch EC2 instance automation'
 date: '2020-03-09'
 image: 'How-to-use-CloudFormation-to-launch-EC2-instance-and-automate-its-provisioning'
 tags:
@@ -14,7 +14,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to use CloudFormation to launch EC2 instance and automate its provisioning
+# How to use CloudFormation to launch EC2 instance automation
 
 {{< my-picture name="How-to-use-CloudFormation-to-launch-EC2-instance-and-automate-its-provisioning" >}}
 

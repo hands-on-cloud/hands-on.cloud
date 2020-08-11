@@ -1,5 +1,5 @@
 ---
-title: 'Automation of static website testing and deployment using CircleCI, Terraform and Cypress'
+title: 'Automating static website deployment using CircleCI and Terraform'
 date: '2019-11-15'
 image: 'hands-on-cloud-architecture-cicd-pipeline'
 tags:
@@ -18,7 +18,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Automation of static website testing and deployment using CircleCI, Terraform and Cypress
+# Automating static website deployment using CircleCI and Terraform
 
 {{< my-picture name="hands-on-cloud-architecture-cicd-pipeline" >}}
 

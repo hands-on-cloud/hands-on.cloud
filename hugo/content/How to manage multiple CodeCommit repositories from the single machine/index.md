@@ -1,5 +1,5 @@
 ---
-title: 'How to manage multiple CodeCommit repositories from the single machine'
+title: 'Easy way to manage multiple AWS CodeCommit repositories'
 date: '2019-10-23'
 image: 'How-to-manage-multiple-CodeCommit-repositories-from-the-single-machine'
 tags:
@@ -12,7 +12,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to manage multiple CodeCommit repositories from the single machine
+# Easy way to manage multiple AWS CodeCommit repositories
 
 {{< my-picture name="How-to-manage-multiple-CodeCommit-repositories-from-the-single-machine" >}}
 

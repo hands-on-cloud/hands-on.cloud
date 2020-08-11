@@ -1,5 +1,5 @@
 ---
-title: 'How to run Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib in Docker container'
+title: 'How to run Jupiter, Keras, Tensorflow and other ML libs in Docker'
 date: '2017-12-11'
 image: 'How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container'
 tags:
@@ -19,7 +19,7 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to run Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib in Docker container
+# How to run Jupiter, Keras, Tensorflow and other ML libs in Docker
 
 {{< my-picture name="How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container" >}}
 
