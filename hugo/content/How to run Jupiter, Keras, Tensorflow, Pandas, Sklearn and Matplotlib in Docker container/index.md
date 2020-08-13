@@ -1,6 +1,6 @@
 ---
 title: 'How to run Jupiter, Keras, Tensorflow and other ML libs in Docker'
-date: '2017-12-11'
+date: '2020-08-13'
 image: 'How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container'
 tags:
   - docker
@@ -22,6 +22,8 @@ authors:
 # How to run Jupiter, Keras, Tensorflow and other ML libs in Docker
 
 {{< my-picture name="How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container" >}}
+
+**Update 2020:** I've updated container to Ubuntu 20.04 LTS base and speed up Docker build process. Now we're not building OpenCV from source, but installing it from `apt`.
 
 Environment setup is a very common question when you’re trying to start learning Machine Learning (ML). In this article I’ll show you how to create your own Docker container including the following frameworks for comfortable start:
 
@@ -56,38 +58,16 @@ vim Dockerfile
 After that put the following content to the `Dockerfile`:
 
 ```docker
-FROM ubuntu:16.04 as opencv-builder
+FROM ubuntu:20.04
 MAINTAINER "Andrei Maksimov"
 
-RUN apt-get update && apt-get install -y wget ca-certificates \
-    build-essential cmake pkg-config \
-    libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev \
-    libavcodec-dev libavformat-dev libswscale-dev libv4l-dev \
-    libxvidcore-dev libx264-dev \
-    libgtk-3-dev \
-    libatlas-base-dev gfortran \
-    git curl vim python3-dev python3-pip \
-    libfreetype6-dev libhdf5-dev && \
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && apt-get install -y \
+	libopencv-dev \
+        python3-pip \
+	python3-opencv && \
     rm -rf /var/lib/apt/lists/*
-
-RUN wget -O opencv.tar.gz https://github.com/opencv/opencv/archive/3.3.1.tar.gz && \
-    tar zxvf opencv.tar.gz && \
-    wget -O opencv_contrib.tar.gz https://github.com/opencv/opencv_contrib/archive/3.3.1.tar.gz && \
-    tar zxvf opencv_contrib.tar.gz
-
-RUN cd opencv-3.3.1 && \
-    mkdir build && \
-    cd build && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-        -D CMAKE_INSTALL_PREFIX=/usr/local \
-        -D INSTALL_PYTHON_EXAMPLES=ON \
-        -D INSTALL_C_EXAMPLES=OFF \
-        -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.3.1/modules \
-        -D BUILD_EXAMPLES=ON .. && \
-    make -j4 && \
-    make install && \
-    ldconfig && \
-    cd / && rm -Rf /opencv-3.3.1 /opencv_contrib-3.3.1
 
 RUN pip3 install tensorflow && \
     pip3 install numpy pandas sklearn matplotlib seaborn jupyter pyyaml h5py && \
@@ -150,7 +130,7 @@ This file will be launched inside your container by default each time you’ll s
 The last stage – container creation. Just run the following command to build your Docker container from the project directory:
 
 ```sh
-docker build -f Dockerfile -t python_data_science_container
+docker build -f Dockerfile -t python_data_science_container .
 ```
 
 During build process Docker will install all necessary libraries and frameworks inside your container image and make it available for use.
