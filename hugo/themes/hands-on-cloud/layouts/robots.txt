@@ -2,7 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://hands-on.cloud/sitemap.xml
-
-Disallow: /authors/
-Disallow: /page/
-Disallow: /*/page/
