@@ -1,0 +1,166 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  This CloudFormation template creates a Lambda function triggered
+  by the CloudWatch Scheduled Events, which deletes old EC2 AMIs
+
+Parameters:
+  pAmiMaxAge:
+    Description: Max age in days for AMI
+    Type: Number
+    Default: 14
+    MinValue: 1
+    MaxValue: 65535
+
+Resources:
+  LambdaFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+              - lambda.amazonaws.com
+          Action:
+            - sts:AssumeRole
+      Path: "/"
+      Policies:
+      - PolicyName: LambdaFunctionPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: '*'
+          - Effect: Allow
+            Action:
+              - ec2:DescribeImages
+              - ec2:DescribeSnapshotAttribute
+              - ec2:DescribeSnapshots
+              - ec2:DeleteSnapshot
+              - ec2:DescribeImages
+              - ec2:DescribeImageAttribute
+              - ec2:DeregisterImage
+              - ec2:DescribeInstances
+            Resource: '*'
+
+  LambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: python3.6
+      Timeout: 900
+      Handler: index.handler
+      Role: !GetAtt LambdaFunctionRole.Arn
+      Code:
+        ZipFile:
+          !Sub
+            - |-
+              """
+              Lambda function to remove outdated AMIs
+              All credits: https://gist.github.com/luhn/802f33ce763452b7c3b32bb594e0d54d
+              """
+              import logging
+              import os
+              import re
+              import sys
+              from datetime import datetime, timedelta
+              import boto3
+
+              logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+              LOGGER = logging.getLogger()
+              LOGGER.setLevel(logging.INFO)
+
+              ACCOUNT_ID = '${lambda_account_id}'
+              AMI_MAX_AGE = int(${lambda_ami_max_age})
+
+              EC2 = boto3.resource("ec2")
+              EC2_CLIENT = boto3.client("ec2")
+
+              def handler(event, context):
+                  """handler method"""
+                  # pylint: disable=R0914,C0103,W0613
+
+                  my_amis = EC2_CLIENT.describe_images(Owners=[ACCOUNT_ID])['Images']
+
+                  used_amis = {
+                      instance.image_id for instance in EC2.instances.all()
+                  }
+
+                  LOGGER.info('used_amis: %s', used_amis)
+
+                  fresh_amis = set()
+                  for ami in my_amis:
+                      created_at = datetime.strptime(
+                          ami['CreationDate'],
+                          "%Y-%m-%dT%H:%M:%S.000Z",
+                      )
+                      if created_at > datetime.now() - timedelta(AMI_MAX_AGE):
+                          fresh_amis.add(ami['ImageId'])
+
+                  LOGGER.info('fresh_amis: %s', fresh_amis)
+
+                  latest = dict()
+                  for ami in my_amis:
+                      created_at = datetime.strptime(
+                          ami['CreationDate'],
+                          "%Y-%m-%dT%H:%M:%S.000Z",
+                      )
+                      name = ami['Name']
+                      if(
+                              name not in latest
+                              or created_at > latest[name][0]
+                      ):
+                          latest[name] = (created_at, ami)
+                  latest_amis = {ami['ImageId'] for (_, ami) in latest.values()}
+
+                  LOGGER.info('latest_amis: %s', latest_amis)
+
+                  safe = used_amis | fresh_amis | latest_amis
+                  for image in (
+                          image for image in my_amis if image['ImageId'] not in safe
+                  ):
+                      LOGGER.info('Deregistering %s (%s)', image['Name'], image['ImageId'])
+                      EC2_CLIENT.deregister_image(ImageId=image['ImageId'])
+
+                  LOGGER.info('Deleting snapshots.')
+                  images = [image['ImageId'] for image in my_amis]
+                  for snapshot in EC2_CLIENT.describe_snapshots(OwnerIds=[ACCOUNT_ID])['Snapshots']:
+                      LOGGER.info('Checking %s', snapshot['SnapshotId'])
+                      r = re.match(r".*for (ami-.*) from.*", snapshot['Description'])
+                      if r:
+                          if r.groups()[0] not in images:
+                              LOGGER.info('Deleting %s', snapshot['SnapshotId'])
+                              EC2_CLIENT.delete_snapshot(SnapshotId=snapshot['SnapshotId'])
+            -
+              lambda_account_id: !Ref "AWS::AccountId"
+              lambda_ami_max_age: !Ref "pAmiMaxAge"
+
+  ScheduledRule:
+    Type: AWS::Events::Rule
+    Properties: 
+      Description: "ScheduledRule"
+      ScheduleExpression: "rate(1 day)"
+      State: "ENABLED"
+      Targets: 
+        - 
+          Arn: 
+            Fn::GetAtt: 
+              - "LambdaFunction"
+              - "Arn"
+          Id: "TargetFunctionV1"
+
+  PermissionForEventsToInvokeLambda: 
+    Type: AWS::Lambda::Permission
+    Properties: 
+      FunctionName: 
+        Ref: "LambdaFunction"
+      Action: "lambda:InvokeFunction"
+      Principal: "events.amazonaws.com"
+      SourceArn: 
+        Fn::GetAtt: 
+          - "ScheduledRule"
+          - "Arn"

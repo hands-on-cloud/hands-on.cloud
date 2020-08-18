@@ -72,7 +72,7 @@ yarn-error.log
 
 # Terraform
 .terraform
-*.tfstate
+*.tfstate*
 
 # Cypress videos
 cypress/videos/
