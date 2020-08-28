@@ -440,7 +440,7 @@ terraform destroy -auto-approve
 
 ## Complete source code
 
-Full source code of the example can be found at [our GitHub](https://github.com/hands-on-cloud/hands-on.cloud/tree/master/hugo/content/Cloud%20CRON%20-%Scheduled%20Lambda%20Function/src)
+Full source code of the example can be found at [our GitHub](https://github.com/hands-on-cloud/hands-on.cloud/tree/master/hugo/content/Cloud%20CRON%20-%20Scheduled%20Lambda%20Functions/src)
 
 ## Resume
 
