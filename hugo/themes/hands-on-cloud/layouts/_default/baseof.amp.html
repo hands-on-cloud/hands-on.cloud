@@ -1,0 +1,13 @@
+<!doctype html>
+<html ⚡ lang="{{ .Site.LanguageCode }}">
+  <head>
+    {{- partial "head.amp.html" . -}}
+  </head>
+  <body>
+    {{- partial "header.amp.html" . -}}
+    
+      {{- block "main" . }}{{ end }}
+    </main>
+    {{- partial "footer.amp.html" . -}}
+  </body>
+</html>

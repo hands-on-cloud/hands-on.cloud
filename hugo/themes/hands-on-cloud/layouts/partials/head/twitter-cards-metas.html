@@ -1,0 +1,5 @@
+<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:url" content="{{ .Permalink }}">
+<meta name="twitter:description" content="{{if .IsHome}}{{ .Site.Params.Description }}{{else}}{{ .Summary }}{{end}}">
+<meta name="twitter:image" content="{{ . | absURL | lower }}/{{ . }}.png">
+<meta name="twitter:site" content="{{ .Site.Params.sitename }}">

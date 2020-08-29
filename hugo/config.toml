@@ -6,6 +6,7 @@ pygmentsCodeFences = true
 summaryLength = 40
 enableRobotsTXT = true
 timeout = 60000
+disableLiveReload = true
 
 [author]
     name = 'Andrei Maksimov'
@@ -13,6 +14,7 @@ timeout = 60000
     avatar = 'https://avatars2.githubusercontent.com/u/1902417?s=460&v=4'
 
 [Params]
+    ampElements = ["amp-sidebar", "amp-carousel", "amp-bind", "amp-form", "amp-mustache"]
     logo = "hands-on-cloud-logo.png"
     header = "Hands-On.Cloud"
     localeOgp = "en-us"
@@ -33,3 +35,10 @@ timeout = 60000
   author = "authors"
   tag = "tags"
   category = "categories"
+
+[outputs]
+  home = ["HTML", "AMP", "RSS"]
+  page = ["HTML", "AMP", "RSS"]
+  section = ["HTML", "AMP", "RSS"]
+  taxonomy = ["HTML", "AMP", "RSS"]
+  term = ["HTML", "AMP", "RSS"]

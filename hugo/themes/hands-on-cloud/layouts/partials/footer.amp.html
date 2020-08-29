@@ -1,0 +1,67 @@
+<div class="section footer px-3 py-2">
+	<h1 class="header-content__logo">
+		<a href="/"><amp-img width="158" height="16" layout="fixed" src="https://hands-on.cloud/assets/images/logo-small.png" alt="footer logo"></amp-img></a>
+	</h1>
+	<span class="copyright-note mb-2">Copyright © Hands-On.Cloud, All Rights Reserved.</span>
+	<ul class="d-flex ml-n2">
+        {{ if and (.Site.Params.twitter) (ne .Site.Params.twitter "") }}
+        <li>
+            <a href="https://twitter.com/{{.Site.Params.twitter}}" target="_blank" class="d-table p-2">
+                <amp-img width="14" height="13" layout="fixed" src="/assets/images/icons/twitter-icon.png" alt="twitter-icon" />
+            </a>
+        </li>
+        {{ end }}
+        {{ if and (.Site.Params.linkedin) (ne .Site.Params.linkedin "") }}
+        <li>
+            <a href="https://www.linkedin.com/in/{{.Site.Params.linkedin}}/" target="_blank" class="d-table p-2">
+                <amp-img width="15" height="13" layout="fixed" src="/assets/images/icons/linked-in-icon.png" alt="facebook-icon" />
+            </a>
+        </li>
+        {{ end }}
+        {{ if and (.Site.Params.facebook) (ne .Site.Params.facebook "") }}
+        <li>
+            <a href="https://www.facebook.com/{{.Site.Params.facebook}}" target="_blank" class="d-table p-2">
+                <amp-img width="6" height="13" layout="fixed" src="/assets/images/icons/facebook-icon.png" alt="facebook-icon" />
+            </a>
+        </li>
+        {{ end }}
+	</ul>
+</div>
+
+
+
+
+
+
+<!--
+<footer id="footer" class="footer">
+    <div class="container">
+        <h1 class="header-content__logo">
+            <a href="/"><img src="/assets/images/logo-small.png" alt="footer logo" /></a>
+        </h1>
+        <span class="copyright-note">Copyright © hands-on.cloud, All Rights Reserved.</span>
+        <ul class="social-links right">
+            {{ if and (.Site.Params.twitter) (ne .Site.Params.twitter "") }}
+            <li>
+                <a href="https://twitter.com/{{.Site.Params.twitter}}" target="_blank"><img
+                        src="/assets/images/icons/twitter-icon.png" alt="facebook-icon" /></a>
+            </li>
+            {{ end }}
+
+            {{ if and (.Site.Params.linkedin) (ne .Site.Params.linkedin "") }}
+            <li>
+                <a href="https://www.linkedin.com/in/{{.Site.Params.linkedin}}/" target="_blank"><img
+                        src="/assets/images/icons/linked-in-icon.png" alt="facebook-icon" /></a>
+            </li>
+            {{ end }}
+
+            {{ if and (.Site.Params.facebook) (ne .Site.Params.facebook "") }}
+            <li>
+                <a href="https://www.facebook.com/{{.Site.Params.facebook}}" target="_blank"><img
+                        src="/assets/images/icons/facebook-icon.png" alt="facebook-icon" /></a>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+</footer>
+-->

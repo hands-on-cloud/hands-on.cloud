@@ -1,0 +1,39 @@
+
+<div class="header position-fixed clearfix px-3 d-flex py-2 w-100 align-items-center bg-dark">
+	<a href="/amp/" class="header-logo d-block pl-1" style="text-decoration:none;">
+    		<amp-img src="{{ $.Site.BaseURL }}/assets/images/logo-small.png" alt="hands-on.cloud" width="158" height="16" layout="responsive"></amp-img>
+    </a>
+    <div class="header-nav-btn ml-auto mr-0">
+		<a [class]="navbtn1 ? 'd-table position-relative hamburgerbtn ml-auto mr-0 hamburger-clicked ' : 'd-table position-relative hamburgerbtn ml-auto mr-0'" on="tap:AMP.setState({ navbtn1 : !navbtn1 }),sidebar1.toggle" class="d-table position-relative hamburgerbtn ml-auto mr-0">
+		<em class="l1"></em><em class="l2"></em><em class="l3"></em>
+		</a>
+    </div>
+</div>
+<amp-sidebar id="sidebar1" class="w-100 mw-100 mainsidebar1 " layout="nodisplay" side="right">
+    <div class="mob-menu-list bg-dark h-100">
+        <ul class="desk-menu-lef">
+          {{ range $name, $items := .Site.Taxonomies.categories }}
+            <li>
+              <a class="d-block mob-menu-link text-white" href="{{ $.Site.BaseURL }}categories/{{ $name | urlize | lower }}/amp/">
+                {{ $name | upper }}
+              </a>
+            </li>
+          {{ end }}
+        </ul>
+    </div>    
+</amp-sidebar>
+<!-- Search section -->
+
+<form method="GET" class="search-form" action="https://www.google.com/cse" target="_top">
+<div class="search-form-div clearfix px-3">
+	<div class="input-group mb-3">
+		<input type="search" class="form-control" placeholder="Search" name="q" required>
+		<div class="input-group-append">
+			<button class="btn btn-primary text-white" type="submit"><i class="fas fa-search text-white"></i></button>  
+		</div>
+	</div>
+</div>
+<input name="cx" type="hidden" value="004668650145876600057:xty3dplgta3" />
+<input name="ie" type="hidden" value="UTF-8" />
+</form>
+<!-- // Search section // -->
