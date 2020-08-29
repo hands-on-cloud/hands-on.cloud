@@ -1,4 +1,6 @@
 {{ $id := .Get "id" }}
 {{ $src := .Get "src" }}
 
-<script id="{{ $id }}" src="{{ $src }}" async></script>
+{{ if .Page.OutputFormats.Get "HTML" }}
+<script id="asciicast-{{ $id }}" src="https://asciinema.org/a/{{ $id }}.js" async></script>
+{{ end }}

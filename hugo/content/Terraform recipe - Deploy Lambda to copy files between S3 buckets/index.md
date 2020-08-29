@@ -22,7 +22,7 @@ Many frameworks exist on the market right now, which allows you to deploy your s
 
 In this article, we will expand our Serverless experience using Terraform’s ability to provision infrastructure as a code. As an example, we’ll deploy a Lambda function that is triggered by S3 object upload event and copy uploaded objects from one S3 bucket to another.
 
-{{< asciinema id="asciicast-353586" src="https://asciinema.org/a/353586.js" >}}
+{{< asciinema id="353586" >}}
 
 If you’re willing to [jump to the final solution](#complete-source-code), please, feel free to do that.
 
