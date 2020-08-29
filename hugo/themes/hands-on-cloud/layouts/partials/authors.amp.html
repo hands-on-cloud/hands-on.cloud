@@ -5,30 +5,30 @@
         {{- with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (urlize .)) }}
         <div class="about_author d-flex">
             <div class="author_avatar">
-                <img src="{{ .Params.photo }}" alt="Author avatar"/>
+                <amp-img width="50" height="50" layout="responsive" class="object-fit-cover w-100 h-100" src="{{ .Params.photo }}" alt="Author avatar"/>
             </div>
             <div class="author_bio">
                 <strong>{{ .Params.name }}</strong><br/>
                 {{ .Content }}
                 <div class="social_networks ml-n1">
                     {{ if and (.Params.linkedin) (ne .Params.linkedin "") }}
-                        <a href="https://www.linkedin.com/in/{{.Params.linkedin}}/" target="_blank" class="text-decoration-none fa fab fa-linkedin"></a>
+                        <a href="https://www.linkedin.com/in/{{.Params.linkedin}}/" target="_blank" class="text-decoration-none fab fa-linkedin"></a>
                     {{ end }}
 
                     {{ if and (.Params.github) (ne .Params.github "") }}
-                        <a href="https://www.github.com/{{.Params.github}}" target="_blank" class="text-decoration-none fa fab fa-github"></a>
+                        <a href="https://www.github.com/{{.Params.github}}" target="_blank" class="text-decoration-none fab fa-github"></a>
                     {{ end }}
 
                     {{ if and (.Params.facebook) (ne .Params.facebook "") }}
-                        <a href="https://business.facebook.com/{{.Params.facebook}}" target="_blank" class="text-decoration-none fa fab fa-facebook" ></a>
+                        <a href="https://business.facebook.com/{{.Params.facebook}}" target="_blank" class="text-decoration-none fab fa-facebook" ></a>
                     {{ end }}
 
                     {{ if and (.Params.twitter) (ne .Params.twitter "") }}
-                        <a href="https://twitter.com/{{.Params.twitter}}" target="_blank" class="text-decoration-none fa fab fa-twitter"></a>
+                        <a href="https://twitter.com/{{.Params.twitter}}" target="_blank" class="text-decoration-none fab fa-twitter"></a>
                     {{ end }}
 
                     {{ if and (.Params.instagram) (ne .Params.instagram "") }}
-                        <a href="https://www.instagram.com/{{.Params.instagram}}" target="_blank" class="text-decoration-none fa fab fa-instagram"></a>
+                        <a href="https://www.instagram.com/{{.Params.instagram}}" target="_blank" class="text-decoration-none fab fa-instagram"></a>
                     {{ end }}
 
                 </div>

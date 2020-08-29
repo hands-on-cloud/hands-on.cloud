@@ -1,6 +1,8 @@
 <!doctype html>
-<html prefix="og: http://ogp.me/ns#" lang="{{ .Language }}">
-  {{- partial "head.html" . -}}
+<html lang="{{ .Site.LanguageCode }}">
+  <head>
+    {{- partial "head.html" . -}}
+  </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNPN749"
@@ -8,7 +10,9 @@
     <!-- End Google Tag Manager (noscript) -->
 
     {{- partial "header.html" . -}}
-    <main role="main">{{- block "main" . }}{{ end }}</main>
+
+      {{- block "main" . }}{{ end }}
+
     {{- partial "footer.html" . -}}
   </body>
 </html>

@@ -40,6 +40,41 @@
 
 {{/* only use images smaller than or equal to the src (original) image size, as Hugo will upscale small images */}}
 {{/* set the sizes attribute to (min-width: 35em) 1024px, 100vw unless overridden in shortcode */}}
+
+{{ if .Page.OutputFormats.Get "AMP" }}
+<amp-img
+  {{ with .Get "alt" }}alt="{{.}}"{{ else }}alt=""{{ end }}
+  class="object-fit-cover w-100 h-100" width="2" height="1" layout="responsive"
+  {{ with $src_webp }}
+    src="{{ .RelPermalink | absURL }}"
+  {{ else }}
+    src="{{ with $medium.RelPermalink }}{{.}}{{ end }}"
+  {{ end }}
+>
+  <amp-img
+    {{ with .Get "alt" }}alt="{{.}}"{{ else }}alt=""{{ end }}
+    fallback
+    layout="responsive"
+    width="2"
+    height="1"
+    {{ with .Get "sizes" }}sizes='{{.}}'{{ else }}sizes="(min-width: 35em) 1024px, 100vw"{{ end }}
+    srcset='
+    {{ if ge $src.Width "500" }}
+        {{ with $tiny.RelPermalink }}{{.}} 500w{{ end }}
+    {{ end }}
+    {{ if ge $src.Width "800" }}
+        {{ with $small.RelPermalink }}, {{.}} 800w{{ end }}
+    {{ end }}
+    {{ if ge $src.Width "1024" }}
+        {{ with $medium.RelPermalink }}, {{.}} 1024w{{ end }}
+    {{ end }}
+    {{ if ge $src.Width "1500" }}
+        {{ with $large.RelPermalink }}, {{.}} 1500w {{ end }}
+    {{ end }}'
+  >
+  </amp-img>
+</amp-img>
+{{ else }}
 <picture>
     {{ with $src_webp }}
         <source srcset="{{ .RelPermalink | absURL }}" type="image/webp">
@@ -66,3 +101,4 @@
     {{ end }}
     {{ with .Get "alt" }}alt="{{.}}"{{ else }}alt=""{{ end }} class="lazyload">
 </picture>
+{{ end }}

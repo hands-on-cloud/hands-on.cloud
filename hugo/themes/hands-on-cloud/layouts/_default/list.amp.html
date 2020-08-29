@@ -1,0 +1,68 @@
+{{ define "main" }}
+<div id="main" class="h-auto container main-content px-3">
+
+    <!-- first section -->
+    <div class="section clearfix first-section text-center container-fluid px-2 pt-3 pb-5">
+        <h1 class="jumbotron-heading text-center font-weight-300">{{ .Site.Title }}</h1>
+        <p class="lead text-muted text-center font-weight-300">{{ .Site.Params.description }}</p>
+    </div>
+    <!-- // first section -->
+
+    <!-- blogs cards -->
+    <div class="blogs-cards-holder clearfix">
+        {{ range (.Paginator 9).Pages.ByPublishDate.Reverse }}
+        <div class="card mb-4 shadow-sm">
+            <a class="d-table w-100 text-decoration-none" href="{{ .RelPermalink }}">
+                {{ with .Resources.Match (print .Params.image ".png") }}
+                    {{ range . }}
+                        {{ $r := .Resize "1024x" }}
+                        <amp-img class="object-fit-cover w-100 h-100" width="1024" height="512" layout="responsive" src="{{ $r.Permalink | absURL }}"></amp-img></amp-img>
+                    {{ end }}
+                {{ end }}
+            </a>
+            <div class="card-body">
+                <a href="{{ .RelPermalink }}" class="text-decoration-none">
+                    <p class="card-text">{{ .Summary }}</p>
+                </a>
+                <br>
+                <div class="d-flex">
+                    <small class="text-muted">
+                        {{ if .Params.tags }}
+                            {{range .Params.tags}}
+                            <a class="btn btn-dark tag text-decoration-none" href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/amp/">{{ . }}</a>
+                            {{ end }}
+                        {{ end }}
+                    </small>
+                </div>
+                <div class="d-flex align-items-end flex-column mt-2 text-right">
+                    {{ $readTime := mul (div (countwords .Content) 220.0) 60 }}
+                    {{ $minutes := math.Floor (div $readTime 60) }}
+                    <small class="text-muted  mr-0 ml-auto">Reading time: {{ $minutes }} {{ cond (eq $minutes 1) "min" "mins" }}</small>
+                </div>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+    {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
+
+    <div class="d-flex justify-content-center mb-4">
+        <div class="btn-group">
+            {{ if .Paginator.HasPrev }}
+            <a class="btn btn-dark text-decoration-none" href="{{ .Paginator.Prev.URL }}" tabindex="-1">Previous</a>
+            {{ end }}
+
+            <div class="btn">{{ .Paginator.PageNumber}} / {{ .Paginator.TotalPages }}</div>
+
+            {{ if .Paginator.HasNext }}
+            <a class="btn btn-dark text-decoration-none" href="{{ .Paginator.Next.URL }}">Next</a>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+
+</div>
+<br />
+<br />
+<br />
+<br />
+{{ end }}
