@@ -24,10 +24,6 @@ The AWS Cloud Development Kit (AWS CDK) is an open-source development framework 
 
 Every AWS resource in AWS CDK is implemented in a module called “[construct](https://docs.aws.amazon.com/cdk/latest/guide/constructs.html).” The construct is a building block in your code, which may is used to declare VPC, Subnet, Security Group, Lambda function, DynamoDB, and other AWS resources.
 
-Google Trends:
-
-{{< google-trends keyword="aws cdk" geo="" time="today 5-y" exploreQuery="date=today%205-y&q=aws%20cdk" >}}
-
 Here’s a great a bit more in-depth explanation [What is the AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html).
 
 I personally like AWS CDK because:
