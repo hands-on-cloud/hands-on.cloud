@@ -268,8 +268,8 @@ resource "aws_autoscaling_group" "web" {
   metrics_granularity="1Minute"
 
   vpc_zone_identifier  = [
-    "${aws_subnet.public_us_east_1a.*.id}",
-    "${aws_subnet.public_us_east_1b.*.id}"
+    "${aws_subnet.public_us_east_1a.id}",
+    "${aws_subnet.public_us_east_1b.id}"
   ]
 
   # Required to redeploy without an outage.
