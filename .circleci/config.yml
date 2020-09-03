@@ -85,6 +85,11 @@ jobs:
           name: Install libwebp-tools
           command: |
             apk --update add libwebp-tools ca-certificates
+      - restore_cache:
+          keys:
+            - content-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - content-cache-v1-{{ arch }}-{{ .Branch }}
+            - content-cache-v1
       - run:
           name: Generate images
           command: |
@@ -101,15 +106,13 @@ jobs:
               for file in *.png; do
                 convert "$file" -quality 50 -define webp:lossless=true "${file%.png}.webp";
               done
-              # for file in *.webp; do
-              #   dwebp "$file" -o "${file%.webp}.jpg";
-              # done
-              #for file in *.webp; do
-              #  dwebp "$file" -o "${file%.webp}.png";
-              #done
             done
             cd "$PROJECT_HOME"
       - *save_repo
+      - save_cache:
+          key: content-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - hugo/content
       - persist_to_workspace:
           root: *working_directory
           paths:
