@@ -104,7 +104,11 @@ jobs:
               echo "[Processing]: $article"
               cd "$HUGO_CONTENT/$article"
               for file in *.png; do
-                convert "$file" -quality 50 -define webp:lossless=true "${file%.png}.webp";
+                webp_file="${file%.png}.webp"
+                if [ ! -f "$webp_file" ]; then
+                  echo "Generating $webp_file..."
+                  convert "$file" -quality 50 -define webp:lossless=true "${webp_file}";
+                fi
               done
             done
             cd "$PROJECT_HOME"
