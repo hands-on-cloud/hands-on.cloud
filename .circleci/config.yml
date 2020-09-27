@@ -135,14 +135,15 @@ jobs:
             echo "Running Hugo build..."
             ls -al
             cd hugo
-            sed -r -i.bak "s@http:\/\/localhost@http:\/\/${ENVIRONMENT_DOMAIN}@g" config.toml
-            hugo -v -d public_test || hugo -v -d public_test
-            cp config.toml.bak config.toml
-            sed -r -i.bak "s@http:\/\/localhost@https:\/\/hands-on.cloud@g" config.toml
-            hugo -v -d public_prod || hugo -v -d public_test
+            if [ $CIRCLE_BRANCH == "master" ]; then
+              sed -r -i.bak "s@http:\/\/localhost@https:\/\/hands-on.cloud@g" config.toml
+            else
+              sed -r -i.bak "s@http:\/\/localhost@http:\/\/${ENVIRONMENT_DOMAIN}@g" config.toml
+            fi
+            export HUGO_ENV=production
+            hugo -v -d build || hugo -v -d build
             echo "Adding ads.txt to support AdSense requirements..."
-            echo "google.com, pub-2729052102059896, DIRECT, f08c47fec0942fa0" > public_test/ads.txt
-            echo "google.com, pub-2729052102059896, DIRECT, f08c47fec0942fa0" > public_prod/ads.txt
+            echo "google.com, pub-2729052102059896, DIRECT, f08c47fec0942fa0" > build/ads.txt
             cd "$PROJECT_HOME"
       - *save_repo
       - persist_to_workspace:
@@ -182,7 +183,7 @@ jobs:
           name: Deploy Hugo website
           command: |
             . $BASH_ENV
-            aws s3 sync hugo/public_test s3://${ENVIRONMENT_DOMAIN} --delete
+            aws s3 sync hugo/build s3://${ENVIRONMENT_DOMAIN} --delete
             echo "Set Cache-Control header for all objects within a bucket"
             aws s3 cp s3://${ENVIRONMENT_DOMAIN}/ s3://${ENVIRONMENT_DOMAIN}/ --metadata-directive REPLACE --recursive --cache-control max-age=2592000
 
@@ -218,7 +219,7 @@ jobs:
           name: Deploy Hugo website
           command: |
             . $BASH_ENV
-            aws s3 sync hugo/public_prod s3://origin.hands-on.cloud --delete
+            aws s3 sync hugo/build s3://origin.hands-on.cloud --delete
             aws s3 cp s3://origin.hands-on.cloud/ s3://origin.hands-on.cloud/ --metadata-directive REPLACE --recursive --cache-control max-age=2592000
             aws cloudfront create-invalidation --distribution-id=EWBD72KPWWTA4 --paths "/*"
             curl 'http://www.google.com/webmasters/sitemaps/ping?sitemap=https%3A%2F%2Fhands-on.cloud%2Fsitemap.xml'
