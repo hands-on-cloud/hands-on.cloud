@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Open Sans Regular";
+  font-weight: 400;
+  font-style: normal;
+  src: url("../fonts/OpenSans-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+
 html {
   scroll-behavior: smooth;
   position: relative;
@@ -9,6 +17,7 @@ body {
   margin-bottom: 5rem;
   color: #262626;
   font-family: "Exo", Georgia, "Times New Roman", serif;
+  font-display: swap;
 }
 
 body > nav > a > img {
