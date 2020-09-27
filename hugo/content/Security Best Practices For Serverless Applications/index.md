@@ -174,7 +174,9 @@ There are many secure coding conventions for securing serverless applications fr
 
 It's important that applications are secured with a software delivery life cycle. Secure applications not only integrates security into all phases of the delivery process but also develop a strong baseline for serverless applications, which can be an asset as we build a large security program.
 
-![SDLC in Severless](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/From_SDLC_to_SSDLC.png/1200px-From_SDLC_to_SSDLC.png)
+{{< my-picture name="1200px-From_SDLC_to_SSDLC" >}}
+
+Original image source: [https://commons.wikimedia.org/wiki/File:From_SDLC_to_SSDLC.png](https://commons.wikimedia.org/wiki/File:From_SDLC_to_SSDLC.png)
 
 There are many processes that need to be taken into consideration, such as architecture review, development testing, and deployment, when enabling secure delivery for your serverless applications.
 
