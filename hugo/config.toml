@@ -30,6 +30,7 @@ disableLiveReload = true
     googleanalytics = "UA-137355839-1"
     googlecustomsearch = "005409723859646106283:xrxw99mawa4"
     toc = true
+    enableGitInfo = "true"
 
 [taxonomies]
   author = "authors"

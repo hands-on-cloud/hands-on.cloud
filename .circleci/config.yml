@@ -221,7 +221,7 @@ jobs:
             aws s3 sync hugo/public_prod s3://origin.hands-on.cloud --delete
             aws s3 cp s3://origin.hands-on.cloud/ s3://origin.hands-on.cloud/ --metadata-directive REPLACE --recursive --cache-control max-age=2592000
             aws cloudfront create-invalidation --distribution-id=EWBD72KPWWTA4 --paths "/*"
-
+            curl 'http://www.google.com/webmasters/sitemaps/ping?sitemap=https%3A%2F%2Fhands-on.cloud%2Fsitemap.xml'
   destroy_testing:
     <<: *default_terraform_config
     steps:
