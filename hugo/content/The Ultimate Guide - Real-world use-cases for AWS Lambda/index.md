@@ -156,3 +156,29 @@ The architecture above illustrates how:
 Of course, you can extend those examples with CloudWatch Scheduled Events to launch marketing campaigns periodically.
 
 Additional information: [Amazon Pinpoint Journeys](https://docs.aws.amazon.com/pinpoint/latest/userguide/journeys-tour.html)
+
+## Real-time Ingested Data Transformation
+
+You can use [Amazon Kinesis Firehose](https://aws.amazon.com/kinesis/data-firehose/) for ingesting real-time streaming data to [Amazon S3](https://aws.amazon.com/s3/), [Redshift](https://aws.amazon.com/redshift/), or [Elasticsearch](https://aws.amazon.com/elasticsearch-service/). Usage of this service allows you to simplify data importing tasks significantly. But what if you need to change data on the fly? Here's where AWS Lambda comes into play.
+
+{{< my-picture name="55 real world use cases for AWS Lambda-Real-time Ingested Data Transformation" >}}
+
+Some of the most common problems, which AWS Lambda helps to solve:
+
+* Data normalization
+* Doing ETL transformations
+* Merging data from several data sources
+* Converting/transforming data by the destination requirements
+* Adding metadata to the ingested data
+
+One of the significant benefits of using AWS Lambda integration with Kinesis Firehose is its almost unlimited scalability.
+
+AWS Lambda and Kinesis Firehose integration allow you to transform data from the following data producers:
+
+* Kinesis enabled applications on your EC2 instances
+* Mobile applications
+* Web applications
+* IoT devices
+* etc
+
+Additional information: [100 Days of DevOps — Day 41-Real-Time Apache Log Analysis using Amazon Kinesis and Amazon Elasticsearch Service](https://medium.com/@devopslearning/100-days-of-devops-day-41-real-time-apache-log-analysis-using-amazon-kinesis-and-amazon-f3b506626681).
