@@ -161,7 +161,7 @@ Additional information: [Amazon Pinpoint Journeys](https://docs.aws.amazon.com/p
 
 You can use [Amazon Kinesis Firehose](https://aws.amazon.com/kinesis/data-firehose/) for ingesting real-time streaming data to [Amazon S3](https://aws.amazon.com/s3/), [Redshift](https://aws.amazon.com/redshift/), or [Elasticsearch](https://aws.amazon.com/elasticsearch-service/). Usage of this service allows you to simplify data importing tasks significantly. But what if you need to change data on the fly? Here's where AWS Lambda comes into play.
 
-{{< my-picture name="55 real world use cases for AWS Lambda-Real-time Ingested Data Transformation" >}}
+{{< my-picture name="real world use cases for AWS Lambda-Real-time Ingested Data Transformation" >}}
 
 Some of the most common problems, which AWS Lambda helps to solve:
 
@@ -182,3 +182,18 @@ AWS Lambda and Kinesis Firehose integration allow you to transform data from the
 * etc
 
 Additional information: [100 Days of DevOps — Day 41-Real-Time Apache Log Analysis using Amazon Kinesis and Amazon Elasticsearch Service](https://medium.com/@devopslearning/100-days-of-devops-day-41-real-time-apache-log-analysis-using-amazon-kinesis-and-amazon-f3b506626681).
+
+## Serverless CRON Jobs
+
+Setting up a regular CRON job is a common practice to script and automate routine IT operations at on-premises and in the cloud. Centrally available cloud CRON can save a lot of time and effort in managing distributed environments. CloudWatch (Scheduled) Events integrated with AWS Lambda allow you to set up highly available CRON jobs executed periodically.
+
+{{< my-picture name="real world use cases for AWS Lambda-Serverless CRON Jobs" >}}
+
+Create a Lambda function that does what you need and execute it regularly or irregularly using CloudWatch Events. Some real-life examples are:
+
+* Stopping unpaid subscription on your website
+* Sending out the newsletter on fixed timings
+* Cleaning up the database cache on the regular interval
+* Backing up your EC2 instances or EFS shares
+
+Additional information: [Cloud CRON - Scheduled Lambda Functions](https://hands-on.cloud/cloud-cron-scheduled-lambda-functions/).
