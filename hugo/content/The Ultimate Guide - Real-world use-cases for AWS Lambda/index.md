@@ -1,6 +1,6 @@
 ---
 title: 'The Ultimate Guide - Real-world use-cases for AWS Lambda'
-date: '2020-09-27'
+date: '2020-09-30'
 image: 'The Ultimate Guide - real-world use-cases for AWS Lambda'
 tags:
   - lambda
@@ -185,7 +185,7 @@ Additional information: [100 Days of DevOps — Day 41-Real-Time Apache Log Anal
 
 ## Serverless CRON Jobs
 
-Setting up a regular CRON job is a common practice to script and automate routine IT operations at on-premises and in the cloud. Centrally available cloud CRON can save a lot of time and effort in managing distributed environments. CloudWatch (Scheduled) Events integrated with AWS Lambda allow you to set up highly available CRON jobs executed periodically.
+Setting up a regular CRON job is a common practice to script and automate routine IT operations at on-premises and in the cloud. Centrally available cloud CRON can save a lot of time and effort in managing distributed environments. [CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) integrated with AWS Lambda allow you to set up highly available CRON jobs executed periodically.
 
 {{< my-picture name="real world use cases for AWS Lambda-Serverless CRON Jobs" >}}
 
@@ -197,3 +197,23 @@ Create a Lambda function that does what you need and execute it regularly or irr
 * Backing up your EC2 instances or EFS shares
 
 Additional information: [Cloud CRON - Scheduled Lambda Functions](https://hands-on.cloud/cloud-cron-scheduled-lambda-functions/).
+
+## Real time log monitoring, analysis and alarming
+
+[CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) provides you a near real-time stream of events that describe operational changes in your environment. This functionality helps you to immediately respond to those changes and take corrective actions if needed. For example, you can react to such events in the following ways:
+
+* Send informational or alarming messages to external messengers like Slack
+* Create Jira tickets
+* Do corrective changes
+* Capture state information
+
+Many different automation scenarios become available with the help of CloudWatch Event rules, which are routing events to Lambda functions for further processing.
+
+{{< my-picture name="real world use cases for AWS Lambda-Real time log monitoring, analysis and alarming" >}}
+
+There are two different scenarios, which you need to be aware of:
+
+* **CloudWatch metric threshold reached**: CloudWatch Event rule can trigger Lambda function, for example, when the SQS queue grows above a certain threshold limit.
+* **CloudWatch Logs contain a specific message**: CloudWatch can trigger Lambda function if a particular text pattern appears in the text; for example, the log record contains the "Exception" keyword.
+
+Additional information: [Getting helpful CloudWatch alarms in Slack](https://stacks.wellcomecollection.org/getting-helpful-cloudwatch-alarms-in-slack-ba98fcbe6d31).
