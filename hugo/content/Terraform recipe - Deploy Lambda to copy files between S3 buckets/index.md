@@ -96,7 +96,7 @@ provider "aws" {
 
 This `provider` block tells, that we’re using the AWS cloud platform.
 
-Full and up-to-date lists of additionally supported platforms like Azure, Google Cloud, and many others can be found [here](https://www.terraform.io/docs/providers/).
+Full and up-to-date lists of additionally supported platforms like Azure, Google Cloud, and many others can be found at [Terraform - Providers](https://www.terraform.io/docs/providers/).
 
 ### IAM Roles and Policies
 
@@ -380,7 +380,7 @@ For every object creation and modification event in the source S3 bucket, Lambda
 
 ## Complete source code
 
-Full source code of the example can be found at [our GitHub](https://github.com/hands-on-cloud/hands-on.cloud/tree/master/hugo/content/Terraform%20recipe%20-%20Deploy%20Lambda%20to%20copy%20files%20between%20S3%20buckets/src)
+Full source code of the example can be found at [Hands-On.Cloud GitHub page](https://github.com/hands-on-cloud/hands-on.cloud/tree/master/hugo/content/Terraform%20recipe%20-%20Deploy%20Lambda%20to%20copy%20files%20between%20S3%20buckets/src)
 
 ## Resume
 
