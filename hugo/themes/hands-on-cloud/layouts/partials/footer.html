@@ -8,28 +8,28 @@
     <div class="container">
         <!-- <h1 class="header-content__logo">hands-on.<span>cloud</span></h1> -->
         <h1 class="header-content__logo">
-            <a href="/"><img src="/assets/images/logo-small.png" alt="footer logo" /></a>
+            <a href="/"><img src="/assets/images/logo-small.png" alt="hands-on.cloud footer logo" /></a>
         </h1>
         <span class="copyright-note">Copyright © 2019, All Rights Reserved.</span>
         <ul class="social-links right">
             {{ if and (.Site.Params.twitter) (ne .Site.Params.twitter "") }}
             <li>
                 <a href="https://twitter.com/{{.Site.Params.twitter}}" target="_blank"><img
-                        src="/assets/images/icons/twitter-icon.png" alt="facebook-icon" /></a>
+                        src="/assets/images/icons/twitter-icon.png" alt="hands-on.cloud twitter page" /></a>
             </li>
             {{ end }}
 
             {{ if and (.Site.Params.linkedin) (ne .Site.Params.linkedin "") }}
             <li>
                 <a href="https://www.linkedin.com/in/{{.Site.Params.linkedin}}/" target="_blank"><img
-                        src="/assets/images/icons/linked-in-icon.png" alt="facebook-icon" /></a>
+                        src="/assets/images/icons/linked-in-icon.png" alt="hands-on.cloud linkedin page" /></a>
             </li>
             {{ end }}
 
             {{ if and (.Site.Params.facebook) (ne .Site.Params.facebook "") }}
             <li>
                 <a href="https://www.facebook.com/{{.Site.Params.facebook}}" target="_blank"><img
-                        src="/assets/images/icons/facebook-icon.png" alt="facebook-icon" /></a>
+                        src="/assets/images/icons/facebook-icon.png" alt="hands-on.cloud facebook page" /></a>
             </li>
             {{ end }}
         </ul>
