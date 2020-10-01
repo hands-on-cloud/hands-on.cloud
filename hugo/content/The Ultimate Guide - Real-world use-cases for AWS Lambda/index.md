@@ -1,6 +1,6 @@
 ---
 title: 'The Ultimate Guide - Real-world use-cases for AWS Lambda'
-date: '2020-09-30'
+date: '2020-10-01'
 image: 'The Ultimate Guide - real-world use-cases for AWS Lambda'
 tags:
   - lambda
@@ -231,3 +231,16 @@ Luckily, AWS already did all the heavy lifting and gave us everything we need to
 
 And again, no infrastructure. You're paying for services only for requests you're making to them.
 
+## Serverless IoT Backend
+
+Managing hundreds of thousands of IoT devices is challenging. Provide a simple and easy-to-use interface for monitoring and managing IoT devices to your clients, maybe even harder.
+
+All the devices or "things" like smart light bulbs, alarm buttons, door locks, or video cameras need to be registered centrally in a DB with additional meta-information (address, geolocation coordinates, placement in the room or at the floor plan, etc.).
+
+You can integrate [AWS IoT](https://aws.amazon.com/iot/) services family with [AWS Lambda](https://aws.amazon.com/lambda/) and [DynamoDB](https://aws.amazon.com/dynamodb/) to build a powerful serverless IoT backend, efficiently solving all those challenges.
+
+{{< my-picture name="real world use cases for AWS Lambda-Serverless IoT Backend" >}}
+
+From another side, we already figured out how to use AWS Lambda, [S3](https://aws.amazon.com/s3/), DynamoDB, and [Cognito](https://aws.amazon.com/cognito/) to build a modern web-application for your clients. If you tie all those pieces together, you can create a completely serverless IoT devices management platform.
+
+Additional information: [Implementing a Serverless AWS IoT Backend with AWS Lambda and Amazon DynamoDB](https://aws.amazon.com/blogs/compute/implementing-a-serverless-aws-iot-backend-with-aws-lambda-and-amazon-dynamodb/).
