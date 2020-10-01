@@ -217,3 +217,17 @@ There are two different scenarios, which you need to be aware of:
 * **CloudWatch Logs contain a specific message**: CloudWatch can trigger Lambda function if a particular text pattern appears in the text; for example, the log record contains the "Exception" keyword.
 
 Additional information: [Getting helpful CloudWatch alarms in Slack](https://stacks.wellcomecollection.org/getting-helpful-cloudwatch-alarms-in-slack-ba98fcbe6d31).
+
+## Building Serverless Chatbots
+
+Building and running chatbots from scratch may be a time consuming and expensive challenge. Following the traditional way, you need to develop a chatbot code and provision, run, and scale the infrastructural resources to support the business logic.
+
+{{< my-picture name="real world use cases for AWS Lambda-Building Serverless Chatbots" >}}
+
+Luckily, AWS already did all the heavy lifting and gave us everything we need to build and run a scalable chatbot solution for our clients with ease. Here's what you need:
+
+* [Amazon Lex](https://aws.amazon.com/lex/) allows us to create the conversational interface for our bot
+* [AWS Lambda](https://aws.amazon.com/lambda/) will enable us to fulfill the intent given by Amazon Lex service with any action.
+
+And again, no infrastructure. You're paying for services only for requests you're making to them.
+
