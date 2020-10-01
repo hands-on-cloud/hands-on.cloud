@@ -1,27 +1,27 @@
 <div class="section footer px-3 py-2">
 	<h1 class="header-content__logo">
-		<a href="/"><amp-img width="158" height="16" layout="fixed" src="https://hands-on.cloud/assets/images/logo-small.png" alt="footer logo"></amp-img></a>
+		<a href="/"><amp-img width="158" height="16" layout="fixed" src="https://hands-on.cloud/assets/images/logo-small.png" alt="hands-on.cloud footer logo"></amp-img></a>
 	</h1>
 	<span class="copyright-note mb-2">Copyright © Hands-On.Cloud, All Rights Reserved.</span>
 	<ul class="d-flex ml-n2">
         {{ if and (.Site.Params.twitter) (ne .Site.Params.twitter "") }}
         <li>
             <a href="https://twitter.com/{{.Site.Params.twitter}}" target="_blank" class="d-table p-2">
-                <amp-img width="14" height="13" layout="fixed" src="/assets/images/icons/twitter-icon.png" alt="twitter-icon" />
+                <amp-img width="14" height="13" layout="fixed" src="/assets/images/icons/twitter-icon.png" alt="hands-on.cloud twitter page" />
             </a>
         </li>
         {{ end }}
         {{ if and (.Site.Params.linkedin) (ne .Site.Params.linkedin "") }}
         <li>
             <a href="https://www.linkedin.com/in/{{.Site.Params.linkedin}}/" target="_blank" class="d-table p-2">
-                <amp-img width="15" height="13" layout="fixed" src="/assets/images/icons/linked-in-icon.png" alt="facebook-icon" />
+                <amp-img width="15" height="13" layout="fixed" src="/assets/images/icons/linked-in-icon.png" alt="hands-on.cloud linkedin page" />
             </a>
         </li>
         {{ end }}
         {{ if and (.Site.Params.facebook) (ne .Site.Params.facebook "") }}
         <li>
             <a href="https://www.facebook.com/{{.Site.Params.facebook}}" target="_blank" class="d-table p-2">
-                <amp-img width="6" height="13" layout="fixed" src="/assets/images/icons/facebook-icon.png" alt="facebook-icon" />
+                <amp-img width="6" height="13" layout="fixed" src="/assets/images/icons/facebook-icon.png" alt="hands-on.cloud facebook page" />
             </a>
         </li>
         {{ end }}
