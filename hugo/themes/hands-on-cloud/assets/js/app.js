@@ -8,7 +8,7 @@ function DeferLoadImages() {
 	}
 }
 
-jQuery(document).ready(function($){
+$(document).ready(function($){
 	let pageOverlap = $(".page-overlap");
 	let menuIcon = $('.header-nav-icon');
 	let menuContent = $('#mob-Navigation');

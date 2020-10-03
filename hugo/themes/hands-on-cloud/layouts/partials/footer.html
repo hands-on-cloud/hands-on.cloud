@@ -1,9 +1,3 @@
-{{ $app_js := "assets/scripts/app.js" | absURL }}
-{{ $jquery_min_js := "assets/scripts/jquery-3.3.1.min.js" | absURL }}
-{{ $popper_min_js := "assets/scripts/popper-1.14.7.min.js" | absURL }}
-{{ $bootstrap_min_js := "assets/bootstrap-4.3.1/js/bootstrap.min.js" | absURL }}
-{{ $scrollspy_min_js := "assets/scripts/scrollspy.min.js" | absURL }}
-
 <footer id="footer" class="footer">
     <div class="container">
         <div class="header-content__logo">
@@ -35,11 +29,15 @@
     </div>
 </footer>
 
-<script src="{{ $jquery_min_js }}"></script>
-<script src="{{ $app_js }}"></script>
-<script src="{{ $popper_min_js }}"></script>
-<script src="{{ $bootstrap_min_js }}"></script>
-<script src="{{ $scrollspy_min_js }}"></script>
+{{ $app_js := resources.Get "js/app.js" }}
+{{ $jquery_min_js := resources.Get "js/jquery-3.3.1.min.js" }}
+{{ $bootstrap_min_js := resources.Get "js/bootstrap-4.3.1/js/bootstrap.min.js" }}
+{{ $scrollspy_min_js := resources.Get "js/scrollspy.min.js" }}
+
+{{ $jsCombined := slice $jquery_min_js $bootstrap_min_js $scrollspy_min_js $app_js | resources.Concat "js/bundle.js" }}
+{{ $js := $jsCombined | resources.Minify }}
+
+<script src="{{ $js.RelPermalink }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js"></script>
 
 {{- partial "fb_pixel.html" . -}}
