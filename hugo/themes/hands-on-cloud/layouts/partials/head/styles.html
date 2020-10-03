@@ -1,9 +1,14 @@
-<style amp-custom>
-    {{ with resources.Get "styles.scss" | resources.ToCSS | resources.Minify }}
+<style>
+    {{ with resources.Get "styles/styles.scss" | resources.ToCSS | resources.Minify }}
         {{ .Content | safeCSS }}
     {{ end }}
-    {{ if resources.Get "custom.scss" }}
-        {{ with resources.Get "custom.scss" | resources.ToCSS | resources.Minify }}
+    {{ if resources.Get "styles/custom.scss" }}
+        {{ with resources.Get "styles/custom.scss" | resources.ToCSS | resources.Minify }}
+            {{ .Content | safeCSS }}
+        {{ end }}
+    {{ end }}
+    {{ if resources.Get "js/bootstrap-4.3.1/css/bootstrap.min.css" }}
+        {{ with resources.Get "js/bootstrap-4.3.1/css/bootstrap.min.css" | resources.Minify }}
             {{ .Content | safeCSS }}
         {{ end }}
     {{ end }}

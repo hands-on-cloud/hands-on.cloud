@@ -1,12 +1,4 @@
-{{ $main_css := "assets/styles/styles.css" | absURL }}
-{{ $bootstrap_css := "assets/bootstrap-4.3.1/css/bootstrap.min.css" | absURL }}
-{{ $respond_js := "assets/scripts/respond.min.js" | absURL }}
-{{ $pie_js := "assets/scripts/PIE.js" | absURL }}
-
 {{- partial "meta.html" . -}}
-
-<!-- Bootstrap core CSS -->
-<link href="{{ $bootstrap_css }}" rel="stylesheet" />
 
 {{ .Section }}
 {{if eq .Section "categories"}}
@@ -16,7 +8,6 @@
 {{ else }}
 <link rel="amphtml" href="/amp{{ .RelPermalink }}">
 {{ end }}
-<link rel="stylesheet" href="{{ $main_css }}" />
 <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -41,12 +32,6 @@
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <script src="{{ $respond_js }}"></script>
-  <script src="{{ $pie_js }}"></script>
-<![endif]-->
-
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({
@@ -64,3 +49,5 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 {{- partial "schema.html" . -}}
+
+{{- partial "head/styles.html" . -}}
