@@ -1,6 +1,6 @@
 ---
 title: 'Terraform recipe - How to create AWS ElasticSearch cluster'
-date: '2018-11-19'
+date: '2020-10-04'
 image: 'Terraform-recipe-How-to-create-AWS-ElasticSearch-cluster'
 tags:
   - elasticsearch
@@ -17,95 +17,307 @@ authors:
 
 {{< my-picture name="Terraform-recipe-How-to-create-AWS-ElasticSearch-cluster" >}}
 
-From this recipe you’ll learn how to create [AWS ElasticSearch](https://aws.amazon.com/elasticsearch-service/) cluster in VPC using [Terrafrom](https://www.terraform.io/).
+From this recipe, you’ll learn how to create the [AWS ElasticSearch](https://aws.amazon.com/elasticsearch-service/) cluster in VPC using [Terraform](https://www.terraform.io/).
 
-Source code is available in my [GitHub repo](https://github.com/andreivmaksimov/terraform-recipe-how-to-create-aws-elasticsearch-cluster).
+The source code is available in my [GitHub repository](https://github.com/andreivmaksimov/terraform-recipe-how-to-create-aws-elasticsearch-cluster).
 
-Amazon Elasticsearch Service is an AWS managed service, that makes it easy to deploy, operate, and scale Elasticsearch clusters.
+**Updates (Oct 2020)**:
 
-Elasticsearch is a popular open-source search and analytics engine for the following use cases:
+* Updated Terraform code to support newer version syntax.
+* VPC deployment added
+* Three subnet HA ElasticSearch cluster
+* ElasticSearach version upgrade to version `7.7`
+* Fix of `Error: Error creating ElasticSearch domain: ValidationException: Before you can proceed, you must enable a service-linked role to give Amazon ES permissions to access your VPC.`
+* Fix of `Error: Error creating ElasticSearch domain: ValidationException: You must choose a minimum of three data nodes for a three Availability Zone deployment.`
 
-- log analytics
-- real-time application monitoring
-- clickstream analysis
+## Introduction
 
-Amazon ES provisions all the resources for your Elasticsearch cluster and launches it. It also automatically detects and replaces failed Elasticsearch nodes, reducing the overhead associated with self-managed infrastructures. You can scale your cluster with a single API call or a few clicks in the console.
+Amazon Elasticsearch Service is an AWS managed service that makes it easy to deploy, operate, and scale Elasticsearch clusters.
 
-To get started using Amazon ES, you create a `domain`. An Amazon ES domain is synonymous with an Elasticsearch cluster. Domains are clusters with the settings, instance types, instance counts, and storage resources that you specify.
+ElasticSearch is a popular open-source search and analytics engine for the following use cases:
 
-## Setting up ElasticSearch cluster
+* log analytics
+* real-time application monitoring
+* clickstream analysis
 
-As soon as we’re understanding the basics, we may start setting up our cluster.
+## Common resources
 
-Set of variables you’ll need:
+Here are some common Terraform resources, which we’ll be using in this deployment:
 
 ```hcl
-variable "vpc" {
-  description = "VPC ID where to launch ElasticSearch cluster"
-}
-
-variable "vpc_cidr" {
-  description = "CIDR to allow connections to ElasticSearch"
-}
-
 variable "region" {
-  description = "AWS region to use"
+  type = string
+  description = "AWS Region, where to deploy ELK cluster."
+  default = "us-east-1"
 }
 
-variable "es_domain" {
-  description = "ElasticSearch domain name"
+locals {
+  common_prefix = "demo"
+  elk_domain = "${local.common_prefix}-elk-domain"
 }
 
-variable "es_subnets" {
-  type = "list"
-  description = "List of VPC Subnet IDs to create ElasticSearch Endpoints in"
-}
-```
-
-To get information about AWS region and caller identity you can use the following [data sources](https://www.terraform.io/docs/configuration/data-sources.html):
-
-```hcl
 data "aws_region" "current" {}
 
 data "aws_caller_identity" "current" {}
+
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
+provider "aws" {
+  region = var.region
+}
 ```
 
-Now we need a `aws_security_group` object to restrict network access to ElasticSearch cluster:
+## VPC configuration
+
+To simplify deployment, I decided to deploy an ElasticSearch example in its dedicated VPC. Here's a VPC configuration with the following characteristics:
+
+* 3 Availability Zones
+* 6 subnets (3 public, 3 nated)
+
+{{< my-picture name="Terraform recipe - Elasticsearch VPC" >}}
 
 ```hcl
-resource "aws_security_group" "es_sg" {
-  name = "${var.es_domain}-sg"
+resource "aws_vpc" "demo" {
+  cidr_block       = "10.0.0.0/16"
+  enable_dns_hostnames = true
+
+  tags = {
+    Name = "${local.common_prefix}-vpc"
+  }
+}
+
+resource "aws_subnet" "public_1" {
+  vpc_id     = aws_vpc.demo.id
+  cidr_block = cidrsubnet(aws_vpc.demo.cidr_block, 8, 0)
+  availability_zone = data.aws_availability_zones.available.names[0]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "${local.common_prefix}-public-subnet-${data.aws_availability_zones.available.names[0]}"
+  }
+}
+
+resource "aws_subnet" "public_2" {
+  vpc_id     = aws_vpc.demo.id
+  cidr_block = cidrsubnet(aws_vpc.demo.cidr_block, 8, 1)
+  availability_zone = data.aws_availability_zones.available.names[1]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "${local.common_prefix}-public-subnet-${data.aws_availability_zones.available.names[1]}"
+  }
+}
+
+resource "aws_subnet" "public_3" {
+  vpc_id     = aws_vpc.demo.id
+  cidr_block = cidrsubnet(aws_vpc.demo.cidr_block, 8, 2)
+  availability_zone = data.aws_availability_zones.available.names[2]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "${local.common_prefix}-public-subnet-${data.aws_availability_zones.available.names[2]}"
+  }
+}
+
+resource "aws_internet_gateway" "demo" {
+  vpc_id = aws_vpc.demo.id
+
+  tags = {
+    Name = "${local.common_prefix}-igw"
+  }
+}
+
+resource "aws_route_table" "public" {
+    vpc_id = aws_vpc.demo.id
+
+    route {
+        cidr_block = "0.0.0.0/0"
+        gateway_id = aws_internet_gateway.demo.id
+    }
+
+    tags = {
+        Name = "${local.common_prefix}-public-rt"
+    }
+}
+
+resource "aws_route_table_association" "public_1" {
+    subnet_id = aws_subnet.public_1.id
+    route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "public_2" {
+    subnet_id = aws_subnet.public_2.id
+    route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "public_3" {
+    subnet_id = aws_subnet.public_3.id
+    route_table_id = aws_route_table.public.id
+}
+
+resource "aws_subnet" "nated_1" {
+  vpc_id     = aws_vpc.demo.id
+  cidr_block = cidrsubnet(aws_vpc.demo.cidr_block, 8, 3)
+  availability_zone = data.aws_availability_zones.available.names[0]
+
+  tags = {
+    Name = "${local.common_prefix}-nated-subnet-${data.aws_availability_zones.available.names[0]}"
+  }
+}
+
+resource "aws_subnet" "nated_2" {
+  vpc_id     = aws_vpc.demo.id
+  cidr_block = cidrsubnet(aws_vpc.demo.cidr_block, 8, 4)
+  availability_zone = data.aws_availability_zones.available.names[1]
+
+  tags = {
+    Name = "${local.common_prefix}-nated-subnet-${data.aws_availability_zones.available.names[1]}"
+  }
+}
+
+resource "aws_subnet" "nated_3" {
+  vpc_id     = aws_vpc.demo.id
+  cidr_block = cidrsubnet(aws_vpc.demo.cidr_block, 8, 5)
+  availability_zone = data.aws_availability_zones.available.names[2]
+
+  tags = {
+    Name = "${local.common_prefix}-nated-subnet-${data.aws_availability_zones.available.names[2]}"
+  }
+}
+
+resource "aws_eip" "nat_gw_eip_1" {
+  vpc = true
+}
+
+resource "aws_eip" "nat_gw_eip_2" {
+  vpc = true
+}
+
+resource "aws_eip" "nat_gw_eip_3" {
+  vpc = true
+}
+
+resource "aws_nat_gateway" "gw_1" {
+  allocation_id = aws_eip.nat_gw_eip_1.id
+  subnet_id     = aws_subnet.public_1.id
+}
+
+resource "aws_nat_gateway" "gw_2" {
+  allocation_id = aws_eip.nat_gw_eip_2.id
+  subnet_id     = aws_subnet.public_2.id
+}
+
+resource "aws_nat_gateway" "gw_3" {
+  allocation_id = aws_eip.nat_gw_eip_3.id
+  subnet_id     = aws_subnet.public_3.id
+}
+
+resource "aws_route_table" "nated_1" {
+    vpc_id = aws_vpc.demo.id
+
+    route {
+        cidr_block = "0.0.0.0/0"
+        nat_gateway_id = aws_nat_gateway.gw_1.id
+    }
+
+    tags = {
+        Name = "${local.common_prefix}-nated-rt-1"
+    }
+}
+
+resource "aws_route_table" "nated_2" {
+    vpc_id = aws_vpc.demo.id
+
+    route {
+        cidr_block = "0.0.0.0/0"
+        nat_gateway_id = aws_nat_gateway.gw_2.id
+    }
+
+    tags = {
+        Name = "${local.common_prefix}-nated-rt-2"
+    }
+}
+
+resource "aws_route_table" "nated_3" {
+    vpc_id = aws_vpc.demo.id
+
+    route {
+        cidr_block = "0.0.0.0/0"
+        nat_gateway_id = aws_nat_gateway.gw_3.id
+    }
+
+    tags = {
+        Name = "${local.common_prefix}-nated-rt-3"
+    }
+}
+
+resource "aws_route_table_association" "nated_1" {
+    subnet_id = aws_subnet.nated_1.id
+    route_table_id = aws_route_table.nated_1.id
+}
+
+resource "aws_route_table_association" "nated_2" {
+    subnet_id = aws_subnet.nated_2.id
+    route_table_id = aws_route_table.nated_2.id
+}
+```
+
+## ElasticSearch cluster
+
+As soon as we have VPC in place, we may deploy our cluster. Here we have:
+
+* Security Group to allow connections to ElasticSearch from out VPC
+* Required Elasticsearch Service-Linked Role
+* ElasticSearch cluster
+* Couple of output variables with the links to cluster endpoints
+
+```hcl
+resource "aws_security_group" "es" {
+  name = "${local.common_prefix}-es-sg"
   description = "Allow inbound traffic to ElasticSearch from VPC CIDR"
-  vpc_id = "${var.vpc}"
+  vpc_id = aws_vpc.demo.id
 
   ingress {
       from_port = 0
       to_port = 0
       protocol = "-1"
       cidr_blocks = [
-          "${var.vpc_cidr}"
+          aws_vpc.demo.cidr_block
       ]
   }
 }
-```
 
-Here we allowing any connections coming from our VPC address range.
+resource "aws_iam_service_linked_role" "es" {
+  aws_service_name = "es.amazonaws.com"
+}
 
-The most interesting part is [aws_elasticsearch_domain](https://www.terraform.io/docs/providers/aws/r/elasticsearch_domain.html). It is needed to create cluster itself:
-
-```hcl
 resource "aws_elasticsearch_domain" "es" {
-  domain_name = "${var.es_domain}"
-  elasticsearch_version = "6.3"
+  domain_name = local.elk_domain
+  elasticsearch_version = "7.7"
 
   cluster_config {
-      instance_type = "r4.large.elasticsearch"
+      instance_count = 3
+
+      instance_type = "r5.large.elasticsearch"
+
+      zone_awareness_enabled = true
+
+      zone_awareness_config {
+        availability_zone_count = 3
+      }
   }
 
   vpc_options {
-      subnet_ids = "${var.es_subnets}"
+      subnet_ids = [
+        aws_subnet.nated_1.id,
+        aws_subnet.nated_2.id,
+        aws_subnet.nated_3.id
+      ]
+
       security_group_ids = [
-          "${aws_security_group.es_sg.id}"
+          aws_security_group.es.id
       ]
   }
 
@@ -122,7 +334,7 @@ resource "aws_elasticsearch_domain" "es" {
           "Action": "es:*",
           "Principal": "*",
           "Effect": "Allow",
-          "Resource": "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/${var.es_domain}/*"
+          "Resource": "arn:aws:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/${local.elk_domain}/*"
       }
   ]
 }
@@ -132,20 +344,20 @@ resource "aws_elasticsearch_domain" "es" {
       automated_snapshot_start_hour = 23
   }
 
-  tags {
-      Domain = "${var.es_domain}"
+  tags = {
+      Domain = local.elk_domain
   }
 }
-```
 
-It can be very useful to get as an output ELK cluster endpoint and Kibana endpoint URLs:
-
-```hcl
-output "ElasticSearch Endpoint" {
-  value = "${aws_elasticsearch_domain.es.endpoint}"
+output "elk_endpoint" {
+  value = aws_elasticsearch_domain.es.endpoint
 }
 
-output "ElasticSearch Kibana Endpoint" {
-  value = "${aws_elasticsearch_domain.es.kibana_endpoint}"
+output "elk_kibana_endpoint" {
+  value = aws_elasticsearch_domain.es.kibana_endpoint
 }
 ```
+
+## Summary
+
+I hope you’ll find this article helpful. If so, please, feel free to help me to spread it to the world!
