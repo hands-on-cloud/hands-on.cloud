@@ -1,10 +1,12 @@
-// menu icon functionality
-function DeferLoadImages() {
-	var imgDefer = document.getElementsByTagName('img');
-	for (var i=0; i<imgDefer.length; i++) {
-		if(imgDefer[i].getAttribute('data-lazy-src')) {
-			imgDefer[i].setAttribute('src',imgDefer[i].getAttribute('data-lazy-src'));
-		}
+function navbarToggl() {
+	var element = document.getElementById("navbarsDefault");
+	element.classList.toggle("show");
+
+	var panel = document.getElementById("navbarsDefault");
+	if (panel.style.maxHeight) {
+		panel.style.maxHeight = null;
+	} else {
+		panel.style.maxHeight = panel.scrollHeight + "px";
 	}
 }
 
@@ -29,15 +31,26 @@ $(document).ready(function($){
 		siteBody.toggleClass('no-scroll');
 	}
 
-	DeferLoadImages();
-
 	$("#TableOfContents").scrollspy({ offset: -85 });
+
+	var HttpClient = function() {
+		this.get = function(aUrl, aCallback) {
+			var anHttpRequest = new XMLHttpRequest();
+			anHttpRequest.onreadystatechange = function() {
+				if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+					aCallback(anHttpRequest.responseText);
+			}
+			anHttpRequest.open( "GET", aUrl, true );
+			anHttpRequest.send( null );
+		}
+	}
 
 	const tags = document.getElementsByTagName('meta')['keywords']['content'].replace(',', '');
 	if (tags != undefined) {
 		const url = "https://api.hands-on.cloud/?tags=" + tags;
-		$.get(url, function(a) {
-			const data = JSON.parse(a);
+		var client = new HttpClient();
+		client.get(url, function(response) {
+			const data = JSON.parse(response);
 			data.forEach(element => {
 				var div_item = $('<div>', {class: 'carousel-item'});
 				var div_item_a = $('<a>',{href: element.linkurl});
