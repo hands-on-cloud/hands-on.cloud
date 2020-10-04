@@ -43,11 +43,11 @@
 
 <picture>
     {{ with $src_webp }}
-        <source srcset="{{ .RelPermalink | absURL }}" type="image/webp">
+        <source data-srcset="{{ .RelPermalink | absURL }}" type="image/webp" class="lazyload">
     {{ end }}
     <img
     {{ with .Get "sizes" }}sizes='{{.}}'{{ else }}sizes="(min-width: 35em) 1024px, 100vw"{{ end }}
-    srcset='
+    data-srcset='
     {{ if ge $src.Width "500" }}
         {{ with $tiny.RelPermalink }}{{.}} 500w{{ end }}
     {{ end }}
@@ -61,9 +61,9 @@
         {{ with $large.RelPermalink }}, {{.}} 1500w {{ end }}
     {{ end }}'
     {{ if .Get (print $medium) }}
-        src="{{ $medium.RelPermalink }}"
+        data-src="{{ $medium.RelPermalink }}"
     {{ else }}
-        src="{{ $src.RelPermalink }}"
+        data-src="{{ $src.RelPermalink }}"
     {{ end }}
     {{ with .Get "alt" }}alt="{{.}}"{{ else }}alt=""{{ end }} class="lazyload">
 </picture>
