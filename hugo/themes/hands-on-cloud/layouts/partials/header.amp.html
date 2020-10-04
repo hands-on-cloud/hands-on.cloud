@@ -16,7 +16,7 @@
         <ul class="desk-menu-lef">
           {{ range $name, $items := .Site.Taxonomies.categories }}
             <li>
-              <a class="d-block mob-menu-link text-white" href="{{ $.Site.BaseURL }}categories/{{ $name | urlize | lower }}/amp/">
+              <a class="d-block mob-menu-link text-white" href="{{ $.Site.BaseURL }}/categories/{{ $name | urlize | lower }}/amp/">
                 {{ $name | upper }}
               </a>
             </li>
