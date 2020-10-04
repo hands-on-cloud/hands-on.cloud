@@ -9,7 +9,7 @@
     <ul class="navbar-nav mr-auto">
         {{ range $name, $items := .Site.Taxonomies.categories }}
         <li class="nav-item">
-          <a class="nav-link p-2 text-light" href="{{ $.Site.BaseURL }}categories/{{ $name | urlize | lower }}/">
+          <a class="nav-link p-2 text-light" href="{{ $.Site.BaseURL }}/categories/{{ $name | urlize | lower }}/">
             {{ $name | upper }}
           </a>
         </li>
