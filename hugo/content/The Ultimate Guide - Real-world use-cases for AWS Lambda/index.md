@@ -1,6 +1,6 @@
 ---
 title: 'The Ultimate Guide - Real-world use-cases for AWS Lambda'
-date: '2020-10-01'
+date: '2020-10-05'
 image: 'The Ultimate Guide - real-world use-cases for AWS Lambda'
 tags:
   - lambda
@@ -244,3 +244,20 @@ You can integrate [AWS IoT](https://aws.amazon.com/iot/) services family with [A
 From another side, we already figured out how to use AWS Lambda, [S3](https://aws.amazon.com/s3/), DynamoDB, and [Cognito](https://aws.amazon.com/cognito/) to build a modern web-application for your clients. If you tie all those pieces together, you can create a completely serverless IoT devices management platform.
 
 Additional information: [Implementing a Serverless AWS IoT Backend with AWS Lambda and Amazon DynamoDB](https://aws.amazon.com/blogs/compute/implementing-a-serverless-aws-iot-backend-with-aws-lambda-and-amazon-dynamodb/).
+
+## Custom Workflow Orchestration
+
+Almost every modern application (website, e-commerce, analytics software, ERP, etc.) consists of complex workflows which are usually executed periodically or in response to some event.
+
+During reInvent 2016, AWS announced a new service for creating state machines - [AWS Step Functions](https://aws.amazon.com/step-functions/). This service became a standard de-facto for modeling and orchestration of any workflow in the AWS cloud. You are using JSON-based specification language for process declaration. It is super easy to tie many different Lambda functions and other AWS services into a single powerful automated workflow. Here's an example from our article [AWS Step Functions - How to manage long-running tasks](https://hands-on.cloud/aws-step-functions-how-to-manage-long-running-tasks/):
+
+{{< my-picture name="real world use cases for AWS Lambda - Using Step Functions for workflow orchestration" >}}
+
+Some of the examples where you can use Step Functions and Lambda together:
+
+* Simple and complex workflow orchestration
+* Coordinate tasks in distributed serverless applications
+* Automating Machine Learning workflows
+* Orchestrating ETL jobs
+
+Additional information: [Hitchhiker's Guide to AWS Step Functions](https://epsagon.com/development/hitchhikers-guide-to-aws-step-functions/)
