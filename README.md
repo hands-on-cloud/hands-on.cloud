@@ -86,16 +86,10 @@ The most comfortable and easy way of doing this is to use [Photopea](https://www
 
 ## Converting `.png` to `.webp`
 
-```sh
-cd hugo
-docker run -v $(pwd):/src --rm -it v4tech/imagemagick /bin/sh
+The following command will create `.webp` images from `.png`:
 
-apk --update add libwebp-tools
-cd /src/content/article
-for file in *.png ; do convert $file -quality 50 -define webp:lossless=true "${file%.png}.webp"; done
-for file in *.webp; do dwebp $file -o ${file%.webp}.jpg; done
-for file in *.webp; do dwebp $file -o ${file%.webp}.png; done
-rm -Rf *.png
+```sh
+./scripts/generate_images.sh
 ```
 
 ## License
