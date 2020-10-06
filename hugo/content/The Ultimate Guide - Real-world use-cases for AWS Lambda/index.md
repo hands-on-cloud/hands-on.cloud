@@ -1,6 +1,6 @@
 ---
 title: 'The Ultimate Guide - Real-world use-cases for AWS Lambda'
-date: '2020-10-05'
+date: '2020-10-06'
 image: 'The Ultimate Guide - real-world use-cases for AWS Lambda'
 tags:
   - lambda
@@ -261,3 +261,18 @@ Some of the examples where you can use Step Functions and Lambda together:
 * Orchestrating ETL jobs
 
 Additional information: [Hitchhiker's Guide to AWS Step Functions](https://epsagon.com/development/hitchhikers-guide-to-aws-step-functions/)
+
+## Auditing And Processing DB Data Changes
+
+We already covered the Serverless Website use-case. Now, let's go a bit deeper and imagine that we need to react to our DynamoDB database changes. As soon as it becomes a case, it would be best to think about AWS Lambda and DynamoDB integration - DynamoDB Streams.
+
+{{< my-picture name="real world use cases for AWS Lambda - Process DynamoDB Stream" >}}
+
+DynamoDB can call AWS Lambda every time some data changes happen and provide this information in a simple JSON data structure. AWS Lambda does the rest. Here are some examples:
+
+* **Data Filtering** - you may validate data input and correct or revert it based on your rules
+* **Monitoring** - you may react to specific events like new user registration, or profile update
+* **Auditing** - you may automatically validate an update changes and revert them if needed
+* **Notifications** - you may validate or track your user's activity and send reports about it; for example, send a message about the most performed employee during the last working hour.
+
+Additional information: [AWS Lambda - How to process DynamoDB streams](https://hands-on.cloud/aws-lambda-how-to-process-dynamodb-streams/)
