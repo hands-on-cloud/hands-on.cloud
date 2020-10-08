@@ -1,6 +1,6 @@
 ---
 title: 'The Ultimate Guide - Real-world use-cases for AWS Lambda'
-date: '2020-10-06'
+date: '2020-10-09'
 image: 'The Ultimate Guide - real-world use-cases for AWS Lambda'
 tags:
   - lambda
@@ -297,3 +297,40 @@ Here are some examples of the Alexa skills that you can create:
 
 Additional information: [Rapidly Create Your Alexa Skill Backend with AWS CloudFormation](https://developer.amazon.com/blogs/alexa/post/Tx27NAUCY0KQ34D/rapidly-create-your-alexa-skill-backend-with-aws-cloudformation)
 
+## Serverless Fan-Out Architecture
+
+One of the common challenges we face when we’re coming to the Serverless world is how to build fan-out architecture.
+
+There are three ways of doing that:
+
+* [SNS](https://aws.amazon.com/sns/)
+* [EventBridge](https://aws.amazon.com/eventbridge/)
+* [Step Functions](https://aws.amazon.com/step-functions/)
+
+Fan-out architecture is an ideal choice when you need to parallelize your processes and workloads. Here are some more use-cases:
+
+* Data processing data pipeline, which needs to save the data at various stages of the process
+* Evaluating Machine Learning model with human results validation
+* Converting image files to multiple different formats.
+
+### SNS
+
+SNS is an essential building block for any solution when you want to send the same message to multiple destinations. As soon as SNS has integration with Lambda, it is a perfect building block for serverless fan-out architecture. Let’s consider converting a single uploaded image to multiple different formats in a serverless website. S3 can send its updates to the SNS topic so we can build the following solution.
+
+{{< my-picture name="real world use cases for AWS Lambda-Serverless Fan-Out Architecture - SNS" >}}
+
+### EventBridge
+
+EventBridge is a service bus and universal standard for events routing and processing. The idea is the same as in the case with SNS. You can build a system that receives messages from your partner and downstream it to several internal systems for further processing.
+
+{{< my-picture name="real world use cases for AWS Lambda-Serverless Fan-Out Architecture - EventBridge" >}}
+
+### Step Functions
+
+Step Functions is an AWS service, which allows you to orchestrate different workflows which have various complexities. The major component of almost any workflow is the Lambda function. Step Functions enable you to run several tasks in parallel. Here’s an example of processing user registration on the website, during which we: Updating website DB Subscribing user to an onboarding email sequence Confirming user about account creation
+
+{{< my-picture name="real world use cases for AWS Lambda - Serverless Fan-Out Architecture - Step Functions" >}}
+
+Of course, you may change this workflow, whatever you like.
+
+Additional information: [Reducing custom code by using advanced rules in Amazon EventBridge](https://aws.amazon.com/blogs/compute/reducing-custom-code-by-using-advanced-rules-in-amazon-eventbridge/)
