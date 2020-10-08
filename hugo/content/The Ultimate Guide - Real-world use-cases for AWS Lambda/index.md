@@ -276,3 +276,24 @@ DynamoDB can call AWS Lambda every time some data changes happen and provide thi
 * **Notifications** - you may validate or track your user's activity and send reports about it; for example, send a message about the most performed employee during the last working hour.
 
 Additional information: [AWS Lambda - How to process DynamoDB streams](https://hands-on.cloud/aws-lambda-how-to-process-dynamodb-streams/)
+
+## Create Alexa Skills
+
+For those of you, who are not familiar with this fantastic technology, Alexa is an Amazon smart speaker device or voice assistant.
+
+{{< amazon-associates src="https://ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=handsoncloud-20&marketplace=amazon&region=US&placement=B07XJ8C8F7&asins=B07XJ8C8F7&linkId=852eea069a26c097037baa0890505544&show_border=true&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff" >}}
+
+Every skill that Alexa has, for example, to check the weather, read the news, notify about Amazon delivery status, or remind you about something, is powered with technology. Alexa does all the heavy lifting for you, so you do not have to deal with natural language processing or understand what the user means.
+
+{{< my-picture name="real world use cases for AWS Lambda-Create Alexa Skills" >}}
+
+Every time Alexa asks about something, it launches a Lambda function to process the request, and you can write a Lambda function to do something meaningful in response.
+
+Here are some examples of the Alexa skills that you can create:
+
+* Ask Alexa about your website revenue
+* Turn on the lights in the room
+* Ask for your favorite pizza delivery
+
+Additional information: [Rapidly Create Your Alexa Skill Backend with AWS CloudFormation](https://developer.amazon.com/blogs/alexa/post/Tx27NAUCY0KQ34D/rapidly-create-your-alexa-skill-backend-with-aws-cloudformation)
+
