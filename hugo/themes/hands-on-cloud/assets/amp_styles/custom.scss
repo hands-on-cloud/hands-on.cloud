@@ -14,3 +14,12 @@
   min-height: auto;
   max-height: 100%;
 }
+
+amp-iframe {
+  min-width: 100%;
+  max-width: 100%;
+  min-height: auto;
+  height: auto;
+  max-height: 50vw;
+  margin: 0px;
+}

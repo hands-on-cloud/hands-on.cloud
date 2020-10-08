@@ -1,0 +1,6 @@
+{{ $src := .Get "src" }}
+{{ $width := "120px" }}
+{{ $height := "240px" }}
+{{ if .Get "width"}}{{ $width := .Get "width" }}{{ end }}
+{{ if .Get "height"}}{{ $height := .Get "height" }}{{ end }}
+<center><iframe style="width:{{ $width }};height:{{ $height }};" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="{{ $src }}"></iframe></center>

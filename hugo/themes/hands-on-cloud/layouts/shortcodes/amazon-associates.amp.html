@@ -1,0 +1,14 @@
+{{ $src := .Get "src" }}
+{{ $width := "120px" }}
+{{ $height := "240px" }}
+{{ if .Get "width"}}{{ $width := .Get "width" }}{{ end }}
+{{ if .Get "height"}}{{ $height := .Get "height" }}{{ end }}
+<amp-iframe
+  width="{{ $width }}"
+  height="{{ $height }}"
+  sandbox="allow-scripts allow-same-origin"
+  layout="responsive"
+  frameborder="0"
+  src="{{ $src }}"
+>
+</amp-iframe>
