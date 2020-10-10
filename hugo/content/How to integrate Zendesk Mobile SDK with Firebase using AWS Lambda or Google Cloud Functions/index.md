@@ -13,9 +13,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Integrating Zendesk Mobile SDK with Firebase using AWS Lambda
-
-{{< my-picture name="How-to-integrate-Zendesk-Mobile-SDK-with-Firebase-using-AWS-Lambda-or-Google-Cloud-Functions" >}}
 
 Everybody knows, that you may authenticate you users for Zendesk Mobile SDK using JWT (JSON Web Token). More over, that are a lot of HOWTO-s, which are showing JWT implementation in many different programming languages. In this tutorial I’ll show you, how to use Google Cloud Functions, NodeJS with some additional npm additions to create a fully scalable and absolutely free Serverless JWT authentication backend for Zendesk Mobile SDK.
 

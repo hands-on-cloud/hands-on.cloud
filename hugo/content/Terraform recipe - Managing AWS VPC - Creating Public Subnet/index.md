@@ -11,9 +11,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Terraform recipe - Managing AWS VPC - Creating Public Subnet
-
-{{< my-picture name="Terraform-Recipe-Managing-AWS-VPC-Creating-Public-Subnet" >}}
 
 One of the essential tasks of your cloud infrastructure management is managing your VPC’s networks. In this article, we’ll learn how to declare the most commonly used configuration:
 

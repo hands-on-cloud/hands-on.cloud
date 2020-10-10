@@ -11,9 +11,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# CloudFormation: How to create DMS infrastructure for DB migration
-
-{{< my-picture name="AWS-CloudFormation-How-to-create-DMS-infrastructure-for-relational-DB-migration" >}}
 
 AWS Database Migration Service (AWS DMS) is a cloud service that makes it easy to migrate relational databases, data warehouses, NoSQL databases, and other types of data stores. You can use AWS DMS to migrate your data into the Cloud, between on-premises DB servers, or between any combinations of cloud and on-premises setups. You may get more information about AWS DMS in the official [AWS documentation](https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html).
 

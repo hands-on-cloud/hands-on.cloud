@@ -9,9 +9,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to achieve all AWS Certifications
-
-{{< my-picture name="How-to-achieve-all-AWS-Certifications">}}
 
 AWS certifications are a great way to narrow the gap between team skills and skills needed in achieving organizational objectives. These certifications really set you apart from other candidates in your career. As AWS certification is most difficult certification in IT nowadays, my collegues always asking me the best way to get certified.
 

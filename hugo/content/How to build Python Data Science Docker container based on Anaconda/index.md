@@ -18,9 +18,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to build Anaconda Python Data Science Docker container
-
-{{< my-picture name="How-to-build-Python-Data-Science-Docker-container-based-on-Anaconda" >}}
 
 **Update for 2020:**
 

@@ -29,8 +29,23 @@ div.container {
   padding-bottom: 1rem;
 }
 
-div.container div.post {
-  padding-top: 8rem !important;
+h1 {
+  font-size: 2.5em;
+  padding-top: 100px;
+}
+
+h2 {
+  font-size: 1.3em;
+}
+
+h3 {
+  font-size: 1.1em;
+}
+
+.TableOfContentTitle {
+  font-size: 1.1em;
+  font-style: italic;
+  font-weight: bold;
 }
 
 /* Menu links */
@@ -298,19 +313,6 @@ div.blog-content > div.highlight > pre {
 /* Google Custom Search widget*/
 .gsc-input {
   min-width: 15em !important;
-}
-
-h1 {
-  font-size: 2.5rem;
-  font-style: bold;
-}
-
-h2 {
-  font-size: 1.75rem;
-}
-
-h3 {
-  font-size: 1.3rem;
 }
 
 main div.blog-content {

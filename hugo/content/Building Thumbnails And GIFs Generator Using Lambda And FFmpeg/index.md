@@ -15,9 +15,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Building Thumbnails And GIFs Generator Using Lambda And FFmpeg
-
-{{< my-picture name="Building Thumbnails And GIFs Generator Using Lambda And FFmpeg" >}}
 
 Not too far ago, somebody asked me to help put FFmpeg inside Lambda function and build a video processing API prototype.
 

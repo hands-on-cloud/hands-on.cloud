@@ -18,9 +18,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Automating static website deployment using CircleCI and Terraform
-
-{{< my-picture name="hands-on-cloud-architecture-cicd-pipeline" >}}
 
 In this article you'll find a set of instructions and builerplate code, which will help you to organize end-to-end CI/CD pipeline for your static website deployment to AWS S3 bucket.
 

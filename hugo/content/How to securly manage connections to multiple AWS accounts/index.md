@@ -13,9 +13,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to securely manage credentials to multiple AWS accounts
-
-{{< my-picture name="How-to-securely-manage-credentials-to-multiple-AWS-accounts" >}}
 
 ## Problem space
 

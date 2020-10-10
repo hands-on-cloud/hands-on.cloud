@@ -11,9 +11,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# AWS Step Functions. How to process arrays
-
-{{< my-picture name="AWS-Step-Functions-How-to-process-arrays">}}
 
 Nowadays Serverless computing topic become extrimely popular. It is so tasty to implement business process using several AWS Lambda functions and pay very low price for it’s execution. But everybody who tried to implement several Lambda functions interraction knows, that it is not so easy task.
 

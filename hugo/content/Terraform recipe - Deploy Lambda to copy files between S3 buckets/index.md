@@ -14,9 +14,6 @@ authors:
   - Tom Clemente
   - Andrei Maksimov
 ---
-# Terraform recipe - Deploy Lambda to copy files between S3 buckets
-
-{{< my-picture name="Terraform recipe - Deploy Lambda to copy files between S3 buckets" >}}
 
 Many frameworks exist on the market right now, which allows you to deploy your serverless infrastructure. But what if you have an on-going project, which uses Terraform as an infrastructure management tool? What if you’re apprehensive about changing your technology stack? In this article, we’ll show you in detail on how to start your Serverless journey while keeping Terraform in place.
 

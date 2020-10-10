@@ -12,9 +12,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# AWS Lambda - How to process DynamoDB streams
-
-{{< my-picture name="AWS-Lambda-How-to-process-DynamoDB-streams" >}}
 
 Imagine, you decided to launch a Serverless project at Amazon Web Services. In most cases, AWS Lambda and DynamoDB would be your technology choice.
 

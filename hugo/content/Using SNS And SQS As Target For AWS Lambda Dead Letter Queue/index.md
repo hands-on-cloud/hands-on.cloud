@@ -12,9 +12,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Using SNS And SQS As Target For AWS Lambda Dead Letter Queue
-
-{{< my-picture name="Using-SNS-And-SQS-As-Target-For-AWS-Lambda-Dead-Letter-Queue" >}}
 
 As soon as you’re starting developing microservice applications in the Serverless world, you start accepting the idea, that sometimes your microservices may fail. And it’s OK if it does not affect your application or your customer.
 

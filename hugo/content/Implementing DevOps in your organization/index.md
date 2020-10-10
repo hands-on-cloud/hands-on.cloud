@@ -9,11 +9,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Implementing DevOps in your organization
-
-{{< my-picture name="Implementing-DevOps-in-your-organization" >}}
-
-## Benefits of Implementing DevOps
 
 Implementing the powerful DevOps strategy in your business will provide several benefits, such as improving the company's efficiency; your customers will be more satisfied; the processes of your company will be more agile; there will be a reduction of costs due to the organization of the work method.
 

@@ -14,9 +14,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# EventBridge - Building event driven Serverless architectures
-
-{{< my-picture name="EventBridge-Building-loosely-coupled-event-driven-serverless-architectures" >}}
 
 From this article you'll learn, what is [Amazon EventBridge](https://aws.amazon.com/eventbridge/), what problems it help to solve and how you can use it to simplify your event driven workflows.
 

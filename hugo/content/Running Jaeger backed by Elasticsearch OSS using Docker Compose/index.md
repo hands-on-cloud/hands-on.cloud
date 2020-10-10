@@ -13,9 +13,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Running Jaeger backed by Elasticsearch OSS using Docker Compose
-
-{{< my-picture name="Running-Jaeger-v1.11-backed-by-Elasticsearch-OSS-v6.7" >}}
 
 A couple of days already I'm playing with [Jager](https://www.jaegertracing.io) - distributed tracing system inspired by [Dapper](https://research.google.com/pubs/pub36356.html) and [OpenZipkin](http://zipkin.io/), which been opensourced by [Uber Technologies](http://uber.github.io/).
 

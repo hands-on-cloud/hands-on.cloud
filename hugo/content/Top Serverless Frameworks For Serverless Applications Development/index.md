@@ -11,9 +11,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Top Frameworks For Serverless Applications Development
-
-{{< my-picture name="Top-Frameworks-For-Serverless-Applications-Development" >}}
 
 Are you eager to learn and use Serverless technology and its frameworks? "Now" is always a good time. In this article, we'll provide a review of the most popular ones. And we hope, you'll be able to pick the most suitable framework for your needs.
 

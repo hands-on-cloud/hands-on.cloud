@@ -15,9 +15,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# AWS Step Functions - How to manage long running tasks
-
-{{< my-picture name="AWS-Step-Functions-How-to-manage-long-running-tasks" >}}
 
 Managing and orchestrating multiple automation activities in the cloud may be a challenging task. In the article [Cloud CRON - Scheduled Lambda Functions](https://hands-on.cloud/cloud-cron-scheduled-lambda-functions/), we covered how to create and manage simple automation activities in the AWS cloud. By the term "simple," we mean any tasks running no longer than 15 minutes (see [AWS Lambda quotas](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html)). But what if our job runs longer?
 

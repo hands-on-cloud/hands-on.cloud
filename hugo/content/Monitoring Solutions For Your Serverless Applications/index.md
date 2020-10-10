@@ -12,9 +12,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Monitoring Solutions For Your Serverless Applications
-
-{{< my-picture name="Monitoring Solutions For Your Serverless Applications" >}}
 
 As technology evolves, businesses get greater access to solutions for fast application development. A leading example of such solutions is Serverless computing. It's model challenges and transforms traditional methods of software development and operations.
 

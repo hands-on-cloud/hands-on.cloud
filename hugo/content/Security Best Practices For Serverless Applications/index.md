@@ -13,9 +13,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Security Best Practices For Serverless Applications
-
-{{< my-picture name="Security-Best-Practices-For-Serverless-Applications" >}}
 
 Serverless architecture allows applications to be developed and deployed without the provisioning and management of the underlying infrastructure or servers. Applications deployed by serverless architecture do not require any traditional host; instead, they run on serverless offerings which are managed by cloud providers. The most well-known serverless platforms are [AWS Lambda](https://aws.amazon.com/lambda/), [Microsoft Azure Functions](https://azure.microsoft.com/en-us/services/functions/), and [Google Cloud Functions](https://cloud.google.com/functions/).
 

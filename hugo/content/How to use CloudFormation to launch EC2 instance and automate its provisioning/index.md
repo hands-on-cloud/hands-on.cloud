@@ -14,9 +14,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to use CloudFormation to launch EC2 instance automation
-
-{{< my-picture name="How-to-use-CloudFormation-to-launch-EC2-instance-and-automate-its-provisioning" >}}
 
 This article is a contains a simple CloudFormation template for correct launch automation of AWS EC2 instance.
 

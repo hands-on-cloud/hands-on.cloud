@@ -13,9 +13,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# CloudFormation. How to access CodeCommit repo from EC2 instance
-
-{{< my-picture name="CloudFormation-How-to-access-CodeCommit-repo-from-EC2-instance">}}
 
 It is a very common task to pull your application code to EC2 instances from the Git repository. If you’re using CodeCommit as your main Git repository and CloudFormation for infrastructure management, it is very easy to launch an instance and allow it to access to that repository without storing any credentials or keys inside of it. In this article I’ll show you how to implement this in real life.
 

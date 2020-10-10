@@ -22,9 +22,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# What is Serverless computing
-
-{{< my-picture name="What is Serverless computing" >}}
 
 It is a very tricky topic as not so many people fully understand what Serverless means.
 

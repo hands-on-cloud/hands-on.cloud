@@ -1,42 +1,23 @@
 {{ define "main" }}
 <main role="main">
-  <div class="container-fluid">
-        {{ if gt (len .TableOfContents) 80}}
-
-          <!-- Version of the page with table of contents -->
-          <main>
-              <div class="content blog-content">
-                  {{ .Content }}
-                  {{- partial "mailchimp-form.html" . -}}
-                  {{ partial "linkshare_carousel.html" . }}
-                  {{ partial "authors.html" . }}
-              </div>
-              <aside class="hidden lg:block tableOfContentContainer" id="tableOfContentContainer">
-                  <h3>Table of contents</h3>
-                  {{ .TableOfContents }}
-              </aside>
-          </main>
-
-        {{ else }}
-
-            <!-- Version of the page without table of contents -->
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <div class="content blog-content">
-                        {{ .Content }}
-                        {{- partial "mailchimp-form.html" . -}}
-                        {{ partial "linkshare_carousel.html" . }}
-                        {{ partial "authors.html" . }}
-                    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="content blog-content">
+                    <h1>{{ .Title }}</h1>
+                    {{ partial "post-image.html" . }}
+                    <div class="TableOfContentTitle">Table Of Contents</div>
+                    {{ .TableOfContents }}
+                    {{ .Content }}
+                    {{ partial "mailchimp-form.html" . }}
+                    {{ partial "linkshare_carousel.html" . }}
+                    {{ partial "authors.html" . }}
                 </div>
             </div>
-
-        {{ end }}
-
+        </div>
         <div class="disqus"></div>
-
   </div>
-  {{- partial "footer.html" . -}}
+
   {{- partial "disquss.html" . -}}
 </main>
 {{ end }}

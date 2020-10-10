@@ -11,9 +11,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to put AWS EC2 Tags to environment variables
-
-{{< my-picture name="How-to-put-AWS-EC2-Tags-to-environment-variables" >}}
 
 One of the most common tasks in infrastructure automation is environment discovery. Of cause, it can be done in many several ways. Todays’s advice is for people, who are using Terraform or CloudFormation in their daily job. I’ll show you, how to provide discovery information to you EC2 instances using AWS Tags.
 

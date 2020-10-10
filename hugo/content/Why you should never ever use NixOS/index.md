@@ -10,9 +10,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Why you should never ever use NixOS
-
-{{< my-picture name="Why-you-should-never-every-use-NixOS" >}}
 
 I’ll start my article from the biggest myth about NixOS. And soon you’ll know why.
 

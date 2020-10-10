@@ -13,9 +13,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to create and deploy your first Python 3 AWS Lambda Function
-
-{{< my-picture name="How-to-create-and-deploy-your-first-python-aws-lambda-function" >}}
 
 ## What is Lambda function
 
