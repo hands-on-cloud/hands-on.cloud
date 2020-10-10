@@ -10,9 +10,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to setup Jupyter behind Nginx proxy
-
-{{< my-picture name="How-to-setup-Jupyter-behind-Nginx-proxy" >}}
 
 The initial version of this article been published over two years ago. Here I'm showing, how to configure Jupyter behind Nginx reverse proxy.
 

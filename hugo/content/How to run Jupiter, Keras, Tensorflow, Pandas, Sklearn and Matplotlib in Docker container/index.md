@@ -19,9 +19,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to run Jupiter, Keras, Tensorflow and other ML libs in Docker
-
-{{< my-picture name="How-to-run-Jupiter-Keras-Tensorflow-Pandas-Sklearn-and-Matplotlib-in-Docker-container" >}}
 
 **Update 2020:** I've updated container to Ubuntu 20.04 LTS base and speed up Docker build process. Now we're not building OpenCV from source, but installing it from `apt`.
 

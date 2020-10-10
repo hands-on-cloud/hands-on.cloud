@@ -14,9 +14,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to use AWS CDK to deploy Python Lambda function
-
-{{< my-picture name="How to use AWS CDK to deploy Python Lambda function" >}}
 
 This article will take a quick look at how to deploy the Lambda function using AWS CDK.
 

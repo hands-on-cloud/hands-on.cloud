@@ -9,11 +9,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# DevOps Team Management
-
-{{< my-picture name="DevOps-Team-Management">}}
-
-## Introduction
 
 In a world full of technologies, the notions of time and distance change, requiring more and more speed in performing tasks and delivering products and services.
 

@@ -15,9 +15,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# The Ultimate Guide - Real-world use-cases for AWS Lambda
-
-{{< my-picture name="The Ultimate Guide - real-world use-cases for AWS Lambda" >}}
 
 This article should be useful for everybody, who is willing to get a quick overview of possible AWS Lambda use cases. Every use-case contains a link to a resource with additional information.
 

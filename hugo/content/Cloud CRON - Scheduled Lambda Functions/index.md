@@ -16,10 +16,6 @@ authors:
   - Andrei Maksimov
 ---
 
-# Cloud CRON - Scheduled Lambda Functions
-
-{{< my-picture name="Cloud-CRON-Scheduled-Lambda-Functions" >}}
-
 From this article, you’ll learn how to create scheduled jobs at AWS cloud using CloudWatch Events and Lambda functions. Basically, it’s your personal cloud Cron at almost no cost.
 
 As usual, we’re providing some additional reading to those of you, who interested. If you’re looking for a solution only, please, [jump here](#complete-source-code).

@@ -12,9 +12,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Easy way to manage multiple AWS CodeCommit repositories
-
-{{< my-picture name="How-to-manage-multiple-CodeCommit-repositories-from-the-single-machine" >}}
 
 In this article I’ll show, how you can coonect and commit to multiple CodeCommit repositories in different AWS account from the same machine in easy and comfortable way.
 

@@ -13,9 +13,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Terraform recipe - How to create AWS ElasticSearch cluster
-
-{{< my-picture name="Terraform-recipe-How-to-create-AWS-ElasticSearch-cluster" >}}
 
 From this recipe, you’ll learn how to create the [AWS ElasticSearch](https://aws.amazon.com/elasticsearch-service/) cluster in VPC using [Terraform](https://www.terraform.io/).
 

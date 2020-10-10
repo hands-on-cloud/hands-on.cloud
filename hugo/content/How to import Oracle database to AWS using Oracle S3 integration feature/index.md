@@ -12,9 +12,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to import Oracle database to AWS using S3 integration feature
-
-{{< my-picture name="How-to-import-Oracle-database-to-AWS-using-Oracle-S3-integration-feature" >}}
 
 Migration of Oracle database to AWS is a common task many different Enterprises nowadays. And there're many different ways of doing that. In this article I'll summarize manual steps and commands, of cause, which are helping to work with Oracle Data Pump in Amazon RDS Oracle.
 

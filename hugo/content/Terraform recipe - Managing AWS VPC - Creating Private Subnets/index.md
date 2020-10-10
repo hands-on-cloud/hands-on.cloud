@@ -11,9 +11,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Terraform recipe - Managing AWS VPC - Creating Private Subnets
-
-{{< my-picture name="Terraform-recipe-Managing-AWS-VPC-Creating-Private-Subnets" >}}
 
 In the previous article ([Terraform recipe – Managing AWS VPC – Creating Public Subnet](https://hands-on.cloud/terraform-recipe-managing-aws-vpc-creating-public-subnet/)), we’ve used Terraform to create a VPC, Internet Gateway, and Route Table to form Public Subnet. Also, we’ve tested our configuration by SSH-ing to the instance, which we’ve launched in our Public Subnet.
 

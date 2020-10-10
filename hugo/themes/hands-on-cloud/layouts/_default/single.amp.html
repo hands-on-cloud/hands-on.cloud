@@ -1,5 +1,9 @@
 {{ define "main" }}
 <div id="blogdetailsmain" class="h-auto container main-content px-3">
+        <h1>{{ .Title }}</h1>
+        {{ partial "post-image.amp.html" . }}
+        <div class="TableOfContentTitle">Table Of Contents</div>
+        {{ .TableOfContents }}
         {{ .Content }}
 
         {{- partial "mailchimp-form.amp.html" . -}}

@@ -15,9 +15,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 1
-
-{{< my-picture name="Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-1" >}}
 
 You may be already familiar with [How to use AWS Fargate and Lambda for long-running processes in a Serverless app](https://serverless.com/blog/serverless-application-for-long-running-process-fargate-lambda/) article from official [Serveless blog](https://serverless.com/blog/), where [Rupak Ganguly](https://www.linkedin.com/in/rupakg/) shows us how to offload heavy jobs to ECS cluster. This is very nice, but very [expensive solution](https://blog.csanchez.org/2018/02/06/serverless-ci-cd-with-aws-ecs-fargate/).
 

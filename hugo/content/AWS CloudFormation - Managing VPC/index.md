@@ -10,9 +10,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# AWS CloudFormation - Managing VPC
-
-{{< my-picture name="AWS-CloudFormation-Managing-VPC" >}}
 
 [CloudFormation](https://aws.amazon.com/cloudformation/) is the service which provides us an ability to create and manage any AWS infrastructure “as code” in a fully declarative way using a single or multiple files as a source of truth for your cloud environment. Usually it is not needed to understand it very deeply to pass AWS Associate Certification exams, but it is very important to use it on a daily basis especially for Solution Architects.
 

@@ -15,9 +15,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Serverless Framework - Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS - Part 2
-
-{{< my-picture name="Serverless-Framework-Run-your-Kubernetes-Workloads-on-Amazon-EC2-Spot-Instances-with-Amazon-EKS-Part-2" >}}
 
 In previous article "[Serverless Framework – Run your Kubernetes Workloads on Amazon EC2 Spot Instances with Amazon EKS – Part 1](https://hands-on.cloud/serverless-framework-run-your-kubernetes-workloads-on-amazon-ec2-spot-instances-with-amazon-eks-part-1/)" we created fully functional Kubernetes cluster backed by Spot instances using AWS EKS service.
 

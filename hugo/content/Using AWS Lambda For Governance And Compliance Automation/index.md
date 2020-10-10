@@ -13,9 +13,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# Using AWS Lambda For Governance And Compliance Automation
-
-{{< my-picture name="Using-AWS-Lambda-For-Governance-And-Compliance-Automation" >}}
 
 If the phrase “governance and compliance” sounds daunting, it should. At the very least, any stakeholder in a project utilizing AWS resources should have a healthy fear of what could go wrong if their environments are misconfigured.
 

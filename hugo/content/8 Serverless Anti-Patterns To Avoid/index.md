@@ -10,9 +10,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# 8 Serverless Anti-Patterns To Avoid
-
-{{< my-picture name="8 Serverless Anti-Patterns To Avoid" >}}
 
 There’re so many articles on the internet, which show how you can use AWS Lambda in multiple different ways, but not too many of them covering what you should not do. So in this article, I’ll point your attention to the most common ani-pattens of using AWS Lambda.
 

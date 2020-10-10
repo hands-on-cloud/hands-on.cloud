@@ -17,9 +17,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# CloudFormation - How to validate ACM SSL certificate
-
-{{< my-picture name="CloudFormation-Validate-ACM-Certificate">}}
 
 In this article I'll show you, how to use CloudFormation [custom resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-custom-resources.html) to automate ACM SSL certificate validation using DNS.
 

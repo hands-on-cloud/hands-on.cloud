@@ -14,9 +14,6 @@ categories:
 authors:
   - Andrei Maksimov
 ---
-# How to use AWS SAM to simplify Serverless Python development
-
-{{< my-picture name="How-to-use-AWS-SAM-to-simplify-Serverless-Python-applications-development" >}}
 
 We already know [How to create and deploy your first Python AWS Lambda Function](https://hands-on.cloud/how-to-create-and-deploy-your-first-python-aws-lambda-function/) from scratch without using any frameworks. Meanwhile, we mentioned some, and one of those was SAM.
 
