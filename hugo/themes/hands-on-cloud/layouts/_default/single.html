@@ -7,6 +7,7 @@
           <main>
               <div class="content blog-content">
                   {{ .Content }}
+                  {{- partial "mailchimp-form.html" . -}}
                   {{ partial "linkshare_carousel.html" . }}
                   {{ partial "authors.html" . }}
               </div>
@@ -23,6 +24,7 @@
                 <div class="col-md-8 offset-md-2">
                     <div class="content blog-content">
                         {{ .Content }}
+                        {{- partial "mailchimp-form.html" . -}}
                         {{ partial "linkshare_carousel.html" . }}
                         {{ partial "authors.html" . }}
                     </div>
