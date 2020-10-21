@@ -7,7 +7,7 @@ tags:
   - vpc
 categories:
   - AWS
-  - DevOps
+  - Terraform
 authors:
   - Andrei Maksimov
 ---

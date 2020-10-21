@@ -12,6 +12,8 @@ tags:
   - boto3
 categories:
   - AWS
+  - Serverless
+  - Terraform
 authors:
   - Andrei Maksimov
 ---

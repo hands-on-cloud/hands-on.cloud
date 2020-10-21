@@ -6,7 +6,6 @@ tags:
   - vpc
 categories:
   - AWS
-  - DevOps
 authors:
   - Andrei Maksimov
 ---

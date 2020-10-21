@@ -7,7 +7,8 @@ tags:
   - framework
   - lambda
 categories:
-  - aws
+  - AWS
+  - Serverless
 authors:
   - Andrei Maksimov
 ---

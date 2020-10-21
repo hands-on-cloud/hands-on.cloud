@@ -9,6 +9,8 @@ tags:
   - sqs
 categories:
   - AWS
+  - Serverless
+  - Terraform
 authors:
   - Andrei Maksimov
 ---

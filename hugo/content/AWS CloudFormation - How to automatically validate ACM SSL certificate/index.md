@@ -13,7 +13,8 @@ tags:
   - dns
   - python
 categories:
-  - DevOps
+  - AWS
+  - Serverless
 authors:
   - Andrei Maksimov
 ---

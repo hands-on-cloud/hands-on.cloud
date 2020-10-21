@@ -4,10 +4,9 @@ date: '2018-02-01'
 image: 'How-to-put-AWS-EC2-Tags-to-environment-variables'
 tags:
   - cloudformation
-  - terraform
 categories:
   - AWS
-  - DevOps
+  - Terraform
 authors:
   - Andrei Maksimov
 ---

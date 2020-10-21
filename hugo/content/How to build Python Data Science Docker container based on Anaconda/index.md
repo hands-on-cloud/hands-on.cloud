@@ -14,7 +14,7 @@ tags:
   - sklearn
   - tensorflow
 categories:
-  - Machine Learning
+  - AWS
 authors:
   - Andrei Maksimov
 ---

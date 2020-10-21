@@ -6,6 +6,7 @@ tags:
   - lambda
   - serverless
   - step functions
+  - Serverless
 categories:
   - AWS
 authors:

@@ -9,12 +9,11 @@ tags:
   - pipeline
   - circleci
   - cypress
-  - terraform
   - environment
   - infrastructure
 categories:
   - AWS
-  - DevOps
+  - Terraform
 authors:
   - Andrei Maksimov
 ---

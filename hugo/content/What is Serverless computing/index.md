@@ -17,8 +17,8 @@ tags:
   - kinesis
   - athena
 categories:
-  - aws
-  - GCP
+  - AWS
+  - Serverless
 authors:
   - Andrei Maksimov
 ---

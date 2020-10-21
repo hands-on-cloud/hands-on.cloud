@@ -9,7 +9,6 @@ tags:
   - packer
 categories:
   - AWS
-  - DevOps
 authors:
   - Andrei Maksimov
 ---

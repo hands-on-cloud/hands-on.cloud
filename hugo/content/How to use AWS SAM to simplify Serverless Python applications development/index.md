@@ -11,6 +11,7 @@ tags:
   - deploy
 categories:
   - AWS
+  - Serverless
 authors:
   - Andrei Maksimov
 ---

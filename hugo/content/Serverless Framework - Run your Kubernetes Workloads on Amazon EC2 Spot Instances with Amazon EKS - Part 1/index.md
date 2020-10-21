@@ -12,6 +12,7 @@ tags:
   - serverless
 categories:
   - AWS
+  - Serverless
 authors:
   - Andrei Maksimov
 ---
