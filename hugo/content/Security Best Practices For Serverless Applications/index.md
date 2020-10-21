@@ -7,9 +7,8 @@ tags:
   - lambda
   - serverless
 categories:
-  - DevOps
   - AWS
-  - GCP
+  - Serverless
 authors:
   - Andrei Maksimov
 ---

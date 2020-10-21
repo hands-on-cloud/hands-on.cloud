@@ -7,6 +7,7 @@ tags:
   - lambda
 categories:
   - AWS
+  - Serverless
 authors:
   - Andrei Maksimov
 ---

@@ -8,7 +8,7 @@ tags:
   - lambda
 categories:
   - AWS
-  - GCP
+  - Serverless
 authors:
   - Andrei Maksimov
 ---
@@ -312,7 +312,7 @@ Built with OpenTracing support from inception, Jaeger includes OpenTracing clien
 
 Main Jaeger features:
 
-* **Open Source** - You may [install Jaeger yourself](https://hands-on.cloud/running-jaeger-backed-by-elasticsearch-oss-using-docker-compose/) in your own environment.
+* **Open Source** - You may install Jaeger yourself in your own environment.
 * **High Scalability** - Jaeger backend is designed to have no single points of failure and to scale with the business needs. For example, any given Jaeger installation at Uber is typically processing several billion spans per day.
 * **Native support for OpenTracing** - Jaeger backend, Web UI, and instrumentation libraries have been designed from the ground up to support the OpenTracing standard.
 * **Multiple storage backends** - Jaeger supports two popular open-source NoSQL databases as trace storage backends: Cassandra 3.4+ and Elastic search 5.x/6.x/7.x.

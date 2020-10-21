@@ -12,6 +12,7 @@ tags:
   - boto3
 categories:
   - AWS
+  - Serverless
 authors:
   - Andrei Maksimov
 ---

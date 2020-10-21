@@ -6,7 +6,7 @@ tags:
   - jupyter
   - nginx
 categories:
-  - Machine Learning
+  - AWS
 authors:
   - Andrei Maksimov
 ---

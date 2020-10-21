@@ -12,6 +12,7 @@ tags:
   - api
 categories:
   - AWS
+  - Serverless
 authors:
   - Andrei Maksimov
 ---

@@ -5,11 +5,10 @@ image: 'Terraform-recipe-How-to-create-AWS-ElasticSearch-cluster'
 tags:
   - elasticsearch
   - elk
-  - terraform
   - vpc
 categories:
   - AWS
-  - DevOps
+  - Terraform
 authors:
   - Andrei Maksimov
 ---

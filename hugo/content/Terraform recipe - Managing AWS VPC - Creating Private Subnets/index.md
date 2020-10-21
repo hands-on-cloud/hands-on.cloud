@@ -7,7 +7,7 @@ tags:
   - terraform
 categories:
   - AWS
-  - DevOps
+  - Terraform
 authors:
   - Andrei Maksimov
 ---

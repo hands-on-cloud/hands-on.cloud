@@ -11,6 +11,7 @@ tags:
   - cloudwatch
 categories:
   - AWS
+  - Serverless
 authors:
   - Andrei Maksimov
 ---

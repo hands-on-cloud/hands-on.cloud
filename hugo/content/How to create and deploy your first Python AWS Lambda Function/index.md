@@ -10,6 +10,7 @@ tags:
   - bucket
 categories:
   - AWS
+  - Serverless
 authors:
   - Andrei Maksimov
 ---

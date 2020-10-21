@@ -6,7 +6,7 @@ tags:
   - nix
   - nixos
 categories:
-  - DevOps
+  - AWS
 authors:
   - Andrei Maksimov
 ---

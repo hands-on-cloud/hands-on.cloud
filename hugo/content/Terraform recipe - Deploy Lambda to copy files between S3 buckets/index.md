@@ -9,7 +9,8 @@ tags:
   - iam
 categories:
   - AWS
-  - DevOps
+  - Serverless
+  - Terraform
 authors:
   - Tom Clemente
   - Andrei Maksimov
