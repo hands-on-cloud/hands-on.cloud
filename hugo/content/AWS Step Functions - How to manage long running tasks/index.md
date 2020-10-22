@@ -1,6 +1,6 @@
 ---
 title: 'AWS Step Functions - How to manage long running tasks'
-date: '2020-10-05'
+date: '2020-10-22'
 image: 'AWS-Step-Functions-How-to-manage-long-running-tasks'
 tags:
   - python
@@ -21,17 +21,26 @@ Managing and orchestrating multiple automation activities in the cloud may be a 
 
 Those scenarios we'll cover in this article.
 
-## AWS Lambda long-running tasks
+## AWS Long-Running Jobs
+
+There're multiple ways of handling long-running workloads in AWS in a Serverless way:
+
+* [AWS Batch](https://aws.amazon.com/batch/) is used for running jobs that are pulled from the jobs FIFO queue, executed using containerized environment and exit upon completion. Job execution time is unlimited.
+* [AWS Fargate](https://aws.amazon.com/fargate/) is a general purpose container platform where you can do a bit more. For example, you can bind your containers to the network and launch them as a services. This service is a bit more complex, then AWS Batch. Job execution time is unlimited.
+* [AWS Lambda](https://aws.amazon.com/lambda/) is a service for short-running jobs with maximum execution time of 15 minutes.
+* [AWS Serverless](https://aws.amazon.com/serverless/) and other purpose built services for [Machine Learning](https://aws.amazon.com/free/machine-learning/) or [Media Processing](https://aws.amazon.com/media-services/).
+
+## AWS Lambda Long-Running Tasks
 
 Long story short, AWS Lambda is not suited for long-running tasks. It is an ideal option for quick and predictable workloads that lasts no longer than 900 seconds or 15 minutes in total. If the process not ended by that time, AWS Lambda stops it automatically.
 
-## Run long-running jobs in AWS
+## Run Long-Running Jobs In AWS
 
 Here's where [AWS Step Functions](https://aws.amazon.com/step-functions/) come into play. AWS Step Functions is a workflow orchestration service. It allows you to describe your workflow (state machine) in a simple JSON structure. This workflow usually consists of multiple Lambda functions and other [AWS services integrated with Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-service-integrations.html). As soon as you described the workflow, AWS Step Functions visualizes it and makes it available for execution. You can visually track the execution process as every single step in the workflow highlights a green, yellow, or red color, making it super helpful to debug the workflow during development.
 
-## Python and boto3 for Step Functions
+## Boto3 for Python Step Functions
 
-AWS Step Functions is an orchestration engine. It can execute Lambda functions natively. As soon as AWS Lambda supports Python execution runtime, the boto3 library is available for you out of the box.
+AWS Step Functions is the Lambda orchestration engine. It can execute Lambda functions natively. As soon as AWS Lambda supports Python execution runtime, the boto3 library is available for you out of the box.
 
 If you're making [Custom Lambda runtime](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-custom.html) using [Lambda Layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html), you can install boto3 to your layer and attach it to the Lambda during its execution.
 
