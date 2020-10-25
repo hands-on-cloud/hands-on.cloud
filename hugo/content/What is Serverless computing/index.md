@@ -29,6 +29,8 @@ By the end of this article, you'll know everything you need to know about Server
 
 Whenever we're calling the application "serverless", we usually mean that we have:
 
+{{< my-picture name="What is Serverless computing - Features" >}}
+
 * **No infrastructure to provision or manage.** You do not manage servers, containers, or operating systems.
 * **Automatic scaling.** You do not think about scaling too. If you need to get more resources for your work, you get them from the cloud provider.
 * **Pay for value.** Billing is very granular and allows you to pay only for that resources which you're using. No upfront commitment at all.
@@ -47,6 +49,8 @@ As the final technology consumer, your company will get:
 Serverless computing is a cloud provider service offering. It may consist of one or more services, which we can consume, and do not think about its implementation.
 
 There are three most vocal products in the market which provides such offering:
+
+{{< my-picture name="What is Serverless computing - Functions" >}}
 
 * [AWS Lambda](https://aws.amazon.com/lambda/)
 * [Azure Functions](https://azure.microsoft.com/en-us/services/functions/)
@@ -75,15 +79,21 @@ AWS provides many different services, which you may use in your Serverless archi
 
 ### Compute
 
+{{< my-picture name="What is Serverless computing - Compute" >}}
+
 [AWS Lambda](https://docs.google.com/document/d/1Vpffi1t_wrSdV7_Y0M4bl8bark_za_V-nSHAZiV9su4/edit#heading=h.ch0pdcdtq7l4) is a service, which allows you to run code in the cloud without managing servers. You pay only for the computing time and resources only when you consume them. Billing has 100 ms granularity, and there is no charge when your code is not executing.
 
 ### Storage
+
+{{< my-picture name="What is Serverless computing - Storage" >}}
 
 [Amazon S3](https://aws.amazon.com/s3/) provides you with secure, durable, scalable object storage. S3 is very easy to use, with a simple CLI or web interface to store and retrieve any data from anywhere.
 
 Recently AWS announced an ability to [use EFS for AWS Lambda in Serverless applications](https://aws.amazon.com/blogs/compute/using-amazon-efs-for-aws-lambda-in-your-serverless-applications/). This integration opens many capabilities, which nobody else is providing on the market. For example, you can overcome the 65 Mb Lambda size limit by mounting a more massive codebase, libraries, or binaries from the EFS share. This solution opens a different set of new opportunities for you.
 
 ### Databases
+
+{{< my-picture name="What is Serverless computing - Databases" >}}
 
 [DynamoDB](https://aws.amazon.com/dynamodb/) is a fast NoSQL database for your applications. This database provides consistent, single-digit millisecond latency at any scale. And it is also one of [the first and probably the most popular](https://trends.google.com/trends/explore?date=all&geo=US&q=%2Fm%2F0h_bxxk) Serverless databases.
 
@@ -93,9 +103,13 @@ Recently AWS announced an ability to [use EFS for AWS Lambda in Serverless appli
 
 ### API Gateway
 
+{{< my-picture name="What is Serverless computing - API Gateway" >}}
+
 [Amazon API Gateway](https://aws.amazon.com/api-gateway/) is a managed solution that helps developers to create, publish, maintain, and secure APIs at any scale. It is a comprehensive solution for managing your APIs.
 
 ### Application Integration
+
+{{< my-picture name="What is Serverless computing - Application Integration" >}}
 
 [Amazon SNS](https://aws.amazon.com/sns/) is a managed pub/sub messaging service. SNS makes it easy to decouple and scale microservices, distributed systems, and serverless apps.
 
@@ -107,9 +121,13 @@ Recently AWS announced an ability to [use EFS for AWS Lambda in Serverless appli
 
 ### Orchestration
 
+{{< my-picture name="What is Serverless computing - Orchestration" >}}
+
 [AWS Step Functions](https://aws.amazon.com/step-functions/) is an orchestration service. It simplifies the coordination of the components of distributed applications and microservices. Transition paths between the services in your application are determined using simple JSON notation. As a result, you get a visual representation of your workflow. AWS Step Functions simplify building and managing distributed workflows in your applications. Here’s an example of [How to manage long-running tasks using AWS Step Functions](https://hands-on.cloud/aws-step-functions-how-to-manage-long-running-tasks/).
 
 ### Analytics
+
+{{< my-picture name="What is Serverless computing - Analytics" >}}
 
 [Amazon Kinesis](https://aws.amazon.com/kinesis/) is a platform for streaming data on AWS. Kinesis is a useful service that makes it easy to load and analyze streaming data. It provides an ability to build streaming data applications for your needs at any scale.
 
