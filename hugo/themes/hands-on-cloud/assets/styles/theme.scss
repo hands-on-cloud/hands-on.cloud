@@ -8,7 +8,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 5rem;
   color: #262626;
-  font-family: "Exo", Georgia, "Times New Roman", serif;
+  font-family: "Exo", Georgia, "Times New Roman", serif !important;
   line-height: 1.5em !important;
 }
 
@@ -39,25 +39,28 @@ div.container {
 }
 
 h1 {
-  font-size: 1.8em !important;
+  font-size: 2em !important;
   padding-top: 100px !important;
   letter-spacing: .05em;
 }
 
 h2 {
-  font-size: 1.5em !important;
+  font-size: 1.8em !important;
   letter-spacing: .05em;
+  padding: 20px 0;
 }
 
 h3 {
   font-size: 1.3em !important;
-  letter-spacing: .05em
+  letter-spacing: .05em;
+  padding: 20px 0;
 }
 
 .TableOfContentTitle {
   font-size: 1.5em !important;
   font-weight: bold;
-  letter-spacing: .05em
+  letter-spacing: .05em;
+  padding: 20px 0;
 }
 
 /* Menu links */
