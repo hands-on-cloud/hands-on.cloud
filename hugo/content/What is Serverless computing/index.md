@@ -1,6 +1,6 @@
 ---
 title: 'What is Serverless computing'
-date: '2020-10-25'
+date: '2020-10-26'
 image: 'What is Serverless computing'
 tags:
   - serverless
@@ -135,7 +135,11 @@ Recently AWS announced an ability to [use EFS for AWS Lambda in Serverless appli
 
 ## What Is Serverless Architecture
 
+{{< my-picture name="What is Serverless computing - Serverless Architecture" >}}
+
 Serverless architecture is a set of patterns to build your application. You're using cloud provider services managed by the cloud provider itself and not by you. You’re responsible only for high-level configuration and integration of all required services.
+
+The picture above demonstrates fundamental architecture. Check the suggested link below to find out more in-depth information on this topic.
 
 Here’s an example of [what a typical 100% Serverless Architecture looks like in AWS](https://medium.com/serverless-transformation/what-a-typical-100-serverless-architecture-looks-like-in-aws-40f252cd0ecb).
 
@@ -143,21 +147,29 @@ Here’s an example of [what a typical 100% Serverless Architecture looks like i
 
 Today, the cloud provider gives you everything you need to run your applications. He does all the heavy lifting of running the infrastructure. He provides automatic scalability for your applications and all its components. You focus only on your application business logic and do not care about the rest.
 
-The Serverless application is an application developed using [Serverless architecture’s](https://hands-on.cloud/what-is-serverless-computing/#what-is-serverless-architecture) best practices.
+{{< my-picture name="What is Serverless computing - Serverless Application - IoT" >}}
+
+The illustration above demonstrates an example of a Serverless IoT application.
+
+If you'd like to find out more examples of serverless solutions, I recommend you check out my article [The Ultimate Guide - AWS Lambda Real-world use-cases](https://hands-on.cloud/the-ultimate-guide-real-world-use-cases-for-aws-lambda/).
+
+The Serverless application is an application developed using [Serverless architecture’s](#what-is-serverless-architecture) best practices.
 
 ### Why Create Serverless Apps
 
 Now let’s talk about why it is worth creating serverless apps. There are several reasons why I prefer serverless apps:
 
-* Low maintenance
-* Low cost
+* No operations
 * Easy to scale
+* Low cost
 
 I like this concept so much because I need to worry only about my application code. I don’t need to ensure that my server is running, patched on-time, and secured.
 
 It’s very cheap to run a Serverless application too. I'm paying for computing resources required to process only requests to my application. That means, if other people or services do not use my application, I'm not paying for it.
 
 ## What is AWS Lambda
+
+{{< my-picture name="What is Serverless computing - Compute" >}}
 
 [AWS Lambda](https://aws.amazon.com/lambda/) is a service, which allows you to run code in the cloud without managing servers. AWS Lambda has the following characteristics:
 
@@ -168,6 +180,8 @@ It’s very cheap to run a Serverless application too. I'm paying for computing 
 AWS Lambda allows you to create any backend service for your application. You upload the function code to the cloud, and the AWS service takes care of the rest.
 
 ### Benefits of AWS Lambda
+
+{{< my-picture name="What is Serverless computing - Lambda Benefits" >}}
 
 * **No servers to manage.** AWS runs your code. You write it, upload it, and let the AWS Lambda handle the rest.
 * **Almost no cost.** Lambda billing is very granular, and execution costs are very cheap. That makes AWS Lambda a very attractive compute service for any modern application.
@@ -197,11 +211,15 @@ Both of them allow you to do smooth and automatic code upgrades using [canary de
 
 ### Anatomy of Lambda function
 
-AWS Lambda consists of:
+{{< my-picture name="What is Serverless computing - Lambda Function Structure" >}}
+
+The most important parts every AWS Lambda function:
 
 * **Handler function** - this function to be executed upon Lambda invocation
 * **Event object** - Data sent to Lambda during its invocation.
 * **Context object** - methods available to interact with runtime information (Request ID, Log Group, etc.)
+
+The rest of the function code contains libraries imports and business logic implementation.
 
 ## Lambda function execution methods
 
