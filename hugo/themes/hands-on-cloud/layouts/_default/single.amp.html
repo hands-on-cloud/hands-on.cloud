@@ -4,8 +4,9 @@
         {{ partial "post-image.amp.html" . }}
         <div class="TableOfContentTitle">Table Of Contents</div>
         {{ .TableOfContents }}
+        {{ partial "addthis.amp.html" . }}
         {{ .Content }}
-
+        {{ partial "addthis.amp.html" . }}
         {{- partial "mailchimp-form.amp.html" . -}}
         {{ partial "authors.amp.html" . }}
 </div>
