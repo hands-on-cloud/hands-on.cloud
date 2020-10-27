@@ -197,6 +197,24 @@ jobs:
             terraform destroy --auto-approve
             terraform workspace select default
             terraform workspace delete ${ENVIRONMENT_ID}
+  merge_with_master:
+    docker:
+      - image: xueshanf/awscli
+    working_directory: *working_directory
+    steps:
+      - *set_environment
+      - *restore_repo
+      - attach_workspace:
+          at: *working_directory
+      - deploy:
+          name: Merge pull-request with master
+          command: |
+            . $BASH_ENV
+            if [[ -n ${CIRCLE_PR_NUMBER} ]]; then
+              curl -XPUT \
+                  -H "Authorization: token $GITHUB_TOKEN" \
+                  https://api.github.com/repos/hands-on-cloud/hands-on.cloud/pulls/$CIRCLE_PR_NUMBER/merge
+            fi
 
 workflows:
   version: 2
@@ -236,6 +254,14 @@ workflows:
           requires:
             - deploy_test_website
             #- request-manual-approval
+          filters:
+            branches:
+              ignore:
+                - master
+      - merge_with_master:
+          context: hands-on-cloud
+          requires:
+            - destroy_testing
           filters:
             branches:
               ignore:
