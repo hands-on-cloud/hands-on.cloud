@@ -1,0 +1,147 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: >
+  This stack creates basic VPC infrastructure with two public and two private subnets.
+
+Parameters:
+
+    pVpcCidrBlock:
+      Description: >
+        VPC CIDR block
+      Type: String
+      AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
+      Default: 192.168.0.0/24
+
+Resources:
+
+    rVpc:
+        Type: AWS::EC2::VPC
+        Properties: 
+            CidrBlock: !Ref pVpcCidrBlock
+            EnableDnsHostnames: true
+            EnableDnsSupport: true
+            InstanceTenancy: default
+            Tags: 
+                -
+                    Key: Name
+                    Value: !Sub '${AWS::StackName}-vpc'
+    
+    rPrivateSubnetOne:
+        Type: AWS::EC2::Subnet
+        Properties:
+            AvailabilityZone:
+                Fn::Select:
+                    - 0
+                    - Fn::GetAZs: {Ref: 'AWS::Region'}
+            VpcId: !Ref rVpc
+            CidrBlock: !Select [ 0, !Cidr [ !GetAtt rVpc.CidrBlock, 4, 6 ]]
+            Tags:
+                - 
+                    Key: Name
+                    Value: !Sub '${AWS::StackName}-private-subnet-one'
+    
+    rPrivateRouteTable:
+        Type: AWS::EC2::RouteTable
+        Properties:
+            VpcId: !Ref rVpc
+            Tags: 
+                -
+                    Key: Name
+                    Value: !Sub '${AWS::StackName}-private-rt'
+    
+    rPrivateRouteTableSubnetAssociationOne:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties:
+            RouteTableId: !Ref rPrivateRouteTable
+            SubnetId: !Ref rPrivateSubnetOne
+
+    rPrivateRouteTableSubnetAssociationTwo:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties:
+            RouteTableId: !Ref rPrivateRouteTable
+            SubnetId: !Ref PrivateSubnetTwo
+    
+    PrivateSubnetTwo:
+        Type: AWS::EC2::Subnet
+        Properties:
+            AvailabilityZone:
+                Fn::Select:
+                    - 1
+                    - Fn::GetAZs: {Ref: 'AWS::Region'}
+            VpcId: !Ref rVpc
+            CidrBlock: !Select [ 1, !Cidr [ !GetAtt rVpc.CidrBlock, 4, 6 ]]
+            Tags:
+                -
+                    Key: Name
+                    Value: !Sub '${AWS::StackName}-private-subnet-two'
+    
+    rPublicSubnetOne:
+        Type: AWS::EC2::Subnet
+        Properties:
+            AvailabilityZone:
+                Fn::Select:
+                    - 0
+                    - Fn::GetAZs: {Ref: 'AWS::Region'}
+            VpcId: !Ref rVpc
+            CidrBlock: !Select [ 2, !Cidr [ !GetAtt rVpc.CidrBlock, 4, 6 ]]
+            Tags:
+                -
+                    Key: Name
+                    Value: !Sub '${AWS::StackName}-public-subnet-one'
+
+    rPublicSubnetTwo:
+        Type: AWS::EC2::Subnet
+        Properties:
+            AvailabilityZone:
+                Fn::Select:
+                    - 1
+                    - Fn::GetAZs: {Ref: 'AWS::Region'}
+            VpcId: !Ref rVpc
+            CidrBlock: !Select [ 3, !Cidr [ !GetAtt rVpc.CidrBlock, 4, 6 ]]
+            Tags:
+                - 
+                    Key: Name
+                    Value: !Sub '${AWS::StackName}-public-subnet-two'
+
+    rInternetGW:
+        Type: AWS::EC2::InternetGateway
+        Properties:
+            Tags:
+                -
+                    Key: Name
+                    Value: !Sub '${AWS::StackName}-igw'
+      
+    rGatewayAttachement:
+        Type: AWS::EC2::VPCGatewayAttachment
+        Properties:
+          VpcId: !Ref rVpc
+          InternetGatewayId: !Ref rInternetGW
+    
+    rPublicRouteTable:
+        Type: AWS::EC2::RouteTable
+        Properties:
+            VpcId: !Ref rVpc
+            Tags:
+                -
+                    Key: Name
+                    Value: !Sub '${AWS::StackName}-public-rt'
+    
+    rPublicRoute:
+        Type: AWS::EC2::Route
+        DependsOn: rGatewayAttachement
+        Properties:
+            RouteTableId: !Ref rPublicRouteTable
+            DestinationCidrBlock: 0.0.0.0/0
+            GatewayId: !Ref rInternetGW
+    
+    rPublicRouteTableSubnetAssociationOne:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties:
+            RouteTableId: !Ref rPublicRouteTable
+            SubnetId: !Ref rPublicSubnetOne
+
+    rPublicRouteTableSubnetAssociationTwo:
+        Type: AWS::EC2::SubnetRouteTableAssociation
+        Properties:
+            RouteTableId: !Ref rPublicRouteTable
+            SubnetId: !Ref rPublicSubnetTwo

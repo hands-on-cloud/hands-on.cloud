@@ -1,0 +1,153 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: >
+    This stack deploys an Amazon Linux EC2 host inside your VPC and
+    automatically installs Docker inside of it.
+
+Parameters:
+
+    pSshKeyName:
+        Description: Amazon EC2 Key Pair for JumpHost instance
+        Type: "AWS::EC2::KeyPair::KeyName"
+
+    pVpcID:
+        Description: VPC ID to deploy JumpHost instance to
+        Type: "AWS::EC2::VPC::Id"
+
+    pSubnetID:
+        Description: Subnet ID to deploy JumpHost instance to
+        Type: "AWS::EC2::Subnet::Id"
+
+    pInstanceType:
+        Description: JumpHost EC2 instance types
+        Type: String
+        Default: t2.micro
+        AllowedValues:
+            - t1.micro
+            - t2.nano
+            - t2.micro
+            - t2.small
+            - t2.medium
+
+Resources:
+
+    rPublicAccessSecurityGroup:
+        Type: AWS::EC2::SecurityGroup
+        Properties:
+            VpcId: !Ref pVpcID
+            GroupDescription: Allows SSH access to JumpHost instance
+            GroupName: !Sub '${AWS::StackName}-jumphost-ssh-access'
+            SecurityGroupIngress:
+                -
+                    CidrIp: '0.0.0.0/0'
+                    Description: 'Replace this rule on more strict one'
+                    FromPort: 22
+                    ToPort: 22
+                    IpProtocol: tcp
+            Tags:
+                -
+                    Key: Name
+                    Value: !Sub '${AWS::StackName}-jumphost-ssh-access'
+
+    rJumpHostInstanceRole:
+        Type: 'AWS::IAM::Role'
+        Properties:
+            AssumeRolePolicyDocument:
+                Version: '2012-10-17'
+                Statement:
+                    -
+                        Effect: Allow
+                        Principal:
+                            Service:
+                                - ec2.amazonaws.com
+                        Action:
+                            - 'sts:AssumeRole'
+            ManagedPolicyArns:
+                - 'arn:aws:iam::aws:policy/AdministratorAccess'
+
+    rJumpHostInstanceProfile:
+        Type: AWS::IAM::InstanceProfile
+        Properties:
+            Path: /
+            Roles:
+                - !Ref rJumpHostInstanceRole
+
+    rJumpHost:
+        Type: AWS::EC2::Instance
+        Metadata:
+            AWS::CloudFormation::Init:
+                configSets:
+                    ec2_bootstrap:
+                        - install_docker
+                install_docker:
+                    packages:
+                        yum:
+                            docker: []
+                    services:
+                        sysvinit:
+                            docker:
+                                enabled: "true"
+                                ensureRunning: "true"
+                    commands:
+                        docker_for_ec2_user:
+                            command: usermod -G docker ec2-user
+        CreationPolicy:
+            ResourceSignal:
+                Timeout: PT5M
+        Properties:
+            # Amazon Linux 2 AMI us-east-1
+            IamInstanceProfile: !Ref rJumpHostInstanceProfile
+            ImageId: ami-0947d2ba12ee1ff75
+            KeyName: !Sub '${pSshKeyName}'
+            InstanceType: !Sub '${pInstanceType}'
+            UserData:
+                Fn::Base64:
+                    !Sub |
+                        #!/bin/bash -xe
+
+                        function cfn_fail
+                        {
+                            cfn-signal -e 1 --stack ${AWS::StackName} --resource rJumpHost --region ${AWS::Region}
+                            exit 1
+                        }
+
+                        function cfn_success
+                        {
+                            cfn-signal -e 0 --stack ${AWS::StackName} --resource rJumpHost --region ${AWS::Region}
+                            exit 0
+                        }
+
+                        yum -y install git python3-pip
+
+                        until git clone https://github.com/aws-quickstart/quickstart-linux-utilities; do echo "Retrying..."; done
+                        cd quickstart-linux-utilities;
+                        source quickstart-cfn-tools.source;
+                        qs_update-os || qs_err;
+                        qs_bootstrap_pip || qs_err "pip bootstrap failed ";
+                        qs_aws-cfn-bootstrap || qs_err "CFN bootstrap failed ";
+                        echo "Executing config-sets";
+                        cfn-init -v --stack ${AWS::StackName} \
+                            --resource rJumpHost \
+                            --configsets ec2_bootstrap \
+                            --region ${AWS::Region} || cfn_fail
+                        [ $(qs_status) == 0 ] && cfn_success || cfn_fail
+
+            NetworkInterfaces:
+                -
+                    AssociatePublicIpAddress: true
+                    DeviceIndex: "0"
+                    GroupSet:
+                        - !Ref rPublicAccessSecurityGroup
+                    SubnetId: !Ref pSubnetID
+            Tags:
+                -
+                    Key: Name
+                    Value: !Sub '${AWS::StackName}-jumphost'
+
+Outputs:
+
+    JumpHostPublicHostname:
+        Description: JumpHost public hostname
+        Value: !GetAtt rJumpHost.PublicDnsName
+        Export:
+            Name: !Sub '${AWS::StackName}-ec2-jumphost-public-ip'
