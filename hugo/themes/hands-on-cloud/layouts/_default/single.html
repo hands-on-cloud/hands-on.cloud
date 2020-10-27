@@ -8,7 +8,9 @@
                     {{ partial "post-image.html" . }}
                     <div class="TableOfContentTitle">Table Of Contents</div>
                     {{ .TableOfContents }}
+                    {{ partial "addthis.html" . }}
                     {{ .Content }}
+                    {{ partial "addthis.html" . }}
                     {{ partial "mailchimp-form.html" . }}
                     {{ partial "linkshare_carousel.html" . }}
                     {{ partial "authors.html" . }}

@@ -14,7 +14,7 @@ disableLiveReload = true
     avatar = 'https://avatars2.githubusercontent.com/u/1902417?s=460&v=4'
 
 [Params]
-    ampElements = ["amp-sidebar", "amp-carousel", "amp-bind", "amp-form", "amp-analytics", "amp-auto-ads", "amp-iframe"]
+    ampElements = ["amp-sidebar", "amp-carousel", "amp-bind", "amp-form", "amp-analytics", "amp-auto-ads", "amp-iframe", "amp-addthis"]
     logo = "hands-on-cloud-logo.png"
     header = "Hands-On.Cloud"
     localeOgp = "en-us"
