@@ -16,7 +16,7 @@ authors:
 aliases: [/how-to-use-cloudformation-to-launch-ec2-instance-and-automate-its-provisioning/]
 ---
 
-Learn how to automate EC2 instance in 5 minutes following this step by step guide. Get complete the CloudFormation template at the end and deep-dive explanation by the road. Become the CloudFormation expert in a couple of minutes! All source code is available for you at our [GitHub](https://hands-on.cloud).
+Learn how to automate EC2 instance in 5 minutes following this step by step guide. Get complete the CloudFormation template at the end and deep-dive explanation by the road. Become the CloudFormation expert in a couple of minutes! All source code is available for you at our [GitHub folder](https://github.com/hands-on-cloud/hands-on.cloud/tree/master/hugo/content/CloudFormation%20Tutorial%20-%20How%20To%20Automate%20EC2%20Instance%20In%205%20Mins/src).
 
 ## What is CloudFormation
 
@@ -79,7 +79,6 @@ Parameters:
       Description: >
         VPC CIDR block
       Type: String
-      AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
       Default: 192.168.0.0/24
 
 Resources:
@@ -369,19 +368,25 @@ Resources:
 
                         function cfn_fail
                         {
-                            cfn-signal -e 1 --stack ${AWS::StackName} --resource rJumpHost --region ${AWS::Region}
+                            cfn-signal -e 1 --stack ${AWS::StackName} \
+                                --resource rJumpHost \
+                                --region ${AWS::Region}
                             exit 1
                         }
 
                         function cfn_success
                         {
-                            cfn-signal -e 0 --stack ${AWS::StackName} --resource rJumpHost --region ${AWS::Region}
+                            cfn-signal -e 0 --stack ${AWS::StackName} \
+                                --resource rJumpHost \
+                                --region ${AWS::Region}
                             exit 0
                         }
 
                         yum -y install git python3-pip
 
-                        until git clone https://github.com/aws-quickstart/quickstart-linux-utilities; do echo "Retrying..."; done
+                        until git clone https://github.com/aws-quickstart/quickstart-linux-utilities; do
+                            echo "Retrying...";
+                        done
                         cd quickstart-linux-utilities;
                         source quickstart-cfn-tools.source;
                         qs_update-os || qs_err;

@@ -4,6 +4,7 @@ date: '2018-02-11'
 image: 'AWS-CloudFormation-Managing-VPC'
 tags:
   - vpc
+  - cloudformation
 categories:
   - AWS
 authors:

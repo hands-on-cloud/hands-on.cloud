@@ -9,6 +9,7 @@ tags:
   - python
   - api
   - deploy
+  - cloudformation
 categories:
   - AWS
   - Serverless
