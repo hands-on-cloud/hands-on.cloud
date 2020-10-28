@@ -7,6 +7,7 @@ tags:
   - oracle
   - sql
   - s3
+  - cloudformation
 categories:
   - AWS
 authors:
