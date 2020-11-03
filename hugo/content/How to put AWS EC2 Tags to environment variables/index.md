@@ -4,6 +4,7 @@ date: '2018-02-01'
 image: 'How-to-put-AWS-EC2-Tags-to-environment-variables'
 tags:
   - cloudformation
+  - ec2
 categories:
   - AWS
   - Terraform
