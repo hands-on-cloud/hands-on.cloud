@@ -5,6 +5,7 @@ image: 'How-to-setup-Jupyter-behind-Nginx-proxy'
 tags:
   - jupyter
   - nginx
+  - docker
 categories:
   - AWS
 authors:

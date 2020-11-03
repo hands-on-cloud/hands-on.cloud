@@ -9,6 +9,7 @@ tags:
   - lambda
   - s3
   - cloudwatch
+  - eventbridge
 categories:
   - AWS
   - Serverless
