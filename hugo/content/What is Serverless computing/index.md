@@ -23,7 +23,7 @@ authors:
   - Andrei Maksimov
 ---
 
-By the end of this article, you'll know everything you need to know about Serverless computing. Here covered terminology, concepts, technologies, and so much more! Become an expert in the most demanding technology area nowadays in a few minutes!
+By the end of this article, you'll get everything you need to know about Serverless computing. We covered terminology, concepts, technologies, and so much more! Become an expert in the most demanding technology area nowadays in a few minutes!
 
 ## What Does Serverless Mean
 
