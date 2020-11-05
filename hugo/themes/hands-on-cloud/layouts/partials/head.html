@@ -5,6 +5,8 @@
 <link rel="amphtml" href="{{ .RelPermalink }}amp/">
 {{else if eq .Section "tags"}}
 <link rel="amphtml" href="{{ .RelPermalink }}amp/">
+{{else if eq .Section "authors"}}
+<link rel="amphtml" href="{{ .RelPermalink }}amp/">
 {{ else }}
 <link rel="amphtml" href="/amp{{ .RelPermalink }}">
 {{ end }}

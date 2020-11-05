@@ -1,14 +1,18 @@
-<div class="authors">
-    <h3 style="text-align: center;">Authors</h3>
-    <hr />
-    {{- range .Params.authors }}
-        {{- with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (urlize .)) }}
+{{ define "main" }}
+<main role="main">
+
+    <div class="authors">
+        <h1 style="text-align: center;">Authors</h1>
+        <hr />
+        {{- range .Data.Pages }}
+        {{- with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (urlize .Params.name)) }}
         <div class="about_author d-flex">
             <div class="author_avatar">
-                <amp-img width="50" height="50" layout="responsive" class="object-fit-cover w-100 h-100" src="{{ .Params.photo }}" alt="Author avatar"/>
+                <amp-img width="50" height="50" layout="responsive" class="object-fit-cover w-100 h-100"
+                    src="{{ .Params.photo }}" alt="Author avatar" />
             </div>
             <div class="author_bio">
-                <strong>{{ .Params.name }}</strong><br/>
+                <strong><a href="{{ .Permalink }}">{{ .Params.name }}</a></strong><br />
                 {{ .Content }}
                 <div class="social_networks ml-n1">
                     {{ if and (.Params.linkedin) (ne .Params.linkedin "") }}
@@ -36,6 +40,8 @@
         {{ end }}
         <br />
         <br />
-    {{ end }}
-    <hr />
-</div>
+        {{ end }}
+        <hr />
+    </div>
+</main>
+{{ end }}
