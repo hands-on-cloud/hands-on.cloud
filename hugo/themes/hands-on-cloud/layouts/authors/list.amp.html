@@ -1,14 +1,13 @@
-<div class="authors">
-    <h3 style="text-align: center;">Authors</h3>
-    <hr />
-    {{- range .Params.authors }}
-        {{- with $.Site.GetPage "taxonomyTerm" (printf "authors/%s" (urlize .)) }}
+{{ define "main" }}
+<div id="blogdetailsmain" class="h-auto container main-content px-3">
+    <div class="authors">
+        <h1 style="text-align: center;">{{ .Params.name }}</h1>
         <div class="about_author d-flex">
             <div class="author_avatar">
-                <amp-img width="50" height="50" layout="responsive" class="object-fit-cover w-100 h-100" src="{{ .Params.photo }}" alt="Author avatar"/>
+                <amp-img width="50" height="50" layout="responsive" class="object-fit-cover w-100 h-100"
+                    src="{{ .Params.photo }}" alt="Author avatar" />
             </div>
             <div class="author_bio">
-                <strong>{{ .Params.name }}</strong><br/>
                 {{ .Content }}
                 <div class="social_networks ml-n1">
                     {{ if and (.Params.linkedin) (ne .Params.linkedin "") }}
@@ -33,9 +32,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <h2 style="text-align: center;">Articles</h2>
+    <ul>
+        {{ range .Data.Pages }}
+        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
         {{ end }}
-        <br />
-        <br />
-    {{ end }}
-    <hr />
+    </ul>
 </div>
+{{ end }}
