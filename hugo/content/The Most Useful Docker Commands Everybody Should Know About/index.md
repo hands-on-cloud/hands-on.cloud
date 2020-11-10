@@ -6,7 +6,6 @@ tags:
   - docker
   - volume
   - image
-  - container
 categories:
   - AWS
 authors:
