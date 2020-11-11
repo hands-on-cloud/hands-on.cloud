@@ -1,0 +1,11 @@
+replicaCount: 1
+
+image:
+  name: amaksimov/python_data_science
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+service:
+  type: NodePort
+  port: 80

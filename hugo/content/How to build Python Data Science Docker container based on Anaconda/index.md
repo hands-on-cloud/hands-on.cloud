@@ -19,7 +19,11 @@ authors:
   - Andrei Maksimov
 ---
 
-**Update for 2020:**
+In this article, we’ll build a Docker container for Machine Learning (ML) development environment. This image is quite useful if you’re developing ML models or you need a pre-configured Jupyter notebook with some of the most useful libraries.
+
+Recently we published an article [Quick And Simple Introduction to Kubernetes Helm Charts in 10 minutes](https://hands-on.cloud/quick-and-simple-introduction-to-kubernetes-helm-charts-in-10-minutes/), where you can find instructions on how to use Helm to deploy this container to your Kubernetes cluster.
+
+## Update for 2020
 
 * Upgraded to Python 3.6.
 * Fixed a lots of build issues
