@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-data-science-notebook
+  labels:
+    app: python-data-science-notebook
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: python-data-science-notebook
+  template:
+    metadata:
+      labels:
+        app: python-data-science-notebook
+    spec:
+      containers:
+        - name: python-data-science-container
+          image: {{ .Values.image.name }}  
+          ports:
+            - containerPort: 8888

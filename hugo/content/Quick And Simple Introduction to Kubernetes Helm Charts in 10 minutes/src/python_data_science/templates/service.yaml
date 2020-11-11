@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-data-science-notebook
+  labels:
+    app: python-data-science-notebook
+spec:
+  type: {{ .Values.service.type }}
+  selector:             
+    app: python-data-science-notebook
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8888
+      nodePort: 30036
+
