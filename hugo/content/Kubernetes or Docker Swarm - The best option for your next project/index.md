@@ -8,7 +8,7 @@ tags:
   - k8s
 categories:
   - AWS
-  - Serverless
+  - Linux
 authors:
   - Andrei Maksimov
 ---
