@@ -11,6 +11,7 @@ categories:
   - Linux
 authors:
   - Andrei Maksimov
+  - Damaso Sanoja
 ---
 
 In this article, you'll find the answers to the most common questions related to the comparison of Kubernetes and Docker Swarm. Both technologies can become an excellent choice depending on your project requirements. Take a look at our infographics to speed up content consumption.
