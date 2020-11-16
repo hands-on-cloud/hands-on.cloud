@@ -1,6 +1,6 @@
 ---
 name: Tom Clemente
-photo: '/authors/tom-clemente/tom-clemente.jpg'
+photo: '/authors/tom-clemente/tom-clemente.png'
 twitter: 'tomangeloclemente'
 linkedin: 'tomangeloclemente'
 instagram: 'tom_angelo'
