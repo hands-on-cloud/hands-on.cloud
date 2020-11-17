@@ -72,7 +72,7 @@ From the beginning, Kubernetes was designed for enterprise deployments. No doubt
 
 ## What are the Differences Between Kubernetes and Docker Swarm
 
-{{< my-picture name="Container-Orchestration-Tool-Features" >}}
+{{< my-picture name="Infographics-Differences-between-Kubernetes-and-Docker-Swarm" >}}
 
 Both Kubernetes and Docker Swarm are container orchestration tools. Yet, each one has its own strengths and weaknesses in different areas. Depending on your specific use case, you will need to weigh which area is most important to your project.
 
@@ -110,7 +110,9 @@ Docker Swarm also provides HA features by means of cloning running services to a
 
 ## Kubernetes vs Docker Swarm, so, which is better
 
-When deciding which is the best option it all comes down to the requirements of your project
+{{< my-picture name="Infographics-Kubernetes-vs-Docker-Swarm-which-is-better" >}}
+
+When deciding which is the best option it all comes down to the requirements of your project.
 
 **Docker Swarm is hands down a good option for small to medium-sized clusters**. Its ease of installation and fast response times are hard to beat at that level. You can deploy a swarm on your laptop in a matter of minutes for testing purposes. Then, once ready, you can migrate the cluster to production without much trouble. That simplicity also makes Docker Swarm an ideal option for students.
 
