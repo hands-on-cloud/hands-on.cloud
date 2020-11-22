@@ -11,6 +11,8 @@ authors:
   - Andrei Maksimov
 ---
 
+In this article we'll guide you how to remove Git remote repository. We'll cover the the difference between local and remote repositories, and two possible workflows for git remote repository. Take a look at our infographics to lear everything in less than one minute.
+
 ## What is Git
 
 Git is a free and open-source distributed version control system. Linus Torvalds designed it in 2005, and now Git is one of the most popular code version control systems in the world. Git helps you to maintain the history of changes that you made during your software development process.
