@@ -23,6 +23,7 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
+venv/
 __pycache__/
 
 # Bower dependency directory (https://bower.io/)
@@ -80,3 +81,7 @@ cypress/screenshots/
 
 #Hugo
 _gen/
+
+#VSCode
+.vscode/
+

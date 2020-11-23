@@ -409,3 +409,10 @@ div.linkshare_carousel div.carousel-caption {
   background: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.audio-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+}
