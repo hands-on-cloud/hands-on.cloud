@@ -147,7 +147,7 @@ sls deploy
 
 ## Testing
 
-Now our application is up and running. All we need to do is to verify its functionality by opening the `WildRydesBucketURL`, registering new user using `/register.html` URL, verifying user manually using Cognito web interface and logging in using `/ride.html` URL. The whole testing process is described in my [first post](serverless-framework-building-web-app-using-aws-lambda-amazon-api-gateway-s3-dynamodb-and-cognito-part-1/) and [original AWS](https://aws.amazon.com/getting-started/projects/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/) tutorial.
+Now our application is up and running. All we need to do is to verify its functionality by opening the `WildRydesBucketURL`, registering new user using `/register.html` URL, verifying user manually using Cognito web interface and logging in using `/ride.html` URL. The whole testing process is described in my [first post](https://hands-on.cloud/serverless-framework-building-web-app-using-aws-lambda-amazon-api-gateway-s3-dynamodb-and-cognito-part-1/) and [original AWS](https://aws.amazon.com/getting-started/projects/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/) tutorial.
 
 {{< my-picture name="Serverless-Framework-Deployed-Web-Application-End-Result" >}}
 
