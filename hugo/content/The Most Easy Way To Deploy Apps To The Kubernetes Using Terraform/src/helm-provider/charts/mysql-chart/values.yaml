@@ -1,0 +1,20 @@
+# Default values for mysql-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: mysql:5.6
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+deployment:
+  name: mysql-deployment
+
+service:
+  name: mysql-service
+  type: ClusterIP
+  port: 3306
