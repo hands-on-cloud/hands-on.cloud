@@ -15,6 +15,10 @@
 
 ## ✍️ Adding articles
 
+```sh
+hugo new 'My Article Name/index.md'
+```
+
 Pull request workflow described in detail at our [For Authors](https://hands-on.cloud/for-authors/) blog page.
 
 ## 🚀 Quick start
