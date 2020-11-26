@@ -23,20 +23,20 @@ This article will show you how to make all those integrations and build a comple
 
 The heart of the video processing service is a Lambda function with Lambda Layer attached to it with statically linked FFmpeg. This Lambda function is responsible for core business logic:
 
-* Retrieve uploaded video file from the POST request,
-* Generate GIF and Thumbnail from the video file,
-* Upload generated GIF and Thumbnail to S3,
+* Retrieve uploaded video file from the POST request.
+* Generate GIF and Thumbnail from the video file.
+* Upload generated GIF and Thumbnail to S3.
 * Send a user a JSON reply back.
 
 Now, let’s take a look at how all those services may be integrated.
 
 For those of you, who're interested in the code only, please, feel free to grab it from our [GitHub](https://github.com/hands-on-cloud/hands-on.cloud/tree/master/hugo/content/Building%20Thumbnails%20And%20GIFs%20Generator%20Using%20Lambda%20And%20FFmpeg/src)
 
-## Building a prototype
+## Building a prototype.
 
 To build a prototype, we’ll take an AWS CDK - a great framework that I recently opened for fast prototyping and implementing solutions for the AWS cloud.
 
-### Project structure
+### Project structure.
 
 Here’s our project structure:
 
@@ -73,18 +73,18 @@ tree
 
 Short description of the files and folders:
 
-* `app.py` - standard AWS CDK application entry point
-* `cdk.json` - standard AWS CDK application context
-* `functions` - folder, which will content Lamda functions code for AWS CDK application
-* `helpers` - folder, which I’m using as a python module to; I’ll store AWS CDK stacks here
-* `layers` - folder, which will contain Lambda Layers
-* `requirements.txt` - standard Python project requirements
-* `small.mp4` - small video file, which we’ll be using for testing of our prototype
-* `tests` - folder with the tests you’d like to have
+* `app.py` - standard AWS CDK application entry point.
+* `cdk.json` - standard AWS CDK application context.
+* `functions` - folder, which will content Lamda functions code for AWS CDK application.
+* `helpers` - folder, which I’m using as a python module to; I’ll store AWS CDK stacks here.
+* `layers` - folder, which will contain Lambda Layers.
+* `requirements.txt` - standard Python project requirements.
+* `small.mp4` - small video file, which we’ll be using for testing of our prototype.
+* `tests` - folder with the tests you’d like to have.
 
 As you can see, we have one Lambda function in `functions/ffmpeg_lambda` folder. And one Lambda layer for this function, which located in `layers/ffmpeg_layer`.
 
-### Lambda Layer
+### Lambda Layer.
 
 Lambda Layer location:
 
@@ -108,7 +108,7 @@ As you know, there’s no such thing as Lambda function with the FFmpeg library.
 
 Here, the general idea is to create a ZIP archive with a folder structure to be mounted to the Lambda function during its execution. So, we’ll need:
 
-* [Statically build FFmpeg](https://johnvansickle.com/ffmpeg/) for amd64 architecture (`ffmpeg` executable placed inside the `bin` folder)
+* [Statically build FFmpeg](https://johnvansickle.com/ffmpeg/) for amd64 architecture (`ffmpeg` executable placed inside the `bin` folder).
 * A Python FFmpeg wrapper class (`python/lib/python3.7/site-packages/ffmpeg_mgr.py`) - it is convenient to import this class from your Lambda function code to execute `ffmpeg` commands; code upgrades are straightforward too, as you may publish new Lambda Layer separately and test your code independently.
 
 Layer code for making GIFs and thumbnails:
@@ -168,8 +168,8 @@ We provide sources and destinations file paths for every function and make a `ff
 
 Here’s a couple of great articles, which I used to find the fight `ffmpeg` command:
 
-* [How to create GIFs with FFmpeg](https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/) (GYPHY Engineering blog)
-* [Create thumbnail from video using ffmpeg](https://stackoverflow.com/questions/27145238/create-thumbnail-from-video-using-ffmpeg) (Example from Stackoverflow)
+* [How to create GIFs with FFmpeg](https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/) (GYPHY Engineering blog).
+* [Create thumbnail from video using ffmpeg](https://stackoverflow.com/questions/27145238/create-thumbnail-from-video-using-ffmpeg) (Example from Stackoverflow).
 
 Additionally, I added `Makefile` and `requirements.txt` to the `layers` folder if you do not want to use AWS CDK and want to build Lambda Layer manually.
 
@@ -215,7 +215,7 @@ Here I’m using Python Docker image to build a Lambda function layer. I’ve co
 
 The `layers/ffmpeg_layer/requirements.txt` file contains additional Python dependencies you may need. Right now it contains conly `requests_toolbelt`, which is used to process POST request in Lambda function.
 
-### Lambda function
+### Lambda function.
 
 Lambda function location:
 
@@ -310,7 +310,7 @@ Code logic:
 * Use `boto3` S3 client to upload results to some S3 bucket (obtained from ENV variable).
 * Return some JSON structure to the client.
 
-### AWS CDK part
+### AWS CDK part.
 
 The first thing we need to cover here, is the AWS CDK application entrypoint - `app.py`:
 
@@ -328,8 +328,8 @@ Again, nothing complicated.
 
 Code logic:
 
-* Import AWS CDK core module
-* Import our stack declaration from the helper module
+* Import AWS CDK core module.
+* Import our stack declaration from the helper module.
 * Use the stack declaration as a part of the AWS CDK application.
 
 Content of the `ffmpeg_lambda_stack.py` file:
@@ -397,7 +397,7 @@ class FfmpegLambdaStack(core.Stack):
 
 This code is not mine. I reused and modified already existing Stackoverflow solution:
 
-* [How to deploy and attach a layer to aws lambda function using aws CDK and Python](https://stackoverflow.com/a/59716561/5148918)
+* [How to deploy and attach a layer to aws lambda function using aws CDK and Python](https://stackoverflow.com/a/59716561/5148918).
 
 Code logic:
 
@@ -409,7 +409,7 @@ The most important parts of this stack:
 * `binary_media_types` attribute for API Gateway - without this parameter created, API Gateway will pass the file object in correct base64 format. This problem is covered in [How to upload files to lambda function or API Gateway?](https://stackoverflow.com/questions/31645205/how-to-upload-file-to-lambda-function-or-api-gateway) StackOverflow discussion.
 * `cdkResourcesCreate` function creates an S3 bucket, Lambda layer, Lambda function, and ties everything together.
 
-### Deployment
+### Deployment.
 
 {{< asciinema id="357226">}}
 
@@ -438,7 +438,7 @@ cdk bootstrap
 cdk deploy
 ```
 
-### Testing
+### Testing.
 
 Testing is very important part of any development ptocess. I used very simple Python app (`tests/upload.py`):
 
@@ -460,7 +460,7 @@ print(f"md5(small.mp4)={hexdigest}")
 
 `small.mp4` obtained from [Sample WebM, Ogg, and MP4 Video Files for HTML5](http://techslides.com/sample-webm-ogg-and-mp4-video-files-for-html5).
 
-### Cleaning up
+### Cleaning up.
 
 To clean up everything, execute the following command:
 
@@ -468,13 +468,13 @@ To clean up everything, execute the following command:
 cdk destroy
 ```
 
-## Architecture improvements
+## Architecture improvements.
 
 As soon as I heard about this service architecture, I immediately proposed several improvements. So today, I’ll not only show you how to use FFmpeg in your Lambdas but also provide a couple of improvements for the above architecture.
 
 While our prototype shows necessary service integrations, it has several significant constraints, which I recommend you to fix in your solutions:
 
-* **Synchronous request processing** - the user have to wait till processing operation finishes to get a response back; I strongly recommend to consider asynchronous architecture (I’ll show an example below)
+* **Synchronous request processing** - the user have to wait till processing operation finishes to get a response back; I strongly recommend to consider asynchronous architecture (I’ll show an example below).
 * **Monolithic architecture pattern** - the service bases on a single Lambda function, which does all the operations sequentially - by the ask, it has to be only one Lambda function with no asynchronous workflow using the Step Function state machine.
 * **Processing file uploads through API Gateway** - even if we have [Binary Support for API Integrations for API Gateway](https://aws.amazon.com/blogs/compute/binary-support-for-api-integrations-with-amazon-api-gateway/), this method has some significant constraints. Again, I strongly suggest considering another architecture pattern for processing uploaded user files.
 
@@ -489,7 +489,7 @@ The ideas are simple:
 * **Use asynchronous processes wherever possible** - it leads to way better customer experience when you are launching a long-running process in the background and showing your customer a nice “processing” animation. You may update the web page as soon as the status of the process changes or notice your customer by email.
 * **Decouple everything** - In the Step Function state machine, we have three different Lambda functions that do the job; each function does its small piece of the whole logic; it’s much easier to avoid errors during updates.
 
-## Summary
+## Summary.
 
 In this article, we integrated AWS API Gateway with AWS Lambda to process POST file uploads. We also built a Lambda function, which uses FFMpeg to create GIFs and thumbnails from uploaded videos. And finally, we improved the initial architecture.
 
