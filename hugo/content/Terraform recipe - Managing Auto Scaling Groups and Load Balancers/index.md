@@ -167,7 +167,7 @@ Most of the parameters should be familiar to you, as we already used them in [aw
 The new one are `user_data` and lifecycle:
 
 * `user_data` – is a special interface created by AWS for EC2 instances automation. Usually this option is filled with scripted instructions to the instance, which need to be executed at the instance boot time. For most of the OS this is done by [cloud-init](https://cloudinit.readthedocs.io/en/latest/).
-* `lifecycle` – special instruction, which is declaring how new launch configuration rules applied during update. We’re using `create_before_destroy` here to create new instances from a new launch configuration before destroying the old ones. This option commonly used during rolling deployments
+* `lifecycle` – special instruction, which is declaring how new launch configuration rules applied during update. We’re using `create_before_destroy` here to create new instances from a new launch configuration before destroying the old ones. This option commonly used during rolling deployments.
 
 `user-data` option is filled with a simple bash-script, which installs nginx web server and putting instance local ip address to the `index.html` file, so we could see it after instance is up and running.
 
@@ -175,9 +175,9 @@ The new one are `user_data` and lifecycle:
 
 Before we create an Auto Scaling Group we need to declare a Load Balancer. There are three Load Balances available for you in AWS right now:
 
-* [Elastic or Classic Load Balancer (ELB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/classic) – previous generation of Load Balancers in AWS
-* [Application Load Balancer (ALB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/application) – operates on application network layer and provides reach feature set to manage HTTP and HTTPS traffic for your web applications
-* [Network Load Balancer (NLB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/network) – operates on connection layer and capable for handling millions of requests per second
+* [Elastic or Classic Load Balancer (ELB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/classic) – previous generation of Load Balancers in AWS.
+* [Application Load Balancer (ALB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/application) – operates on application network layer and provides reach feature set to manage HTTP and HTTPS traffic for your web applications.
+* [Network Load Balancer (NLB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/network) – operates on connection layer and capable for handling millions of requests per second.
 
 For a simplicity let’s create Elastic Load Balancer in front of our EC2 instances (I’ll show how to use other types of them in the future articles). To do that we need to declare [aws_elb](https://www.terraform.io/docs/providers/aws/r/elb.html) resource.
 

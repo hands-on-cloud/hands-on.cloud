@@ -27,7 +27,7 @@ Least Privilege's also allows us to restrict application permissions to the mini
 
 For example, most functions probably don't really need access to databases or permissions to access servers, but these actions are executed by default by various serverless frameworks.
 
-Take the following **serverless.yml** default configuration for AWS Lambda in [Serverless Framework](http://serverless.com/). This configuration will allow all Lambda functions in the service to perform the submit action on an SNS(Software Notification Service) resource
+Take the following **serverless.yml** default configuration for AWS Lambda in [Serverless Framework](http://serverless.com/). This configuration will allow all Lambda functions in the service to perform the submit action on an SNS(Software Notification Service) resource.
 
 ```yaml
 provider:
@@ -234,11 +234,6 @@ provider:
 **IAM role tip:** You can use [CloudFormation Intrinsic Functions](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html) to make it easier to define permissions/roles for your Lambda Functions. For example, if you've created your DynamoDB table in the resources section of your `serverless.yml`, you can use the `Fn::GetAtt` intrinsic function to get the Amazon Resource Names (ARNs).
 
 ```yml
-resources:
-  Resources:
-    MyDynamoTable:
-      ***** Configuration****
-
 provider:
   name: aws
   runtime: nodejs6.10

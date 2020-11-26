@@ -415,8 +415,8 @@ helm rollback python-data-science-notebook 1
 
 Where:
 
-* **python-data-science-notebook** is the application name
-* **1** is the previous version number
+* **python-data-science-notebook** is the application name.
+* **1** is the previous version number.
 
 Yes, so simple!
 

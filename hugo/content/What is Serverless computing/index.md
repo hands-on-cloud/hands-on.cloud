@@ -287,7 +287,7 @@ In addition to that, you can connect AWS Lambda to the EFS file system. This int
 
 Lambda is the best choice for implementing chatbots, Alexa skills, and voice-powered apps in the cloud.
 
-### Real-time stream processing
+### Real-time stream processing.
 
 Lambda and Kinesis integration is another way to process real-time streaming data. The most common use-cases are:
 

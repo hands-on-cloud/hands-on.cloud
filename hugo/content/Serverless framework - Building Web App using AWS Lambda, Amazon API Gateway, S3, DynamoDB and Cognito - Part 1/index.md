@@ -55,8 +55,8 @@ sls create -t aws-nodejs -n wild-rides-serverless-demo
 
 At this moment of time you’ll see two file inside our project directory:
 
-* **handler.js** – this file contains demo Lambda function code
-* **serverless.yaml** – this file contains Serverless project deployment configuration
+* **handler.js** – this file contains demo Lambda function code.
+* **serverless.yaml** – this file contains Serverless project deployment configuration.
 
 Before continue this tutorial I strongly recommend to spend 30 minutes on looking through Serverless framework AWS [documentation](https://serverless.com/framework/docs/providers/aws/guide/).
 

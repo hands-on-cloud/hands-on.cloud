@@ -137,7 +137,7 @@ c.JupyterHub.hub_connect_ip = 'jupyterhub'
 c.Spawner.notebook_dir = '~/'
 ```
 
-## Stack launch
+## Stack launch.
 
 I did not have too much time to build a new container and/or play with user authentication settings. The main purpose of this article is to provide a solution for **Blocking Cross Origin API request for /api/contents** issues.
 

@@ -74,11 +74,11 @@ tree
 
 So, we have here:
 
-* Basic template of **README.md** file
-* **events** folder containts sample of json request for testing **hello_world** Lambda function
-* **hello_world** folder contains the actual Lambda function code
-* **tests** - no comments 😁
-* **template.yaml** - is a the similar to CloudFormation temmplate, which supports higher level entities, like: **AWS::Serverless::Function**, **AWS::Serverless::LayerVersion** or **AWS::Serverless::HttpApi**, for example
+* Basic template of **README.md** file.
+* **events** folder containts sample of json request for testing **hello_world** Lambda function.
+* **hello_world** folder contains the actual Lambda function code.
+* **tests** - no comments 😁.
+* **template.yaml** - is a the similar to CloudFormation temmplate, which supports higher level entities, like: **AWS::Serverless::Function**, **AWS::Serverless::LayerVersion** or **AWS::Serverless::HttpApi**, for example.
 
 Let's use the following simple Lambda function code:
 

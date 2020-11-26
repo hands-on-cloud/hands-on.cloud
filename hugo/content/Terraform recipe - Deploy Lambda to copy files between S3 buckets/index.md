@@ -43,9 +43,9 @@ tree
 
 Here:
 
-* `main.tf` - Terraform code for infrastructure configuration in AWS cloud
-* `lambda` - folder containing Lambda function source code written in Python
-* `README.md` - a short description hot to use the example
+* `main.tf` - Terraform code for infrastructure configuration in AWS cloud.
+* `lambda` - folder containing Lambda function source code written in Python.
+* `README.md` - a short description hot to use the example.
 
 Terraform code is in `main.tf` file contains the following resources:
 

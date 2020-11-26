@@ -23,8 +23,8 @@ The source code is available in my [GitHub repository](https://github.com/andrei
 * VPC deployment added.
 * Three subnet HA ElasticSearch cluster.
 * ElasticSearach version upgrade to version `7.7`.
-* Fix of **Error: Error creating ElasticSearch domain: ValidationException: Before you can proceed, you must enable a service-linked role to give Amazon ES permissions to access your VPC.**
-* Fix of **Error: Error creating ElasticSearch domain: ValidationException: You must choose a minimum of three data nodes for a three Availability Zone deployment.**
+* Fix of **Error: Error creating ElasticSearch domain: ValidationException: Before you can proceed, you must enable a service-linked role to give Amazon ES permissions to access your VPC**.
+* Fix of **Error: Error creating ElasticSearch domain: ValidationException: You must choose a minimum of three data nodes for a three Availability Zone deployment**.
 
 ## Introduction.
 
