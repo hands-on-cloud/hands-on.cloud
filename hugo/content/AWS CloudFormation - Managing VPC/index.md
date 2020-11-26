@@ -15,7 +15,7 @@ authors:
 
 In todays post, I’ll try to minimize efforts and simplify your first steps in learning CloudFormation and we’ll be practicing in managing VPC.
 
-## Json VS Yaml
+## Json VS Yaml.
 
 CloudFormation supports two both JSON and Yaml syntax in your templates. You may use what ever you like. JSON syntax is looking a little bit more complex because a lot of brackets are used. In Yaml you need to track your indentations.
 
@@ -23,7 +23,7 @@ In any case, I recommend you to use [MS Visual Studio Code](https://code.visuals
 
 {{< my-picture name="CloudFormation-Visual-Studio-Code-Editor" >}}
 
-## Visual designer
+## Visual designer.
 
 To simplify our life AWS brought us CloudFormation Designer, where we could build our target infrastructure using “Drag-n-Drop” technics in a visual manner. If you’re start building your template from scratch, it could be much more easy to start from the Designer.
 
@@ -37,7 +37,7 @@ And one more thing to add: if you want to use CloudFormation Designer for managi
 
 It is also possible to generate your infrastructure schema by your own template without any metadata in it. If your template is simple enough, Designer will magically draw it on the screen.
 
-## What do you need to be productive with CloudFormation
+## What do you need to be productive with CloudFormation.
 
 I’m always keeping several tabs opened in my browser:
 
@@ -46,7 +46,7 @@ I’m always keeping several tabs opened in my browser:
 - [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html) – this is the most important tab, where you can find all the elements, their required and optional parameters and output parameters also. You always need to understand how to get access to Instance private or public IP address to refer on it from the other resources inside your template.
 - [Intrinsic Function Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html) – this tab could be very useful if you’re just starting with CloudFormation and don’t remember actual syntax of all available functions for your templates.
 
-## Managing VPC
+## Managing VPC.
 
 Let’s start building our own VPC using CloudFormation. First of all open a new file using your favourite text editor and name it somehow, for example `MyVPC.template`.
 
@@ -54,7 +54,7 @@ We’ll check every step in CloudFormation Designer to be sure, that everything�
 
 All the code is also available on my [GitHub repository](https://github.com/andreivmaksimov/aws-cloudformation-managing-vpc).
 
-### Initial template
+### Initial template.
 
 Let’s start from initial template content:
 
@@ -68,7 +68,7 @@ This `AWSTemplateFormatVersion` item means, that we’ll use `2010-09-09` versio
 
 We don’t need to check it CloudFormation Designer yet.
 
-### VPC resource
+### VPC resource.
 
 Now let’s add an empty VPC service declaration inside our template. This needs to be done inside Resources section of the template like this:
 
@@ -89,7 +89,7 @@ Here we’re declaring [AWS::EC2::VPC](https://docs.aws.amazon.com/AWSCloudForma
 
 {{< my-picture name="CloudFormation-VPC-declaration" >}}
 
-### VPC ip address range
+### VPC ip address range.
 
 If you looked through VPC parameters in AWS Resource Reference Guide, you’ve found, that we have to specify `CidrBlock` parameter. And this parameter needs to be the type of String. Let’s add to the future template users an ability to provide this parameter themselves. To do so, we need to add `Parameters` section to our template:
 
@@ -146,7 +146,7 @@ The full version of our template at this point of time will be:
 
 So using this template it’s future users will be able to create a VPC resource inside the Region, where CloudFormation service will process it.
 
-### Public network
+### Public network.
 
 Strictly speaking, template which contains only one empty VPC resource is absolutely useless. Lets add public network to it. To do this we need to add additional [AWS::EC2::Subnet](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html) resource to the `Resources` section of our template:
 
@@ -229,7 +229,7 @@ If you want to check it in CloudFormation Designer, you’ll get something like 
 
 {{< my-picture name="CloudFormation-VPC-and-Public-Subnet" >}}
 
-### Internet gateway (IGW)
+### Internet gateway (IGW).
 
 Well done! We’ve just created CloudFormation template that will create new VPC and Public Subnet inside of it. As you know, we call Subnet “Public” only if it is connected to the Internet. Right now it is not connected to the Internet, because we don’t have Internet Gateway inside out VPC. Also, we need to create a Route through our IGW to the public networks: `0.0.0.0/0`. Let’s do it now.
 
@@ -317,7 +317,7 @@ Let’s check everything in CloudFormation Designer:
 
 And the last thing to be done here before we could launch Instances inside this VPC is Public Route declaration. Let’s do it now.
 
-### Public route
+### Public route.
 
 To add a Public Route to the Internet to our VPC Subnet we need to use [AWS::EC2::RouteTable](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route-table.html) and [AWS::EC2::Route](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html) resources. Let’s add them to the `Resources` section of our template. The `Route Table`:
 
@@ -437,7 +437,7 @@ And CloudFormation Designer version:
 
 {{< my-picture name="CloudFormation-VPC-Public-Subnet-IGW-and-Public-Route" >}}
 
-### Security group
+### Security group.
 
 To logically finish our example, let’s launch an Instance inside our VPC and make it available on port **22** and **80**, for example. But before that, we need to create a [AWS::EC2::SecurityGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html). Let’s add this resource type to the Resources section of our template:
 
@@ -581,7 +581,7 @@ And the Designer, of cause:
 
 {{< my-picture name="CloudFormation-VPC-Public-Subnet-IGW-Public-Route-and-Security-Group" >}}
 
-### Instance
+### Instance.
 
 It seems that we’re ready to launch an `Instance` in our VPC inside Public Subnet. As you may already guess, we’ll be using [AWS::EC2::Instance](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html). Let’s do it:
 
@@ -769,7 +769,7 @@ And at the Designer:
 
 I think it’s enough for now. Let’s try to launch our template.
 
-## Launching CloudFormation template
+## Launching CloudFormation template.
 
 Paste our final template in the **Template** tab of the Designer and press **Launch Template** button. CloudFormation Designer will upload our template code to S3 and show you that screen. Don’t change anything and press **Next**:
 
@@ -805,12 +805,12 @@ You may also try to connect your instance using SSH:
 
 {{< my-picture name="CloudFormation-Template-Launch-Stack-Testing" >}}
 
-## CloudFormation best practices
+## CloudFormation best practices.
 
 - **Don’t hardcode object names**: where is possible try to avoid using hardcoded names for your objects like S3 bucket or IAM objects, for example. As you know, some of the objects needs to be unique in your account, some of the objects globally. Try to launch 2 or more stacks from your template to be sure, that nothing is hardcoded. Following this principle will allow you to use you templates as many times as needed.
 - **Tag everything**: add Tags everywhere it is possible. it will allow you to control costs for your infrastructure and increase manageability of it.
 - **Don’t put RDS or instance DB hosts inside the template**: if something goes wrong and you’ll need to recreate your infrastructure, CloudFormation will delete all the resources it has created. So, to avoid your data loss, don’t manage your databases layer using Cloud Formation.
 
-## Final words
+## Final words.
 
 Hope, you’ll find this article interesting and helpful! If so, please, Share or Like it on any Social media you want! If you have any questions, please feel free to contact me in the comments of the article. See you soon.

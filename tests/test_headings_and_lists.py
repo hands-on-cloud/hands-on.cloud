@@ -19,8 +19,9 @@ def test_article_headlines_ending_on_dots():
             for line in lines:
                 line = line.strip()
                 result = regex.search(line)
-                if result and line[-1] != '.':
-                    print(f'{article_name} ==> ' + line)
+                if result:
+                    if line[-1] != '.' and line[-1] != ':':
+                        print(f'{article_name} ==> ' + line)
     assert True
 
 def test_article_lists_ending_on_dots():
@@ -35,8 +36,9 @@ def test_article_lists_ending_on_dots():
             for line in lines:
                 line = line.strip()
                 result = regex.search(line)
-                if result and line[-1] != '.':
-                    print(f'{article_name} ==> ' + line)
+                if result:
+                    if line[-1] != '.' and line[-1] != ':':
+                        print(f'{article_name} ==> ' + line)
     assert True
 
 if __name__ == '__main__':
