@@ -7,7 +7,7 @@ BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
 ARTICLES_DIR = os.path.join(PROJECT_DIR, 'hugo', 'content')
 
-ALLOWED_FINAL_CHARS = '.:\\);'
+ALLOWED_FINAL_CHARS = '.:\\);!'
 
 def test_article_headlines_ending_on_dots():
     articles_list = os.listdir(ARTICLES_DIR)
