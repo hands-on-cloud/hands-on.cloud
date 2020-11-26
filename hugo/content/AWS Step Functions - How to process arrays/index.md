@@ -19,11 +19,11 @@ At the 1st of Descember of 2016 AWS anonced, that they brought us a Step Functio
 
 Everybody who’s trying to use Step Functions first time usually don’t understand how to process arrays using this approach. In this post I’ll show you how to do it.
 
-## The problem
+## The problem.
 
 Let’s imagine, that we have a Lambda Function, that returns an array of elements. We need to process this elements by another Lambda Function. How we could build such kind of microservice interraction using Step Functions?
 
-## Lambda functions
+## Lambda Functions.
 
 Let’s create a Lambda Function, that produces an array (`fruits` in our example):
 
@@ -74,7 +74,7 @@ And again we’re setting up `has_elements` flag at the end of element processin
 
 Now we’re ready to create a Step Function algorythm.
 
-## Step function
+## Step function.
 
 Here’s our algorythm visualization:
 
@@ -149,6 +149,6 @@ And the final Output:
 }
 ```
 
-## Final words
+## Final words.
 
 We’ve just implemented simple Step Function algorythm to orchestrate processing of an array elements. Hope, you’ll find this article useful. If you have any questions, feel free to contact me in comments!

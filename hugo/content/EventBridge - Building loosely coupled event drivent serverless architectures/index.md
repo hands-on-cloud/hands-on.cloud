@@ -19,7 +19,7 @@ authors:
 
 From this article you'll learn, what is [Amazon EventBridge](https://aws.amazon.com/eventbridge/), what problems it help to solve and how you can use it to simplify your event driven workflows.
 
-## What's Amazon EventBridge
+## What's Amazon EventBridge.
 
 The very first thing we need to do, is to describe EventBridge. From the official service page:
 
@@ -29,18 +29,18 @@ The main purpose of Amazon EventBridge is to accept events from many different s
 
 EventBridge consists of the following entities:
 
-* **Events** - represents a state changes at remote system; you're receiving events as a JSON structure
-* **Rules** - matches incoming events and routes them to targets for futher processing
+* **Events** - represents a state changes at remote system; you're receiving events as a JSON structure.
+* **Rules** - matches incoming events and routes them to targets for futher processing.
 * **Targets** - something, that should react on the events; it is usually something like a Lambda Function, SQS, SNS, EC2 instance, Fargate Task, etc.
-* **Event buses** - those receives and routes events. `default` one is receiving your AWS events. You may add more Event Buses to receive events from your partners
+* **Event buses** - those receives and routes events. `default` one is receiving your AWS events. You may add more Event Buses to receive events from your partners.
 
 Using Amazon EventBridge in your Serverless architecture has several very important benefits:
 
-* It simplifies your entire architecture, as you don't have to manage complex events routing rules
-* It simplifies your development process - most of heavy-lifting is done for you by AWS; all you need to do, is to develop you lambda function logic
-* It unifies the event processing logic - all events are delivered to your targets, no more need to do SQS pull
+* It simplifies your entire architecture, as you don't have to manage complex events routing rules.
+* It simplifies your development process - most of heavy-lifting is done for you by AWS; all you need to do, is to develop you lambda function logic.
+* It unifies the event processing logic - all events are delivered to your targets, no more need to do SQS pull.
 
-## Creating you own EventBridge bus
+## Creating you own EventBridge bus.
 
 If you already built a system, which produces events, you may want to start publishing them to EventBidge. Here's an example of doing that.
 
@@ -84,7 +84,7 @@ Resources:
                     Id: !Sub 'MyCustomEventBusLogGroup'
 ```
 
-## Sending events to your own EventBridge bus
+## Sending events to your own EventBridge bus.
 
 As soon as you have your custom EventBus created, we may use boto3 library to send up to 10 events at a time from to it:
 
@@ -123,7 +123,7 @@ As a result, you should see something similar at your CloudWatch logs:
 
 {{< my-picture name="EventBridge-CloudWatch-Target" >}}
 
-## Subscribing to EventBridge S3 events
+## Subscribing to EventBridge S3 events.
 
 Now let's take a look on more complex example of using EventBridge. Let's subscribe on S3 events, which are coming from CloudTrail service, and use Lambda Function as a target.
 
@@ -131,8 +131,8 @@ Now let's take a look on more complex example of using EventBridge. Let's subscr
 
 In the stack template below we're creating two buckets:
 
-* `S3bucket` - bucket to demo upload operation
-* `CloudTrailS3bucket` - bucket to store CloudTrail Logs
+* `S3bucket` - bucket to demo upload operation.
+* `CloudTrailS3bucket` - bucket to store CloudTrail Logs.
 
 CloudTrail may be configured for each of you, so we'll create a new trail to garantee the result. We need to enable Object Level Logging (`S3ObjectLevelCloudTrail`) for S3 bucket first. Now we can receive EventBridge events and process them in Lambda function.
 
@@ -288,7 +288,7 @@ Resources:
                     ReadWriteType: All
 ```
 
-## Simplifying Step Functions long running tasks
+## Simplifying Step Functions long running tasks.
 
 Not too far ago we published an article, which is showing [How to manage long running tasks using AWS Step Functions](https://hands-on.cloud/aws-step-functions-how-to-manage-long-running-tasks/). There we created a state machine to wait for DB snapshot operation to finish in a loop. Using EventBridge we may get rid of long running loop and just subscribe only one lambda function to `RDS DB Snapshot Events`:
 
@@ -341,20 +341,20 @@ Resources:
 
 Of cause, you can use Lambda Function as a target to do something meaningfull with this information. For example, you may copy DB snapshot to another region for DR purpose.
 
-## AWS Serverless Workshops
+## AWS Serverless Workshops.
 
 If you’d like to get more hands-on experience using EventBridge and serverless technologies, I’d recommend you to take a look on those AWS Workshops:
 
-* [CDK Workshop](https://cdkworkshop.com)
-* [Building Event-Driven Architectures on AWS](https://event-driven-architecture.workshop.aws/getting-started.html)
-* [Serverless Web Application Workshop](https://github.com/aws-samples/aws-serverless-workshops/tree/master/WebApplication)
-* [CI/CD For Serverless Applications](https://cicd.serverlessworkshops.io/)
-* [Serverless Image Processing on AWS](https://image-processing.serverlessworkshops.io/)
-* [Serverless Security Workshop](https://github.com/aws-samples/aws-serverless-security-workshop)
+* [CDK Workshop](https://cdkworkshop.com).
+* [Building Event-Driven Architectures on AWS](https://event-driven-architecture.workshop.aws/getting-started.html).
+* [Serverless Web Application Workshop](https://github.com/aws-samples/aws-serverless-workshops/tree/master/WebApplication).
+* [CI/CD For Serverless Applications](https://cicd.serverlessworkshops.io/).
+* [Serverless Image Processing on AWS](https://image-processing.serverlessworkshops.io/).
+* [Serverless Security Workshop](https://github.com/aws-samples/aws-serverless-security-workshop).
 
 You may find compleete list of serverless workshops at official [AWS Samples GitHub repository](https://github.com/aws-samples/aws-serverless-workshops).
 
-## Summary
+## Summary.
 
 In this article I've showed you how to use EventBridge in a several ways to react on AWS and non-AWS events. I hope, this article will save you some time and help to incorporate EventBridge to your own architecture.
 

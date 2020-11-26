@@ -23,13 +23,13 @@ In this article I'll show you, how to use CloudFormation [custom resources](http
 
 Here's the list of technologies to be used:
 
-* Python 3
-* boto3
-* CloudFormation
+* Python 3.
+* boto3.
+* CloudFormation.
 
 Final version of CloudFormation template is available at [GitHub](https://raw.githubusercontent.com/hands-on-cloud/hands-on.cloud/master/hugo/content/AWS%20CloudFormation%20-%20How%20to%20automatically%20validate%20ACM%20SSL%20certificate/cloudformation.yml).
 
-## Automation process
+## Automation process.
 
 To start automating our task, we'll need simple CloudFormation template with, which creates ACM Certitificate resource.
 
@@ -62,13 +62,16 @@ Outputs:
 
 As soon as we try to create a stack from this template, we'll immidiately see, that in **Events** section of our stack there's a **Status reason** field for `ACMCertificate` resource, which contains the following message:
 
-*Content of DNS Record is: {Name: _8c764e0f4e100a01c2d710674388e7d7.awsam.hands-on.cloud.,Type: CNAME,Value: _f10faf50b877f1c7d80cf6c26535acd8.kirrbxfjtw.acm-validations.aws.}*
+```txt
+Content of DNS Record is: {Name: _8c764e0f4e100a01c2d710674388e7d7.awsam.hands-on.cloud.,Type: CNAME,Value: _f10faf50b877f1c7d80cf6c26535acd8.kirrbxfjtw.acm-validations.aws.}
+```
 
 This message can be used to automate Route53 records creation during stack deployment. And CloudFormation custom resources will help us at this part.
 
 To solve the problem in general, we need the following information:
-* Stack name - we'll use Python boto3 library to get access to CloudFormation stack events to parse for required DNS record
-* Route53 Hosted Zone name - we'll use Python boto3 library to create necessary DNS records in our Hosted Zone
+
+* Stack name - we'll use Python boto3 library to get access to CloudFormation stack events to parse for required DNS record.
+* Route53 Hosted Zone name - we'll use Python boto3 library to create necessary DNS records in our Hosted Zone.
 
 Let's extend our template with required resources:
 
@@ -192,7 +195,6 @@ Creating CloudFormation Stack from this template will create a custom resource `
     }
 }
 ```
-
 
 You may take a look on your own Event object at CloudWatch Logs.
 
@@ -349,7 +351,9 @@ Here we used [describe_stack_events()](https://boto3.amazonaws.com/v1/documentat
 
 At this point of time, you should see the following line at CloudWatch logs of your Lambda function:
 
-*Route 53 record: {'Name': '_8c764e0f4e100a01c2d710674388e7d7.awsam.hands-on.cloud.', 'Type': 'CNAME', 'Value': '_f10faf50b877f1c7d80cf6c26535acd8.kirrbxfjtw.acm-validations.aws.'}*
+```txt
+Route 53 record: {'Name': '_8c764e0f4e100a01c2d710674388e7d7.awsam.hands-on.cloud.', 'Type': 'CNAME', 'Value': '_f10faf50b877f1c7d80cf6c26535acd8.kirrbxfjtw.acm-validations.aws.'}
+```
 
 Now, all we have to do, is to modify our lambda function and create a Route53 record:
 
@@ -513,8 +517,8 @@ Outputs:
 
 ```
 
-And finally, we added boto3 [Route53 client](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53.html), which allowed us to use [change_resource_record_sets(\*\*params)](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53.html#Route53.Client.change_resource_record_sets) call to create and/or modify 
+And finally, we added boto3 [Route53 client](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53.html), which allowed us to use [change_resource_record_sets(\*\*params)](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53.html#Route53.Client.change_resource_record_sets) call to create and/or modify.
 
-## Conclusion
+## Conclusion.
 
 In this article we walked through step-by-step process of ACM certificate automation in CloudFomation template using custom resource.

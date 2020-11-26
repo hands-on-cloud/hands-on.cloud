@@ -15,28 +15,30 @@ authors:
   - Andrei Maksimov
 ---
 
-## What is Lambda function
+This article will describe what Lambda function is, what its features and limits are. We'll develop a simple Lambda function and deploy it using CloudFormation. Finally, we'll discuss the Lambda developer workflow and platform independent build of Lambda functions and Layers using Docker.
+
+## What is Lambda function.
 
 [AWS Lambda Functions](https://aws.amazon.com/lambda/) is a service, which provides short execution time compute service for running your code in response to any kind of events.
 
-## Lambda function use cases
+## Lambda function use cases.
 
 For example, here's some perfect use-cases for Lambda Functions:
 
-* Trigger other AWS service in response on S3 file upload
-* Trigger other AWS service in response on API Gateway incomming request
-* Do third-party service integrations
-* Design and execute complex workflows with help of Step Functions
-* Log analysis on the fly
-* Automated backups and everyday tasks
-* Filtering and transforming data on the fly
-* Many-many others
+* Trigger other AWS service in response on S3 file upload.
+* Trigger other AWS service in response on API Gateway incomming request.
+* Do third-party service integrations.
+* Design and execute complex workflows with help of Step Functions.
+* Log analysis on the fly.
+* Automated backups and everyday tasks.
+* Filtering and transforming data on the fly.
+* Many-many others.
 
 At the same time Lambda functions has their own [limitations](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html). Most important of them are:
 
-* Execution timeout - 15 mins
-* Maximum memory - 3008 MB
-* Deployment package size - up to 50 MB (zipped) and 250 MB (unzipped)
+* Execution timeout - 15 mins.
+* Maximum memory - 3008 MB.
+* Deployment package size - up to 50 MB (zipped) and 250 MB (unzipped).
 
 But as soon as you decide to jump to serverless world and start using Lambda Functions, the first thing you need to know, is how to write and deploy it.
 
@@ -48,7 +50,7 @@ Of cause, there're some already existing interesting frameworks available for yo
 
 But at this article I'll show how to do it using basic CloudFormation stacks.
 
-## Simple Lambda Function 
+## Simple Lambda Function.
 
 I like it very much, when I need to write a simple and short Lamda Functions, because that allows to embed them directly to CloudFormation stack templates like that:
 
@@ -134,22 +136,22 @@ aws cloudformation wait \
     --stack-name 'my-simple-lambda-function-stack'
 ```
 
-## Complex Lambda Functions
+## Complex Lambda Functions.
 
 Because of Lambda Functions and CloudFormation `AWS::Lambda::Function` resource limitations you can not use the same approach to build Lambda Function with external libraries, binaries and deploy them directly using only CloudFormation template.
 
 In general whole process of working with such Lambda Function may be splitted to several phases:
 
-* Development
-* Building Lambda Function .zip archive
-* Uploading Lambda Function .zip archive to S3 bucket
-* Deployment of Lambda function from S3 bucket
+* Development.
+* Building Lambda Function .zip archive.
+* Uploading Lambda Function .zip archive to S3 bucket.
+* Deployment of Lambda function from S3 bucket.
 
-### Development
+### Development.
 
 There's currently no easy to develop Lambda function locally without using additional frameworks. I can recommend to use [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html), if you have a need to build and test your functions locally.
 
-### Building Lambda Function .zip archive
+### Building Lambda Function .zip archive.
 
 Most of the cases for Python are covered by [AWS Lambda Deployment Package in Python](https://docs.aws.amazon.com/lambda/latest/dg/python-package.html) official documentation.
 
@@ -196,7 +198,7 @@ clean:
 ```
 
 This will give you an idea, how to use Docker to script build and package process to avoid platfrom dependency problem. 
-[Linux based Docker container with Python and Bash](https://hub.docker.com/_/python) allows you to automate building of everyting Lambda Function. 
+[Linux based Docker container with Python and Bash](https://hub.docker.com/_/python) allows you to automate building of everyting Lambda Function.
 
 To build and package your Lambda function you'll use the following command.
 
@@ -204,7 +206,7 @@ To build and package your Lambda function you'll use the following command.
 make && make package
 ```
 
-### Uploading Lambda Function .zip archive to S3 bucket
+### Uploading Lambda Function .zip archive to S3 bucket.
 
 As it shown above, you may use old-school *Makefile* and [awscli](https://aws.amazon.com/cli/) to automate upload of your Lambda Function .zip archive with its source code to some kind of "service" S3 bucket.
 
@@ -214,7 +216,7 @@ To deploy your Lambda function you'll use the following command:
 make install
 ```
 
-### Deployment of Lambda function from S3 bucket
+### Deployment of Lambda function from S3 bucket.
 
 As soon as your Lambda Function .zip archive is uploaded to S3 bucket, you may declare it in your CloudFormation stack temlate like that:
 

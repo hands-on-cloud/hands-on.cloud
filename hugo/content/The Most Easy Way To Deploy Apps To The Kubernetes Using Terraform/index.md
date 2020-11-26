@@ -20,7 +20,7 @@ The article will help you learn how to deploy functional n-tier applications at 
 
 We will deploy a WordPress blog engine on top of the Apache web server and MySQL DB in our demos.
 
-## What is Minikube
+## What is Minikube.
 
 {{< my-picture name="What is Minikube" >}}
 
@@ -28,13 +28,13 @@ The best way to learn Kubernetes and its concepts are by using [Minikube](https:
 
 This open-source tool supports Windows, macOS, and Linux, allowing you to launch a single-node Kubernetes cluster on your local machine. This virtual machine can run on top of Virtualbox, KVM, Hyper-V, or Docker.
 
-## Minikube Installation
+## Minikube Installation.
 
 Installing Minikube is a very simple and straightforward process. However, there is only one dependency that you need to install upfront - a command-line tool called `kubectl`.
 
 `kubectl` allows you to manage Kubernetes clusters. You can use `kubectl` to deploy applications, view logs, and manage cluster resources.
 
-### Installing kubectl
+### Installing kubectl.
 
 Below is an example of the installation process of `kubectl` for Linux and macOS:
 
@@ -56,7 +56,7 @@ Alternatively, you can also install `kubectl` on Windows by clicking [here](http
 
 Now that you have installed kubectl, the next step is to install Minikube.
 
-### Install Minikube
+### Install Minikube.
 
 Here are the standard commands you will need to install Minikube on Ubuntu, CentOS, and macOS:
 
@@ -84,22 +84,22 @@ If `minikube` did not start during the installation, you could do so by using th
 minikube start
 ```
 
-## Terraform Providers For Kubernetes Deployment
+## Terraform Providers For Kubernetes Deployment.
 
 {{< my-picture name="Terraform Providers For Kubernetes Deployment" >}}
 
 Currently, there are two providers available for managing Kubernetes applications using Terraform:
 
-* [Kubernetes](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs)
-* [Helm](https://registry.terraform.io/providers/hashicorp/helm/latest/docs)
+* [Kubernetes](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs).
+* [Helm](https://registry.terraform.io/providers/hashicorp/helm/latest/docs).
 
-## Kubernetes Terraform Provider
+## Kubernetes Terraform Provider.
 
 {{< my-picture name="Kubernetes Terraform Provider" >}}
 
 As an example, in this section, we will cover WordPress deployment using the [Kubernetes Terraform Provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs).
 
-### Define WordPress Deployment Using Kubernetes Provider
+### Define WordPress Deployment Using Kubernetes Provider.
 
 Here’s the final structure of the project:
 
@@ -276,7 +276,7 @@ resource "kubernetes_service" "mysql-service" {
 }
 ```
 
-### Deploy WordPress Kubernetes Terraform Configuration
+### Deploy WordPress Kubernetes Terraform Configuration.
 
 As soon as we created the Terraform configuration, we can deploy our demo example.
 
@@ -296,7 +296,7 @@ Approve the plan by answering `yes`.
 
 After the deployment of resources, we can get access to the application.
 
-### Verify The Deployment
+### Verify The Deployment.
 
 Let’s validate our deployment to the cluster using `kubectl`.
 
@@ -308,7 +308,7 @@ We want to make sure that all created by Terraform resources are available.
 
 {{< my-picture name="Deploy-WordPress-Kubernetes-Terraform-Configuration-kubectl-get-all" >}}
 
-### Testing The Deployment
+### Testing The Deployment.
 
 After verifying the deployment of WordPress and MySQL resources, we can test the access to the app.
 
@@ -324,7 +324,7 @@ This command will show you the WordPress service URL exposed by Minikube.
 
 Congratulations! Our WordPress application has been successfully deployed.
 
-## Helm Terraform Provider
+## Helm Terraform Provider.
 
 {{< my-picture name="Terraform Helm Provider" >}}
 
@@ -334,7 +334,7 @@ For deployment through Helm provider, we must install Helm on the machine where 
 
 To learn more about Helm and the process of creating Helm charts, I’d recommend you our article [Quick And Simple Introduction to [Kubernetes] [Helm] Charts in 10 minutes](https://hands-on.cloud/quick-and-simple-introduction-to-kubernetes-helm-charts-in-10-minutes/).
 
-### Creating Helm Charts
+### Creating Helm Charts.
 
 In this module, we will create Helm charts for MySQL and WordPress deployments.
 
@@ -352,7 +352,7 @@ mkdir charts
 cd charts
 ```
 
-#### MySQL Helm Chart
+#### MySQL Helm Chart.
 
 First, we create the helm chart for MySQL.
 
@@ -440,7 +440,7 @@ service:
  port: 3306
 ```
 
-#### WordPress Helm Chart
+#### WordPress Helm Chart.
 
 Create a Helm chart for WordPress.
 
@@ -524,7 +524,7 @@ service:
  nodePort: 32000
 ```
 
-#### Terraform Configuration
+#### Terraform Configuration.
 
 As soon as we have Helm charts, we need to create a Terraform configuration file to deploy our application to Kubernetes.
 
@@ -548,7 +548,7 @@ resource "helm_release" "wordpress" {
 }
 ```
 
-### Applying Terraform Configuration
+### Applying Terraform Configuration.
 
 The final step is to deploy our application to the Kubernetes cluster using already known commands:
 
@@ -562,7 +562,7 @@ Approve the plan to deploy configuration.
 
 {{< my-picture name="terraform-apply-helm-wordpress" >}}
 
-### Verify Application Deployment
+### Verify Application Deployment.
 
 You can verify the deployment by using the  `helm` command.
 
@@ -592,7 +592,7 @@ This command will show you the WordPress service URL exposed by Minikube.
 
 Congratulations! Our WordPress application has been successfully deployed using Helm charts and Terraform.
 
-## Cleaning Up
+## Cleaning Up.
 
 To cleanup Terraform deployment, use the usual Terraform destroy command in `helm-provider` or `kubernetes-provider` folders:
 
@@ -600,7 +600,7 @@ To cleanup Terraform deployment, use the usual Terraform destroy command in `hel
 terraform destroy
 ```
 
-## Summary
+## Summary.
 
 In this article, we showed how to deploy applications to the Kubernetes cluster using Terraform. We have covered two different approaches to do that - Kubernetes and Helm Terraform providers. For this demo, we used [Minikube](#what-is-minikube) as a local Kubernetes cluster.
 

@@ -14,14 +14,14 @@ authors:
 
 In this article I’ll show, how you can coonect and commit to multiple CodeCommit repositories in different AWS account from the same machine in easy and comfortable way.
 
-## Prerequisites
+## Prerequisites.
 
-* One or more AWS users with access to different CodeCommit repositories
-* `awscli` tool installed
-* `git` tool installed
-* You're using Linux or OS X
+* One or more AWS users with access to different CodeCommit repositories.
+* **awscli** tool installed.
+* **git** tool installed.
+* You're using Linux or OS X.
 
-## Credentials
+## Credentials.
 
 First of all we need to setup profile for `awscli` utility for each AWS account for each organization
 
@@ -43,11 +43,11 @@ aws_access_key_id = YOUR_AWS_ACCESS_KEY_FOR_ACCOUNT_2
 aws_secret_access_key = YOUR_AWS_SECRET_ACCESS_KEY_FOR_ACCOUNT_2
 ```
 
-## Connect to repository
+## Connect to repository.
 
-As soon as profiles been set up, we can connect and clone CodeCommit repositories. Let's assume repository `repo_1` belongs to your first account described profile `my_organization_account_1`. 
+As soon as profiles been set up, we can connect and clone CodeCommit repositories. Let's assume repository `repo_1` belongs to your first account described profile `my_organization_account_1`.
 
-Create empty directory for this repository
+Create empty directory for this repository:
 
 ```sh
 cd folder/with/projects
@@ -70,4 +70,4 @@ git remote add origin https://git-codecommit.us-east-2.amazonaws.com/v1/repos/my
 git pull origin master
 ```
 
-Hope, that will save you some time and efforts. 
+Hope, that will save you some time and efforts.

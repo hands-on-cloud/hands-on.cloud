@@ -15,20 +15,20 @@ authors:
 
 It is a very common task to pull your application code to EC2 instances from the Git repository. If you’re using CodeCommit as your main Git repository and CloudFormation for infrastructure management, it is very easy to launch an instance and allow it to access to that repository without storing any credentials or keys inside of it. In this article I’ll show you how to implement this in real life.
 
-## Task
+## Task.
 
 Our task is to automate initial data import from CodeCommit repository to dev MongoDB server during CloudFormation stack deployment.
 
-## Solution
+## Solution.
 
 To solve this task we need to do several things:
 
-- Create MongoDB AMI
-- Update your existing CloudFormation template
+* Create MongoDB AMI.
+* Update your existing CloudFormation template.
 
 Easy.
 
-## MongoDB AMI
+## MongoDB AMI.
 
 Let’s build our MongoDB AMI on top of Ubuntu 16.04 using [Packer](https://www.packer.io/) in N. Virginia Region. Here’s the template (`mongodb.json`):
 
@@ -80,7 +80,7 @@ To build this template use the following command:
 packer build mongodb.json
 ```
 
-## CloudFormation template
+## CloudFormation template.
 
 First all you need to add an Instance declaration:
 
@@ -234,9 +234,9 @@ Such MongoDB instance declaration will install [cfn-init](https://docs.aws.amazo
 
 We’re passing all automation logic through instance `user-data`. It consists of 3 parts:
 
-- Install cfn-init
-- Clone repository with MongoDB backups and restore them only once during instance first boot.
-- Launch cfn-init automation, if you’d like to add something.
+* Install **cfn-init**.
+* Clone repository with MongoDB backups and restore them only once during instance first boot.
+* Launch cfn-init automation, if you’d like to add something.
 
 I moved out MongoDB backup import to `user-data` because `cfn-init` did not allow me to launch and configure git properly.
 
@@ -253,7 +253,7 @@ git config --global credential.UseHttpPath true
 git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/mongodb-backup
 ```
 
-## IAM instance profile
+## IAM instance profile.
 
 In order to allow everything to work properly you need to create IAM instance profile with the right permissions. Here it is:
 
@@ -362,6 +362,6 @@ In order to allow everything to work properly you need to create IAM instance pr
 }
 ```
 
-## Final words
+## Final words.
 
 In this article we saw how easily we could build our own AMI using Packer and organize it’s access to CodeCommit repository without storing any credentials inside the instance or it’s environment. IAM roles and instance configurations are provided as CloudFormation template. Hope, this will help you to save some time for a cup of coffee.
