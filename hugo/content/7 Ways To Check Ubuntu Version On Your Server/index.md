@@ -1,16 +1,12 @@
 ---
 title: '7 Ways to Check Ubuntu Version on Your Server'
-date: 2020-11-25T16:24:15-05:00
+date: 2020-11-26T09:24:15-05:00
 image: '7-Ways-to-Check-Ubuntu-Version-on-Your-Server'
 tags:
   - linux
   - ubuntu
-  - docker
-  - kubernetes
-  - k8s
 categories:
-  - AWS
-  - Serverless
+  - Linux
 authors:
   - Andrei Maksimov
 ---

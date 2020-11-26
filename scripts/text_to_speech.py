@@ -19,10 +19,6 @@ from pydub import AudioSegment
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
 
-parser = argparse.ArgumentParser(description='Create Audio From Article Text.')
-parser.add_argument('article_path', metavar='article_path', type=str, help='Path to the article')
-args = parser.parse_args()
-
 def clean_text(text):
     # get rid of the Hugo preamble
     text = ''.join(text.split('---')[2:]).strip()
@@ -68,18 +64,19 @@ def convert_to_audio(name, text, save_to):
             # Write the response to the output file.
             out.write(response.audio_content)
             logging.info(f'Audio content written to file "{name}_{j}.mp3"')
-        mp3_segments = sorted(glob(f'{name}_*.mp3'))
-        segments = [AudioSegment.from_mp3(f) for f in mp3_segments]
+    
+    mp3_segments = sorted(glob(f'{name}_*.mp3'))
+    segments = [AudioSegment.from_mp3(f) for f in mp3_segments]
 
-        logging.info(f'Stitching together {len(segments)} mp3 files for {name}')
-        audio = functools.reduce(lambda a, b: a + b, segments)
+    logging.info(f'Stitching together {len(segments)} mp3 files for {name}')
+    audio = functools.reduce(lambda a, b: a + b, segments)
 
-        logging.info(f'Exporting {name}.mp3')
-        audio.export(f'{save_to}/{name}.mp3', format='mp3')
+    logging.info(f'Exporting {name}.mp3')
+    audio.export(f'{save_to}/{name}.mp3', format='mp3')
 
-        logging.info('Removing intermediate files')
-        for f in mp3_segments:
-            os.remove(f)
+    logging.info('Removing intermediate files')
+    for f in mp3_segments:
+        os.remove(f)
 
 def text_to_speech(filename):
     name = os.path.basename(filename.name).replace('.md', '')
@@ -91,9 +88,21 @@ def text_to_speech(filename):
     #print(text)
     convert_to_audio(name, text, save_to)
 
-if __name__ == '__main__':
+def process_all(args):
+    path = Path('./hugo/content/')
+    dirs = [e for e in path.iterdir() if e.is_dir()]
 
-    article_path = args.article_path
+    for dir in dirs:
+        if dir == 'authors':
+            continue
+        if len(glob(f'{dir}/index.md')) > 0:
+            f = open(f'{dir}/index.md', 'r', encoding='utf-8')
+            text_to_speech(f)
+            f.close()
+
+
+def process_one(args):
+    article_path = f'./hugo/content/{args.article_path}'
     if not os.path.isdir(article_path):
         print('The path specified does not exist')
         sys.exit()
@@ -102,3 +111,23 @@ if __name__ == '__main__':
         f = open(f'{article_path}/index.md', 'r', encoding='utf-8')
         text_to_speech(f)
         f.close()
+
+
+def main(command_line=None):
+    parent_parser = argparse.ArgumentParser(description='Creates audio files from article texts.')
+
+    subparsers = parent_parser.add_subparsers(help='Action', dest='action', required=True)
+
+    all_parser = subparsers.add_parser('all', help='Creates audio for all articles')
+
+    one_parser = subparsers.add_parser('one', help='Creates audio for one article')
+    one_parser.add_argument('article_path', metavar='article_path', type=str, help='Path to the article')
+
+    args = parent_parser.parse_args()
+    if args.action == 'all':
+        process_all(args)
+    elif args.action == 'one':
+        process_one(args)
+
+if __name__ == '__main__':
+    main()
