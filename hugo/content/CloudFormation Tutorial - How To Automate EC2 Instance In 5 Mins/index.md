@@ -18,7 +18,7 @@ aliases: [/how-to-use-cloudformation-to-launch-ec2-instance-and-automate-its-pro
 
 Learn how to automate EC2 instance in 5 minutes following this step by step guide. Get complete the CloudFormation template at the end and deep-dive explanation by the road. Become the CloudFormation expert in a couple of minutes! All source code is available for you at our [GitHub folder](https://github.com/hands-on-cloud/hands-on.cloud/tree/master/hugo/content/CloudFormation%20Tutorial%20-%20How%20To%20Automate%20EC2%20Instance%20In%205%20Mins/src).
 
-## What is CloudFormation
+## What is CloudFormation.
 
 [CloudFormation](https://aws.amazon.com/cloudformation/) is a service that allows you to model and provisioning AWS infrastructure.
 
@@ -26,31 +26,31 @@ You're describing your infrastructure template using JSON or YAML syntax. Then, 
 
 By using CloudFormation you can:
 
-* Create new infrastructure with all required dependencies from scratch
-* Update existing infrastructure and its dependencies
-* Completely delete your infrastructure
+* Create new infrastructure with all required dependencies from scratch.
+* Update existing infrastructure and its dependencies.
+* Completely delete your infrastructure.
 
 If you want to create or update a DNS record for your EC2 instance, this is the perfect case for CloudFormation. The service will provision the EC2 instance first and then create the DNS record.
 
 Long story short, AWS CloudFormation orchestrates the provisioning of the desired infrastructure state.
 
-## CloudFormation Pros and Cons
+## CloudFormation Pros and Cons.
 
 There are many different tools that can solve a similar task. Terraform is one of them. And, one of the most common questions I get is what is better, Terraform or CloudFormation?
 
 I like CloudFormation, because:
 
-* It is a native AWS service and I do not need to deal with anything else except infrastructure template
-* I can extend it using custom resources (based on Lambda functions) written in Python
-* Splitting the infrastructure into the layers is simple
+* It is a native AWS service and I do not need to deal with anything else except infrastructure template.
+* I can extend it using custom resources (based on Lambda functions) written in Python.
+* Splitting the infrastructure into the layers is simple.
 
 I do not like CloudFormation, because:
 
-* It is usually a bit delayed with the support of new AWS services
-* Developing Custom Functions is pain
-* Boilerplate code is growing very fast (thanks to AWS CDK for fixing that)
+* It is usually a bit delayed with the support of new AWS services.
+* Developing Custom Functions is pain.
+* Boilerplate code is growing very fast (thanks to AWS CDK for fixing that).
 
-## CloudFormation VPC Example (bonus)
+## CloudFormation VPC Example (bonus).
 
 Before we can provision an EC2 instance in AWS, we need to have a VPC and a Subnet in place.
 
@@ -58,8 +58,8 @@ You may use your default VPC. But if you’d like to create a new one, you may d
 
 It consists of 4 subnets:
 
-* 2 public subnets
-* 2 private subnets
+* 2 public subnets.
+* 2 private subnets.
 
 Here's what you'll get by the end:
 
@@ -242,7 +242,7 @@ As soon as the stack deployed, you should see your VPC and Subnets at the VPC se
 
 Now we can jump to EC2 instance deployment.
 
-## EC2 Instance Automation Example
+## EC2 Instance Automation Example.
 
 For this demo, we’ll launch an Amazon Linux EC2 instance at one of the public subnets.
 
@@ -423,10 +423,10 @@ Outputs:
 
 The stack creation process is almost the same as for the previous stack. All you need to do is to specify the correct parameters:
 
-* Stack name: `my-test-ec2`
-* VPC: `Your VPC ID`
-* Subnet ID: `Your PUBLIC Subnet ID`
-* SSH Key: `Your public SSH key`
+* Stack name: `my-test-ec2`.
+* VPC: `Your VPC ID`.
+* Subnet ID: `Your PUBLIC Subnet ID`.
+* SSH Key: `Your public SSH key`.
 
 {{< my-picture name="CloudFormation Tutorial - How To Automate EC2 Instance - Deploy EC2 - Stack Parameters" >}}
 
@@ -438,7 +438,7 @@ Click Create stack and in a couple of minutes, you should see your stack in `CRE
 
 {{< my-picture name="CloudFormation Tutorial - How To Automate EC2 Instance - Deploy EC2 - Stack Created" >}}
 
-### Stack Description
+### Stack Description.
 
 There're several important metadata blocks, which are used for `JumpHost` instance.
 
@@ -463,9 +463,9 @@ cfn-init -v --stack ${AWS::StackName} \
 
 This block tells `cfn-init` scripts to install everything, what described in `Metadata` block:
 
-* Install Docker using `yum`
-* Enable Docker system service
-* Allow `ec2-user` execute `docker` command
+* Install Docker using yum.
+* Enable Docker system service.
+* Allow ec2-user execute docker command.
 
 ```yaml
 Metadata:
@@ -487,7 +487,7 @@ Metadata:
                     command: usermod -G docker ec2-user
 ```
 
-## Conclusion
+## Conclusion.
 
 In this article we used two CloudFormation templates to deploy VPC and EC2 instance. We automated Docker installation on EC2 instance using `cfn-init` too. Finally, we allowed `ec2-user` to execute `docker` command without `sudo`.
 
