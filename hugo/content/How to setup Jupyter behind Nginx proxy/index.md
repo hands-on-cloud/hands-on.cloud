@@ -20,7 +20,7 @@ As the topic is still very popular, I decided to renew the article and simplify 
 
 Thanks for your comments below, **Andrew Barker**. Catch the updated version of the article.
 
-## JupyterHub configuration
+## JupyterHub configuration.
 
 First, let's create a folder where we'll put all our configuration files.
 
@@ -36,9 +36,9 @@ docker
 └── nginx.conf
 ```
 
-### Docker Compose
+### Docker Compose.
 
-To simplify everything, I created `docker-compose.yaml`, which describes our services:
+To simplify everything, I created **docker-compose.yaml**, which describes our services:
 
 ```yaml
 version: "3.7"
@@ -58,29 +58,29 @@ services:
       - "./jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py:ro"
 ```
 
-The configuration is straightforward - a simple small `nginx` Docker container in front of `jupyterhub`. 
+The configuration is straightforward - a simple small Nginx Docker container in front of Jupyterhub.
 
 Both launched from their latest versions.
 
-### Nginx configuration
+### Nginx configuration.
 
-Nginx is sitting on port `8080` and listening on port `8080` as well.
+Nginx is sitting on port **8080** and listening on port **8080** as well.
 
-**VERY IMPORTANT:** `nginx.conf` contains reverse proxy configuration.
+**VERY IMPORTANT:** - **nginx.conf** contains reverse proxy configuration.
 
-If your Nginx is sitting on a port other than `80` or `443`, you need to use the following configuration directive:
+If your Nginx is sitting on a port other than **80** or **443**, you need to use the following configuration directive:
 
-* `proxy_set_header Host $host:$server_port;`
+* `proxy_set_header Host $host:$server_port;`.
 
 For Nginx, which is sitting at default ports, use "default" configuration:
 
-* `proxy_set_header Host $host;`
+* `proxy_set_header Host $host;`.
 
-If you make a mistake here, you'll start receiving `Blocking Cross Origin API request for /api/contents` error messages. 
+If you make a mistake here, you'll start receiving `Blocking Cross Origin API request for /api/contents` error messages.
 
-AAgain, the primary reason for these messages - not equal ports for service binding and export for Nginx container.
+Again, the primary reason for these messages - not equal ports for service binding and export for Nginx container.
 
-Here's my `nginx.conf` for listening on port `8080`:
+Here's my **nginx.conf** for listening on port **8080**:
 
 ```nginx
 worker_processes 1;
@@ -121,9 +121,9 @@ http {
 }
 ```
 
-### Jupyter configuration
+### Jupyter configuration.
 
-For JupyterHub configuration we’ll use the following configuration placed to `/root/.jupyter/jupyter_notebook_config.py`:
+For JupyterHub configuration we’ll use the following configuration placed to **/root/.jupyter/jupyter_notebook_config.py**:
 
 ```python
 # get the config object
@@ -139,7 +139,7 @@ c.Spawner.notebook_dir = '~/'
 
 ## Stack launch
 
-I did not have too much time to build a new container and/or play with user authentication settings. The main purpose of this article is to provide a solution for `Blocking Cross Origin API request for /api/contents` issues.
+I did not have too much time to build a new container and/or play with user authentication settings. The main purpose of this article is to provide a solution for **Blocking Cross Origin API request for /api/contents** issues.
 
 So, here's how you may launch this configuration:
 
@@ -147,7 +147,7 @@ So, here's how you may launch this configuration:
 docker-compose up -d
 ```
 
-Connect to just launched containers and create a user and install `notebook` package:
+Connect to just launched containers and create a user and install **notebook** package:
 
 ```sh
 docker exec -it jupyterhub /bin/bash
@@ -159,6 +159,6 @@ Now you may connect to JupterHub and use your created username and password as l
 
 {{< my-picture name="JupyterHub-behind-Nginx-proxy" >}}
 
-## Conclusion
+## Conclusion.
 
 I hope, this small note will help you to save some time. If you found it useful, please, help spread it to the world!
