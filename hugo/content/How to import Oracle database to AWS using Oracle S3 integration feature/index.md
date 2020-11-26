@@ -16,7 +16,7 @@ authors:
 
 Migration of Oracle database to AWS is a common task many different Enterprises nowadays. And there're many different ways of doing that. In this article I'll summarize manual steps and commands, of cause, which are helping to work with Oracle Data Pump in Amazon RDS Oracle.
 
-## Enable S3 integration
+## Enable S3 integration.
 
 First of all, you need to enable Oracle S3 integration. Whole process is compleetely described at [official documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/oracle-s3-integration.html). As a suort summary it provides your Oracle RDS instance with an ability to get access to S3 bucket. For those of you, who're using CloudFormation to do that, here's some snipets:
 
@@ -58,12 +58,13 @@ DbInstanceS3IntegrationRole:
 ```
 
 Now, if you're planning continuosly create and delete RDS Oracle instance using CloudFormation, it is better not to attach `DbOptionGroup` to your Oracle instance. CloudFormation will not be able to delete your stack because:
-* Automatic RDS instance snapshot is created during RDS provisioning time
-* RDS instance snapshot depends on Option Group
+
+* Automatic RDS instance snapshot is created during RDS provisioning time.
+* RDS instance snapshot depends on Option Group.
 
 As a result Option Group is at your stack will be locked by automatically created DB snapshot and you will not be able to deleted it.
 
-## Importing Oracle Data Pump file
+## Importing Oracle Data Pump file.
 
 Create all nesessary tablespaces if needed. Each can be created by:
 
@@ -82,6 +83,7 @@ ALTER USER MY_USER QUOTA 100M on users;
 ```
 
 Also, for every tablespace you created:
+
 ```sql
 ALTER USER MY_USER QUOTA 100M ON MY_TABLESPACE;
 ```
@@ -107,7 +109,7 @@ Replace **<task_id>** with the value returned from the previous query.
 You may list all uploaded files using the following query:
 
 ```sql
-select * from table(RDSADMIN.RDS_FILE_UTIL.LISTDIR('DATA_PUMP_DIR')) order by filename
+select * from table(RDSADMIN.RDS_FILE_UTIL.LISTDIR('DATA_PUMP_DIR')) order by filename;
 ```
 
 **Note**: sometimes it's required to delete imported file. You may do it with the following command:
@@ -144,7 +146,7 @@ Read import log file to get more information about errors or unexpected results:
 SELECT text FROM table(rdsadmin.rds_file_util.read_text_file('DATA_PUMP_DIR','imp.log'))
 ```
 
-## Exporting Oracle Data Pump file
+## Exporting Oracle Data Pump file.
 
 **Note**: The following dump query may not export ALL your tables, if some [tables may not be extent allocated](https://stackoverflow.com/a/18925415). So, you need to generate a script to alter those tables:
 
@@ -199,7 +201,7 @@ And again, to check upload status, execute the following query:
 SELECT text FROM table(rdsadmin.rds_file_util.read_text_file('BDUMP','dbtask-<task_id>.log'))
 ```
 
-## Importing regular exported file
+## Importing regular exported file.
 
 Sometimes you may be dealing with dumps, which been exported by Oracle Export utility. Their import is not that much efficient, but as we have no any other option..
 
@@ -231,8 +233,8 @@ Next, you need to install [Oracle Instant Client](https://www.oracle.com/databas
 
 Download the following RPMs:
 
-* Base
-* Tools
+* Base.
+* Tools.
 
 And install them:
 
@@ -249,14 +251,14 @@ Now you may import your dump file using Oracle Import utility:
 
 As soon as process finishes I definitely recommend to export your DB using Oracle Data Pump to have an ability to import it much faster next time.
 
-## Common errors
+## Common errors.
 
 Oracle S3 integration not configured:
 
-```
+```txt
 ORA-00904: "RDSADMIN"."RDSADMIN_S3_TASKS"."UPLOAD_TO_S3": invalid identifier
 00904. 00000 -  "%s: invalid identifier"
-*Cause:    
+*Cause:
 *Action:
 Error at Line: 52 Column: 8
 ```
