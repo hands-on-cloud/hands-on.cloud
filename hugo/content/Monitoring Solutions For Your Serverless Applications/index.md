@@ -19,30 +19,30 @@ Serverless computing increases general business efficiency through faster softwa
 
 Application Performance Monitoring (AMP) plays an integral role in Serverless applications because typical application data and business logic spread across numerous services and APIs. To maintain optimal Serverless application characteristics, you must address observability for every process within your project. The right monitoring solution is a crucial aspect that provides information on how the deployed serverless application is performing and whether it guarantees real business value.
 
-## What to monitor
+## What to monitor.
 
 Usually, when we’re speaking about monitoring individual service or application component, we mean several things:
 
-* Logs
-* Performing metrics
-* Cost
+* Logs.
+* Performing metrics.
+* Cost.
 
 And usually, we want those things to be:
 
-* Collected
-* Processed and analyzed
-* Alerted
-* Archived
+* Collected.
+* Processed and analyzed.
+* Alerted.
+* Archived.
 
 In addition to that, most Serverless applications are very complicated because of their distributed nature, so it is vital to mention distributed transaction monitoring. This monitoring shows how all your application components are interacting in a distributed cloud environment.
 
-## What metrics are important
+## What metrics are important.
 
 We always need to know how our application is working. Our expectations are based on specific criteria.
 
 These criteria usually include:
 
-* **Errors** - we measure what percent of overall events or requests in our system processed incorrectly
+* **Errors** - we measure what percent of overall events or requests in our system processed incorrectly.
 * **Latency** - we measure how much time it takes to process a request.
 * **Traffic** - we measure the total number of requests that the resource or API endpoint is processing.
 
@@ -56,21 +56,21 @@ Those managed cloud services complemented by fully-featured logging, monitoring,
 
 Using those services, engineers and developers usually do:
 
-* tracing transactions in distributed serverless environments
-* profiling to study performance and cold starts
-* observe logs for error and abnormal behavior patterns (CloudWatch Insights, Google Cloud Monitoring)
+* tracing transactions in distributed serverless environments.
+* profiling to study performance and cold starts.
+* observe logs for error and abnormal behavior patterns (CloudWatch Insights, Google Cloud Monitoring).
 
 AWS provides a Dead Letter Queue (DLQ) feature for their Lambda functions in addition to monitoring capabilities. You can quickly and easily capture events that were not processed by Lambda function in SNS or SQS, and react to them later or immediately. This topic covered more detail in our article [Using SNS And SQS As Target For AWS Lambda Dead Letter Queue](https://hands-on.cloud/using-sns-and-sqs-as-target-for-aws-lambda-dead-letter-queue/). To the moment of writing, there’s no alternative to such features in other cloud providers.
 
-## Serverless Monitoring Solutions
+## Serverless Monitoring Solutions.
 
 Let’s start our list from monitoring services that are provided by every single cloud provider first. Then we jump to a big list of 3rd party platforms, which are available for you.
 
-### Amazon CloudWatch
+### Amazon CloudWatch.
 
 {{< my-picture name="Monitoring - Amazon CloudWatch" >}}
 
-[Amazon CloudWatch](https://aws.amazon.com/cloudwatch/) is a comprehensive monitoring solution and standard de-facto in the AWS cloud platform. It can provide you with data and actionable insights about every component of your application stack. 
+[Amazon CloudWatch](https://aws.amazon.com/cloudwatch/) is a comprehensive monitoring solution and standard de-facto in the AWS cloud platform. It can provide you with data and actionable insights about every component of your application stack.
 
 Amazon CloudWatch is also integrated with all AWS services and provided you an ability to construct your custom Dashboards, where you can put any monitoring metrics. It gives you almost unlimited monitoring capabilities, the ability to optimize your service and resource utilization, and get a unified view of operational health.
 
@@ -82,7 +82,7 @@ CloudWatch Logs Insights allows you to explore, analyze, and visualize your logs
 
 CloudWatch is integrated with IAM, and you can control which users and resources have permission to access your data and how they can access it. It is crucial if you have strict security compliance requirements.
 
-### AWS X-Ray
+### AWS X-Ray.
 
 {{< my-picture name="Monitoring - AWS X-Ray" >}}
 
@@ -94,7 +94,7 @@ The process is simple. Your Lambda functions or other application service compon
 
 {{< my-picture name="Monitoring - AWS X-Ray Tracing" >}}
 
-### Google Cloud Monitoring
+### Google Cloud Monitoring.
 
 {{< my-picture name="Monitoring - Google Cloud Platform" >}}
 
@@ -102,22 +102,22 @@ If you’re using Google Cloud Platform, you are familiar with [Google Cloud Mon
 
 Google Cloud Platform processes this data and delivers insights through charts, dashboards, and alerts. The Logging feature makes it possible to store, search, and assess your resources on Amazon Web Services and GCP. Some of the examples of AWS [supported services](https://cloud.google.com/monitoring/api/metrics_aws):
 
-* EC2
-* EBS
-* S3
-* ELB
-* Lambda
-* etc
+* EC2.
+* EBS.
+* S3.
+* ELB.
+* Lambda.
+* etc.
 
 Stackdriver solution consists of several significant services or components:
 
-* **Logs Viewer** - solution to supervise logs
+* **Logs Viewer** - solution to supervise logs.
 * **Error Reporting** - solution to aggregate and shows errors that are generated by your cloud services.
 * **Cloud Debugger** - tool examines the state of a particular application at any code location while the application itself continues to demonstrate optimal performance.
 * **Cloud Trace** gathers latency data from App Engine applications that the GCP Console then shows in real-time.
 * **Cloud Profiler** consistently collects CPU consumption and memory allocation information from production apps.
 
-### Azure Application Insights
+### Azure Application Insights.
 
 {{< my-picture name="Monitoring - Azure Application Insights" >}}
 
@@ -125,46 +125,46 @@ Stackdriver solution consists of several significant services or components:
 
 It works for apps on various platforms, including .NET, Node.js, Java, and Python hosted on-premises, hybrid, or any public cloud infrastructure. It integrates with your DevOps process and has connection points to a variety of development tools.
 
-Application Insights is aimed at the development team to help you understand how your app is performing and how it's is used. 
+Application Insights is aimed at the development team to help you understand how your app is performing and how it's is used.
 
 It can provide you visibility on:
 
-* Request rates, response times, and failure rates
-* Dependency rates, response times, and failure rates
-* Exceptions
-* Pageviews and load performance
-* AJAX calls from web pages
-* User and session count
-* Performance counters
-* Host diagnostics
-* Diagnostic trace logs from your app
-* Custom events and metrics
+* Request rates, response times, and failure rates.
+* Dependency rates, response times, and failure rates.
+* Exceptions.
+* Pageviews and load performance.
+* AJAX calls from web pages.
+* User and session count.
+* Performance counters.
+* Host diagnostics.
+* Diagnostic trace logs from your app.
+* Custom events and metrics.
 
-### Thundra
+### Thundra.
 
 {{< my-picture name="Monitoring - Thundra" >}}
 
-[Thundra](https://thundra.io/) provides tracing, profiling, monitoring, and alerting capabilities that help administrators understand and manage the aggregate set of distributed services. 
+[Thundra](https://thundra.io/) provides tracing, profiling, monitoring, and alerting capabilities that help administrators understand and manage the aggregate set of distributed services.
 
 Thundra was purpose-built to address these constraints, providing the end-to-end application visibility and management required to go quickly and safely.
 
 Thundra is aimed for developers to:
 
 * Rapidly troubleshoot and debug applications quickly.
-* Understand and manage costs
-* Automate continuous configuration, enforcement, and verification of security and compliance controls
-* Reduce context-switching across multiple tools
-* Understand application behavior using fine-grained cardinality
-* Integrate alerts and actions with workflows and systems
+* Understand and manage costs.
+* Automate continuous configuration, enforcement, and verification of security and compliance controls.
+* Reduce context-switching across multiple tools.
+* Understand application behavior using fine-grained cardinality.
+* Integrate alerts and actions with workflows and systems.
 
 Thundra provides you several useful and handy interfaces for:
 
-* Display and filter all your deployed functions
-* Summarized view of a project’s Lambda functions at a glance (statistics, alerts and insights, lists of functions, and charts with anomalies)
+* Display and filter all your deployed functions.
+* Summarized view of a project’s Lambda functions at a glance (statistics, alerts and insights, lists of functions, and charts with anomalies).
 
 By its nature, serverless architecture is a distributed microservice cloud. That makes it hard to review and monitor serverless architectures. Thundra can discover your entire architecture and show all interactions between your resources, such as DynamoDB, Redis, SQS, and your Lambda functions.
 
-### DataDog Lambda Monitoring
+### DataDog Lambda Monitoring.
 
 {{< my-picture name="Monitoring - DataDog Lambda Monitoring" >}}
 
@@ -175,7 +175,7 @@ Datadog Serverless monitoring improves application infrastructure observability 
 Here are the platform capabilities:
 
 * Distributed traces help actively resolve performance bottlenecks and filter serverless traces.
-* It allows you to observe core business operations by gathering real-time, business-specific metrics from serverless functions. 
+* It allows you to observe core business operations by gathering real-time, business-specific metrics from serverless functions.
 * You can achieve complete visibility and transparency with the Service Map. This feature visualizes Lambda functions together with Amazon S3, API Gateway, DynamoDB, and similar dependencies.
 
 The benefits of these efficiencies are clear:
@@ -184,7 +184,7 @@ The benefits of these efficiencies are clear:
 * Effortless and rapidly address issues that disrupt performance. Users also have the option to critically analyze their serverless architecture with elements like seamless tracing and flame graphs.
 * Achieve Serverless functions observability and simplify incident diagnoses with nearly zero-wait time.
 
-### SignalFX
+### SignalFX.
 
 {{< my-picture name="Monitoring - SignalFX" >}}
 
@@ -205,7 +205,7 @@ SignalFx Microservices APM unique capabilities:
 * **High cardinality exploration of traces** - Breakdown and explore any transaction by any metric or dimension. Quickly and easily understand how your application behaves for different regions, hosts, versions, or users.
 * **Open Standards Approach** - Capable of ingesting and storing high resolution, low latency data at massive scale, SignalFx Microservices APM collects data from a wide range of client libraries and cloud integrations, open-source auto or manual instrumentation.
 
-### Dashbird
+### Dashbird.
 
 {{< my-picture name="Monitoring - Dashbird" >}}
 
@@ -218,7 +218,7 @@ Top benefits include, but are not limited to:
 * **Insights Engine** - Detecting hidden issues is often a problem for businesses, considering that it wastes time and effort. Dashbird Insights Engine proactively addresses this and puts forth best practices to enhance app health.
 * **Simple Deployment** - Ask any developer about the IT anxiety of complex deployment instruments and practices, and they will have many stories to share. Dashbird simplifies things with its easy-to-setup and navigates the platform, allowing companies to focus on more critical IT initiatives.
 
-### Epsagon
+### Epsagon.
 
 {{< my-picture name="Monitoring - Epsagon" >}}
 
@@ -226,20 +226,20 @@ Top benefits include, but are not limited to:
 
 Epsagon applies distributed tracing and advanced AI algorithms to automatically detect complete transactions throughout an organization’s system, calculate costs, and offer an end-to-end view of application performance monitoring. It utilizes automatic instrumentation and does not ask users for any code changes.
 
-**Features** of Epsagon:
+**Features** of Epsagon.
 
-* No heavy agents
-* No tagging required
-* Instant setup
-* Scalability out of the box
-* Interactive, customizable architecture view
-* Troubleshooting and tracing of application performance issues
-* No need for tedious, manual log searching
+* No heavy agents.
+* No tagging required.
+* Instant setup.
+* Scalability out of the box.
+* Interactive, customizable architecture view.
+* Troubleshooting and tracing of application performance issues.
+* No need for tedious, manual log searching.
 
 Epsagon **integrations**:
 
-* Run in any modern cloud
-* Run across any production and any workload
+* Run in any modern cloud.
+* Run across any production and any workload.
 * Epsagon integrated with [Serverless Framework](http://serverless.com/), [Pulumi](https://www.pulumi.com/), Slack, PagerDuty, EventBridge, Jira, GitHub, and many others.
 
 Epsagon has additional features, such as:
@@ -250,7 +250,7 @@ Epsagon has additional features, such as:
 * Manage alerts and issues in one interface called the Issues Manager, which aggregates and correlates production data so you can manage and alert faster.
 * Easily set up alerts from the pre-selected categories (alert types, entities) or customize your notifications.
 
-### New Relic
+### New Relic.
 
 {{< my-picture name="Monitoring - New Relic" >}}
 
@@ -265,14 +265,14 @@ New Relic provides comprehensive monitoring for an industry-leading seven langua
 See a curated overview for each instance type, including information and inventory from all AWS accounts and regions in a single view.
 
 * **Distributed tracing** is essential in troubleshooting experience since it lets you dig into the communication pipe between the AWS Lambda function and any other artifact that function talks to during its execution.
-* **Inventoried Tags and Metadata** - We retrieve information from your AWS entities, giving you the ability to filter and facet down to the team or specific metadata attributes on the function configuration or invocation itself
-* **Facet Builder**
-* **High cardinality invocation data** - View throughput, detailed categorized AWS Lambda performance metrics like duration, cold starts, error rate and more at any transaction percentile
-* **AWS CloudWatch Metrics**
+* **Inventoried Tags and Metadata** - We retrieve information from your AWS entities, giving you the ability to filter and facet down to the team or specific metadata attributes on the function configuration or invocation itself.
+* **Facet Builder**.
+* **High cardinality invocation data** - View throughput, detailed categorized AWS Lambda performance metrics like duration, cold starts, error rate and more at any transaction percentile.
+* **AWS CloudWatch Metrics**.
 * **Custom attributes and custom events** - Capture and send custom attributes or events and tag their function invocations.
-* Rich error analysis
+* Rich error analysis.
 
-### AppDynamics Serverless APM
+### AppDynamics Serverless APM.
 
 {{< my-picture name="Monitoring - AppDynamics Serverless APM" >}}
 
@@ -294,19 +294,19 @@ Some exciting features of AppDynamics Serverless APM:
 * **Serverless APM in the Controller** - When business applications contain serverless functions, the Controller experience differs slightly in flow maps, dashboards and metric browser pages, and health rules.
 * **Flow Maps** - Flow maps are a dynamic visual representation of your monitored environment's components and activities.
 * **Dashboards and Metric Browser Pages** - You can view AWS Lambda functions on your application dashboards and metrics pages. All functionality is identical to that which you would get with any other tier type, with the exception of node-level granularity.
-* **Health Rules** - When you configure a health rule for an application comprised of serverless functions, you can choose to monitor the serverless tiers or business transactions that originate in or flow through the serverless functions
+* **Health Rules** - When you configure a health rule for an application comprised of serverless functions, you can choose to monitor the serverless tiers or business transactions that originate in or flow through the serverless functions.
 
-### Jaeger
+### Jaeger.
 
 {{< my-picture name="Monitoring - Jaeger" >}}
 
 [Jaeger](https://www.jaegertracing.io/) is a distributed tracing system released as open source by Uber Technologies. It is used for monitoring and troubleshooting microservices-based distributed systems, including:
 
-* Distributed context propagation
-* Distributed transaction monitoring
-* Root cause analysis
-* Service dependency analysis
-* Performance / latency optimization
+* Distributed context propagation.
+* Distributed transaction monitoring.
+* Root cause analysis.
+* Service dependency analysis.
+* Performance / latency optimization.
 
 Built with OpenTracing support from inception, Jaeger includes OpenTracing client libraries in several languages, including Java, Go, Python, Node. js, C++ and C#. It is a Cloud Native Computing Foundation member project.
 
@@ -318,11 +318,11 @@ Main Jaeger features:
 * **Multiple storage backends** - Jaeger supports two popular open-source NoSQL databases as trace storage backends: Cassandra 3.4+ and Elastic search 5.x/6.x/7.x.
 * **Modern Web UI** - Jaeger Web UI is implemented in Javascript using popular open-source frameworks like React.
 * **Cloud-Native Deployment** - Jaeger backend is distributed as a collection of Docker images.
-* **Observability**
+* **Observability**.
 * **Backward compatibility with Zipkin** - it is recommended to instrument applications with OpenTracing API and binding to Jaeger client libraries to benefit from advanced product features.
 * **Topology Graphs** - Jaeger UI supports two types of service graphs: System Architecture and Deep Dependency Graph.
 
-## Conclusion
+## Conclusion.
 
 In the digital era, Serverless technologies play a vital role in the continuous modernization of cloud applications. They open for you practically limitless possibilities. At the same time, they bring additional challenges to your cloud operations.
 
