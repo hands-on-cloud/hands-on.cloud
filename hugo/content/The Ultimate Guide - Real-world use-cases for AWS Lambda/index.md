@@ -19,7 +19,7 @@ authors:
 
 This article is very useful if you are willing to get a quick overview of possible AWS Lambda use cases. Every use-case contains a link to a resource with more information.
 
-## Processing of uploaded to Amazon S3 files
+## Processing of uploaded to Amazon S3 files.
 
 Every time you upload something to the Amazon S3 bucket, it can notify AWS Lambda about that. AWS Lambda then can react to the notification event and something meaningful.
 
@@ -29,19 +29,19 @@ The diagram below illustrates how the integration works.
 
 The sequence of actions:
 
-* The user uploads a file to the S3 bucket,
-* Amazon S3 sends JSON event to AWS Lambda with the information about the uploaded file,
+* The user uploads a file to the S3 bucket.
+* Amazon S3 sends JSON event to AWS Lambda with the information about the uploaded file.
 * Lambda function reacts to the received event.
 
 This is a perfect architecture to solve the following problems:
 
-* [Generate thumbnails or GIFs from uploaded to S3 bucket videos](https://hands-on.cloud/building-thumbnails-and-gifs-generator-using-lambda-and-ffmpeg/)
-* Generate PDF from Word file
-* Copy uploaded file to another S3 bucket in another AWS Region for disaster recovery
+* [Generate thumbnails or GIFs from uploaded to S3 bucket videos](https://hands-on.cloud/building-thumbnails-and-gifs-generator-using-lambda-and-ffmpeg/).
+* Generate PDF from Word file.
+* Copy uploaded file to another S3 bucket in another AWS Region for disaster recovery.
 
 More information: [Tutorial: Using AWS Lambda with Amazon S3](https://docs.aws.amazon.com/lambda/latest/dg/with-s3-example.html)
 
-## Fan out ingested data stream to many destinations
+## Fan out ingested data stream to many destinations.
 
 Amazon Kinesis, SQS, or DynamoDB can trigger Lambda functions. It invokes your code which can make something with the data in real-time.
 
@@ -59,11 +59,11 @@ This is a perfect architecture to solve the following problems:
 
 * Buffering of incoming data to reduce the number of processing Lambda executions.
 * Real-time stream processing and monitoring solutions (ingested data can be analyzed using Kinesis Data Analytics).
-* Real-time stream fan-out architecture, which allows you to save you data to multiple places like S3, DynamoDB and send it to another Kinesis Data Streams for further processing
+* Real-time stream fan-out architecture, which allows you to save you data to multiple places like S3, DynamoDB and send it to another Kinesis Data Streams for further processing.
 
 More information: [Increasing real-time stream processing performance with Amazon Kinesis Data Streams enhanced fan-out and AWS Lambda](https://aws.amazon.com/blogs/compute/increasing-real-time-stream-processing-performance-with-amazon-kinesis-data-streams-enhanced-fan-out-and-aws-lambda/).
 
-## Serverless Website
+## Serverless Website.
 
 Maintaining a dedicated server is not a cool thing to do nowadays, even if it is a virtual server. Server maintaining operations like provisioning, updating, and patching takes a lot of time. It distracts you from focusing on your business problems.
 
@@ -82,7 +82,7 @@ The architecture shows the basic serverless website. You can enhance it into a m
 
 Extra reading: [Build your first Serverless Web Application](https://aws.amazon.com/serverless/build-a-web-app/).
 
-## Customize user authentication workflow
+## Customize user authentication workflow.
 
 Personalization of your users’ experience plays a big role in any project. Whether you’re running a personal blog or a complex website. Amazon Cognito and AWS Lambda can help with this personalization.
 
@@ -92,57 +92,57 @@ Let's take a look at the example below. User's management operations, like user 
 
 The common triggering sources where you can hook your Lambda function:
 
-* Sign-up, confirmation, and sign-in
-* Pre and post-authentication
-* Custom authentication challenge
-* Pre token generation
-* Migrate user
-* Custom message
+* Sign-up, confirmation, and sign-in.
+* Pre and post-authentication.
+* Custom authentication challenge.
+* Pre token generation.
+* Migrate user.
+* Custom message.
 
 Let’s take a look at how custom email or phone notifications work. Amazon Cognito trigger Lambda function. Lambda function customizes the message for the user before sending it.
 
 The triggering sources for the custom messages are:
 
-* Confirmation code post-sign-up
-* The temporary password for new users
-* Resending confirmation code
-* Confirmation code to forget password request
-* A manual request for new email/phone
-* Multi-factor authentication
+* Confirmation code post-sign-up.
+* The temporary password for new users.
+* Resending confirmation code.
+* Confirmation code to forget password request.
+* A manual request for new email/phone.
+* Multi-factor authentication.
 
 Extra information: [Customizing User Pool Workflows with Lambda Triggers](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html).
 
-## Managing HTTP Requests and Responses
+## Managing HTTP Requests and Responses.
 
 As soon as your web project grows, you may start experiencing a strong need to modify HTTP requests or responses. There’re a lot of possible use cases, and here are some of them:
 
-* Resizing the image based on user query to better handle mobile clients
-* Serving WebP images for Chrome and Firefox browsers and JPEG/PNG for the rest
-* Personalize Content by Country or Device Type Headers
+* Resizing the image based on user query to better handle mobile clients.
+* Serving WebP images for Chrome and Firefox browsers and JPEG/PNG for the rest.
+* Personalize Content by Country or Device Type Headers.
 
 **Lambda@Edge** and **CloudFront** integration can help to solve those problems. You have four places where you can use Lambda in combination with CloudFront:
 
 {{< my-picture name="real world use cases for AWS Lambda-Managing HTTP Requests and Responses" >}}
 
 * **Lambda 1** - Function can process HTTP requests before they get to CloudFront.
-* **Lambda 2** - Function can change HTTP requests after CloudFront has processed them
+* **Lambda 2** - Function can change HTTP requests after CloudFront has processed them.
 * **Lambda 3** - Function can process HTTP responses before they reach CloudFront.
 * **Lambda 4** - Function can change HTTP responses from the CloudFront.
 
 Here’s what you can implement using those Lambda functions:
 
-* Inspect cookies
-* Rewrite URLs
-* Perform A/B testing
-* Serve website content based on the User-Agent header
-* Put in place access control logic for incoming requests
-* Add, delete, or change HTTP headers
-* Support redirects for the old URLs
+* Inspect cookies.
+* Rewrite URLs.
+* Perform A/B testing.
+* Serve website content based on the User-Agent header.
+* Put in place access control logic for incoming requests.
+* Add, delete, or change HTTP headers.
+* Support redirects for the old URLs.
 * Make HTTP requests to other Internet resources and inject those results into your responses.
 
 More information: [Lambda@Edge Example Functions](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-examples.html)
 
-## Automation of customer onboarding journey
+## Automation of customer onboarding journey.
 
 You can use [Lambda](https://aws.amazon.com/lambda/) and [Pinpoint](https://aws.amazon.com/pinpoint/)to build a cost-effective  serverless email marketing platform. Created or updated records at DynamoDB can cause a marketing automation process.
 
@@ -150,14 +150,14 @@ You can use [Lambda](https://aws.amazon.com/lambda/) and [Pinpoint](https://aws.
 
 The architecture above illustrates how:
 
-* New users registrations on your website can trigger the email onboarding process
-* New order at your online shop can begin an upselling marketing email
+* New users registrations on your website can trigger the email onboarding process.
+* New order at your online shop can begin an upselling marketing email.
 
 You can add CloudWatch Scheduled Events to send marketing campaigns by schedule.
 
 Extra information: [Amazon Pinpoint Journeys](https://docs.aws.amazon.com/pinpoint/latest/userguide/journeys-tour.html)
 
-## Real-time Ingested Data Transformation
+## Real-time Ingested Data Transformation.
 
 You can use [Kinesis Firehose](https://aws.amazon.com/kinesis/data-firehose/) for ingesting real-time streaming data to [S3](https://aws.amazon.com/s3/), [Redshift](https://aws.amazon.com/redshift/), or [Elasticsearch](https://aws.amazon.com/elasticsearch-service/). These services allow you to simplify data importing tasks. But what if you need to change data on the fly? Here’s where AWS Lambda comes into play.
 
@@ -165,24 +165,24 @@ You can use [Kinesis Firehose](https://aws.amazon.com/kinesis/data-firehose/) fo
 
 Some of the most common problems, which AWS Lambda helps to solve:
 
-* Data normalization
-* Doing ETL transformations
-* Merging data from several data sources
-* Converting/transforming data by the destination requirements
-* Adding metadata to the ingested data
+* Data normalization.
+* Doing ETL transformations.
+* Merging data from several data sources.
+* Converting/transforming data by the destination requirements.
+* Adding metadata to the ingested data.
 
 The major benefit of using Lambda integration with Kinesis is almost unlimited scalability.
 
 Lambda and Kinesis helps you to transform the data from the following producers:
 
-* Kinesis enabled applications on your EC2 instances
-* Mobile applications
-* Web applications
-* IoT devices
+* Kinesis enabled applications on your EC2 instances.
+* Mobile applications.
+* Web applications.
+* IoT devices.
 
 More information: [100 Days of DevOps — Day 41-Real-Time Apache Log Analysis using Amazon Kinesis and Amazon Elasticsearch Service](https://medium.com/@devopslearning/100-days-of-devops-day-41-real-time-apache-log-analysis-using-amazon-kinesis-and-amazon-f3b506626681).
 
-## Serverless CRON Jobs
+## Serverless CRON Jobs.
 
 CRON jobs are a common practice to automate routine IT operations in the cloud. Cloud CRON can save a lot of time and effort in managing distributed environments. [CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) integrated with AWS Lambda help you to achieve this goal.
 
@@ -192,23 +192,23 @@ Create a Lambda function and execute it by the schedule using CloudWatch Events.
 
 Some real-life examples are:
 
-* Stopping unpaid subscription on your website
-* Sending out the newsletter on fixed timings
-* Cleaning up the database cache on the regular interval
-* Backing up your EC2 instances or EFS shares
+* Stopping unpaid subscription on your website.
+* Sending out the newsletter on fixed timings.
+* Cleaning up the database cache on the regular interval.
+* Backing up your EC2 instances or EFS shares.
 
 Extra information: [Cloud CRON - Scheduled Lambda Functions](https://hands-on.cloud/cloud-cron-scheduled-lambda-functions/).
 
-## Real-Time Log Monitoring, Analysis And Alarming
+## Real-Time Log Monitoring, Analysis And Alarming.
 
 [CloudWatch Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) give you a near real-time stream of events. That events describe changes in your environment. And you can immediately react to any changes and take action if needed.
 
 For example, you can react to such events in the following ways:
 
-* Send informational or alarming messages to external messengers like Slack
-* Create Jira tickets
-* Do corrective changes
-* Capture state information
+* Send informational or alarming messages to external messengers like Slack.
+* Create Jira tickets.
+* Do corrective changes.
+* Capture state information.
 
 Many different automation scenarios become available when using CloudWatch Event rules. Those rules are routing events to Lambda functions for further processing.
 
@@ -221,7 +221,7 @@ There are two different scenarios, which you need to be aware of:
 
 More information: [Getting helpful CloudWatch alarms in Slack](https://stacks.wellcomecollection.org/getting-helpful-cloudwatch-alarms-in-slack-ba98fcbe6d31).
 
-## Building Serverless Chatbots
+## Building Serverless Chatbots.
 
 Building chatbots from scratch may be a time consuming and expensive challenge. First, you write a chatbot code, deploy it, and run it at scale to support the business logic.
 
@@ -231,14 +231,14 @@ AWS did the heavy lifting and gave us all we need to build and run a scalable ch
 
 Here's what you need:
 
-* [Amazon Lex](https://aws.amazon.com/lex/) allows us to create the conversational interface for our bot
+* [Amazon Lex](https://aws.amazon.com/lex/) allows us to create the conversational interface for our bot.
 * [AWS Lambda](https://aws.amazon.com/lambda/) will enable us to fulfill the intent given by Amazon Lex service with any action.
 
 And again, no infrastructure. You're paying for services only for requests you're making to them.
 
 More information: [Bots Just Got Better with .NET and the AWS Toolkit for Visual Studio](https://aws.amazon.com/getting-started/hands-on/bots-just-got-better-net-toolkit-lex-lambda-cognito/).
 
-## Serverless IoT Backend
+## Serverless IoT Backend.
 
 Managing hundreds of thousands of IoT devices is challenging. Create a simple and easy-to-use managing IoT devices interface to your clients is even harder.
 
@@ -252,7 +252,7 @@ Above, you can find example how to use Lambda, [S3](https://aws.amazon.com/s3/),
 
 More information: [Implementing a Serverless AWS IoT Backend with AWS Lambda and Amazon DynamoDB](https://aws.amazon.com/blogs/compute/implementing-a-serverless-aws-iot-backend-with-aws-lambda-and-amazon-dynamodb/).
 
-## Custom Workflow Orchestration
+## Custom Workflow Orchestration.
 
 Any modern apps have backend workflows executed by schedule or response to events.
 
@@ -266,14 +266,14 @@ Here's an example from our article [AWS Step Functions - How to manage long-runn
 
 Some of the examples where you can use Step Functions and Lambda together:
 
-* Simple and complex workflow orchestration
-* Coordinate tasks in distributed serverless applications
-* Automating Machine Learning workflows
-* Orchestrating ETL jobs
+* Simple and complex workflow orchestration.
+* Coordinate tasks in distributed serverless applications.
+* Automating Machine Learning workflows.
+* Orchestrating ETL jobs.
 
 More information: [Hitchhiker's Guide to AWS Step Functions](https://epsagon.com/development/hitchhikers-guide-to-aws-step-functions/)
 
-## Auditing And Processing DB Data Changes
+## Auditing And Processing DB Data Changes.
 
 We already covered the [Serverless Website](#serverless-website) use-case. Now, let’s go a bit deeper and imagine that we need to react to our DynamoDB database changes. As soon as it becomes a case, it would be best to think about AWS Lambda and DynamoDB integration - DynamoDB Streams.
 
@@ -290,7 +290,7 @@ You use this data for:
 
 More information: [AWS Lambda - How to process DynamoDB streams](https://hands-on.cloud/aws-lambda-how-to-process-dynamodb-streams/)
 
-## Create Alexa Skills
+## Create Alexa Skills.
 
 If you're not familiar with this technology, Alexa is an Amazon smart speaker device and voice assistant.
 
@@ -300,10 +300,10 @@ Every *skill* that Alexa has, powered with cloud technology.
 
 The examples are:
 
-* Check the weather
-* Read the news
-* Amazon delivery status notifications
-* Reminder
+* Check the weather.
+* Read the news.
+* Amazon delivery status notifications.
+* Reminder.
 
 Alexa service does all the heavy lifting for you. You do not have to deal with natural language processing or understand what your user means.
 
@@ -313,31 +313,31 @@ Every time Alexa asks about something, it launches a Lambda function to process 
 
 Here are some examples of the Alexa skills that you can create:
 
-* Ask Alexa about your website revenue
-* Turn on the lights in the room
-* Ask for your favorite pizza delivery
+* Ask Alexa about your website revenue.
+* Turn on the lights in the room.
+* Ask for your favorite pizza delivery.
 
 More information: [Rapidly Create Your Alexa Skill Backend with AWS CloudFormation](https://developer.amazon.com/blogs/alexa/post/Tx27NAUCY0KQ34D/rapidly-create-your-alexa-skill-backend-with-aws-cloudformation)
 
-## Serverless Fan-Out Architecture
+## Serverless Fan-Out Architecture.
 
 One of the common challenges in the Serverless world is how to build fan-out architecture.
 
 There are three ways of doing that:
 
-* [SNS](https://aws.amazon.com/sns/)
-* [EventBridge](https://aws.amazon.com/eventbridge/)
-* [Step Functions](https://aws.amazon.com/step-functions/)
+* [SNS](https://aws.amazon.com/sns/).
+* [EventBridge](https://aws.amazon.com/eventbridge/).
+* [Step Functions](https://aws.amazon.com/step-functions/).
 
 Fan-out architecture is an ideal choice if you need to parallelize your workloads.
 
 Here are some use-cases:
 
-* Data processing data pipeline, which needs to save the data at various stages of the process
-* Evaluating Machine Learning model with human results validation
+* Data processing data pipeline, which needs to save the data at various stages of the process.
+* Evaluating Machine Learning model with human results validation.
 * Converting image files to different formats.
 
-### SNS
+### SNS.
 
 SNS is a great solution when you need to send the same message to many destinations. SNS integration with Lambda is a perfect building block for serverless fan-out architecture.
 
@@ -345,13 +345,13 @@ Here's an example of converting an uploaded image to different formats. S3 can s
 
 {{< my-picture name="real world use cases for AWS Lambda-Serverless Fan-Out Architecture - SNS" >}}
 
-### EventBridge
+### EventBridge.
 
 EventBridge is a service bus and universal standard for events routing and processing. The idea is the same as in the case with SNS. You build a system that receives messages from your partners. EventBridge downstream it to your internal systems for further processing.
 
 {{< my-picture name="real world use cases for AWS Lambda-Serverless Fan-Out Architecture - EventBridge" >}}
 
-### Step Functions
+### Step Functions.
 
 Step Functions allows you to orchestrate different workflows which have various complexities. The major component of almost any workflow is the Lambda function. Step Functions enable you to run several tasks in parallel.
 
@@ -359,9 +359,9 @@ Here’s an example of processing user registration on the website.
 
 Here we're doing the following:
 
-* Updating website DB
-* Subscribing user to an onboarding email sequence
-* Confirming user about account creation
+* Updating website DB.
+* Subscribing user to an onboarding email sequence.
+* Confirming user about account creation.
 
 {{< my-picture name="real world use cases for AWS Lambda - Serverless Fan-Out Architecture - Step Functions" >}}
 
