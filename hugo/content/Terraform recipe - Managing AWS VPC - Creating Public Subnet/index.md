@@ -14,13 +14,13 @@ authors:
 
 One of the essential tasks of your cloud infrastructure management is managing your VPC’s networks. In this article, we’ll learn how to declare the most commonly used configuration:
 
-* Public subnet
+* Public subnet.
 
 In the [Terraform recipe - Managing AWS VPC - Creating Private Subnets](https://hands-on.cloud/terraform-recipe-managing-aws-vpc-creating-private-subnets), we’ll extend this infrastructure by adding a private subnet to our VPC.
 
 You may find complete sources in my [GitHub repo](https://github.com/andreivmaksimov/terraform-recipe-managing-aws-vpc-creating-public-subnet).
 
-## VPC with a single public subnet
+## VPC with a single public subnet.
 
 Configuration for this scenario includes a virtual private cloud (VPC) with a single public subnet, Internet Gateway, and Route Table to enable communication over the Internet. AWS recommends this configuration if you need to run a single-tier, public-facing web application, such as a blog or a simple website.
 
@@ -172,7 +172,7 @@ output "instance_public_ip" {
 }
 ```
 
-## Creating infrastructure
+## Creating infrastructure.
 
 To apply this configuration, all you need to do is to go to the project folder and run the following commands:
 
@@ -181,7 +181,7 @@ terraform init
 terraform apply
 ```
 
-## SSH to the host
+## SSH to the host.
 
 At the end of the infrastructure creation process, Terraform printed you a Public IP address of your instance. To SSH to it, you need to run the following command:
 
@@ -189,7 +189,7 @@ At the end of the infrastructure creation process, Terraform printed you a Publi
 ssh ubuntu@public_host_ip
 ```
 
-## Tier down infrastructure
+## Tier down infrastructure.
 
 To remove all created resources, all you need to do is to go to the project folder and run the following command:
 
@@ -197,6 +197,6 @@ To remove all created resources, all you need to do is to go to the project fold
 terraform destroy
 ```
 
-## Summary
+## Summary.
 
 In this article, you’ve created a simple AWS infrastructure from scratch, consisting of separate VPC, Internet Gateway, Subnet, RouteTable, Security Group, and the EC2 Instance. In the next article, we’ll extend this infrastructure by adding a private subnet to our VPC.
