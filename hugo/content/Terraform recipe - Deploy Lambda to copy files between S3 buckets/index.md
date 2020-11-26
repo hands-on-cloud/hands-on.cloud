@@ -24,7 +24,7 @@ In this article, we will expand our Serverless experience using Terraform’s ab
 
 If you’re willing to [jump to the final solution](#complete-source-code), please, feel free to do that.
 
-## Terraform configuration
+## Terraform configuration.
 
 We're assuming that you already have Terraform installed on your local machine or EC2 instance. If not, please, follow the official installation guide here: [Terraform Installation Guide](https://learn.hashicorp.com/terraform/getting-started/install.html).
 
@@ -47,12 +47,11 @@ Here:
 * `lambda` - folder containing Lambda function source code written in Python
 * `README.md` - a short description hot to use the example
 
-
 Terraform code is in `main.tf` file contains the following resources:
 
-* Source & Destination S3 buckets
-* Lambda Function
-* Necessary IAM permissions
+* Source & Destination S3 buckets.
+* Lambda Function.
+* Necessary IAM permissions.
 
 Here’s how we built it.
 
@@ -96,7 +95,7 @@ This `provider` block tells, that we’re using the AWS cloud platform.
 
 Full and up-to-date lists of additionally supported platforms like Azure, Google Cloud, and many others can be found at [Terraform - Providers](https://www.terraform.io/docs/providers/).
 
-### IAM Roles and Policies
+### IAM Roles and Policies.
 
 To let Lambda function copy files between S3 buckets we need to give it those permissions. Those permissions are granted by using IAM Roles and Policies.
 
@@ -198,21 +197,21 @@ resource "aws_lambda_permission" "allow_terraform_bucket" {
 }
 ```
 
-* `statement_id` - this is an identifier string for the granting rule for S3 bucket
-* `action` - the action that we’re enabling S3 to perform (call Lambda function)
-* `function_name` - the Lambda function name which will be executed
-* `principal` - the S3 service URL
-* `source_arn` - this is the ARN of the source S3 bucket
+* `statement_id` - this is an identifier string for the granting rule for S3 bucket.
+* `action` - the action that we’re enabling S3 to perform (call Lambda function).
+* `function_name` - the Lambda function name which will be executed.
+* `principal` - the S3 service URL.
+* `source_arn` - this is the ARN of the source S3 bucket.
 
-### Lambda function
+### Lambda function.
 
 `source_code_hash` - tells Terraform to check the hash value of our Lambda function archive during deployment. It helps Terraform decide if he needs to redeploy the function.
 
 During the Lambda resource declaration, you need to specify:
 
-* IAM `role`
-* Lambda function `runtime`
-* The `handler`, which must point to the entrypoint function in your Lambda code
+* IAM `role`.
+* Lambda function `runtime`.
+* The `handler`, which must point to the entrypoint function in your Lambda code.
 
 In our example, `index` - is the filename (`index`.py), which contains Lambda code and `handler` - is the name of the function in the file.
 
@@ -280,7 +279,7 @@ output "Destination-S3-bucket" {
 }
 ```
 
-## Lambda function source code
+## Lambda function source code.
 
 As soon as we’re done with declaring infrastructure changes using Terraform, we can develop the Lambda function itself. We’ll do it using Python 3.6:
 
@@ -322,8 +321,8 @@ def handler(event, context):
 
 First, we will import all the required packages
 
-* `os` - will help to retrieve the environment variables
-* `logging` - will allow us to configure logging in Python
+* `os` - will help to retrieve the environment variables.
+* `logging` - will allow us to configure logging in Python.
 * `boto3` - is a standard de-factor library in Python to interact with AWS services.
 
 Then we’re importing environment variables and instantiating the boto3 S3 client.
@@ -373,14 +372,14 @@ Finally we’re processing the following JSON data structure, which is coming fr
 
 For every object creation and modification event in the source S3 bucket, Lambda function will:
 
-* Process event information to extract the source bucket and created/modified object names
-* Copy object from a source to the destination S3 bucket with the same name
+* Process event information to extract the source bucket and created/modified object names.
+* Copy object from a source to the destination S3 bucket with the same name.
 
-## Complete source code
+## Complete source code.
 
 Full source code of the example can be found at [Hands-On.Cloud GitHub page](https://github.com/hands-on-cloud/hands-on.cloud/tree/master/hugo/content/Terraform%20recipe%20-%20Deploy%20Lambda%20to%20copy%20files%20between%20S3%20buckets/src)
 
-## Resume
+## Resume.
 
 In this article, we showed how to use Terraform to manage the deployment of Lambda functions.  We created a simple function, which copies uploaded objects from one S3 bucket to another.
 
