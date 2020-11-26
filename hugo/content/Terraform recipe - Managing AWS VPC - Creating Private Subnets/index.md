@@ -16,12 +16,12 @@ In the previous article ([Terraform recipe – Managing AWS VPC – Creating Pub
 
 In this article, we’ll add to our VPC a couple of Private Subnets:
 
-* Fully isolated Private Subnet
-* NAT-ed Private Subnet
+* Fully isolated Private Subnet.
+* NAT-ed Private Subnet.
 
 You may find a complete example for `.tf` file in my [GitHub repo](https://github.com/andreivmaksimov/terraform-recipe-managing-aws-vpc-creating-private-subnets).
 
-## VPC with the public subnet
+## VPC with the public subnet.
 
 Here’s a complete example from the previous article:
 
@@ -109,7 +109,7 @@ resource "aws_instance" "my_instance" {
 }
 ```
 
-## NAT-ed private subnet
+## NAT-ed private subnet.
 
 Instances launched in this subnet will be able to communicate with any services within VPC and go to the Internet using special AWS service NAT Gateway.
 
@@ -121,10 +121,10 @@ Here’s how the infrastructure looks like:
 
 To extend our VPC with this NAT-ed Private network, we need to create the following resources:
 
-* VPC NAT Gateway
-* Subnet
-* Route Table with route to VPC NAT Gateway
-* Association between Route Table and Subnet
+* VPC NAT Gateway.
+* Subnet.
+* Route Table with route to VPC NAT Gateway.
+* Association between Route Table and Subnet.
 
 Let’s begin from Subnet, by declaring additional [aws_subnet](https://www.terraform.io/docs/providers/aws/r/subnet.html) resource:
 
@@ -181,7 +181,7 @@ Now we’re ready to create private servers in our Private NAT-ed Subnet and the
 
 I guess, you may do it using the instructions from the previous article.
 
-## Fully isolated Private subnet
+## Fully isolated Private subnet.
 
 Instances launched in this subnet will be able to communicate with instances within VPC, but will not be able to go to the Internet.
 
@@ -193,9 +193,9 @@ Here’s how the infrastructure looks like:
 
 To implement fully isolated Private Subnet we need to create the following resources:
 
-* Subnet
-* Route Table
-* Association between Route Table and Subnet
+* Subnet.
+* Route Table.
+* Association between Route Table and Subnet.
 
 Let’s start from Subnet:
 
@@ -228,7 +228,7 @@ resource "aws_route_table_association" "my_vpc_us_east_1a_private" {
 }
 ```
 
-## Summary
+## Summary.
 
 In this article you’ve learned how to create different types of AWS Private Subnets in your environment and differences between them. Hope, this article been helpful for you!
 
