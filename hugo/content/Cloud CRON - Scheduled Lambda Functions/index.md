@@ -22,7 +22,7 @@ From this article, you’ll learn how to create scheduled jobs at AWS cloud usin
 
 As usual, we’re providing some additional reading to those of you, who interested. If you’re looking for a solution only, please, [jump here](#complete-source-code).
 
-## Benefits of using Scheduled AWS Lambda functions
+## Benefits of using Scheduled AWS Lambda functions.
 
 In the old-school world of on-prem Cron jobs, a significant amount of time went into managing the execution of these tasks. The crontab syntax itself is difficult to read, which frequently leads systems engineers to rely on online crontab formatters to translate the archaic time and date formats using online crontab generators. This lead [systemd.timer](https://www.man7.org/linux/man-pages/man5/systemd.timer.5.html) to include a modified, more readable implementation.
 
@@ -58,7 +58,7 @@ cron(0/10 * ? * MON-FRI *)
 
 For a more detailed look at scheduling cron jobs with Lambdas, check out the upstream AWS documentation on [cron jobs with Lambda](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents-expressions.html) and [CloudWatch Events scheduling expressions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html).
 
-## CloudFormation example
+## CloudFormation example.
 
 Let's create a simple AWS Lambda that deletes outdated EC2 AMIs and EBS Snapshots once a day. 
 
@@ -237,15 +237,15 @@ In this example we're declaring `LambdaFunctionRole` with all necessary permissi
 
 Lambda function code itself is also straightforward. Here's the logic:
 
-* Import all necessary libraries
-* Builds everal lists
-  * All account AMIs
-  * Used AMIs
-  * Latest AMIs
-* Delete all AMIs, which are safe to delete from this list
-* Deregisted unused snapshots
+* Import all necessary libraries.
+* Builds everal lists.
+  * All account AMIs.
+  * Used AMIs.
+  * Latest AMIs.
+* Delete all AMIs, which are safe to delete from this list.
+* Deregisted unused snapshots.
 
-### CloudFormation deployment
+### CloudFormation deployment.
 
 To deploy this stack execute the following command:
 
@@ -259,7 +259,7 @@ aws cloudformation wait stack-create-complete \
   --stack-name "test-scheduled-lambda"
 ```
 
-### CloudFormation cleanup
+### CloudFormation cleanup.
 
 To clean up everything we need to execute:
 
@@ -268,7 +268,7 @@ aws cloudformation delete-stack \
   --stack-name "test-scheduled-lambda"
 ```
 
-## Terraform example
+## Terraform example.
 
 We may implement the same example, but using Terraform
 
@@ -419,7 +419,7 @@ resource "aws_cloudwatch_log_group" "delete_old_amis" {
 }
 ```
 
-### Terraform deployment
+### Terraform deployment.
 
 To deploy this stack execute the following command:
 
@@ -428,7 +428,7 @@ terraform init
 terraform apply -auto-approve
 ```
 
-### Terraform cleanup
+### Terraform cleanup.
 
 To clean up everything we need to execute:
 
@@ -436,11 +436,11 @@ To clean up everything we need to execute:
 terraform destroy -auto-approve
 ```
 
-## Complete source code
+## Complete source code.
 
 Full source code of the example can be found at [our GitHub](https://github.com/hands-on-cloud/hands-on.cloud/tree/master/hugo/content/Cloud%20CRON%20-%20Scheduled%20Lambda%20Functions/src)
 
-## Resume
+## Resume.
 
 In this article, we showed how to use CloudFormation and Terraform to deploy shaduled Lambda functions. We created a simple function, which deleted outdated AMIs and Snapshots from your account.
 
