@@ -23,23 +23,23 @@ authors:
 
 In this article, we'll show how to create an Ubuntu 20.04 LTS based Docker container for Machine Learning. We'll install to the environment: Python 3, Jupyter, Keras, Tensorflow, TensorBoard, Pandas, Sklearn, Matplotlib, Seaborn, pyyaml, h5py. Prepare your personal ML environment in 3 minutes, excluding Docker image building time!
 
-## Update 2020
+## Update 2020.
 
 I've updated container to Ubuntu 20.04 LTS base and speed up Docker build process. Now we're not building OpenCV from source, but installing it from `apt`.
 
 Environment setup is a very common question when you’re trying to start learning Machine Learning (ML). In this article I’ll show you how to create your own Docker container including the following frameworks for comfortable start:
 
-- [Python 3](https://www.python.org/)
-- [Jupyter](http://jupyter.org/)
-- [Keras](https://keras.io/)
-- [Tensorflow](https://www.tensorflow.org/)
-- [TensorBoard](https://www.tensorflow.org/guide/summaries_and_tensorboard)
-- [Pandas](https://pandas.pydata.org/)
-- [Sklearn](http://scikit-learn.org/stable/)
-- [Matplotlib](https://matplotlib.org/)
-- [Seaborn](https://seaborn.pydata.org/)
-- [pyyaml](https://pypi.python.org/pypi/PyYAML)
-- [h5py](http://www.h5py.org/)
+- [Python 3](https://www.python.org/).
+- [Jupyter](http://jupyter.org/).
+- [Keras](https://keras.io/).
+- [Tensorflow](https://www.tensorflow.org/).
+- [TensorBoard](https://www.tensorflow.org/guide/summaries_and_tensorboard).
+- [Pandas](https://pandas.pydata.org/).
+- [Sklearn](http://scikit-learn.org/stable/).
+- [Matplotlib](https://matplotlib.org/).
+- [Seaborn](https://seaborn.pydata.org/).
+- [pyyaml](https://pypi.python.org/pypi/PyYAML).
+- [h5py](http://www.h5py.org/).
 
 That are TOP 10 widely used Python frameworks for Data Science and you’ll find most of them in any how to article on the Internet. In the nex article ([How to build Python Data Science Docker container based on Anaconda](https://hands-on.cloud/how-to-build-python-data-science-docker-container-based-on-anaconda/)) I'll show how to build the same image, but on top of Anaconda distribution.
 
