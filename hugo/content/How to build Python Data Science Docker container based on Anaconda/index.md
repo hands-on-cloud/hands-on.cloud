@@ -23,20 +23,20 @@ In this article, we’ll build a Docker container for Machine Learning (ML) deve
 
 Recently we published an article [Quick And Simple Introduction to Kubernetes Helm Charts in 10 minutes](https://hands-on.cloud/quick-and-simple-introduction-to-kubernetes-helm-charts-in-10-minutes/), where you can find instructions on how to use Helm to deploy this container to your Kubernetes cluster.
 
-## Update for 2020
+## Update for 2020.
 
 * Upgraded to Python 3.6.
-* Fixed a lots of build issues
+* Fixed a lots of build issues.
 
 Last time we’ve created [Docker container with Jupiter, Keras, Tensorflow, Pandas, Sklearn and Matplotlib](/how-to-run-jupiter-keras-tensorflow-pandas-sklearn-and-matplotlib-in-docker-container). Suddenly, I understood, that I’ve missed OpenCV for Docker image and video manipulations. Well, I spent whole day preparing new image build. And in this article I’ll show you how to do it much faster using [Anaconda](https://anaconda.org/) official [Docker Image](https://hub.docker.com/r/continuumio/anaconda3/).
 
 There’re two ways to do that.
 
-## Simple way
+## Simple way.
 
 [This process](/how-to-run-jupiter-keras-tensorflow-pandas-sklearn-and-matplotlib-in-docker-container) takes ~7 minutes to build the container of 3.11 Gb in size.
 
-## Anaconda way
+## Anaconda way.
 
 When I started playing with ML in 2018 Anaconda was a super fast and easiest way to create Docker container for ML experiments. It was much faster, then to compile OpenCV 3 for Ubuntu 16.04. Today it's vice versa.
 
@@ -75,7 +75,7 @@ CMD ["/run_jupyter.sh"]
 
 As you can see, we’re installing just only libgtk2.0 for OpenCV support and all the other components like Terraform, Pandas, Scikit-learn, Matplotlib, Keras and others using conda package manager.
 
-## Running container
+## Running container.
 
 Now you have a working container and it’s time to start it. Create a folder inside your project’s folder where we’ll store all our Jupyter Noteboos with source code of our projects:
 
@@ -97,7 +97,7 @@ If you don’t want to create and maintain your own container, please feel free 
 docker run -it -p 8888:8888 -p 6006:6006 -d -v $(pwd)/notebooks:/notebooks amaksimov/python_data_science:anaconda
 ```
 
-## Installing additional packages
+## Installing additional packages.
 
 As soon as you’ve launched Jupyter, some packages may be missing for you and it’s OK. Feel free to to run the following command in a cell of your Jupyter notebook:
 
@@ -113,7 +113,7 @@ Or for conda:
 
 Hope, this article was helpful for you. If so, please like or repost it. See you soon!
 
-## Results
+## Results.
 
 Using Anaconda as a base image makes your Docker image heavy. I mean REALLY heavy.
 
