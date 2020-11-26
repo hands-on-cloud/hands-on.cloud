@@ -21,7 +21,7 @@ Managing and orchestrating multiple automation activities in the cloud may be a 
 
 Those scenarios we'll cover in this article.
 
-## AWS Long-Running Jobs
+## AWS Long-Running Jobs.
 
 There're multiple ways of handling long-running workloads in AWS in a Serverless way:
 
@@ -30,21 +30,21 @@ There're multiple ways of handling long-running workloads in AWS in a Serverless
 * [AWS Lambda](https://aws.amazon.com/lambda/) is a service for short-running jobs with maximum execution time of 15 minutes.
 * [AWS Serverless](https://aws.amazon.com/serverless/) and other purpose built services for [Machine Learning](https://aws.amazon.com/free/machine-learning/) or [Media Processing](https://aws.amazon.com/media-services/).
 
-## AWS Lambda Long-Running Tasks
+## AWS Lambda Long-Running Tasks.
 
 Long story short, AWS Lambda is not suited for long-running tasks. It is an ideal option for quick and predictable workloads that lasts no longer than 900 seconds or 15 minutes in total. If the process not ended by that time, AWS Lambda stops it automatically.
 
-## Run Long-Running Jobs In AWS
+## Run Long-Running Jobs In AWS.
 
 Here's where [AWS Step Functions](https://aws.amazon.com/step-functions/) come into play. AWS Step Functions is a workflow orchestration service. It allows you to describe your workflow (state machine) in a simple JSON structure. This workflow usually consists of multiple Lambda functions and other [AWS services integrated with Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-service-integrations.html). As soon as you described the workflow, AWS Step Functions visualizes it and makes it available for execution. You can visually track the execution process as every single step in the workflow highlights a green, yellow, or red color, making it super helpful to debug the workflow during development.
 
-## Boto3 for Python Step Functions
+## Boto3 for Python Step Functions.
 
 AWS Step Functions is the Lambda orchestration engine. It can execute Lambda functions natively. As soon as AWS Lambda supports Python execution runtime, the boto3 library is available for you out of the box.
 
 If you're making [Custom Lambda runtime](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-custom.html) using [Lambda Layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html), you can install boto3 to your layer and attach it to the Lambda during its execution.
 
-## Implementing a long-running job
+## Implementing a long-running job.
 
 It's a prevalent task for any process orchestration system. And we'll build our solution on top of [Iterating a Loop Using Lambda](https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-create-iterate-pattern-section.html) example from official AWS documentation.
 
@@ -54,13 +54,13 @@ As a long-running process, we'll take the RDS instance snapshot creation process
 
 Our AWS Step Functions state machine will consist of:
 
-* [Task](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-task-state.html), which initiates create the RDS Snapshot process (implemented using Lambda Function)
-* [Wait](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-wait-state.html) for 1-minute state
-* [Task](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-task-state.html), which describes RDS Snapshot Lambda Function
-* [Choise](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) state, which checks DB Snapshot status and either waits, either continues flow control to two stubs
-* [Pass](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-pass-state.html) state, which represents state machine **success** or **failed** execution status; in our case, both states do nothing, but you may use them to do extra work, like sending SNS notifications or calling other AWS services
+* [Task](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-task-state.html), which initiates create the RDS Snapshot process (implemented using Lambda Function).
+* [Wait](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-wait-state.html) for 1-minute state.
+* [Task](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-task-state.html), which describes RDS Snapshot Lambda Function.
+* [Choise](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html) state, which checks DB Snapshot status and either waits, either continues flow control to two stubs.
+* [Pass](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-pass-state.html) state, which represents state machine **success** or **failed** execution status; in our case, both states do nothing, but you may use them to do extra work, like sending SNS notifications or calling other AWS services.
 
-### RDS Snapshot Lambda Function
+### RDS Snapshot Lambda Function.
 
 Here’s a source code for the Lambda function, which will launch a long-running job (RDS snapshot operation):
 
@@ -96,7 +96,7 @@ def handler(event,context):
 
 Our function takes `DBSnapshotIdentifier` and `DBInstanceIdentifier` as parameters and calling [create_db_snapshot()](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rds.html#RDS.Client.create_db_snapshot) function. As a result of the operation, we're sending Python `dict` to the state machine’s next stage.
 
-### Describe RDS Snapshot Lambda Function
+### Describe RDS Snapshot Lambda Function.
 
 The following Lambda function will help us understand if previously launched RDS snapshot operation has been finished or not by querying its status:
 
@@ -128,16 +128,16 @@ def handler(event,context):
 
 This function is even simpler because it takes past parameters from the previous step, does [describe_db_snapshots()](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rds.html#RDS.Client.describe_db_snapshots), and returns the same `dict` with snapshot operation status.
 
-### Step Function Workflow
+### Step Function Workflow.
 
 AWS Step Functions state machine description. Our graph consists of the following steps:
 
-* Create snapshot
-* Wait 1 minute
-* Get snapshot status
-* Snapshot completed?
-* Done
-* Failed
+* Create snapshot.
+* Wait 1 minute.
+* Get snapshot status.
+* Snapshot completed.
+* Done.
+* Failed.
 
 Here’s a complete workflow (state machine) description:
 
@@ -189,7 +189,7 @@ Here’s a complete workflow (state machine) description:
 }
 ```
 
-### Complete example
+### Complete example.
 
 And finally, here's the complete CloudFormation stack template, tying everything altogether:
 
@@ -407,7 +407,7 @@ Outputs:
 
 ```
 
-## Summary
+## Summary.
 
 This article shows how to create a Step Function workflow (state machine) to manage long-running automation tasks - RDS Snapshot. It is a simple but powerful example, which should give you an idea, what else you can implement in the same way.
 
