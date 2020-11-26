@@ -13,11 +13,11 @@ authors:
 
 In this article, we'll guide you on how to remove a Git remote repository. We'll cover the difference between local and remote repositories and two possible workflows for Git remote repository. Take a look at our infographics to learn everything in less than one minute!
 
-## What is Git?
+## What is Git.
 
 Git is a free and open-source distributed version control system. Linus Torvalds designed it in 2005, and now Git is one of the most popular code version control systems in the world. Git helps you to maintain the history of changes that you made during your software development process.
 
-## What is Git Local?
+## What is Git Local.
 
 Git is a decentralized distributed version control system. That means that you can store your software code changes on your local PC or remote server. Software changes that you keep locally forming the local repository.
 
@@ -37,7 +37,7 @@ git add
 git commit
 ```
 
-## What is Git Remote?
+## What is Git Remote.
 
 To simplify a software development process for distributed teams, people started to use a dedicated server as a central place for code exchange. Git repository at such server is called a remote repository. Nowadays, we have several Git hosting services, such as Bitbucket, Github, or GitLab.
 
@@ -53,8 +53,8 @@ git remote add origin git-remote-url
 
 Where:
 
-* **origin** - is the logical name or remote repository; the **origin** is the default name for the remote repository
-* **git-remote-url** - is the URL of the remote repository; usually, you’re getting it at your repository page at GitHub
+* **origin** - is the logical name or remote repository; the **origin** is the default name for the remote repositor.
+* **git-remote-url** - is the URL of the remote repository; usually, you’re getting it at your repository page at GitHub.
 
 Cloning a Git repository from a remote server creates the **origin** automatically at your local repository.
 
@@ -68,7 +68,7 @@ To not overcomplicate the diagram, we’ll show only one developer workflow, wor
 
 {{< my-picture name="How-To-Remove-Git-Remote-Repository-two-remote-repos" >}}
 
-## Removing a Git Remote URL?
+## Removing a Git Remote URL.
 
 Before deleting any records of remote Git repositories, it makes sense to list them first:
 
