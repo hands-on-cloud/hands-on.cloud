@@ -24,6 +24,7 @@ def test_article_headlines_ending_on_dots():
                 if result:
                     if not line[-1] in ALLOWED_FINAL_CHARS:
                         print(f'{article_name} ==> ' + line)
+                        assert False
     assert True
 
 def test_article_lists_ending_on_dots():
@@ -41,6 +42,7 @@ def test_article_lists_ending_on_dots():
                 if result:
                     if not line[-1] in ALLOWED_FINAL_CHARS:
                         print(f'{article_name} ==> ' + line)
+                        assert False
     assert True
 
 if __name__ == '__main__':
