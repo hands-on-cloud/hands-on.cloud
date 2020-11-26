@@ -19,11 +19,11 @@ I will continuously update this article each time I’ll face a new weird and ch
 
 Well, I’m a lucky guy… I have no choice right now and have to spend most of my working time on NixOS automation. To this moment of time I have more than 10 years experience of using different Linux distributions and more than 6 months of NixOS experience. And most of my experience with NixOS is bad experience.
 
-## Why you may want to use NixOS
+## Why you may want to use NixOS.
 
 I’ll try to write something here. Hope, I’ll be able to…
 
-### Determinism
+### Determinism.
 
 It is declared and provided to you by the system design, that you’ll get the same version of any software package from the derivation. Lie!
 
@@ -31,18 +31,18 @@ All it’s determinism is about that it deterministically gives you a lot of iss
 
 You may install Nix tools on Linux and OS X, for example. But it is not always building the same derivation results on Linux and NixOS itself. So, it is not OS agnostic. There’re a lot of examples of such behavior, for example, `fetchgit` and `fetchFromGitHub` functions:
 
-- [fetchgit/fetchFromGitHub fail to fetch submodules from “git@server:repo” URLs](https://github.com/NixOS/nixpkgs/issues/28324)
-- [Use `fetchFromGitHub` instead of `fetchgit` when the source is a GitHub clone URL](https://github.com/NixOS/cabal2nix/issues/260)
-- [fetchgit -> fetchFromGitHub where possible](https://github.com/NixOS/nixpkgs/pull/27327)
-- [How to manually replicate/reproduce/obtain the sha256 hash specified in Nix with fetchgit or fetchFromGitHub?](https://github.com/NixOS/nix/issues/1880)
+* [fetchgit/fetchFromGitHub fail to fetch submodules from “git@server:repo” URLs](https://github.com/NixOS/nixpkgs/issues/28324).
+* [Use `fetchFromGitHub` instead of `fetchgit` when the source is a GitHub clone URL](https://github.com/NixOS/cabal2nix/issues/260).
+* [fetchgit -> fetchFromGitHub where possible](https://github.com/NixOS/nixpkgs/pull/27327).
+* [How to manually replicate/reproduce/obtain the sha256 hash specified in Nix with fetchgit or fetchFromGitHub?](https://github.com/NixOS/nix/issues/1880).
 
 Meanwhile in the official manual to the current and latest [version-18-09-1373-50fb6820759](https://nixos.org/nixpkgs/manual/#version-18-09-1373-50fb6820759) they are still using `fetchgit`.
 
-## Why you should never ever use NixOS
+## Why you should never ever use NixOS.
 
 Here I’m gonna collect all my daily pain in a single place, which I hope will help people not to make somebody’s else mistakes. This is my personal view on the problem space and it can not be affiliated with the company or project where I’m working right now.
 
-### Small community
+### Small community.
 
 Sure, there are a lot of enthusiasts who are playing with NixOS by installing it on their workstations of VMs, but in comparison with Ubuntu, CentOS, Debian or RedHat:
 
@@ -50,10 +50,10 @@ Sure, there are a lot of enthusiasts who are playing with NixOS by installing it
 
 That means you will not be able:
 
-- To get fast or enterprise support
-- To to hire people to manage it
+* To get fast or enterprise support.
+* To to hire people to manage it.
 
-### Documentation
+### Documentation.
 
 Official documentation is awful. Or it is just absent. NixOS is older than Docker. They are solving the same task, but NixOS is way less popular. Try to think why.
 
@@ -150,7 +150,7 @@ Interesting, isn’t it?
 
 If yes, get ready, you’ll not be able to live in the system without writing something like that. [Nix Packages GitHub repository](https://github.com/NixOS/nixpkgs) will be your second home, where you’ll be looking for examples of Nix expressions, configuration approaches and other examples.
 
-### Configuration management
+### Configuration management.
 
 System state and configuration described in a special file `configuration.nix`. It’s like an entry point to endless amount of functions and dependencies for your OS.
 
@@ -160,20 +160,20 @@ All standard system configuration files like `/etc/fstab`, for example are gener
 
 Forget about Chef, Puppet or Ansible! Only Nix expressions! Only hardcore!
 
-### Kernel upgrade
+### Kernel upgrade.
 
 It is not possible just to upgrade the kernel from “ver1” to “ver2”. New kernel will bring whole set of system packages and their dependencies with it. Do not know if it is safe. Will test it soon.
 
-### Cloud support
+### Cloud support.
 
 Nix is not ready for a cloud. At all. I’m always facing the following situations on NixOS 18.03:
 
-- OS is not booting from the AMI
-- OS is not supporting newest AWS instance types (like m5.\*, for example)
-- NixOS 18.03 is not always able to resize your hard drive when it’s boot
-- Do not even try to use it in Auto Scaling group and passing configuration.nix content through user-data. You may easily get to the loop, when instance start building something new from the derivations during it’s boot process, 100% CPU utilizations will require AutoScaling Group to launch additional instances that also will build something, all the instances are unhealthy and Auto Scaling group will start terminating the first instance in a loop. Your service will never start.
+* OS is not booting from the AMI.
+* OS is not supporting newest AWS instance types (like m5.\*, for example).
+* NixOS 18.03 is not always able to resize your hard drive when it’s boot.
+* Do not even try to use it in Auto Scaling group and passing configuration.nix content through user-data. You may easily get to the loop, when instance start building something new from the derivations during it’s boot process, 100% CPU utilizations will require AutoScaling Group to launch additional instances that also will build something, all the instances are unhealthy and Auto Scaling group will start terminating the first instance in a loop. Your service will never start.
 
-### Cache
+### Cache.
 
 To speedup software installation in NixOS the community provides you with Nix Binary Cache, where they put everything they’ve built successfully. Every version of every derivation.
 
@@ -181,7 +181,7 @@ Problems start happening when you spinning up your personal cache, which is used
 
 Some very talented developers start using Nix binary cache to cache everything’s possible. For example NPM or Yarn packages. Good luck!
 
-### Security
+### Security.
 
 People are thinking, that NixOS deterministic approach of dealing with software is very secure. Maybe yes, it is really not possible to hijack the build results once the derivation bin build. But… You always need to pay for it…
 
@@ -189,35 +189,35 @@ During the upgrade from 18.03 to 18.09 Nix community decided to change Docker to
 
 As a result we rewrote all Docker based derivation declarations and more over to rebuild them all. It was really painful and unmanaged migration.
 
-### Windows support
+### Windows support.
 
 Just forget about it.
 
-### System requirements
+### System requirements.
 
 It requires a lot of CPU power to build it’s stuff and really a lot of space to store its multiple versions. Much more, than you need in traditional Linux distros.
 
-### Once invested
+### Once invested.
 
-- Try to change a technology stack as soon as possible.
-- Do not listen anybody.
-- Do not reinvent the wheel.
-- Just waste it.
+* Try to change a technology stack as soon as possible.
+* Do not listen anybody.
+* Do not reinvent the wheel.
+* Just waste it.
 
 And, God, do not try to run Nix in Docker! It’s really, not, REALLY bad idea!
 
-### What to do next
+### What to do next.
 
 Run away! Not, seriously! Run. From. It. Away.
 
 When you try to summarize all your thoughts around the topic you want to cover in a post, you’re starting from simple Google search. One of results to my “nixos pros and cons” query: [NixOS alternatives](https://alternative.me/nixos). Kinda joke, but really, think twice when you’re making decision to invest your time or money in it. And I would also think twice about WHY colleagues are advising it to me.
 
-### Docker is the best alternative
+### Docker is the best alternative.
 
 The link is in previous paragraph. Your choice is traditional Linux and Docker! Yes, you’ll have the same deterministic and secure result and even more more with less pain and and much pleasure.
 
-### Additional reading
+### Additional reading.
 
-- [NixOS users, tell me: What are the cons?](https://www.reddit.com/r/NixOS/comments/441ymh/nixos_users_tell_me_what_are_the_cons/)
-- [What is Nix and why you should try it?](https://news.ycombinator.com/item?id=15478209)
-- [NixOS on Distrowatch](https://distrowatch.com/table.php?distribution=nixos)
+* [NixOS users, tell me: What are the cons?](https://www.reddit.com/r/NixOS/comments/441ymh/nixos_users_tell_me_what_are_the_cons/).
+* [What is Nix and why you should try it?](https://news.ycombinator.com/item?id=15478209).
+* [NixOS on Distrowatch](https://distrowatch.com/table.php?distribution=nixos).
