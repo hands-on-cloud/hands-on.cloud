@@ -14,14 +14,14 @@ authors:
 
 AWS Database Migration Service (AWS DMS) is a cloud service that makes it easy to migrate relational databases, data warehouses, NoSQL databases, and other types of data stores. You can use AWS DMS to migrate your data into the Cloud, between on-premises DB servers, or between any combinations of cloud and on-premises setups. You may get more information about AWS DMS in the official [AWS documentation](https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html).
 
-## Solution components
+## Solution components.
 
 So, my goal for this post is to provide you with a template, which you may use to automate DMS infrastructure setup. Whole template consists of:
 
-* DMS Replication Subnet Group ([AWS::DMS::ReplicationSubnetGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationsubnetgroup.html))
-* DMS Replication Instance ([AWS::DMS::ReplicationInstance](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationinstance.html))
-* DMS Source and Target Endpoints ([AWS::DMS::Endpoint](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html))
-* DMS Replication Task ([AWS::DMS::ReplicationTask](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html))
+* DMS Replication Subnet Group ([AWS::DMS::ReplicationSubnetGroup](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationsubnetgroup.html)).
+* DMS Replication Instance ([AWS::DMS::ReplicationInstance](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationinstance.html)).
+* DMS Source and Target Endpoints ([AWS::DMS::Endpoint](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html)).
+* DMS Replication Task ([AWS::DMS::ReplicationTask](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html)).
 
 I'm not using Secrets Manager in this template to make it simplier, but you may easily avoid using plain text passwords in stack parameters by using simple custom resource and Lambda Function. Please, feel free to ask an examples in comments and I'll provide them to you.  
 
@@ -41,7 +41,7 @@ Parameters:
             VPC where to setup DMS instance.
             DMS instance should have connectivity to RDS instance.
         Type: 'AWS::EC2::VPC::Id'
-    
+
     SubnetIds:
         Description: >
             Subnets for DMS subnet group. Must contain at least two
@@ -157,24 +157,24 @@ Parameters:
         Type: String
         Default: full-load
 
-Metadata: 
-    AWS::CloudFormation::Interface: 
-        ParameterGroups: 
+Metadata:
+    AWS::CloudFormation::Interface:
+        ParameterGroups:
             -
-                Label: 
+                Label:
                     default: "Network Configuration"
-                Parameters: 
+                Parameters:
                     - Vpc
                     - SubnetIds
             -
-                Label: 
+                Label:
                     default: "Replication Instance Parameters"
                 Parameters:
                     - ReplicationInstanceAllocatedStorage
                     - ReplicationInstanceClass
                     - SecurityGroupIds
             -
-                Label: 
+                Label:
                     default: "Source Endpoint Parameters"
                 Parameters:
                     - SrcDbName
@@ -184,7 +184,7 @@ Metadata:
                     - SrcDbPort
                     - SrcDbEngine
             -
-                Label: 
+                Label:
                     default: "Target Endpoint Parameters"
                 Parameters:
                     - DstDbName
@@ -194,7 +194,7 @@ Metadata:
                     - DstDbPort
                     - DstDbEngine
             -
-                Label: 
+                Label:
                     default: "Replication Task Parameters"
                 Parameters:
                     - DbSchemaName
@@ -239,8 +239,8 @@ Resources:
             Port: !Ref SrcDbPort
             Username: !Ref SrcDbUsername
             Password: !Ref SrcDbPassword
-            Tags: 
-                - 
+            Tags:
+                -
                   Key: Name
                   Value: !Sub '${AWS::StackName}-dms-source-endpoint'
 
@@ -254,8 +254,8 @@ Resources:
             Port: !Ref DstDbPort
             Username: !Ref DstDbUsername
             Password: !Ref DstDbPassword
-            Tags: 
-                - 
+            Tags:
+                -
                   Key: Name
                   Value: !Sub '${AWS::StackName}-dms-target-endpoint'
 
@@ -389,13 +389,13 @@ Resources:
                         {
                             "rules": [
                                 {
-                                    "rule-type": "selection", 
-                                    "rule-id": "1", 
-                                    "rule-action": "include", 
+                                    "rule-type": "selection",
+                                    "rule-id": "1",
+                                    "rule-action": "include",
                                     "object-locator": {
-                                        "schema-name": "${db_schema_name}", 
+                                        "schema-name": "${db_schema_name}",
                                         "table-name": "%"
-                                    }, 
+                                    },
                                     "rule-name": "1"
                                 }
                             ]
@@ -432,6 +432,6 @@ Outputs:
             Name: !Sub '${AWS::StackName}-dms-replication-task'
 ```
 
-## Conclusion
+## Conclusion.
 
 Of cause, this is very simple template and not everything is the parameterized, but I'm still hoping, that it saves you some amount of time.
