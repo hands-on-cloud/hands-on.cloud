@@ -25,7 +25,7 @@ SAM concept is very simple: it helps you to build and test your Lambda Functions
 
 In this article you'll see how use SAM to do the same thing, which we did in previous article, but with the help of serverless framwork in this time.
 
-## Install SAM
+## Install SAM.
 
 Installation process for all platforms covered in official [AWS documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html). As a Mac user, I'll note this basic steps here:
 
@@ -34,7 +34,7 @@ brew tap aws/tap
 brew install aws-sam-cli
 ```
 
-## Create Python Lambda function
+## Create Python Lambda function.
 
 Project init setup is very simple and straight forward:
 
@@ -45,9 +45,10 @@ sam init --name my-sam-app --runtime python3.7 --app-template hello-world
 If you do not specify any of those parameters, SAM will ask you additional interactive questions.
 
 For Python lovers there're 3 template projects available:
-* Hello World Example
-* EventBridge Hello World
-* EventBridge App from scratch (100+ Event Schemas)
+
+* Hello World Example.
+* EventBridge Hello World.
+* EventBridge App from scratch (100+ Event Schemas).
 
 We'll use the first one for the beginning.
 
@@ -72,11 +73,12 @@ tree
 ```
 
 So, we have here:
-* Basic template of `README.md` file
-* `events` folder containts sample of json request for testing `hello_world` Lambda function
-* `hello_world` folder contains the actual Lambda function code
-* `tests` - no comments 😁
-* `template.yaml` - is a the similar to CloudFormation temmplate, which supports higher level entities, like: `AWS::Serverless::Function`, `AWS::Serverless::LayerVersion` or `AWS::Serverless::HttpApi`, for example
+
+* Basic template of **README.md** file
+* **events** folder containts sample of json request for testing **hello_world** Lambda function
+* **hello_world** folder contains the actual Lambda function code
+* **tests** - no comments 😁
+* **template.yaml** - is a the similar to CloudFormation temmplate, which supports higher level entities, like: **AWS::Serverless::Function**, **AWS::Serverless::LayerVersion** or **AWS::Serverless::HttpApi**, for example
 
 Let's use the following simple Lambda function code:
 
@@ -105,7 +107,7 @@ def lambda_handler(event, context):
 
   except Exception as e:
     traceback.print_exc()
-    
+
     response_data = {
         'statusCode': 500,
         'error': str(e)
@@ -114,15 +116,15 @@ def lambda_handler(event, context):
     return response_data
 ```
 
-This function will send request to [https://ifconfig.co/json](https://ifconfig.co/json) using `requests` (external Python library), get your IP address and return it to you in JSON structure.
+This function will send request to [https://ifconfig.co/json](https://ifconfig.co/json) using **requests** (external Python library), get your IP address and return it to you in JSON structure.
 
-So, as `requests` is an external library, let's put it to `requirements.txt`:
+So, as **requests** is an external library, let's put it to **requirements.txt**:
 
 ```sh
 echo "requests" >> requirements.txt
 ```
 
-## Build and test Lambda function
+## Build and test Lambda function.
 
 To build our Lambda function, just run:
 
@@ -130,7 +132,7 @@ To build our Lambda function, just run:
 sam build
 ```
 
-### Testing Lambda function
+### Testing Lambda function.
 
 To test our Lambda function localy, let's run
 
@@ -139,7 +141,7 @@ sam local invoke HelloWorldFunction \
     --event events/event.json
 ```
 
-### Testing API Gateway integration
+### Testing API Gateway integration.
 
 To test Lambda <-> API Gateway integration integration locally, you need to run to satart local API Gateway:
 
@@ -153,12 +155,11 @@ Now you may use curl to test your API call:
 curl http://127.0.0.1:3000/hello
 ```
 
-
-## Deploy Lambda function
+## Deploy Lambda function.
 
 As soon as Lambda function is tested, you may deploy it. To do that, you need to have S3 bucket created, where your Lambda function distribution will be uploaded.
 
-### Service S3 bucket
+### Service S3 bucket.
 
 Let's create such bucket (we'll use Python one-liner to make bucket name random):
 
@@ -167,9 +168,9 @@ aws s3 mb "s3://my-sam-app-$(python -c "import random, string; print(''.join(ran
 make_bucket: my-sam-app-6rz4m
 ```
 
-### Package project
+### Package project.
 
-Now we're need to package all SAM project artifacts and compile final CloudFormation template (`my-sam-app-compiled-template.yaml`) 
+Now we're need to package all SAM project artifacts and compile final CloudFormation template (`my-sam-app-compiled-template.yaml`)
 
 ```sh
 sam package --output-template-file my-sam-app-compiled-template.yaml --s3-bucket my-sam-app-6rz4m
@@ -182,7 +183,7 @@ aws s3 ls s3://my-sam-app-6rz4m
 2020-03-19 20:26:29     532327 73d2d8baa2978842e922f95f3ca1dce0
 ```
 
-And generated `my-sam-app-compiled-template.yaml` file:
+And generated **my-sam-app-compiled-template.yaml** file:
 
 ```yaml
 AWSTemplateFormatVersion: '2010-09-09'
@@ -227,7 +228,7 @@ Outputs:
       - Arn
 ```
 
-### Deployment
+### Deployment.
 
 Let's deploy the our function:
 
@@ -238,11 +239,12 @@ sam deploy --template-file my-sam-app-compiled-template.yaml \
 ```
 
 This will deploy:
-* Lambda function role
-* API Gateway
-* Lambda Function
 
-### Test deployment
+* Lambda function role.
+* API Gateway.
+* Lambda Function.
+
+### Test deployment.
 
 Let's query aur lambda function using API Gateway:
 
@@ -259,11 +261,11 @@ https://0rppnkrtgg.execute-api.us-east-2.amazonaws.com/Prod/hello/
 curl https://0rppnkrtgg.execute-api.us-east-2.amazonaws.com/Prod/hello/
 ```
 
-## Update project
+## Update Project.
 
 Imagine we changed our mind and instead of getting our IP address, we want to send our users randomly generated passwords. Let's use our python one-liner as an example and change our Lambda function.
 
-Here's new content of out `app.py` file:
+Here's new content of out **app.py** file:
 
 ```py
 import json
@@ -294,7 +296,7 @@ def lambda_handler(event, context):
 
   except Exception as e:
     traceback.print_exc()
-    
+
     response_data = {
         'statusCode': 500,
         'error': str(e)
@@ -303,9 +305,9 @@ def lambda_handler(event, context):
     return response_data
 ```
 
-### Deploy update
+### Deploy update.
 
-To deploy update all you need to do is to build (if you Lambda functions been changed) and package the project: 
+To deploy update all you need to do is to build (if you Lambda functions been changed) and package the project:
 
 ```sh
 sam build
@@ -329,7 +331,7 @@ And we may get our random password by curl-ing our API Gateway:
 curl https://0rppnkrtgg.execute-api.us-east-2.amazonaws.com/Prod/hello/
 ```
 
-## Cleaning up
+## Cleaning up.
 
 As soon as you're done, you amy clean up everything using the following command to delete CloudFormation stack:
 
@@ -343,6 +345,6 @@ And the following command to delete your bucket and artifacts:
 aws s3 rb s3://my-sam-app-6rz4m --force
 ```
 
-## Conclution
+## Conclution.
 
 Hope, after looking throught this article you got better understanding of development worflow where SAM is involved.
