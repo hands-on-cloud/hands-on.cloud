@@ -27,26 +27,28 @@ Everything will be done using [Serveless framework](https://serverless.com/). Al
 
 Part 2 of this article is available [here](https://hands-on.cloud/serverless-framework-run-your-kubernetes-workloads-on-amazon-ec2-spot-instances-with-amazon-eks-part-2/).
 
-## Architecture
+## Architecture.
 
 We will reproduce Rupak’s idea, but make it working in AWS EKS cluster on top of Spot instances.
 
 {{< my-picture name="Serverless-Framework-Lambda-and-EKS-cluster-integration-on-top-of-Spot-instances-Architecture" >}}
 
-**Workflow description**
+Workflow description:
 
-- User uploads video file in S3 bucket
-- Lambda function triggered and launch Kubernetes Job in EKS cluster
-- Job extract thumbnail from the video file and upload it to another S3 bucket
-- Next lambda function triggered for future integration (it may send us email, trigger another Kubernetes Job, make some changes in DB, etc).
+* User uploads video file in S3 bucket.
+* Lambda function triggered and launch Kubernetes Job in EKS cluster.
+* Job extract thumbnail from the video file and upload it to another S3 bucket.
+* Next lambda function triggered for future integration (it may send us email, trigger another Kubernetes Job, make some changes in DB, etc).
 
-## Building up infrastructure
+## Building up infrastructure.
 
 Let’s create a new folder and init our project:
 
 ```sh
 mkdir aws-eks-spot-instances-serverless-framework-demo
+
 cd aws-eks-spot-instances-serverless-framework-demo
+
 sls create -t aws-nodejs -n aws-eks-spot-serverless-demo
 ```
 
@@ -70,7 +72,7 @@ See [Variables](https://serverless.com/framework/docs/providers/aws/guide/variab
 
 {{< my-picture name="Serverless-Framework-EKS-Project-Setup" >}}
 
-## Upload Lambda function
+## Upload Lambda function.
 
 When we initiated the Serverless project `hello` lambda function definition been created for us automatically. Let’s rename this function and it’s file to something more meaningful and tie the function with just created S3 bucket.
 
@@ -135,7 +137,7 @@ You may deploy your changes to check if everything’s fine:
 sls deploy
 ```
 
-## Thumbnais Lambda function
+## Thumbnais Lambda function.
 
 We’ve just created S3 bucket for video uploads and Lambda function, which should react on that events somehow. As you may remember, we also should have another pair of S3 bucket where we want to store video thumbnails and Lambda function which may be used for notifications or further flow control. Let’s create them now:
 
@@ -163,11 +165,11 @@ Let’s redeploy our stack to make sure, we did not miss anything:
 sls deploy
 ```
 
-## EKS cluster setup
+## EKS cluster setup.
 
 Now it’s time to create our EKS AWS managed Kubernetes cluster with spot instances. In this tutorial we’ll create a separate VPC with two public subnets in it for spot instances, so everybody could be on the same page.
 
-### Creating VPC
+### Creating VPC.
 
 First of all let’s create a [AWS::EC2::VPC](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc.html) resource. In `resources:` section of `serverless.yaml` file we need to write:
 
@@ -295,7 +297,7 @@ We did a great job! Let’s redeploy our stack to make sure, that everything’s
 sls deploy
 ```
 
-### Creating Kubernetes Master
+### Creating Kubernetes Master.
 
 This is where the AWS EKS service comes into play. It requires a few managed resources beforehand so that Kubernetes can properly manage other AWS services as well as allow inbound networking communication from your local workstation (if desired) and worker nodes.
 
@@ -417,7 +419,7 @@ As soon as Kubernetes cluster deployment finishes, we need to create `~/.kube/co
 aws eks update-kubeconfig --name $(sls info --verbose | grep 'stack:' | awk '{split($0,a," "); print a[2]}')
 ```
 
-### Kubectl installation
+### Kubectl installation.
 
 Install `kubectl` and `aws-iam-authenticator` as described in official AWS article [Configure kubectl for Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html).
 
@@ -427,7 +429,7 @@ Now we may test connection to Kubernetes cluster:
 kubectl get svc
 ```
 
-### Connecting Spot instances to the cluster
+### Connecting Spot instances to the cluster.
 
 First of all we need to create a [AWS::IAM::Role](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html) where all necessary permissions would be specified:
 
@@ -741,7 +743,7 @@ SpotNodeLaunchConfig:
             - "\n"
             - 'DNS_CLUSTER_IP=10.100.0.10'
             - "\n"
-            - 'if [[ $INTERNAL_IP == 10.* ]] ; then DNS_CLUSTER_IP=172.20.0.10; fi'
+            - 'if [[ $INTERNAL_IP == 10.* ]] ; then DNS_CLUSTER_IP=172.20.0.10; fi'#.
             - "\n"
             - 'sed -i s,DNS_CLUSTER_IP,$DNS_CLUSTER_IP,g  /etc/systemd/system/kubelet.service'
             - "\n"
@@ -803,7 +805,7 @@ sls deploy
 kubectl get nodes --watch
 ```
 
-## Cleaning up
+## Cleaning up.
 
 To cleanup everything all you need to do is to run the following command to destroy the infrastructure:
 
@@ -811,7 +813,7 @@ To cleanup everything all you need to do is to run the following command to dest
 sls remove
 ```
 
-## Final words
+## Final words.
 
 OK, I guess it’s enough for the first part. You did a great job!
 

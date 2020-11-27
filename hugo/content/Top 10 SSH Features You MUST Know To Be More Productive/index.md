@@ -12,7 +12,7 @@ authors:
 
 In this article, you’ll find many useful SSH features and tricks to improve your daily productivity. Our visuals will help you to understand SSH setup, configuration file management, authentication, working with multiple SSH keys, and of course, SSH local and remote port forwarding. Become an SSH master in 10 minutes!
 
-## What Is SSH
+## What Is SSH.
 
 Secure Shell, or SSH, is a network protocol that allows you securely connect to a remote server and use a console interface to manage it.
 
@@ -22,7 +22,7 @@ When you establish an SSH connection, the server starts a shell session for you.
 
 System administrators use this protocol to connect and manage remote Linux servers securely.
 
-## How Does SSH Work
+## How Does SSH Work.
 
 As any network application, SSH uses two components:
 
@@ -31,14 +31,14 @@ As any network application, SSH uses two components:
 
 {{< my-picture name="How does SSH Work" >}}
 
-## SSH Authentication
+## SSH Authentication.
 
 SSH allows you to use multiple different authentication methods. The most widely used are:
 
-* **Password Authentication** - you’re asked for the username and password to get access to the remote host
-* **SSH Key-Based Authentication** - you’re using SSH Public and Private keys for user authentication
+* **Password Authentication** - you’re asked for the username and password to get access to the remote host.
+* **SSH Key-Based Authentication** - you’re using SSH Public and Private keys for user authentication.
 
-### SSH Key-Based Authentication
+### SSH Key-Based Authentication.
 
 This authentication method is considered to be more secure than using passwords. Here’s how it works:
 
@@ -46,18 +46,18 @@ This authentication method is considered to be more secure than using passwords.
 
 SSH Key-Based Authentication algorithm:
 
-* The client initiates SSH connection
-* The server sends a random message back
-* The client encrypts the received message using a **_private SSH key_** and sends it back to the server
-* The server decrypts the client’s message using a **_public SSH key_**. If the message is the same, the server grants access
+* The client initiates SSH connection.
+* The server sends a random message back.
+* The client encrypts the received message using a **_private SSH key_** and sends it back to the server.
+* The server decrypts the client’s message using a **_public SSH key_**. If the message is the same, the server grants access.
 
 Using password authentication in SSH is not secure. If you’re still using password authentication, you need to change it to SSH Key-Based Authentication ASAP.
 
-## How To Install An SSH Client
+## How To Install An SSH Client.
 
 In most Linux systems and macOS, the SSH server is already installed available for you by default. But if you’re playing with Linux in your virtual machine, you may require to install it.
 
-### Ubuntu
+### Ubuntu.
 
 For deb-based Linux distributions, you can install SSH client using the following commands:
 
@@ -66,7 +66,7 @@ sudo apt-get update
 sudo apt-get -y install openssh-client
 ```
 
-### CentOS, Fedora, RedHat
+### CentOS, Fedora, RedHat.
 
 For yum-based Linux distributions, you can install SSH client using the following commands:
 
@@ -76,7 +76,7 @@ sudo systemctl enable sshd
 sudo systemctl start sshd
 ```
 
-### Windows
+### Windows.
 
 For the Windows operation system, [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) became a standard de-facto SSH client. To install it, download the MSI installer from the link above and follow the instructions from [How to Install PuTTY on Windows](https://www.ssh.com/ssh/putty/windows/install).  
 
@@ -92,11 +92,11 @@ choco install putty -y
 
 {{< my-picture name="Windows 10 - PuTTY" >}}
 
-## How To Install An SSH Server
+## How To Install An SSH Server.
 
 In most Linux systems and macOS, SSH client is already installed available for you by default. But if you’re playing with Linux in your virtual machine, you may require to install it.
 
-### SSH Server - Ubuntu
+### SSH Server - Ubuntu.
 
 For deb-based Linux distributions, you can install SSH client using the following commands:
 
@@ -107,7 +107,7 @@ sudo systemctl enable sshd
 sudo systemctl start sshd
 ```
 
-### SSH Server - CentOS, Fedora, RedHat
+### SSH Server - CentOS, Fedora, RedHat.
 
 For yum-based Linux distributions, you can install SSH client using the following commands:
 
@@ -117,11 +117,11 @@ sudo systemctl enable sshd
 sudo systemctl start sshd
 ```
 
-### SSH Server - Windows
+### SSH Server - Windows.
 
 SSH server can not be installed on Windows. In the Windows world, you need to use Remote Desktop and [WinRM](https://www.computerperformance.co.uk/powershell/remote/) to control remote Windows servers.
 
-## Create SSH Key
+## Create SSH Key.
 
 As soon as you have the SSH client, you may create private and public SSH keys used for [SSH Key-Based Authentication](#ssh-key-based-authentication). To create an SSH key, run the following command in the terminal:
 
@@ -131,23 +131,23 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
 This command will create a 4 Kb RSA keypair:
 
-* `~/.ssh/id_rsa` - SSH Private Key
-* `~/.ssh/id_rsa.pub` - SSH Public Key
+* `~/.ssh/id_rsa` - SSH Private Key.
+* `~/.ssh/id_rsa.pub` - SSH Public Key.
 
 **Important:** The SSH Private Key file must never be shown or sent to anybody.
 
-## Set Up SSH Key-Based Authentication
+## Set Up SSH Key-Based Authentication.
 
 To set up SSH Key-Based Authentication on the server, you need to complete the following steps:
 
-* Login to the server
+* Login to the server.
 * Go to the user home directory.
-* Edit file `~/.ssh/authorized_keys` and paste the content of the **public key** file there
-* Save changes
+* Edit file **~/.ssh/authorized_keys** and paste the content of the **public key** file there.
+* Save changes.
 
-`~/.ssh/authorized_keys` may contain as many public key file records as you need. So, many different people can connect to the server using the same login name but their private key files.
+**~/.ssh/authorized_keys** may contain as many public key file records as you need. So, many different people can connect to the server using the same login name but their private key files.
 
-## How To Connect Using SSH
+## How To Connect Using SSH.
 
 You can connect to a remote Linux server using an SSH client by typing the following command:
 
@@ -157,11 +157,11 @@ ssh remote_username@host_ip_address
 
 {{< my-picture name="SSH - Session" >}}
 
-## Use Different SSH Keys For Different Servers
+## Use Different SSH Keys For Different Servers.
 
 It is a widespread situation when you may need to use different private SSH key files to access different servers. There are several ways how you can do it.
 
-### Specify SSH Key In Connection Command
+### Specify SSH Key In Connection Command.
 
 To specify a required private key as a part of SSH connection command use `-i` flag:
 
@@ -169,13 +169,13 @@ To specify a required private key as a part of SSH connection command use `-i` f
 ssh -i ~/.ssh/another_private_key remote_username@host_ip_address
 ```
 
-### Use An SSH Agent
+### Use An SSH Agent.
 
 If you have not too many private keys, you can use an SSH Agent.
 
 SSH Agent is a program, which loads your private SSH key in memory and uses them to pass SSH authentication.
 
-**Linux**
+**Linux**.
 
 Start the ssh-agent in the background:
 
@@ -190,7 +190,7 @@ ssh-add -K ~/.ssh/id_rsa
 ssh-add -K ~/.ssh/another_private_key
 ```
 
-**Windows**
+**Windows**.
 
 The PuTTY distribution contains Pagent, which sits in the system tray and plays the same role. Right-click on Pagent and add your SSH key.
 
@@ -198,7 +198,7 @@ The PuTTY distribution contains Pagent, which sits in the system tray and plays 
 
 Now, the SSH client will use all loaded private keys one by one to pass authentication during the SSH connection.
 
-### SSH Configuration File
+### SSH Configuration File.
 
 Another useful way to configure SSH client parameters is through the `~/.ssh/config` file.
 
@@ -215,7 +215,7 @@ Host exceptional.com
 
 In the example above, we are using the default `~/.ssh/id_rsa` private key file for all the servers, except the `exceptional.com` server. For the `exceptional.com` server, we’ll use `~/.ssh/another_private_key` file.
 
-## SSH Agent and Key Forwarding
+## SSH Agent and Key Forwarding.
 
 Another favorite SSH feature I’m using on a daily basis is SSH key forwarding. It allows you to use your local SSH keys to connect to different servers.
 
@@ -237,7 +237,7 @@ Host *
 
 {{< my-picture name="How does SSH ForwardAgent Work" >}}
 
-## SSH Port Forwarding
+## SSH Port Forwarding.
 
 SSH protocol allows you to forward not only SSH Agent communication through a secure SSH channel but any TCP traffic.
 
@@ -245,7 +245,7 @@ If you need to [forward UDP traffic](https://superuser.com/a/53109), use `nc` in
 
 There’re two types of port forwarding options.
 
-### Local Port Forwarding
+### Local Port Forwarding.
 
 The best way to explain SSH local port forwarding is by taking a look at the following diagram.
 
@@ -271,7 +271,7 @@ If you’re using PuTTY, you need to make changes in **Connections** - **SSH** -
 
 {{< my-picture name="PuTTY - SSH Local Port Forwarding" >}}
 
-### Remote Port Forwarding
+### Remote Port Forwarding.
 
 SSH remote port forwarding is a bit more exciting feature that solves the opposite problem. It allows you to bind the port on the remote ssh server and forward traffic coming to that port to the networks behind the SSH client host.
 
@@ -299,7 +299,7 @@ For PuTTY and Windows hosts:
 
 {{< my-picture name="PuTTY - SSH Remote Port Forwarding" >}}
 
-## Summary
+## Summary.
 
 In this article, I covered many useful SSH features, which I’m using in my daily work. I hope you’ll start using them too. If something is not clear, please, reach me out in the comments section below. I’ll be more than happy to assist.
 

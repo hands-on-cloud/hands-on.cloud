@@ -7,7 +7,7 @@ BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
 ARTICLES_DIR = os.path.join(PROJECT_DIR, 'hugo', 'content')
 
-ALLOWED_FINAL_CHARS = '.:\\);'
+ALLOWED_FINAL_CHARS = '.:\\);!?'
 
 def test_article_headlines_ending_on_dots():
     articles_list = os.listdir(ARTICLES_DIR)
@@ -24,6 +24,7 @@ def test_article_headlines_ending_on_dots():
                 if result:
                     if not line[-1] in ALLOWED_FINAL_CHARS:
                         print(f'{article_name} ==> ' + line)
+                        assert False
     assert True
 
 def test_article_lists_ending_on_dots():
@@ -41,6 +42,7 @@ def test_article_lists_ending_on_dots():
                 if result:
                     if not line[-1] in ALLOWED_FINAL_CHARS:
                         print(f'{article_name} ==> ' + line)
+                        assert False
     assert True
 
 if __name__ == '__main__':

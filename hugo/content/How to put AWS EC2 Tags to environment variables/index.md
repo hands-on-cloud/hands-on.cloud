@@ -14,7 +14,7 @@ authors:
 
 One of the most common tasks in infrastructure automation is environment discovery. Of cause, it can be done in many several ways. Todays’s advice is for people, who are using Terraform or CloudFormation in their daily job. I’ll show you, how to provide discovery information to you EC2 instances using AWS Tags.
 
-## Managing AWS tags
+## Managing AWS tags.
 
 It is possible to get references to the managed objects in both tools. So, we can use this ability to provide discovery information for example for our servers using AWS Tags.
 
@@ -117,7 +117,7 @@ CloudFormation example:
 
 Well, that’s how you’re providing some discovery information to your instances using Tags.
 
-## Put EC2 tags to Linux environment variables
+## Put EC2 tags to Linux environment variables.
 
 First of all you need to add you instance permissions for launching aws cli command. Create AWS IAM Role for your EC2 instances with the following Policy:
 
@@ -172,6 +172,6 @@ tags_to_env "$instance_tags"
 
 Here we’re getting AWS Region information from the MetaData service, getting AWS Instance and AMI Tags for EC2 instance by it’s InstanceId and AmiId. And using [jq](https://stedolan.github.io/jq/) utility to extract right values from JSON response of `aws` cli command.
 
-## Final words
+## Final words.
 
 That’s it for now. Hope, this help you to save some time automating your AWS infrastructure.

@@ -24,47 +24,49 @@ You can find full configuration and code in my [GitHub repo](https://github.com/
 
 In [part 2](https://hands-on.cloud/serverless-framework-building-web-app-using-aws-lambda-amazon-api-gateway-s3-dynamodb-and-cognito-part-2/) of this post you’ll find how to replace API Gateway resources created in this article to Serverless framework `events`.
 
-## Application architecture
+## Application architecture.
 
 Sure, to allow you to see all details in the same place, we need to copy some content from the original tutorial. So, our app will consist of:
 
-- **Static Web Hosting** – Amazon S3 hosts static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user’s browser.
-- **User Management** – Amazon Cognito provides user management and authentication functions to secure the backend API.
-- **Serverless Backend** – Amazon DynamoDB provides a persistence layer where data can be stored by the API’s Lambda function.
-- **RESTful API** – JavaScript executed in the browser sends and receives data from a public backend API built using Lambda and API Gateway.
+* **Static Web Hosting** – Amazon S3 hosts static web resources including HTML, CSS, JavaScript, and image files which are loaded in the user’s browser.
+* **User Management** – Amazon Cognito provides user management and authentication functions to secure the backend API.
+* **Serverless Backend** – Amazon DynamoDB provides a persistence layer where data can be stored by the API’s Lambda function.
+* **RESTful API** – JavaScript executed in the browser sends and receives data from a public backend API built using Lambda and API Gateway.
 
 I’ll keep the same modules structure for consistency:
 
-- Static Web Hosting
-- User Management
-- Serverless Backend
-- RESTful APIs
-- Resource Termination and Next Steps
+* Static Web Hosting.
+* User Management.
+* Serverless Backend.
+* RESTful APIs.
+* Resource Termination and Next Steps.
 
-## Project setup
+## Project setup.
 
 First of all, if you do not have Serverless framework installed, please, follow their Quick Start guide. As soon as Serverless framework installed, we’re ready to start. Let’s create project directory and create a Serverless project template:
 
 ```sh
 mkdir wild-rides-serverless-demo
+
 cd wild-rides-serverless-demo
+
 sls create -t aws-nodejs -n wild-rides-serverless-demo
 ```
 
 At this moment of time you’ll see two file inside our project directory:
 
-- `handler.js` – this file contains demo Lambda function code
-- `serverless.yaml` – this file contains Serverless project deployment configuration
+* **handler.js** – this file contains demo Lambda function code.
+* **serverless.yaml** – this file contains Serverless project deployment configuration.
 
 Before continue this tutorial I strongly recommend to spend 30 minutes on looking through Serverless framework AWS [documentation](https://serverless.com/framework/docs/providers/aws/guide/).
 
-## Static web hosting
+## Static web hosting.
 
 In this module we’ll configure Amazon Simple Storage Service (S3) to host the static resources for our web application. In subsequent modules we’ll add dynamic functionality to these pages using JavaScript to call remote RESTful APIs built with AWS Lambda and Amazon API Gateway.
 
-## Create S3 bucket
+## Create S3 bucket.
 
-To do so, first let’s uncomment `resources:` section of the `serverless.yaml` file and change the name of [S3 bucket](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html) to something like `wildrydes-firstname-lastname` (because S3 buckets must be globally unique). Also I changed `NewResource:` CloudFormation resource name to `WildRydesBucket`.
+To do so, first let’s uncomment **resources**: section of the **serverless.yaml** file and change the name of [S3 bucket](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html) to something like **wildrydes-firstname-lastname** (because S3 buckets must be globally unique). Also I changed **NewResource** CloudFormation resource name to **WildRydesBucket**.
 
 ```yaml
 resources:
@@ -83,7 +85,7 @@ sls deploy
 
 This command will deploy demo lambda function, which was created by Serverless framework by default, and create our S3 bucket.
 
-## Upload static content
+## Upload static content.
 
 To upload Wild Rides website static content to our S3 bucket, we need to clone aws-serverless-workshops repository:
 
@@ -105,7 +107,7 @@ rm -Rf ./aws-serverless-workshops
 
 {{< my-picture name="Serverless-Framework-Copy-Static-Website-Content" >}}
 
-## Add bucket policy to allow public reads
+## Add bucket policy to allow public reads.
 
 Now we need to specify [S3 bucket policy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html). To do so, add the following content to `resources:` section of `serverless.yaml` file:
 
@@ -137,7 +139,7 @@ Deploy your changes:
 sls deploy
 ```
 
-## Enable static website hosting
+## Enable static website hosting.
 
 As soon as we specified right bucket policy, we need to enable static website hosting for our bucket. To do so, we need to add `WebsiteConfiguration:` to our `WildRydesBucket:` resource declaration:
 
@@ -170,7 +172,7 @@ You may open your website URL in the browser to check, that everything’s deplo
 
 {{< my-picture name="Serverless-Framework-S3-Static-Website-Deployed" >}}
 
-## User management
+## User management.
 
 In this module we’ll create an Amazon Cognito user pool to manage our users’ accounts. We’ll also deploy pages that enable customers to register as a new user, verify their email address, and sign into the site.
 
@@ -178,12 +180,12 @@ After users submit their registration, Amazon Cognito will send a confirmation e
 
 After users have a confirmed account (either using the email verification process or a manual confirmation through the console), they will be able to sign in. When users sign in, they enter their username (or email) and password. A JavaScript function then communicates with Amazon Cognito, authenticates using the Secure Remote Password protocol (SRP), and receives back a set of JSON Web Tokens (JWT). The JWTs contain claims about the identity of the user and will be used in the next module to authenticate against the RESTful API you build with Amazon API Gateway.
 
-## Create AWS Cognito user pool
+## Create AWS Cognito user pool.
 
 Amazon Cognito provides two different mechanisms for authenticating users:
 
-- we can use Cognito User Pools to add sign-up and sign-in functionality to your application or use Cognito Identity Pools to authenticate users through social identity providers such as Facebook, Twitter, or Amazon, with SAML identity solutions
-- we can use our own identity system.
+* we can use Cognito User Pools to add sign-up and sign-in functionality to your application or use Cognito Identity Pools to authenticate users through social identity providers such as Facebook, Twitter, or Amazon, with SAML identity solutions.
+* we can use our own identity system.
 
 Here we’ll use a user pool as the backend for the provided registration and sign-in pages. First, let’s create [Cognito User Pool](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html) by adding it’s declaration to `resources:` section of our `serverless.yaml` file:
 
@@ -202,7 +204,7 @@ Let’s deploy our changes:
 sls deploy
 ```
 
-## Add app to your user pool
+## Add app to your user pool.
 
 Next, we need to create [Cognito User Pool Client](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html). I do not understand, why they call it App Client in web console. To do so, as usual, we need to add new resource to resource: section in serverless.yaml file:
 
@@ -224,7 +226,7 @@ Let’s deploy our changes:
 sls deploy
 ```
 
-## Update config.js file in your website bucket
+## Update config.js file in your website bucket.
 
 In this section of AWS tutorial they’re asking us to make changes in `js/config.js` file. More over, we’ll need `userPoolId` and `userPoolClientId`. As we’re not using web console, let’s request them as `Outputs:` in our `serverless.yaml` file:
 
@@ -269,7 +271,7 @@ Save the file and upload it back:
 aws s3 cp ./config.js s3://wildrydes-firstname-lastname/js/config.js
 ```
 
-## Validate your implementation
+## Validate your implementation.
 
 Now we’re ready to validate our Cognito configuration. I’ll not copy-paste it from AWS tutorial. Here’s the [link](https://aws.amazon.com/getting-started/projects/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/module-2/). You need last step and manual user verification. It means, when you’ll register new user:
 
@@ -287,7 +289,7 @@ After user confirmation, we’re able to login using `/signin.html` page where w
 
 {{< my-picture name="Serverless-Framework-Cognito-User-Pool-Client-Testing-Login" >}}
 
-## Serverless service backend
+## Serverless service backend.
 
 In this module we’ll use AWS Lambda and Amazon DynamoDB to build a backend process for handling requests for your web application. The browser application that you deployed in the previous step allows users to request that a unicorn be sent to a location of their choice. In order to fulfill those requests, the JavaScript running in the browser will need to invoke a service running in the cloud.
 
@@ -295,7 +297,7 @@ You’ll implement a Lambda function that will be invoked each time a user reque
 
 The function is invoked from the browser using Amazon API Gateway.
 
-## Create AWS DynamoDB table
+## Create AWS DynamoDB table.
 
 As in the original tutorial we’ll call your table `Rides` and give it a partition key called `RideId` with type String. To do so, we need to add the [DynamoDB](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html) resource to `resources:` section of `serverless.yaml` file:
 
@@ -334,7 +336,7 @@ WildRydesDynamoDbARN:
 
 {{< my-picture name="Serverless-Framework-DynamoDB-Configuration-ARN" >}}
 
-## Create IAM role for Lambda runction
+## Create IAM role for Lambda runction.
 
 Every Lambda function has an IAM role associated with it. This role defines what other AWS services the function is allowed to interact with. For the purposes of this tutorial, you’ll need to create an IAM role that grants your Lambda function permission to write logs to Amazon CloudWatch Logs and access to write items to your DynamoDB table.
 
@@ -385,7 +387,7 @@ You may redeploy our stack, if you want to:
 sls deploy
 ```
 
-## Create Lambda function for handling requests
+## Create Lambda function for handling requests.
 
 Woohoo! It’s time to create a our Lambda function and grant it with appropriate privileges to have access to our DynamoDB! Let’s start from the Lambda function itself. Yes, we’re changing original tutorial order a little bit and create Lambda function first. In the next section, I’ll show you, how you can easily attach necessary permissions.
 
@@ -414,7 +416,7 @@ Now it is definitely a time to redeploy our stack:
 sls deploy
 ```
 
-## Validate your implementation
+## Validate your implementation.
 
 To validate our current service implementation we need to follow official instructions from AWS tutorial. Let’s open our Lambda function in AWS console. As you can see, it has permissions to access to CloudWatch and DynamoDB.
 
@@ -454,13 +456,13 @@ Click **Test** button once more again to see successful test results:
 
 {{< my-picture name="Serverless-Framework-Lambda-Function-Testing-Results" >}}
 
-## Restful APIs
+## Restful APIs.
 
 Now it’s time to use [Amazon API Gateway](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html) to expose the Lambda function you built in the previous steps as a RESTful API. This API will be accessible on the public Internet. It will be secured using the Amazon Cognito user pool you created in the previously. Using this configuration you will then turn your statically hosted website into a dynamic web application by adding client-side JavaScript that makes AJAX calls to the exposed APIs.
 
 The static website you deployed in the first steps already has a page configured to interact with the API you’ll build in this module. The page at `/ride.html` has a simple map-based interface for requesting a unicorn ride. After authenticating using the `/signin.html` page, your users will be able to select their pickup location by clicking a point on the map and then requesting a ride by choosing the “Request Unicorn” button in the upper right corner.
 
-## Create new REST API
+## Create new REST API.
 
 All we need to do now – is to specify [Amazon API Gateway REST API](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-restapi.html) resource:
 
@@ -482,7 +484,7 @@ Redeploy your stack to get AWS Api Gateway up and running.
 sls deploy
 ```
 
-## Create Cognito user pools authorizer
+## Create Cognito user pools authorizer.
 
 Amazon API Gateway can use the JWT tokens returned by Cognito User Pools to authenticate API calls. In this step you’ll configure an authorizer for your API to use the user pool you created earlier. First of all we need to create [ApiGateway Authorizer](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-authorizer.html) in our `resources:` section in `serverless.yaml` file:
 
@@ -523,7 +525,7 @@ If you did everything correctly, you’ll see successful response:
 
 {{< my-picture name="Serverless-Framework-API-Gateway-Authorizer-Test-Result" >}}
 
-## Create new resource and method
+## Create new resource and method.
 
 Next we need to create a new [API Gateway Resource](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-resource.html) called `/ride` within your API. Then create a **POST** [API Gateway Method](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html) for that resource and configure it to use a Lambda proxy integration backed by the RequestUnicorn Lambda function.
 
@@ -619,7 +621,7 @@ WildRydesRidePostMethod:
 
 This will create protected by API Gateway authorization POST method, which will call Lambda function for authorized users.
 
-## Create your API deployment
+## Create your API deployment.
 
 Mostly we’re done. All we need to do is to create [API Gateway Deployment](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-deployment.html) to publish our API. Here it is:
 
@@ -643,7 +645,7 @@ Let’s redeploy our stack to check that everything’s working as expected:
 sls deploy
 ```
 
-## Global stage declaration
+## Global stage declaration.
 
 Definitely we want to add global stage declaration, but not only for a single resource. To do so, add `stage:` parameter declared in the same way to `provider:` section:
 
@@ -656,7 +658,7 @@ provider:
 
 {{< my-picture name="Serverless-Framework-Global-Stage-Declaration" >}}
 
-## Updating website config
+## Updating website config.
 
 Most of the work done. At this section we’ll complete our website configuration (`config.js` file which is still in our project folder). But first of all let’s get API Gateway Deployment URL. Specify this declaration of your `Outputs:` of `resources:` section:
 
@@ -694,7 +696,7 @@ aws s3 cp ./config.js s3://wildrydes-firstname-lastname/js/config.js
 rm ./config.js
 ```
 
-## Validate your implementation
+## Validate your implementation.
 
 All we need to do here, is to visit `/ride.html` and click anywhere on the map to set a pickup Unicorn location.
 
@@ -702,7 +704,7 @@ All we need to do here, is to visit `/ride.html` and click anywhere on the map t
 
 Choose **Request Unicorn**. You should see a notification in the right sidebar that a unicorn is on its way and then see a unicorn icon fly to your pickup location.
 
-## Resource cleanup
+## Resource cleanup.
 
 To cleanup everything you need to call
 

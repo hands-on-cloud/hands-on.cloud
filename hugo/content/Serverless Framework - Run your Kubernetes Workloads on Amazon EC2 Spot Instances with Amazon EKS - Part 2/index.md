@@ -23,7 +23,7 @@ In this article we will accomplish automation of converting video files uploaded
 
 All sources available on my [GitHub project](https://github.com/andreivmaksimov/aws-eks-spot-instances-serverless-framework-demo/tree/part2).
 
-## Restoring EKS cluster
+## Restoring EKS cluster.
 
 If you shutdown your Kubernetes cluster, it’s a good time to launch it again. All you need to do is to get source code we created in previous article from [my GitHub project](https://github.com/andreivmaksimov/aws-eks-spot-instances-serverless-framework-demo):
 
@@ -165,7 +165,7 @@ You may need to reboot\recreate already launched by Auto Scaling group instances
 
 {{< my-picture name="Serverless-Framework-EKS-Create-Cluster-Step-3-Restarting-Workers" >}}
 
-## Creating Lambda function
+## Creating Lambda function.
 
 As an example we’ll take [lambda-kubectl](https://github.com/tmuskal/lambda-kubectl) GitHub project. But instead of writing bash scripts, we’ll use [serverless packaging feature](https://serverless.com/framework/docs/providers/aws/guide/packaging/).
 
@@ -409,7 +409,7 @@ And, yes, I did not build my personal Docker container, but used [Rupak’s](htt
 
 Hope, you’ve already checked his article and I do not need to prove, that his solution working.
 
-## Cleaning up
+## Cleaning up.
 
 To cleanup everything all you need to do is to run the following command to destroy the infrastructure:
 
@@ -417,13 +417,13 @@ To cleanup everything all you need to do is to run the following command to dest
 sls remove
 ```
 
-## Future improvements
+## Future improvements.
 
 - Using this approach you can launch just only one lambda function, as it’s name hardcoded in job_description variable. To overcome this “problem” you need either delete previously run function, either generate timestamp or id to make your function name unique.
 - Sure, we need to refactor the code a little bit (DRY principle)
 - Also, you may want to create a Thumbnails Lambda function which can do something with uploaded thumbnails.
 
-## Final words
+## Final words.
 
 Passing through both of my articles we’ve learned:
 

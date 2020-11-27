@@ -28,12 +28,12 @@ Lambda Dead Letter Queue (DLQ) is a special feature, which was [released](https:
 
 Currently, you have 2 options to process is the information:
 
-* SQS
-* SNS
+* SQS.
+* SNS.
 
 {{< my-picture name="Dead Letter Queue Options" >}}
 
-## SQS as Dead Letter Queue
+## SQS as Dead Letter Queue.
 
 Using SQS as a Lambda DLQ allows you to have a durable store for failed events that can be monitored and picked up for resolution at your convenience. You can process information about Lambda failure events in bulk, have a defined wait period before re-triggering the original event, or you may do something else instead.
 
@@ -42,20 +42,20 @@ Here’s how it works:
 {{< my-picture name="Using SQS And SNS For Lambda Dead Letter Queues-SQS" max_width="50%" >}}
 
 * Lambda receives any information from AWS service from the service itself or Eventbridge.
-* Lambda attempts to do something meaningful in response to the event, but fails
-* Incoming event information (JSON document) is sent it DLQ if it is configured
-* CloudWatch Alarm may be configured and triggered if the number of messages in SQS is greater than a certain limit
+* Lambda attempts to do something meaningful in response to the event, but fails.
+* Incoming event information (JSON document) is sent it DLQ if it is configured.
+* CloudWatch Alarm may be configured and triggered if the number of messages in SQS is greater than a certain limit.
 
-### SQS Pros
+### SQS Pros.
 
-* Bulk processing - you may collect error messages in the queue and process them in a bulk later
-* Guaranteed delivery - messages deleted from the queue only when they are processed by some other process or after 14 days by timeout
+* Bulk processing - you may collect error messages in the queue and process them in a bulk later.
+* Guaranteed delivery - messages deleted from the queue only when they are processed by some other process or after 14 days by timeout.
 
-### SQS Cons
+### SQS Cons.
 
-* Not event-driven - messages must be pulled from the queue
+* Not event-driven - messages must be pulled from the queue.
 
-## SNS as Dead Letter Queue
+## SNS as Dead Letter Queue.
 
 SNS or Simple Notification Service from the other side is a key part of any event-driven architecture in AWS. It allows you to process its events almost instantaneously and fan them out to multiple subscribers.
 
@@ -66,22 +66,22 @@ Here’s how it works:
 {{< my-picture name="Using SQS And SNS For Lambda Dead Letter Queues-SNS" >}}
 
 * Lambda receives any information from AWS service from the service itself or Eventbridge.
-* Lambda attempts to do something meaningful in response to the event, but fails
-* Incoming event information (JSON document) is sent it DLQ if it is configured
-* SNS immediately sends the incoming message to multiple destinations
+* Lambda attempts to do something meaningful in response to the event, but fails.
+* Incoming event information (JSON document) is sent it DLQ if it is configured.
+* SNS immediately sends the incoming message to multiple destinations.
 
 The advantage of using SNS is its ability to send messages to multiple subscribers almost instantaneously in parallel.
 
-### SNS Pros
+### SNS Pros.
 
-* Event-driven: SNS will take action instantly upon receiving a message
+* Event-driven: SNS will take action instantly upon receiving a message.
 * Fan-out: SNS allows multiple actions to be taken by different subscribers at the same time in parallel.
 
-### SNS Cons
+### SNS Cons.
 
-* SNS is non-durable storage - it will delete received event in 1 hour if it was not processed by any reason
+* SNS is non-durable storage - it will delete received event in 1 hour if it was not processed by any reason.
 
-### Terraform implementation
+### Terraform implementation.
 
 Here’s Terraform implementation of using SNS as Lambda DLQ. Complete source code including scripts and Lambda function is available at [our GitHub](https://github.com/hands-on-cloud/hands-on.cloud/tree/master/hugo/content/Using%20SNS%20And%20SQS%20As%20Target%20For%20AWS%20Lambda%20Dead%20Letter%20Queue/src) repository:
 
@@ -227,7 +227,7 @@ resource "aws_cloudwatch_metric_alarm" "lambda_exceptions" {
 }
 ```
 
-## Resume
+## Resume.
 
 In this article, we covered differences in the usage of SNS and SQS as targets for your Lambda functions.
 

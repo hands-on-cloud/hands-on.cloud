@@ -22,7 +22,7 @@ I did not like the result we’ve got in first article. And decided to make it m
 
 You may find the final result, which we got at the end of the previous post at my GitHub repository. Please, use tag v1.0 as a starting point. Final result is available at tag v2.0.
 
-## Replacing API Gateway resources
+## Replacing API Gateway resources.
 
 First thing we need to do is to comment all resources, which has `Type: AWS::ApiGateway::*` in `serverless.yaml` file:
 
@@ -145,13 +145,13 @@ Redeploy the stack, if you did not do it earlier:
 sls deploy
 ```
 
-## Testing
+## Testing.
 
 Now our application is up and running. All we need to do is to verify its functionality by opening the `WildRydesBucketURL`, registering new user using `/register.html` URL, verifying user manually using Cognito web interface and logging in using `/ride.html` URL. The whole testing process is described in my [first post](https://hands-on.cloud/serverless-framework-building-web-app-using-aws-lambda-amazon-api-gateway-s3-dynamodb-and-cognito-part-1/) and [original AWS](https://aws.amazon.com/getting-started/projects/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/) tutorial.
 
 {{< my-picture name="Serverless-Framework-Deployed-Web-Application-End-Result" >}}
 
-## Result
+## Result.
 
 Let remove all commented sections and take a look under the final result:
 
@@ -292,7 +292,7 @@ resources:
 
 As you can see, now we have much less code.
 
-## Resource cleanup
+## Resource cleanup.
 
 To cleanup everything you need to call
 
@@ -301,6 +301,6 @@ aws s3 rm s3://wildrydes-firstname-lastname --recursive
 sls remove
 ```
 
-## Final words
+## Final words.
 
 Hope, you’ve found this article helpful. If you have any questions, please, feel free to ask them in comments section. Also, you may find additional example of API Gateway integrations using Serverless framework in it’s [Events documentation](https://serverless.com/framework/docs/providers/aws/events/apigateway/#share-authorizer).

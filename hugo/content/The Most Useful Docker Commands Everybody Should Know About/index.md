@@ -14,7 +14,7 @@ authors:
 
 This tutorial covers the most often used Docker commands. We’re starting a brief Docker overview, then jumping to the installation of Docker to your server. Next, we’ll walk you through all required commands for managing Docker containers, images, and volumes. Become a professional Docker user by following this guide in 10 minutes.
 
-## What is Docker
+## What is Docker.
 
 {{< my-picture name="What is Docker" >}}
 
@@ -31,8 +31,8 @@ The container has the following characteristics:
 
 The features above allow you to:
 
-* Build isolated environments for deploying
-* Launch your applications in minutes
+* Build isolated environments for deploying.
+* Launch your applications in minutes.
 
 Docker helps you to simplify and automate every step of the software development process.
 
@@ -49,13 +49,13 @@ Here are the essential Docker features:
 
 You can install Docker on Linux, macOS, and Windows operating systems.
 
-## Install Docker
+## Install Docker.
 
 This section describes how to install the Docker CE (community edition) package on Linux operating system.
 
 If you’re using the AWS cloud, I suggest an article about [Docker’s automatic installation to the EC2 instance using CloudFormation](https://hands-on.cloud/cloudformation-tutorial-how-to-automate-ec2-instance-in-5-mins/).
 
-### Install Docker on Ubuntu/Debian
+### Install Docker on Ubuntu/Debian.
 
 {{< my-picture name="Docker Ubuntu" >}}
 
@@ -111,7 +111,7 @@ If you want to remove the Docker package from your system, run the following com
 apt-get remove docker-ce
 ```
 
-### Install Docker on CentOS/RHEL
+### Install Docker on CentOS/RHEL.
 
 {{< my-picture name="Docker Centos" >}}
 
@@ -184,11 +184,11 @@ If you want to remove the Docker package from your system, run the following com
 dnf remove docker-ce
 ```
 
-## Managing Containers With Docker
+## Managing Containers With Docker.
 
 The `docker container` command is used to manage the container lifecycle. If you do not have the image to run the container from, the Docker will go to the registry, download it.
 
-### Run Docker Container
+### Run Docker Container.
 
 Use the following syntax to download the image from the Docker registry and create a container.
 
@@ -212,7 +212,7 @@ You can use the option `--rm` with Docker run command to removes a container aft
 docker container run --rm httpd
 ```
 
-### Connect To Docker Container Shell
+### Connect To Docker Container Shell.
 
 You can use the option `-it` with Docker run command to create and start the Apache container, and attach to the interactive bash shell.
 
@@ -224,7 +224,7 @@ You should get the following output:
 
 {{< my-picture name="docker container run bash - command" >}}
 
-### Launch Docker Container In The Background
+### Launch Docker Container In The Background.
 
 You can now run any command inside the container.
 
@@ -238,7 +238,7 @@ You should get the following output:
 
 {{< my-picture name="docker container run background - command" >}}
 
-### Set Up Docker Container Name
+### Set Up Docker Container Name.
 
 You can use the option `--name` with Docker run command to assign a container name using the following syntax:
 
@@ -252,7 +252,7 @@ For example, create a new container from the Apache image and assign a name **ap
 docker container run --name apacheweb -td httpd
 ```
 
-### Bind Docker Container On The Specific Port
+### Bind Docker Container On The Specific Port.
 
 If you want to access the external machine’s container process, you can expose a container port to the external network.
 
@@ -270,7 +270,7 @@ docker container run -p 8080:80 --name apacheweb -dt httpd
 
 You can now access the apache webserver running inside the container using the URL **http://localhost:8080**.
 
-### List All Docker Containers
+### List All Docker Containers.
 
 To list all running and stopped container in your system, run the following command:
 
@@ -296,7 +296,7 @@ docker container ls
 
 {{< my-picture name="docker container ls - command" >}}
 
-### Display Docker Container Stats
+### Display Docker Container Stats.
 
 To display the live statistics of the running container (CPU and memory utilization, network and disk I/O) named **apacheweb**, run the following command:
 
@@ -308,7 +308,7 @@ You should see the following output:
 
 {{< my-picture name="docker stats - command" >}}
 
-### Display All Docker Container Processes
+### Display All Docker Container Processes.
 
 To list all running processes inside the running container named **apacheweb**, run the following command:
 
@@ -320,7 +320,7 @@ You should see the following output:
 
 {{< my-picture name="docker top - command" >}}
 
-### Display Docker Container Logs
+### Display Docker Container Logs.
 
 To display the logs of the running container named **apacheweb**, run the following command:
 
@@ -332,7 +332,7 @@ You should see the following output:
 
 {{< my-picture name="docker logs - command" >}}
 
-### Start, Stop, And Pause Docker Container
+### Start, Stop, And Pause Docker Container.
 
 To stop the running container named **apacheweb**, run the following command:
 
@@ -352,7 +352,7 @@ To pause the container named **apacheweb**, run the following command:
 docker container pause apacheweb
 ```
 
-### Restart Or Kill Docker Container
+### Restart Or Kill Docker Container.
 
 To restart the running container named **apacheweb**, run the following command:
 
@@ -366,7 +366,7 @@ To kill the running container named **apacheweb**, run the following command:
 docker container kill apacheweb
 ```
 
-### Attach To Already Running Docker Container
+### Attach To Already Running Docker Container.
 
 To connect to the running container, run the following command:
 
@@ -384,11 +384,11 @@ docker container exec -it apacheweb ls
 
 {{< my-picture name="docker container exec with output - command" >}}
 
-## Managing Docker Images
+## Managing Docker Images.
 
 In this section, we will show you some most commonly used commands to manage the Docker image.
 
-### Download Docker Image From The Registry
+### Download Docker Image From The Registry.
 
 To download or pull the image from the Docker registry, use the following syntax:
 
@@ -406,7 +406,7 @@ You should get the following output:
 
 {{< my-picture name="docker pull - command" >}}
 
-### Upload Docker Image To The Registry
+### Upload Docker Image To The Registry.
 
 If you want to upload an existing image to the Docker registry, use the following syntax:
 
@@ -414,7 +414,7 @@ If you want to upload an existing image to the Docker registry, use the followin
 docker push [image-name]
 ```
 
-**Login to Docker The Registry**
+**Login to Docker The Registry**.
 
 First, you will need to login into the Docker registry with the following command:
 
@@ -436,7 +436,7 @@ nginx               latest              f35646e83998        3 weeks ago         
 httpd               latest              3dd970e6b110        3 weeks ago         138MB
 ```
 
-**Add Tag To Docker Image**
+**Add Tag To Docker Image**.
 
 Next, tag the image with the following command:
 
@@ -458,7 +458,7 @@ You should see the following output:
 
 {{< my-picture name="docker tag push - command" >}}
 
-### Create Docker Image From Running Container
+### Create Docker Image From Running Container.
 
 You can also create an image from an existing container using the following syntax:
 
@@ -480,7 +480,7 @@ docker save apache-image > apache-image.tar
 
 {{< my-picture name="docker save image - command" >}}
 
-### History Of The Docker Image
+### History Of The Docker Image.
 
 You can print the history of any Docker image with the following command:
 
@@ -492,7 +492,7 @@ You should get the following output:
 
 {{< my-picture name="docker history - command" >}}
 
-### Delete Docker Image
+### Delete Docker Image.
 
 You can remove any Docker image using the following syntax:
 
@@ -521,13 +521,13 @@ docker rmi httpd
 
 Through the time, manually created images and containers may bring some mess to your server. Take a look to our [Docker FAQ](#docker-faq) to find out how to cleanup everything.
 
-## Managing Docker Volumes
+## Managing Docker Volumes.
 
 When you create a new container, store some data and delete the container then data will be lost. In this case, you can create a volume on the host system and start a container using this volume. After deleting the container, you can retrieve the data from the volume. You can also use Docker volume to share the data between multiple containers.
 
 In this section, we will some most commonly use `docker volume` commands with examples.
 
-### Create Docker Volume
+### Create Docker Volume.
 
 To create a new volume named **datavolume** with the following command:
 
@@ -535,7 +535,7 @@ To create a new volume named **datavolume** with the following command:
 docker volume create datavolume
 ```
 
-### List all Docker Volumes
+### List all Docker Volumes.
 
 To list your created volume, run the following command:
 
@@ -547,7 +547,7 @@ You should see the following output:
 
 {{< my-picture name="docker volume ls - command" >}}
 
-### Print Docker Volume Information
+### Print Docker Volume Information.
 
 To print more information about volume, run the following command:
 
@@ -559,7 +559,7 @@ You should see the following output:
 
 {{< my-picture name="docker inspect volume - command" >}}
 
-### Mount Volume To Docker Container
+### Mount Volume To Docker Container.
 
 To create a new container named apacheweb and mount the datavolume on the host system to the /mnt directory to the container, run the following command:
 
@@ -567,7 +567,7 @@ To create a new container named apacheweb and mount the datavolume on the host s
 docker run -it --name apacheweb1  --mount source=datavolume,destination=/mnt -td httpd
 ```
 
-### Remote Docker Volume
+### Remote Docker Volume.
 
 To remove the volume, run the following command:
 
@@ -575,9 +575,9 @@ To remove the volume, run the following command:
 docker volume rm datavolume
 ```
 
-## Docker FAQ
+## Docker FAQ.
 
-### How to delete unused Docker Images
+### How to delete unused Docker Images.
 
 To delete all unused docker images, you need to run the following command:
 
@@ -585,7 +585,7 @@ To delete all unused docker images, you need to run the following command:
 docker rmi $(docker images -a -q)
 ```
 
-### How to remove all exited Docker containers
+### How to remove all exited Docker containers.
 
 All exited Docker containers could be removed by running the following command:
 
@@ -593,7 +593,7 @@ All exited Docker containers could be removed by running the following command:
 docker rm $(docker ps -a -f status=exited -q)
 ```
 
-### How To Stop And Remove All Docker Containers
+### How To Stop And Remove All Docker Containers.
 
 To stop all Docker containers, you need to run:
 
@@ -607,7 +607,7 @@ To delete all stopped Docker containers, you need to run:
 docker rm $(docker ps -a -q)
 ```
 
-### How to delete all unused Docker Images, Containers, Volumes, Networks
+### How to delete all unused Docker Images, Containers, Volumes, Networks.
 
 To delete all unused Docker resources, you may use the following command:
 
@@ -621,6 +621,6 @@ To delete all Docker resources completely (used and unused), run the following c
 docker system prune -a
 ```
 
-## Conclusion
+## Conclusion.
 
 In the above guide, you learned about the most commonly used Docker commands and its usage with examples. I hope this will help you to perform day-to-day tasks.

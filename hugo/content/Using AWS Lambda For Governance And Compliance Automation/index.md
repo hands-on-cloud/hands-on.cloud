@@ -31,7 +31,7 @@ AWS Config gives responsible staff in your organization an ability to continuous
 
 AWS Lambda is the key that allows your development team to translate your organization’s governance and compliance policy into code. This process allows for what AWS describes as “continuous compliance and self-governance across your AWS infrastructure.”
 
-## Setting up AWS Config
+## Setting up AWS Config.
 
 As with most products in AWS, both a console and CLI solution are available for setup.
 
@@ -51,7 +51,7 @@ Finally, you need to review the configuration and let AWS Config do its job.
 
 {{< my-picture name="AWS-Config-Setup-Step-3" >}}
 
-## Setting-up AWS Config via the CLI
+## Setting-up AWS Config via the CLI.
 
 AWS users can also set-up Config via the AWS Command Line Interface.
 
@@ -70,7 +70,7 @@ For a detailed explanation of each parameter and its function, visit the [Turnin
 
 After the `aws configservice subscribe` command has been run, AWS Config will begin recording all of the supported resources in the region.
 
-## Adding Compliance Rules to AWS Config
+## Adding Compliance Rules to AWS Config.
 
 AWS provides a set of “managed rules” that allow users of this service to quickly and easily evaluate whether or not their resources are configured to what is considered “best practice”. A quick example would be whether or not your organization’s Elastic Block Store (EBS) volumes are encrypted.
 
@@ -80,11 +80,11 @@ AWS has a [complete list of their managed rules](https://docs.aws.amazon.com/con
 
 Once a rule has been activated, Config compares the current state of your resources to the conditions stated in the activated rule. Config will re-evaluate the rule each time a trigger is fired. A trigger is typically either a configuration change or an interval of time (ex. Every 24 hours).
 
-## Viewing Configuration Compliance
+## Viewing Configuration Compliance.
 
 Once AWS Config has begun monitoring resources, the solution offers three avenues for users to view their compliance status.
 
-### Via the Web console
+### Via the Web console.
 
 After signing in to AWS Management Console and AWS Config, verify you’re using a region that supports AWS Config rules. From there, it’s as simple as selecting the Dashboard from the navigation menu.
 
@@ -96,7 +96,7 @@ In my case, one of my S3 buckets is not compliant. Need to fix it ASAP!
 
 {{< my-picture name="AWS-Config-Compliance-Report-2" >}}
 
-### Via the CLI
+### Via the CLI.
 
 While the CLI provides many commands related to viewing the status of compliance rules, one of the most useful is `describe-compliace-by-config-rule`. Here’s an example of the command and output:
 
@@ -126,7 +126,7 @@ aws configservice describe-compliance-by-config-rule
 
 For additional documentation on using the CLI to view configuration compliance, check out the official AWS documentation.
 
-## Custom Config Rules with AWS Lambda
+## Custom Config Rules with AWS Lambda.
 
 AWS Lambda allows for the creation of custom rules for Config. After signing into the Lambda console and choosing the option to create a new Lambda function, you’ll be able to select a blueprint for AWS Config.
 
@@ -148,7 +148,7 @@ Test that the function is properly configured by choosing Configure test event u
 
 {{< my-picture name="AWS-Config-Setup-Lambda-Step-4" >}}
 
-## Associating the Lambda with a Custom Rule in AWS Config
+## Associating the Lambda with a Custom Rule in AWS Config.
 
 Once the Lambda has been created, simply return to the AWS Config Console and select Add rule and then Add Custom Rule.
 
@@ -160,37 +160,37 @@ Begin creating a custom rule and enter the ARN assigned to your Lambda under AWS
 
 Complete the rest of the form and the rule should then populate on the rules page. Its status should be Evaluating while the function runs for the first time.
 
-## Cleanup
+## Cleanup.
 
 If you followed the article guidance in your personal account, I'd suggest you disable AWS Config checks to avoid additional charges. To do that you need to:
 
-* delete all associated with AWS Config rules ([Automation example at AWS Forums](https://forums.aws.amazon.com/thread.jspa?threadID=307384))
-* stop configuration recorder
+* delete all associated with AWS Config rules ([Automation example at AWS Forums](https://forums.aws.amazon.com/thread.jspa?threadID=307384)).
+* stop configuration recorder.
 
 ```sh
 aws configservice stop-configuration-recorder \
     --configuration-recorder-name  default
 ```
 
-* delete configuration recorder
+* delete configuration recorder.
 
 ```sh
 aws configservice delete-configuration-recorder \
     --configuration-recorder-name  default
 ```
 
-* empty and delete S3 bucket, which you used for AWS Config logs
+* empty and delete S3 bucket, which you used for AWS Config logs.
 
-## Conclusion
+## Conclusion.
 
 AWS provides a comprehensive solution to automated Governance and Compliance policy in the cloud via AWS Console and AWS Lambda. By combining these two tools, organizations can translate their corporate policy into the cloud and establish immediate remedial procedures in the event that a resource has deviated from established best practices. AWS Config paired with Lambda provides a fairly straightforward approach to utilizing managed and custom compliance logic that will give stakeholders peace of mind that improperly configured AWS resources are not putting their organization at risk.
 
-## Additional resources
+## Additional resources.
 
-* [AWS Config Rules Repository](https://github.com/awslabs/aws-config-rules)
-* [How to Automate Cloud Governance to Achieve Safety at Speed](https://aws.amazon.com/blogs/apn/how-to-automate-cloud-governance-to-achieve-safety-at-speed/)
-* [Scaling a governance, risk, and compliance program for the cloud, emerging technologies, and innovation](https://aws.amazon.com/blogs/security/scaling-a-governance-risk-and-compliance-program-for-the-cloud/)
-* [AWS Governance at Scale](https://docs.aws.amazon.com/whitepapers/latest/aws-governance-at-scale/introduction.html)
-* [4 Reasons Why Cloud Governance Matters](https://www.cloudtamer.io/4-reasons-why-cloud-governance-matters/)
-* [Importance and Elements of Cloud Governance](https://dzone.com/articles/importance-and-elements-of-cloud-governance)
-* [Governance & Compliance Automation With AWS Config](https://medium.com/@bachlmayr/governance-compliance-automation-with-aws-config-eb23899f0731)
+* [AWS Config Rules Repository](https://github.com/awslabs/aws-config-rules).
+* [How to Automate Cloud Governance to Achieve Safety at Speed](https://aws.amazon.com/blogs/apn/how-to-automate-cloud-governance-to-achieve-safety-at-speed/).
+* [Scaling a governance, risk, and compliance program for the cloud, emerging technologies, and innovation](https://aws.amazon.com/blogs/security/scaling-a-governance-risk-and-compliance-program-for-the-cloud/).
+* [AWS Governance at Scale](https://docs.aws.amazon.com/whitepapers/latest/aws-governance-at-scale/introduction.html).
+* [4 Reasons Why Cloud Governance Matters](https://www.cloudtamer.io/4-reasons-why-cloud-governance-matters/).
+* [Importance and Elements of Cloud Governance](https://dzone.com/articles/importance-and-elements-of-cloud-governance).
+* [Governance & Compliance Automation With AWS Config](https://medium.com/@bachlmayr/governance-compliance-automation-with-aws-config-eb23899f0731).

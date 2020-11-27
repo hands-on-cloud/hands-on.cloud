@@ -17,26 +17,26 @@ From this recipe, you’ll learn how to create the [AWS ElasticSearch](https://a
 
 The source code is available in my [GitHub repository](https://github.com/andreivmaksimov/terraform-recipe-how-to-create-aws-elasticsearch-cluster).
 
-**Updates (Oct 2020)**:
+## Updates (Oct 2020).
 
 * Updated Terraform code to support newer version syntax.
-* VPC deployment added
-* Three subnet HA ElasticSearch cluster
-* ElasticSearach version upgrade to version `7.7`
-* Fix of `Error: Error creating ElasticSearch domain: ValidationException: Before you can proceed, you must enable a service-linked role to give Amazon ES permissions to access your VPC.`
-* Fix of `Error: Error creating ElasticSearch domain: ValidationException: You must choose a minimum of three data nodes for a three Availability Zone deployment.`
+* VPC deployment added.
+* Three subnet HA ElasticSearch cluster.
+* ElasticSearach version upgrade to version `7.7`.
+* Fix of **Error: Error creating ElasticSearch domain: ValidationException: Before you can proceed, you must enable a service-linked role to give Amazon ES permissions to access your VPC**.
+* Fix of **Error: Error creating ElasticSearch domain: ValidationException: You must choose a minimum of three data nodes for a three Availability Zone deployment**.
 
-## Introduction
+## Introduction.
 
 Amazon Elasticsearch Service is an AWS managed service that makes it easy to deploy, operate, and scale Elasticsearch clusters.
 
 ElasticSearch is a popular open-source search and analytics engine for the following use cases:
 
-* log analytics
-* real-time application monitoring
-* clickstream analysis
+* log analytics.
+* real-time application monitoring.
+* clickstream analysis.
 
-## Common resources
+## Common resources.
 
 Here are some common Terraform resources, which we’ll be using in this deployment:
 
@@ -65,12 +65,12 @@ provider "aws" {
 }
 ```
 
-## VPC configuration
+## VPC configuration.
 
 To simplify deployment, I decided to deploy an ElasticSearch example in its dedicated VPC. Here's a VPC configuration with the following characteristics:
 
-* 3 Availability Zones
-* 6 subnets (3 public, 3 nated)
+* 3 Availability Zones.
+* 6 subnets (3 public, 3 nated).
 
 {{< my-picture name="Terraform recipe - Elasticsearch VPC" >}}
 
@@ -260,14 +260,14 @@ resource "aws_route_table_association" "nated_2" {
 }
 ```
 
-## ElasticSearch cluster
+## ElasticSearch cluster.
 
 As soon as we have VPC in place, we may deploy our cluster. Here we have:
 
-* Security Group to allow connections to ElasticSearch from out VPC
-* Required Elasticsearch Service-Linked Role
-* ElasticSearch cluster
-* Couple of output variables with the links to cluster endpoints
+* Security Group to allow connections to ElasticSearch from out VPC.
+* Required Elasticsearch Service-Linked Role.
+* ElasticSearch cluster.
+* Couple of output variables with the links to cluster endpoints.
 
 ```hcl
 resource "aws_security_group" "es" {
@@ -354,6 +354,6 @@ output "elk_kibana_endpoint" {
 }
 ```
 
-## Summary
+## Summary.
 
 I hope you’ll find this article helpful. If so, please, feel free to help me to spread it to the world!

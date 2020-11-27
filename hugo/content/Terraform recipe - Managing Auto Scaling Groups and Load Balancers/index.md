@@ -12,11 +12,15 @@ authors:
   - Andrei Maksimov
 ---
 
-**Update:** 2020 Oct, Terraform code updated to support newer syntax.
-
-As soon as you learn how to manage basic network infrastructure in AWS using Terraform (see “Terraform recipe – Managing AWS VPC – Creating Public Subnet” and “Terraform recipe – Managing AWS VPC – Creating Private Subnets“) , you definitely want to start creating auto-scalable infrastructures.
-
 In this article you’ll learn, how to use Terraform to create [Auto Scaling groups](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html) – a collection of EC2 instances that share similar characteristics and are treated as a logical grouping for the purposes of instance scaling and management.
+
+## Update:** 2020 Oct.
+
+Terraform code updated to support newer syntax.
+
+As soon as you learn how to manage basic network infrastructure in AWS using Terraform (see "Terraform recipe – Managing AWS VPC – Creating Public Subnet" and "Terraform recipe – Managing AWS VPC – Creating Private Subnets") , you definitely want to start creating auto-scalable infrastructures.
+
+## AutoScaling Groups.
 
 Usually Auto Scaling Groups are used to control amount of instances which are executing the same task like rendering dynamic web pages for your website, decoding videos and images, or calculating machine learning models.
 
@@ -32,7 +36,7 @@ Our infrastructure will be the following:
 
 You may find full `.tf` file source code in my [GitHub repository](https://github.com/andreivmaksimov/terraform-recipe-managing-auto-scaling-groups-and-load-balancers).
 
-## Setting up VPC
+## Setting up VPC.
 
 Let’s assemble it in a new `infrastructure.tf` file. First of all let’s declare VPC, two Public Subnets, Internet Gateway and Route Table (we may take [this example](https://github.com/andreivmaksimov/terraform-recipe-managing-aws-vpc-creating-public-subnet) as base):
 
@@ -128,7 +132,7 @@ resource "aws_security_group" "allow_http" {
 }
 ```
 
-## Launch configuration
+## Launch configuration.
 
 As soon as we have Security Group, we may describe a [Launch Configuration](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchConfiguration.html). Think of it like a template, which contains all instance settings to apply to each new launched by Auto Scaling Group instance. We’re using [aws_launch_configuration](https://www.terraform.io/docs/providers/aws/r/launch_configuration.html) resource in Terraform to describe it:
 
@@ -162,18 +166,18 @@ Most of the parameters should be familiar to you, as we already used them in [aw
 
 The new one are `user_data` and lifecycle:
 
-- `user_data` – is a special interface created by AWS for EC2 instances automation. Usually this option is filled with scripted instructions to the instance, which need to be executed at the instance boot time. For most of the OS this is done by [cloud-init](https://cloudinit.readthedocs.io/en/latest/).
-- `lifecycle` – special instruction, which is declaring how new launch configuration rules applied during update. We’re using `create_before_destroy` here to create new instances from a new launch configuration before destroying the old ones. This option commonly used during rolling deployments
+* `user_data` – is a special interface created by AWS for EC2 instances automation. Usually this option is filled with scripted instructions to the instance, which need to be executed at the instance boot time. For most of the OS this is done by [cloud-init](https://cloudinit.readthedocs.io/en/latest/).
+* `lifecycle` – special instruction, which is declaring how new launch configuration rules applied during update. We’re using `create_before_destroy` here to create new instances from a new launch configuration before destroying the old ones. This option commonly used during rolling deployments.
 
 `user-data` option is filled with a simple bash-script, which installs nginx web server and putting instance local ip address to the `index.html` file, so we could see it after instance is up and running.
 
-## Load balancer
+## Load balancer.
 
 Before we create an Auto Scaling Group we need to declare a Load Balancer. There are three Load Balances available for you in AWS right now:
 
-- [Elastic or Classic Load Balancer (ELB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/classic) – previous generation of Load Balancers in AWS
-- [Application Load Balancer (ALB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/application) – operates on application network layer and provides reach feature set to manage HTTP and HTTPS traffic for your web applications
-- [Network Load Balancer (NLB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/network) – operates on connection layer and capable for handling millions of requests per second
+* [Elastic or Classic Load Balancer (ELB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/classic) – previous generation of Load Balancers in AWS.
+* [Application Load Balancer (ALB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/application) – operates on application network layer and provides reach feature set to manage HTTP and HTTPS traffic for your web applications.
+* [Network Load Balancer (NLB)](https://docs.aws.amazon.com//elasticloadbalancing/latest/network) – operates on connection layer and capable for handling millions of requests per second.
 
 For a simplicity let’s create Elastic Load Balancer in front of our EC2 instances (I’ll show how to use other types of them in the future articles). To do that we need to declare [aws_elb](https://www.terraform.io/docs/providers/aws/r/elb.html) resource.
 
@@ -240,7 +244,7 @@ And finally we’ve specified `health_check` configuration, which determines whe
 
 If ELB can not reach the instance on specified port, it will stop sending traffic to it.
 
-## Auto scaling group
+## Auto scaling group.
 
 Now we’re ready to create Auto Scaling Group by describing it using [aws_autoscaling_group](https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html) resource:
 
@@ -290,11 +294,11 @@ resource "aws_autoscaling_group" "web" {
 
 Here we have the following configuration:
 
-- There will be minimum one instance to serve the traffic
-- Auto Scaling Group will be launched with 2 instances and put each of them in separate Availability Zones in different Subnets
-- Auto Scaling Group will get information about instance availability from the `ELB`
-- We’re set up collection for some Cloud Watch metrics to monitor our Auto Scaling Group state
-- Each instance launched from this Auto Scaling Group will have `Name` tag set to `web`
+* There will be minimum one instance to serve the traffic.
+* Auto Scaling Group will be launched with 2 instances and put each of them in separate Availability Zones in different Subnets.
+* Auto Scaling Group will get information about instance availability from the `ELB`.
+* We’re set up collection for some Cloud Watch metrics to monitor our Auto Scaling Group state.
+* Each instance launched from this Auto Scaling Group will have `Name` tag set to `web`.
 
 Now we almost ready, let’s get Load Balancer DNS name as an output from the Terraform infrastructure description:
 
@@ -316,7 +320,7 @@ terraform apply
 
 Starting from this point you can open provided ELB URL in your browser and refresh the page several times to see different local IP addresses of your just launched instances.
 
-## Auto scaling policies
+## Auto scaling policies.
 
 But this configuration is static. I mean there’s no rules, we discussed at the top of the article, which will add or remove instances based on certain metrics.
 
@@ -405,7 +409,7 @@ Which will cause one of two instances termination:
 
 {{< my-picture name="Terraform-recipe-Managing-Auto-Scaling-Groups-and-Load-Balancers-CloudWatch-Alarm-Result" >}}
 
-## Summary
+## Summary.
 
 In this article you’ve learned how to set up dynamic Auto Scaling Group and Load Balancer to distribute traffic to your instances in several Availability Zones.
 
