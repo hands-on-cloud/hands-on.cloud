@@ -10,6 +10,7 @@ categories:
   - AWS
 authors:
   - Andrei Maksimov
+  - Hitesh Jethva
 ---
 
 This tutorial covers the most often used Docker commands. We’re starting a brief Docker overview, then jumping to the installation of Docker to your server. Next, we’ll walk you through all required commands for managing Docker containers, images, and volumes. Become a professional Docker user by following this guide in 10 minutes.
