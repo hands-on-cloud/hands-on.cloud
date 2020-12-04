@@ -3,6 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 <!--Title Tags-->
+
 <title itemprop="name">{{ .Title }}</title>
 <meta property="og:title" content="{{ .Title }}" />
 <meta name="twitter:title" content="{{ .Title }}" />
@@ -12,17 +13,24 @@
 
 <!--Description Tags-->
 {{ if .Params.tags }}
-<meta name="keywords" content="{{ delimit .Params.tags ", " }}" />
+<meta name="keywords" content="{{ delimit .Params.tags "," }}" />
 <meta name="description" content="{{ .Summary }}" />
 <meta itemprop="description" content="{{ .Summary }}" />
 <meta property="og:description" content="{{ .Summary }}" />
 <meta name="twitter:description" content="{{ .Summary }}" />
 {{ else }}
 <meta name="keywords" content="{{ .Site.Params.keywords }}" />
-<meta name="description" content="{{ .Site.Params.description }}" />
-<meta itemprop="description" content="{{ .Site.Params.description }}" />
-<meta property="og:description" content="{{ .Site.Params.description }}" />
-<meta name="twitter:description" content="{{ .Site.Params.description }}" />
+  {{ if .Params.Title }}
+    <meta name="description" content="{{ .Site.Params.description }}, related to {{ .Params.Title }}" />
+    <meta itemprop="description" content="{{ .Site.Params.description }}, related to {{ .Params.Title }}" />
+    <meta property="og:description" content="{{ .Site.Params.description }}, related to {{ .Params.Title }}" />
+    <meta name="twitter:description" content="{{ .Site.Params.description }}, related to {{ .Params.Title }}" />
+  {{ else }}
+    <meta name="description" content="{{ .Site.Params.description }}" />
+    <meta itemprop="description" content="{{ .Site.Params.description }}" />
+    <meta property="og:description" content="{{ .Site.Params.description }}" />
+    <meta name="twitter:description" content="{{ .Site.Params.description }}" />
+  {{ end }}
 {{ end }}
 
 <!--Link Tags-->
