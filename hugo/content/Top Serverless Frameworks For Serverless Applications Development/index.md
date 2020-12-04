@@ -137,7 +137,7 @@ Ruby on Jets comprises all the essential tools needed to help you create apps us
 
 #### Pros of Ruby on Jets.
 
-* [Prewarming Support](http://rubyonjets.com/docs/prewarming/) and [Custom Associated Resources](http://rubyonjets.com/docs/associated-resources-extensions/).
+* [Prewarming Support](http://rubyonjets.com/docs/prewarming/) and [Custom Associated Resources](https://rubyonjets.com/docs/function-resources/function-resources-extensions/).
 * Focuses on AWS Lambda functions written in Ruby.
 * Extensive technical documentation with lots of examples.
 

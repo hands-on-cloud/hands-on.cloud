@@ -142,7 +142,7 @@ It's a best practice to create alerts thresholds for each of your functions on a
 
 * **Conduct Routine Audits:** Auditing in serverless frameworks provide asset visibility and provide actionable results. They deliver a great overview in the form of statistical analysis, service dependencies, and routine configuration checks . There are also various policies such as Undefined Conditions, SQS queues, and API gateways in a serverless environment for which routine audit can provide insights.
 
-Commonly used monitoring and auditing tools are [Dashbird](https://dashbird.io/), [Rookout](https://www.rookout.com/), [Lambda Guard](https://github.com/Skyscanner/LambdaGuard) or [IOpipe](https://www.iopipe.com/) for working with AWS lambda-based applications. [SignalFx](https://www.signalfx.com/solutions/serverless-monitoring/), a tool that ensures real-time visibility and performance monitoring for AWS Lambda, Google Cloud Functions, and Azure Functions. [Stackdriver](https://cloud.google.com/stackdriver/) is a native solution for monitoring Google Cloud Functions logs.
+Commonly used monitoring and auditing tools are [Dashbird](https://dashbird.io/), [Rookout](https://www.rookout.com/), [Lambda Guard](https://github.com/Skyscanner/LambdaGuard) or [IOpipe](https://www.iopipe.com/) for working with AWS lambda-based applications. [SignalFx](https://www.splunk.com/en_us/devops/serverless-monitoring.html), a tool that ensures real-time visibility and performance monitoring for AWS Lambda, Google Cloud Functions, and Azure Functions. [Stackdriver](https://cloud.google.com/stackdriver/) is a native solution for monitoring Google Cloud Functions logs.
 
 ## Establish Secure Coding Practices.
 
