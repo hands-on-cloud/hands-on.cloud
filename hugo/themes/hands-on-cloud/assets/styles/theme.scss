@@ -95,22 +95,22 @@ div.card-body > a:visited {
   padding-bottom: 1.5rem;
 }
 
-div.container-fluid div.blog-content .authors {
+div.authors {
   padding-top: 2rem;
 }
 
-div.container-fluid div.blog-content .authors .author {
+div.authors .author {
   display: table;
   align-items: top;
 }
 
-div.container-fluid div.blog-content .authors .author .author_row {
+div.authors .author .author_row {
   display: table-row;
   width: auto;
   clear: both;
 }
 
-div.container-fluid div.blog-content .authors .author .author_bio {
+div.authors .author .author_bio {
   text-align: left;
   padding-left: 1rem;
   float: left; /* fix for  buggy browsers */
@@ -118,23 +118,23 @@ div.container-fluid div.blog-content .authors .author .author_bio {
   width: 85%;
 }
 
-div.container-fluid div.blog-content .authors .author .author_avatar {
+div.authors .author .author_avatar {
   float: left; /* fix for  buggy browsers */
   display: table-column;
   width: 15%;
 }
 
-div.container-fluid div.blog-content .authors .author .author_avatar > img {
+div.authors .author .author_avatar > img {
   border-radius: 50%;
   padding: 0 1rem;
 }
 
-div.container-fluid div.blog-content .authors .author .author_bio .social_networks {
+div.authors .author .author_bio .social_networks {
   display: flex;
 }
 
 /* Style all font awesome icons */
-div.container-fluid div.blog-content .authors .author .author_bio .social_networks .fa {
+div.authors .author .author_bio .social_networks .fa {
   margin: 5px;
   padding: 12px;
   font-size: 1rem;
@@ -144,38 +144,38 @@ div.container-fluid div.blog-content .authors .author .author_bio .social_networ
 }
 
 /* Add a hover effect if you want */
-div.container-fluid div.blog-content .authors .author .author_bio .social_networks .fa:hover {
+div.authors .author .author_bio .social_networks .fa:hover {
   opacity: 0.7;
 }
 
 /* Set a specific color for each brand */
 
 /* Facebook */
-div.container-fluid div.blog-content .authors .author .author_bio .social_networks .fa-facebook {
+div.authors .author .author_bio .social_networks .fa-facebook {
   background: #3b5998;
   color: #fff;
 }
 
 /* Twitter */
-div.container-fluid div.blog-content .authors .author .author_bio .social_networks .fa-twitter {
+div.authors .author .author_bio .social_networks .fa-twitter {
   background: #55acee;
   color: #fff;
 }
 
 /* LinkedIn */
-div.container-fluid div.blog-content .authors .author .author_bio .social_networks .fa-linkedin {
+div.authors .author .author_bio .social_networks .fa-linkedin {
   background: #007bb6;
   color: #fff;
 }
 
 /* GitHub */
-div.container-fluid div.blog-content .authors .author .author_bio .social_networks .fa-github {
+div.authors .author .author_bio .social_networks .fa-github {
   background: #454545;
   color: #fff;
 }
 
 /* GitHub */
-div.container-fluid div.blog-content .authors .author .author_bio .social_networks .fa-instagram {
+div.authors .author .author_bio .social_networks .fa-instagram {
   color: #fff;
   background: #f09433;
   background: -moz-linear-gradient(

@@ -1,6 +1,7 @@
 ---
 name: Andrei Maksimov
 photo: 'https://avatars2.githubusercontent.com/u/1902417?s=460&v=4'
+title: 'Author - Andrei Maksimov'
 twitter: 'andreivmaksimov'
 github: 'andreivmaksimov'
 facebook: 'andrei.v.maksimov'

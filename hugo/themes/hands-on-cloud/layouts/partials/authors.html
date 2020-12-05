@@ -9,7 +9,7 @@
                     <img src="{{ .Params.photo }}" alt="Author avatar"/>
                 </div>
                 <div class="author_bio">
-                    <strong>{{ .Params.name }}</strong><br/>
+                    <strong><a href="{{ .Permalink }}">{{ .Params.name }}</a></strong><br/>
                     {{ .Content }}
                     <div class="social_networks ml-n1">
                         {{ if and (.Params.linkedin) (ne .Params.linkedin "") }}

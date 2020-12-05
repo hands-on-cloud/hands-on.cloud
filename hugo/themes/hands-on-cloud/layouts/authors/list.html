@@ -1,50 +1,56 @@
 {{ define "main" }}
 <main role="main">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-8 offset-md-2">
-              <div class="content blog-content">
-                <div class="authors">
-                  <h1 style="text-align: center;">{{ .Params.name }}</h1>
-                  <div class="about_author d-flex">
-                    <div class="author_avatar">
-                        <img src="{{ .Params.photo }}" alt="Author avatar"/>
-                    </div>
-                    <div class="author_bio">
-                        {{ .Content }}
-                        <div class="social_networks ml-n1">
-                            {{ if and (.Params.linkedin) (ne .Params.linkedin "") }}
-                                <a href="https://www.linkedin.com/in/{{.Params.linkedin}}/" target="_blank" class="text-decoration-none fa fab fa-linkedin"></a>
-                            {{ end }}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="content blog-content">
+                    <div class="authors">
+                        <h1 style="text-align: center;">{{ .Params.name }}</h1>
+                        <div class="author">
+                            <div class="author_row">
+                                <div class="author_avatar">
+                                    <img src="{{ .Params.photo }}" alt="Author avatar" />
+                                </div>
+                                <div class="author_bio">
+                                    {{ .Content }}
+                                    <div class="social_networks ml-n1">
+                                        {{ if and (.Params.linkedin) (ne .Params.linkedin "") }}
+                                        <a href="https://www.linkedin.com/in/{{.Params.linkedin}}/" target="_blank"
+                                            class="text-decoration-none fa fab fa-linkedin"></a>
+                                        {{ end }}
 
-                            {{ if and (.Params.github) (ne .Params.github "") }}
-                                <a href="https://www.github.com/{{.Params.github}}" target="_blank" class="text-decoration-none fa fab fa-github"></a>
-                            {{ end }}
+                                        {{ if and (.Params.github) (ne .Params.github "") }}
+                                        <a href="https://www.github.com/{{.Params.github}}" target="_blank"
+                                            class="text-decoration-none fa fab fa-github"></a>
+                                        {{ end }}
 
-                            {{ if and (.Params.facebook) (ne .Params.facebook "") }}
-                                <a href="https://business.facebook.com/{{.Params.facebook}}" target="_blank" class="text-decoration-none fa fab fa-facebook" ></a>
-                            {{ end }}
+                                        {{ if and (.Params.facebook) (ne .Params.facebook "") }}
+                                        <a href="https://business.facebook.com/{{.Params.facebook}}" target="_blank"
+                                            class="text-decoration-none fa fab fa-facebook"></a>
+                                        {{ end }}
 
-                            {{ if and (.Params.twitter) (ne .Params.twitter "") }}
-                                <a href="https://twitter.com/{{.Params.twitter}}" target="_blank" class="text-decoration-none fa fab fa-twitter"></a>
-                            {{ end }}
+                                        {{ if and (.Params.twitter) (ne .Params.twitter "") }}
+                                        <a href="https://twitter.com/{{.Params.twitter}}" target="_blank"
+                                            class="text-decoration-none fa fab fa-twitter"></a>
+                                        {{ end }}
 
-                            {{ if and (.Params.instagram) (ne .Params.instagram "") }}
-                                <a href="https://www.instagram.com/{{.Params.instagram}}" target="_blank" class="text-decoration-none fa fab fa-instagram"></a>
-                            {{ end }}
+                                        {{ if and (.Params.instagram) (ne .Params.instagram "") }}
+                                        <a href="https://www.instagram.com/{{.Params.instagram}}" target="_blank"
+                                            class="text-decoration-none fa fab fa-instagram"></a>
+                                        {{ end }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <h2 style="text-align: center;">Articles</h2>
+                        <ul>
+                            {{ range .Data.Pages }}
+                            <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+                            {{ end }}
+                        </ul>
                     </div>
-                  </div>
                 </div>
-                <h2 style="text-align: center;">Articles</h2>
-                <ul>
-                {{ range .Data.Pages }}
-                    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-                {{ end }}
-                </ul>
-              </div>
-          </div>
-      </div>
-</div>
+            </div>
+        </div>
 </main>
 {{ end }}
