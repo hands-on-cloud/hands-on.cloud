@@ -50,11 +50,13 @@
 {{ with .Params.image }}
   <meta itemprop="image" content="{{ . | absURL | lower }}/{{ . }}.png" />
   <meta property="og:image" content="{{ . | absURL | lower }}/{{ . }}.png" />
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{{ . | absURL | lower }}/{{ . }}.png" />
   <meta name="twitter:image:src" content="{{ . | absURL | lower }}/{{ . }}.png" />
 {{ else }}
   <meta itemprop="image" content="{{ .Site.Params.og_image | absURL | lower }}" />
   <meta property="og:image" content="{{ .Site.Params.og_image | absURL | lower }}" />
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:image" content="{{ .Site.Params.og_image | absURL | lower }}" />
   <meta name="twitter:image:src" content="{{ .Site.Params.og_image | absURL | lower }}" />
 {{ end }}

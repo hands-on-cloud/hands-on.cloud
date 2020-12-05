@@ -1,5 +1,6 @@
 ---
 name: Damaso Sanoja
+title: 'Author - Damaso Sanoja'
 photo: '/authors/damaso-sanoja/damaso-sanoja.png'
 twitter: 'damasosanoja'
 linkedin: 'damasosanoja'

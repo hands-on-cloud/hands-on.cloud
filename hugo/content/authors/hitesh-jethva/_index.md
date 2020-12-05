@@ -1,5 +1,6 @@
 ---
 name: Hitesh Jethva
+title: 'Author - Hitesh Jethva'
 photo: '/authors/hitesh-jethva/hitesh-jethva.png'
 ---
 
