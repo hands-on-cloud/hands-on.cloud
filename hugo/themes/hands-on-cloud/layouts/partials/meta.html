@@ -13,13 +13,15 @@
 
 <!--Description Tags-->
 {{ if .Params.tags }}
-<meta name="keywords" content="{{ delimit .Params.tags "," }}" />
-<meta name="description" content="{{ .Summary }}" />
-<meta itemprop="description" content="{{ .Summary }}" />
-<meta property="og:description" content="{{ .Summary }}" />
-<meta name="twitter:description" content="{{ .Summary }}" />
+  <meta name="keywords" content="{{ delimit .Params.tags "," }}" />
+  <meta name="description" content="{{ .Summary }}" />
+  <meta itemprop="description" content="{{ .Summary }}" />
+  <meta property="og:description" content="{{ .Summary }}" />
+  <meta name="twitter:description" content="{{ .Summary }}" />
+  <meta property="og:type" content="article" />
 {{ else }}
-<meta name="keywords" content="{{ .Site.Params.keywords }}" />
+  <meta name="keywords" content="{{ .Site.Params.keywords }}" />
+  <meta property="og:type" content="website" />
   {{ if .Params.Title }}
     <meta name="description" content="{{ .Site.Params.description }}, related to {{ .Params.Title }}" />
     <meta itemprop="description" content="{{ .Site.Params.description }}, related to {{ .Params.Title }}" />
