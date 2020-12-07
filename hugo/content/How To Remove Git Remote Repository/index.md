@@ -5,6 +5,8 @@ image: 'How-To-Remove-Git-Remote-Repository'
 tags:
   - git
   - ubuntu
+  - bash
+  - linux
 categories:
   - Linux
 authors:

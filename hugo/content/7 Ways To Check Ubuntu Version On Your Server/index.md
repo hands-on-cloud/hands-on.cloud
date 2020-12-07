@@ -5,6 +5,7 @@ image: '7-Ways-to-Check-Ubuntu-Version-on-Your-Server'
 tags:
   - linux
   - ubuntu
+  - bash
 categories:
   - Linux
 authors:

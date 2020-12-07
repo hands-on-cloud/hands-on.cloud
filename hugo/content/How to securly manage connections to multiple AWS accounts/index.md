@@ -101,10 +101,10 @@ mkdir -p $HOME/bin
 cat > $HOME/bin/call-aws-vault.sh <<- EOF
 #!/usr/bin/env bash
 
-export PROFILE=\$1
-export AWS_VAULT_FILE_PASSPHRASE=\$(aws ssm get-parameters --profile default --names '/laptop/aws-vault/password' --with-decryption --query 'Parameters[0].Value' --output text)
+export PROFILE=$1
+export AWS_VAULT_FILE_PASSPHRASE=$(aws ssm get-parameters --profile default --names '/laptop/aws-vault/password' --with-decryption --query 'Parameters[0].Value' --output text)
 
-aws-vault exec -j \$PROFILE
+aws-vault exec -j $PROFILE
 EOF
 
 chmod +x $HOME/bin/call-aws-vault.sh
