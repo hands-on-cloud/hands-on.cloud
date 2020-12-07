@@ -8,6 +8,7 @@ tags:
   - rm
   - find
   - rmdir
+  - bash
 categories:
   - Linux
 authors:
@@ -241,7 +242,7 @@ Inode - is an index node number which represents a file or directory on the file
 You may find file or directory inode number using the following command:
 
 ```sh
-\$ ls -il /tmp/docs
+$ ls -il /tmp/docs
 total 0
 8669007889 drwxr-xr-x  3 amaksimov  wheel  96 Dec  1 18:48 dir2
 8669007891 drwxr-xr-x  3 amaksimov  wheel  96 Dec  1 18:46 dir3
@@ -252,7 +253,7 @@ In this example, **dir2** folder has inode **8669007889** number.
 Now, we can use this information to delete it:
 
 ```sh
-\$ find /tmp/docs -inum 8669007889 -exec rm -rf {} +
+$ find /tmp/docs -inum 8669007889 -exec rm -rf {} +
 ```
 
 Here:

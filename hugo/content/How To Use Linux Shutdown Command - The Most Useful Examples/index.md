@@ -5,6 +5,9 @@ image: 'How-to-Use-Linux-Shutdown-Command-The-Most-Useful-Examples'
 tags:
   - linux
   - ubuntu
+  - bash
+  - reboot
+  - shutdown
 categories:
   - Linux
 authors:
