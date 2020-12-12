@@ -60,64 +60,65 @@ Description: >
   This CloudFormation template creates simple Lambda functions,
   which prints CloudFormation resource Arn from the stack.
 
-LambdaFunctionRole:
-  Type: AWS::IAM::Role
-  Properties:
-    AssumeRolePolicyDocument:
-      Version: '2012-10-17'
-      Statement:
-      - Effect: Allow
-        Principal:
-          Service:
-            - lambda.amazonaws.com
-        Action:
-          - sts:AssumeRole
-    Path: "/"
-    Policies:
-    - PolicyName: LambdaFunctionPolicy
-      PolicyDocument:
+Resources:
+  LambdaFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
         - Effect: Allow
+          Principal:
+            Service:
+              - lambda.amazonaws.com
           Action:
-            - logs:CreateLogGroup
-            - logs:CreateLogStream
-            - logs:PutLogEvents
-          Resource: '*'
+            - sts:AssumeRole
+      Path: "/"
+      Policies:
+      - PolicyName: LambdaFunctionPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: '*'
 
-LambdaFunction:
-  Type: AWS::Lambda::Function
-  Properties:
-    Runtime: python3.6
-    Timeout: 5
-    Handler: index.handler
-    Role: !GetAtt LambdaFunctionRole.Arn
-    Code:
-      ZipFile:
-        !Sub
-          - |-
-            #!/usr/bin/env python3
+  LambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: python3.6
+      Timeout: 5
+      Handler: index.handler
+      Role: !GetAtt LambdaFunctionRole.Arn
+      Code:
+        ZipFile:
+          !Sub
+            - |-
+              #!/usr/bin/env python3
 
-            import cfnresponse
-            import logging
-            import traceback
+              import cfnresponse
+              import logging
+              import traceback
 
-            LOGGER = logging.getLogger()
-            LOGGER.setLevel(logging.INFO)
+              LOGGER = logging.getLogger()
+              LOGGER.setLevel(logging.INFO)
 
-            def handler(event, context):
-              try:
-                LOGGER.info('Event structure: %s', event)
+              def handler(event, context):
+                try:
+                  LOGGER.info('Event structure: %s', event)
 
-                LOGGER.info('Our Lambda function role Arn ${lambda_function_role_arn}')
+                  LOGGER.info('Our Lambda function role Arn ${lambda_function_role_arn}')
 
-              except Exception as e:
-                LOGGER.error(e)
-                traceback.print_exc()
-              finally:
-                cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
-          -
-            lambda_function_role_arn: !Ref LambdaFunctionRole
+                except Exception as e:
+                  LOGGER.error(e)
+                  traceback.print_exc()
+                finally:
+                  cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+            -
+              lambda_function_role_arn: !Ref LambdaFunctionRole
 ```
 
 Here `LambdaFunctionRole` is very basic boilerplate IAM Role for Lambda Function execution, which grants our Lambda Function permissions to sent its stdout and stderr logs to CloudWatch.
