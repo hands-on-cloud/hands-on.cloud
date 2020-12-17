@@ -433,3 +433,32 @@ div.linkshare_carousel div.carousel-caption {
 .addthis_inline_share_toolbox {
   padding: 3% 0;
 }
+
+div.content table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #343A40;
+  margin: 5% 0;
+}
+
+div.content table thead {
+  text-align: center;
+  border: 2px solid #343A40;
+  background-color: #343A40;
+  color: #fff; 
+}
+
+div.content table thead th:nth-child(1) {
+  width: 30%;
+  border: 2px solid #343A40;
+}
+
+div.content table thead th:nth-child(2) {
+  width: 70%;
+  border: 2px solid #343A40;
+}
+
+div.content table tbody td, th {
+  padding: 1rem;
+}
