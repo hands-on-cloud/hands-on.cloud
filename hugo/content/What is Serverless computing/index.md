@@ -1,7 +1,7 @@
 ---
 title: 'What is Serverless computing'
 date: '2020-10-26'
-image: 'What is Serverless computing'
+image: 'What-is-Serverless-computing'
 tags:
   - serverless
   - lambda

@@ -1,7 +1,7 @@
 ---
 title: 'Building Thumbnails And GIFs Generator Using Lambda And FFmpeg'
 date: '2020-09-01'
-image: 'Building Thumbnails And GIFs Generator Using Lambda And FFmpeg'
+image: 'Building-Thumbnails-And-GIFs-Generator-Using-Lambda-And-FFmpeg'
 tags:
   - python
   - cloudformation

@@ -1,7 +1,7 @@
 ---
 title: 'The Most Easy Way To Deploy Apps To The Kubernetes Using Terraform'
 date: '2020-11-23'
-image: 'The Most Easy Way To Deploy Apps To The Kubernetes Using Terraform'
+image: 'The-Most-Easy-Way-To-Deploy-Apps-To-The-Kubernetes-Using-Terraform'
 tags:
   - kubernetes
   - k8s

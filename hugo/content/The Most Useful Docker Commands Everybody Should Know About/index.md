@@ -1,7 +1,7 @@
 ---
 title: 'The Most Useful [Docker] Commands Everybody Should Know About [Examples]'
 date: '2020-11-05'
-image: 'The Most Useful Docker Commands Everybody Should Know About'
+image: 'The-Most-Useful-Docker-Commands-Everybody-Should-Know-About'
 tags:
   - docker
   - volume

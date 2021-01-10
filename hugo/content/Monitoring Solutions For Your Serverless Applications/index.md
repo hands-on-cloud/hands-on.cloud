@@ -1,7 +1,7 @@
 ---
 title: 'Monitoring Solutions For Your Serverless Applications'
 date: '2020-08-30'
-image: 'Monitoring Solutions For Your Serverless Applications'
+image: 'Monitoring-Solutions-For-Your-Serverless-Applications'
 tags:
   - serverless
   - monitoring
