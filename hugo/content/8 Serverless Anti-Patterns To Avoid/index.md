@@ -1,7 +1,7 @@
 ---
 title: '8 Serverless Anti-Patterns To Avoid'
 date: '2020-09-03'
-image: '8 Serverless Anti-Patterns To Avoid'
+image: '8-Serverless-Anti-Patterns-To-Avoid'
 tags:
   - serverless
   - lambda

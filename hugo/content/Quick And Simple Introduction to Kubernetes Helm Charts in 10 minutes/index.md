@@ -1,7 +1,7 @@
 ---
 title: 'Quick And Simple Introduction to [Kubernetes] [Helm] Charts in 10 minutes'
 date: '2020-11-09'
-image: 'Quick And Simple Introduction to Kubernetes Helm Charts in 10 minutes'
+image: 'Quick-And-Simple-Introduction-to-Kubernetes-Helm-Charts-in-10-minutes'
 tags:
   - kubernetes
   - k8s

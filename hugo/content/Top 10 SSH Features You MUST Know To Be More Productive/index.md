@@ -1,7 +1,7 @@
 ---
 title: 'Top 10 SSH Features You MUST Know To Be More Productive'
 date: '2020-11-02'
-image: 'Top 10 SSH Features You MUST Know To Be More Productive'
+image: 'Top-10-SSH-Features-You-MUST-Know-To-Be-More-Productive'
 tags:
   - ssh
   - linux

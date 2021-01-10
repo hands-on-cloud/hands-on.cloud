@@ -1,7 +1,7 @@
 ---
 title: 'Terraform recipe - Deploy Lambda to copy files between S3 buckets'
 date: '2020-08-14'
-image: 'Terraform recipe - Deploy Lambda to copy files between S3 buckets'
+image: 'Terraform-recipe-Deploy-Lambda-to-copy-files-between-S3-buckets'
 tags:
   - s3
   - lambda

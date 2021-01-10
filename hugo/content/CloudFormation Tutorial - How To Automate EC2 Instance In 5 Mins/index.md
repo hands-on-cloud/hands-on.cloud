@@ -1,7 +1,7 @@
 ---
 title: 'CloudFormation Tutorial - How To Automate EC2 Instance In 5 Mins [Example]'
 date: '2020-10-27'
-image: 'CloudFormation Tutorial - How To Automate EC2 Instance In 5 Mins'
+image: 'CloudFormation-Tutorial-How-To-Automate-EC2-Instance-In-5-Mins'
 tags:
   - instance
   - cloudformation

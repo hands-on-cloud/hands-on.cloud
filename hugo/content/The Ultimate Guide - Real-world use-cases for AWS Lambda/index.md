@@ -1,7 +1,7 @@
 ---
 title: '[The Ultimate Guide] - AWS Lambda Real-world use-cases'
 date: '2020-10-24'
-image: 'The Ultimate Guide - real-world use-cases for AWS Lambda'
+image: 'The-Ultimate-Guide-real-world-use-cases-for-AWS-Lambda'
 tags:
   - lambda
   - s3

@@ -1,7 +1,7 @@
 ---
 title: 'How to use AWS CDK to deploy Python Lambda function'
 date: '2020-08-29'
-image: 'How to use AWS CDK to deploy Python Lambda function'
+image: 'How-to-use-AWS-CDK-to-deploy-Python-Lambda-function'
 tags:
   - lambda
   - serverless
