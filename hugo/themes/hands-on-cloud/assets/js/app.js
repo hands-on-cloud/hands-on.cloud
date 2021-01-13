@@ -45,12 +45,14 @@ $(document).ready(function($){
 		}
 	}
 
-	const tags = document.getElementsByTagName('meta')['keywords']['content'].replace(',', '');
+	const tags = document.getElementsByTagName('meta')['keywords']['content'];
 	if (tags != undefined) {
 		const url = "https://api.hands-on.cloud/?tags=" + tags;
 		var client = new HttpClient();
 		client.get(url, function(response) {
 			const data = JSON.parse(response);
+			var ol_element = $('<ol>', {class: 'carousel-indicators'});
+			var counter = 0;
 			data.forEach(element => {
 				var div_item = $('<div>', {class: 'carousel-item'});
 				var div_item_a = $('<a>',{href: element.linkurl});
@@ -60,8 +62,16 @@ $(document).ready(function($){
 
 				var banner = div_item.append(div_item_a.append(div_item_img, div_item_caption.append(div_item_caption_h6)));
 				$("div.linkshare_carousel div.carousel-inner").append(banner);
-				$("div.linkshare_carousel div.carousel-inner div.carousel-item:first").addClass("active");
+
+				var li_item = $('<li>', {'data-target':"#carousel", 'data-slide-to': "$counter"});
+				if (counter == 0) {
+					$("div.linkshare_carousel div.carousel-inner div.carousel-item:first").addClass("active");
+					li_item.addClass("active");
+				}
+				ol_element.append(li_item)
+				counter++;
 			});
 		});
+		$('.carusel').append(ol_element);
 	}
 })

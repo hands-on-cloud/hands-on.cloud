@@ -30,10 +30,11 @@
 </footer>
 
 {{ $app_js := resources.Get "js/app.js" }}
+{{ $bootstrap_min_js := resources.Get "js/bootstrap-4.3.1/js/bootstrap.min.js" }}
 {{ $jquery_min_js := resources.Get "js/jquery-3.3.1.min.js" }}
 {{ $scrollspy_min_js := resources.Get "js/scrollspy.min.js" }}
 
-{{ $jsCombined := slice $jquery_min_js $scrollspy_min_js $app_js | resources.Concat "js/bundle.js" }}
+{{ $jsCombined := slice $jquery_min_js $scrollspy_min_js $bootstrap_min_js $app_js | resources.Concat "js/bundle.js" }}
 {{ $js := $jsCombined | resources.Minify }}
 
 <script src="{{ $js.RelPermalink }}"></script>
