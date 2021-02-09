@@ -1,3 +1,11 @@
+# Haands-On.Cloud Hugo Serverless Blog
+
+I stopped the development of this blog as maintenance become a very time-consuming thing.
+
+All articles have been migrated to WordPress.
+
+This repository is no longer maintained but will stay here in read-only mode.
+
 <p align="center">
   <a href="https://gohugo.io">
     <img alt="Hugo" src="https://raw.githubusercontent.com/gohugoio/gohugoioTheme/master/static/images/hugo-logo-wide.svg?sanitize=true" width="120" />
